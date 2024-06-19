@@ -2,32 +2,338 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity; /* Enable vertical scroll snapping */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    height: 100vh; /* Set a fixed height for the container */
   }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  @font-face {
+    font-family: "Cabinet Grotesk";
+    src: local("Cabinet Grotesk"), local("Cabinet Grotesk"),
+      url("/fonts/CabinetGrotesk-Black.woff") format("woff");
+    font-weight: 900;
+    font-display: swap;
+    font-style: normal;
   }
-}
+  @font-face {
+    font-family: "Cabinet Grotesk";
+    src: local("Cabinet Grotesk"), local("Cabinet Grotesk"),
+      url("/fonts/CabinetGrotesk-Extrabold.woff") format("woff");
+    font-weight: 800;
+    font-display: swap;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "Cabinet Grotesk";
+    src: local("Cabinet Grotesk"), local("Cabinet Grotesk"),
+      url("/fonts/CabinetGrotesk-Bold.woff") format("woff");
+    font-weight: 600 700;
+    font-display: swap;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "Cabinet Grotesk";
+    src: local("Cabinet Grotesk"), local("Cabinet Grotesk"),
+      url("/fonts/CabinetGrotesk-Medium.woff") format("woff");
+    font-weight: 500;
+    font-display: swap;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "Cabinet Grotesk";
+    src: local("Cabinet Grotesk"), local("Cabinet Grotesk"),
+      url("/fonts/CabinetGrotesk-Regular.woff") format("woff");
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "Cabinet Grotesk";
+    src: local("Cabinet Grotesk"), local("Cabinet Grotesk"),
+      url("/fonts/CabinetGrotesk-Thin.woff") format("woff");
+    font-weight: 300;
+    font-display: swap;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "Cabinet Grotesk";
+    src: local("Cabinet Grotesk"), local("Cabinet Grotesk"),
+      url("/fonts/CabinetGrotesk-Extralight.woff") format("woff");
+    font-weight: 200;
+    font-display: swap;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "Cabinet Grotesk";
+    src: local("Cabinet Grotesk"), local("Cabinet Grotesk"),
+      url("/fonts/CabinetGrotesk-Light.woff") format("woff");
+    font-weight: 200;
+    font-display: swap;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: "Cabinet Grotesk";
+    src: local("Cabinet Grotesk"), local("Cabinet Grotesk"),
+      url("/fonts/CabinetGrotesk-Variable.woff") format("woff");
+    font-weight: 200;
+    font-display: swap;
+    font-style: normal;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Cabinet Grotesk";
+  }
+  
+  div:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  @layer utilities {
+    .bg-container {
+        @apply max-w-[100%] md:max-w-[80%] 2xl:max-w-[75%] mx-auto;
+      }
+      
+      .bg-container-no-center {
+        @apply max-w-[100%] md:max-w-[80%] 2xl:max-w-[75%];
+      }
+      
+      .PhoneInputInput {
+        @apply !outline-none border h-10 placeholder:text-grey-700 placeholder:text-s text-sm rounded-[6px] border-[#BCB9CB] bg-[#F9F9F9] focus:bg-white focus:border-[#0856D9] px-2  py-1;
+      }
+      .PhoneInput--focus {
+        @apply !outline-none !shadow-none;
+      }
+      .PhoneInputCountryIcon--border {
+        @apply border-none !shadow-none;
+      }
+      .PhoneInputCountryIconImg {
+        @apply !rounded-sm;
+      }
+  }
+
+  
+  .scroll::-webkit-scrollbar {
+    width: 0;
+  }
+  
+  .scroll-grey::-webkit-scrollbar-thumb {
+    background-color: #ededed;
+    color: #ededed;
+  }
+  
+  /* Set the width of the scrollbar thumb */
+  .scroll::-webkit-scrollbar-thumb {
+    width: 0px;
+  }
+  
+  /* Set the minimum height of the scrollbar thumb */
+  .scroll::-webkit-scrollbar-thumb {
+    min-height: 0px;
+  }
+  
+  /* animation for slides */
+  
+  .slide.active {
+    opacity: 1;
+  }
+  
+  .app-container {
+    @apply max-w-[90%] w-[1120px] mx-auto;
+  }
+  
+  .wrap-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  
+    @supports (-webkit-line-clamp: 2) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: initial;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
+  
+  .active {
+    background: rgba(255, 255, 255, 0.3);
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+    transform: scale(1);
+  }
+  
+  .scrolling-wrapper {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrolling-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .transparent {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 255, 255, 1) 20%,
+      rgba(255, 255, 255, 1) 75%,
+      transparent 100%
+    );
+    width: 100%;
+    max-width: 842px;
+  }
+  
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .notification-modal::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  .notification-modal::-webkit-scrollbar-track {
+    @apply bg-white;
+  }
+  
+  /* Handle */
+  @layer utilities{
+    .notification-modal::-webkit-scrollbar-thumb {
+        @apply bg-tint-500 rounded-[4px] cursor-pointer;
+    }
+  }
+  
+  .text-truncate {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .checkmark {
+    stroke-width: 3;
+    stroke-miterlimit: 10;
+    box-shadow: inset 0px 0px 0px #084ec4;
+  }
+  
+  .checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: #084ec4;
+    fill: none;
+  }
+  
+  .checkmark__check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+  }
+  
+  .wrap-desc {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  
+    @supports (-webkit-line-clamp: 5) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: initial;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+    }
+  }
+  
+  .list-style ol {
+    list-style: decimal;
+    padding: 0px 30px;
+  }
+  
+  .list-style ul {
+    list-style: disc;
+    padding: 0px 30px;
+  }
+  
+  blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+  }
+  blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+  }
+  blockquote p {
+    display: inline;
+  }
+  
+  pre {
+    font-size: 12px;
+  }
+  
+  pre.background {
+    display: block;
+    background-color: #1d1f20;
+    height: auto;
+  }
+  
+  /* plain elements */
+  pre .plain {
+    color: #fff;
+  }
+  
+  /* html tags */
+  pre .tag {
+    color: #9a6e35;
+    font-weight: bold;
+  }
+  
+  /* class tags */
+  pre .classTag {
+    color: #ddca7e;
+    font-weight: bold;
+  }
+  
+  /* wrapped in quotes */
+  pre .quote {
+    color: #96b38a;
+    font-weight: bold;
+  }
+  
+  /* plain text*/
+  pre .text {
+    color: #ffffff;
+    font-weight: bold;
+  }
+  
+  code {
+    overflow: auto;
+  }
+  

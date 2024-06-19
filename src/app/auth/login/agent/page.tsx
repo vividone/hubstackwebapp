@@ -6,7 +6,7 @@ import { FRONTEND_URL } from "@/utils/pages";
 import Link from "next/link";
 import { FormEvent } from "react";
 
-const Login = () => {
+const AgentLogin = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const Login = () => {
 
       <div className="md:w-[65%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-start">
        
-        <p className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px]">Login as an individual</p>
+        <p className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px]">Login as an agent</p>
         
         <form className="pt-8" onSubmit={(e) => handleSubmit(e)}>
             <div className="flex pb-4 flex-col gap-2 w-full md:text-[20px]">
@@ -62,7 +62,7 @@ const Login = () => {
 
         <p className="text-center 2xl:text-[20px] xl:text-[18px] text-[16px] mt-6">
             Not an individual? 
-            <Link href={FRONTEND_URL.AGENT_LOGIN} className="text-[#3D3066] font-medium"> LOGIN AS AN AGENT</Link> 
+            <Link href={FRONTEND_URL.LOGIN} className="text-[#3D3066] font-medium uppercase"> login as an individual</Link> 
         </p>
 
         {/* Already login */}
@@ -72,9 +72,9 @@ const Login = () => {
           </p>
           <Link
             href={FRONTEND_URL.REGISTER}
-            className="text-[#3D3066] font-medium text-s no-underline"
+            className="text-[#3D3066] font-medium text-s no-underline uppercase"
           >
-            CREATE ACCOUNT
+            create account
           </Link>
         </div>
       </div>
@@ -82,4 +82,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AgentLogin;
