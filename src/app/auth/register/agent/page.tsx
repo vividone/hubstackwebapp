@@ -8,7 +8,7 @@ import Link from "@/components/custom/link";
 import { useSignupAgent } from "@/helpers/api/useAuth";
 
 const RegisterAgent = () => {
-  const { formik, isPending, isError } = useSignupAgent()
+  const { formik, isPending } = useSignupAgent()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

@@ -8,7 +8,7 @@ import Link from "@/components/custom/link";
 import { useSignupIndividual } from "@/helpers/api/useAuth";
 
 const Register = () => {
-  const { formik, isPending, isError } = useSignupIndividual()
+  const { formik, isPending } = useSignupIndividual()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

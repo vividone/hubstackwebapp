@@ -1,6 +1,6 @@
 export interface IAuthLogin {
   email: string;
-  phoneNumber: string;
+  password: string;
 }
 
 export interface IAuthIndividualSignup {
