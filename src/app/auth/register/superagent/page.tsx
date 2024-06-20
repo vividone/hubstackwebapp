@@ -31,19 +31,13 @@ const RegisterSuperAgent = () => {
                     <Input 
                         labelname="Firstname"
                         placeholder="Firstname"
-                        name="firstname"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.errors.firstname}
-                        data-test="username-firstname"
+                        name="firstName"
+                        data-test="user-firstname"
                     />
                     <Input 
                         placeholder="Lastname" 
-                        name="lastname"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.errors.lastname}
-                        data-test="username-lastname"
+                        name="lastName"
+                        data-test="user-lastname"
                     />
                 </div>
                 
@@ -51,50 +45,35 @@ const RegisterSuperAgent = () => {
                 <Input 
                     placeholder="Email address"
                     name="email"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.email}
-                    data-test="username-email"
+                    data-test="user-email"
                 />
                 
                 <p className="mt-4">Phone Number</p>
                 <Input 
                     placeholder="Phone number"
                     name="phoneNumber"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.phoneNumber}
-                    data-test="username-phoneNumber"
+                    data-test="user-phoneNumber"
                 />
                 
-                <p className="mt-4">Business User Name</p>
+                <p className="mt-4">Business Name</p>
                 <Input 
-                    placeholder="Unique business username"
+                    placeholder="Business username"
                     name="companyName"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.companyName}
-                    data-test="username-companyName"
+                    data-test="user-companyName"
                 />
 
                 <p className="mt-4">Region/Location</p>
                 <Input 
                     placeholder="Enter your location"
                     name="location"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.location}
-                    data-test="username-location"
+                    data-test="user-location"
                 />
                     
                 <p className="mt-4">Password</p>
                 <PasswordVariantInput 
                     placeholder="Enter password"
                     name="password"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.password}
-                    data-test="username-password"
+                    data-test="user-password"
                 />
             </div>
 

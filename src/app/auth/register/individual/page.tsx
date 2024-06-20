@@ -32,19 +32,13 @@ const Register = () => {
                     <Input 
                         labelname="First name"
                         placeholder="Firstname"
-                        name="firstname"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.errors.firstname}
-                        data-test="username-firstname"
+                        name="firstName"
+                        data-test="user-firstname"
                     />
                     <Input 
                         placeholder="Lastname"
-                        name="lastname"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.errors.lastname}
-                        data-test="username-lastname"
+                        name="lastName"
+                        data-test="user-lastname"
                     />
                 </div>
                 
@@ -52,30 +46,21 @@ const Register = () => {
                 <Input 
                     placeholder="Email Address"
                     name="email"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.email}
-                    data-test="username-email"
+                    data-test="user-email"
                 />
                 
                 <p className="mt-4">Phone Number</p>
                 <Input 
                     placeholder="Phone number"
                     name="phoneNumber"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.phoneNumber}
-                    data-test="username-phoneNumber"
+                    data-test="user-phoneNumber"
                 />
                     
                 <p className="mt-4">Password</p>
                 <PasswordVariantInput
                     placeholder="Enter password"
                     name="password"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.password}
-                    data-test="username-password"
+                    data-test="user-password"
                 />
             </div>
 

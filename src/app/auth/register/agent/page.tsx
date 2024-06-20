@@ -31,18 +31,12 @@ const RegisterAgent = () => {
                 <div className="flex gap-4 grid grid-cols-2">
                     <Input 
                         placeholder="Firstname"
-                        name="firstname"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.errors.firstname}
+                        name="firstName"
                         data-test="username-firstname"
                     />
                     <Input 
                         placeholder="Lastname"
-                        name="lastname"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.errors.lastname}
+                        name="lastName"
                         data-test="username-lastname"
                     />
                 </div>
@@ -51,9 +45,6 @@ const RegisterAgent = () => {
                 <Input 
                     placeholder="Email address"
                     name="email"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.email}
                     data-test="username-email"
                 />
                 
@@ -61,29 +52,20 @@ const RegisterAgent = () => {
                 <Input 
                     placeholder="Phone number"
                     name="phoneNumber"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.phoneNumber}
                     data-test="username-phoneNumber"
                 />
                 
                 <p className="mt-4">Business User Name</p>
                 <Input 
-                    placeholder="Unique business username"
+                    placeholder="Business user"
                     name="companyName"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.companyName}
                     data-test="username-companyName"
                 />
 
-                <p className="mt-4">Super Agent Username</p>
+                <p className="mt-4">Super Agent user</p>
                 <Input 
-                    placeholder="Unique super agent username"
+                    placeholder="Super Agent user"
                     name="superAgent"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.superAgent}
                     data-test="username-superAgent"
                 />
 
@@ -91,9 +73,6 @@ const RegisterAgent = () => {
                 <Input 
                     placeholder="Enter your location"
                     name="location"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.location}
                     data-test="username-location"
                 />
                     
@@ -101,9 +80,6 @@ const RegisterAgent = () => {
                 <PasswordVariantInput
                     placeholder="Enter password"
                     name="password"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.password}
                     data-test="username-password"
                 />
             </div>
