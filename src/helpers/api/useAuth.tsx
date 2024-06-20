@@ -41,8 +41,6 @@ export const useLogin = () => {
       validateOnBlur: true,
       validateOnChange: true,
       validationSchema: LoginSchema,
-      // disabling it because we are not using it an it won't be passed through the api
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       onSubmit: async ({ ...values }) => {
         try {
           await formik.validateForm();
@@ -92,8 +90,6 @@ export const useLogin = () => {
         validateOnBlur: true,
         validateOnChange: true,
         validationSchema: SignupSchemaIndividual,
-        // disabling it because we are not using it an it won't be passed through the api
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         onSubmit: async ({ ...values }) => {
           try {
             await formik.validateForm();
@@ -146,8 +142,6 @@ export const useSignupAgent = () => {
       validateOnBlur: true,
       validateOnChange: true,
       validationSchema: SignupSchemaAgent,
-      // disabling it because we are not using it an it won't be passed through the api
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       onSubmit: async ({ ...values }) => {
         try {
           await formik.validateForm();
@@ -198,8 +192,6 @@ export const useSignupAgent = () => {
       validateOnBlur: true,
       validateOnChange: true,
       validationSchema: SignupSchemaSuperAgent,
-      // disabling it because we are not using it an it won't be passed through the api
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       onSubmit: async ({ ...values }) => {
         try {
           await formik.validateForm();
