@@ -1,5 +1,5 @@
 export interface IErrorResponseType {
-  response: Response;
+  response?: Response;
 }
 
 export interface Response {
