@@ -4,7 +4,7 @@ import React, { FormEvent } from "react";
 import AuthSideImg from "@/components/authSideImg";
 import { Button } from "@/components/common/button";
 import { Input, PasswordVariantInput } from "@/components/common/inputs";
-import Link from "next/link";
+import Link from "@/components/custom/link";
 
 const RegisterAgent = () => {
 

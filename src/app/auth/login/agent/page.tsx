@@ -3,7 +3,7 @@ import AuthSideImg from "@/components/authSideImg";
 import { Button } from "@/components/common/button";
 import { Input, PasswordVariantInput } from "@/components/common/inputs";
 import { FRONTEND_URL } from "@/utils/pages";
-import Link from "next/link";
+import Link from "@/components/custom/link";
 import { FormEvent } from "react";
 
 const AgentLogin = () => {

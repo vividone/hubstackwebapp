@@ -2,8 +2,8 @@
 import AuthSideImg from "@/components/authSideImg";
 import { Button } from "@/components/common/button";
 import { Input, PasswordVariantInput } from "@/components/common/inputs";
+import Link from "@/components/custom/link";
 import { FRONTEND_URL } from "@/utils/pages";
-import Link from "next/link";
 import { FormEvent } from "react";
 
 const Login = () => {
