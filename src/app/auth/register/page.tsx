@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import AuthSideImg from "@/components/authSideImg";
 import { Button } from "@/components/common/button";
+import Link from "@/components/custom/link";
 
 const Register = () => {
   const [userType, setUserType] = useState("");
@@ -66,12 +67,12 @@ const Register = () => {
           <p className="text-grey-300  text-s">
             Already have an account?
           </p>
-          <a
+          <Link
             href={FRONTEND_URL.LOGIN}
             className="text-[#3D3066] font-medium text-s no-underline"
           >
             LOG IN
-          </a>
+          </Link>
         </div>
       </div>
     </div>

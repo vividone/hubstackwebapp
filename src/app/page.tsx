@@ -2,14 +2,17 @@
 import AuthSideImg from "@/components/authSideImg";
 import { Button } from "@/components/common/button";
 import { Input, PasswordVariantInput } from "@/components/common/inputs";
+import Link from "@/components/custom/link";
+import { useLogin } from "@/helpers/api/useAuth";
 import { FRONTEND_URL } from "@/utils/pages";
-import Link from "next/link";
 import { FormEvent } from "react";
 
 const Login = () => {
+  const { formik, isPending } = useLogin()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    formik.handleSubmit()
   };
 
 
@@ -28,12 +31,18 @@ const Login = () => {
               <Input 
                   placeholder="Email Address"
                   name="email"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.email}
                   data-test="username-email"
               />
               <p className="mt-4">Password</p>
               <PasswordVariantInput
                   placeholder="Enter password"
                   name="password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.password}
                   data-test="username-password"
               />
                 
@@ -50,7 +59,8 @@ const Login = () => {
             <Button 
                 size={"long"}
                 variant="primary"
-                isLoading={false}
+                isLoading={isPending}
+                disabled={!formik.isValid || isPending}
                 dataTest="sign-in"
                 name="sign-in"
                 id="sign-in"

@@ -1,4 +1,4 @@
-import { Loader } from "@/assets/loader";
+import { Loader } from "@/assets/common/loader";
 import React, { ButtonHTMLAttributes, SVGProps, ReactNode } from "react";
 
 export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -64,7 +64,7 @@ export const Button = ({
       data-test={dataTest}
       {...props}
     >
-      {isLoading ? <Loader /> : children}
+      {isLoading ? <Loader className="fill-white"/> : children}
     </button>
   );
 };

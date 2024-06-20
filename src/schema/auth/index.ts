@@ -6,46 +6,66 @@ export const LoginSchema = Yup.object().shape({
 });
 
 export const LoginSchemaPhone = Yup.object().shape({
-  username: Yup.string().required("Email is required").trim(),
+  email: Yup.string().required("Email is required").trim(),
   password: Yup.string().required("Password is required").trim(),
 });
 
 export const SignupSchemaIndividual = Yup.object().shape({
-  phoneNumber: Yup.string().required("Phone number is required"),
+  firstname: Yup.string().required("Fullname is required"),
+  lastname: Yup.string().required("Fullname is required"),
   email: Yup.string()
     .required("Email is required")
     .trim()
     .lowercase()
     .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
-  companyName: Yup.string().required("Company name is required"),
+  phoneNumber: Yup.string().required("Phone number is required"),
   password: Yup.string()
     .required("Password is required")
     .min(6, "Password must not be less 6 characters")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d).+$/, // not written by me yet
       "Password requires uppercase, lowercase, digit, and special character."
-    ),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .required(""),
+    )
 });
 
 export const SignupSchemaAgent = Yup.object().shape({
-  phoneNumber: Yup.string().required("Phone number is required"),
+  firstname: Yup.string().required("Fullname is required"),
+  lastname: Yup.string().required("Fullname is required"),
   email: Yup.string()
     .required("Email is required")
     .trim()
     .lowercase()
     .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
-  companyName: Yup.string().required("Company name is required"),
+  phoneNumber: Yup.string().required("Phone number is required"),
+  companyName: Yup.string().required("Business name is required"),
+  superAgent: Yup.string().required("Superagent name is required"),
+  location: Yup.string().required("Location is required"),
   password: Yup.string()
     .required("Password is required")
     .min(6, "Password must not be less 6 characters")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d).+$/, // not written by me yet
       "Password requires uppercase, lowercase, digit, and special character."
-    ),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .required(""),
+    )
+});
+
+
+export const SignupSchemaSuperAgent = Yup.object().shape({
+  firstname: Yup.string().required("Fullname is required"),
+  lastname: Yup.string().required("Fullname is required"),
+  email: Yup.string()
+    .required("Email is required")
+    .trim()
+    .lowercase()
+    .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
+  phoneNumber: Yup.string().required("Phone number is required"),
+  companyName: Yup.string().required("Business name is required"),
+  location: Yup.string().required("Location is required"),
+  password: Yup.string()
+    .required("Password is required")
+    .min(6, "Password must not be less 6 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d).+$/, // not written by me yet
+      "Password requires uppercase, lowercase, digit, and special character."
+    )
 });
