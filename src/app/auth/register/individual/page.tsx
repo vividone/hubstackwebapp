@@ -5,11 +5,14 @@ import AuthSideImg from "@/components/authSideImg";
 import { Button } from "@/components/common/button";
 import { Input, PasswordVariantInput } from "@/components/common/inputs";
 import Link from "@/components/custom/link";
+import { useSignupIndividual } from "@/helpers/api/useAuth";
 
 const Register = () => {
+  const { formik, isPending, isError } = useSignupIndividual()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    formik.handleSubmit()
   };
 
 
@@ -29,12 +32,18 @@ const Register = () => {
                     <Input 
                         labelname="First name"
                         placeholder="Firstname"
-                        name="firstName"
+                        name="firstname"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.errors.firstname}
                         data-test="username-firstname"
                     />
                     <Input 
                         placeholder="Lastname"
-                        name="lastName"
+                        name="lastname"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.errors.lastname}
                         data-test="username-lastname"
                     />
                 </div>
@@ -43,6 +52,9 @@ const Register = () => {
                 <Input 
                     placeholder="Email Address"
                     name="email"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.email}
                     data-test="username-email"
                 />
                 
@@ -50,6 +62,9 @@ const Register = () => {
                 <Input 
                     placeholder="Phone number"
                     name="phoneNumber"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.phoneNumber}
                     data-test="username-phoneNumber"
                 />
                     
@@ -57,6 +72,9 @@ const Register = () => {
                 <PasswordVariantInput
                     placeholder="Enter password"
                     name="password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.password}
                     data-test="username-password"
                 />
             </div>
@@ -73,7 +91,8 @@ const Register = () => {
                 <Button 
                     size={"long"}
                     variant="primary"
-                    isLoading={false}
+                    isLoading={isPending}
+                    disabled={!formik.isValid || isPending}
                     dataTest="sign-in"
                     name="sign-in"
                     id="sign-in"

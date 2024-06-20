@@ -5,11 +5,14 @@ import AuthSideImg from "@/components/authSideImg";
 import { Button } from "@/components/common/button";
 import { Input, PasswordVariantInput } from "@/components/common/inputs";
 import Link from "@/components/custom/link";
+import { useSignupAgent } from "@/helpers/api/useAuth";
 
 const RegisterAgent = () => {
+  const { formik, isPending, isError } = useSignupAgent()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    formik.handleSubmit()
   };
 
 
@@ -27,14 +30,19 @@ const RegisterAgent = () => {
                 <p className="mt-4">Fullname</p>
                 <div className="flex gap-4 grid grid-cols-2">
                     <Input 
-                        labelname="Email address"
                         placeholder="Firstname"
-                        name="firstName"
+                        name="firstname"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.errors.firstname}
                         data-test="username-firstname"
                     />
                     <Input 
                         placeholder="Lastname"
-                        name="lastName"
+                        name="lastname"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.errors.lastname}
                         data-test="username-lastname"
                     />
                 </div>
@@ -43,6 +51,9 @@ const RegisterAgent = () => {
                 <Input 
                     placeholder="Email address"
                     name="email"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.email}
                     data-test="username-email"
                 />
                 
@@ -50,6 +61,9 @@ const RegisterAgent = () => {
                 <Input 
                     placeholder="Phone number"
                     name="phoneNumber"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.phoneNumber}
                     data-test="username-phoneNumber"
                 />
                 
@@ -57,6 +71,9 @@ const RegisterAgent = () => {
                 <Input 
                     placeholder="Unique business username"
                     name="companyName"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.companyName}
                     data-test="username-companyName"
                 />
 
@@ -64,6 +81,9 @@ const RegisterAgent = () => {
                 <Input 
                     placeholder="Unique super agent username"
                     name="superAgent"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.superAgent}
                     data-test="username-superAgent"
                 />
 
@@ -71,6 +91,9 @@ const RegisterAgent = () => {
                 <Input 
                     placeholder="Enter your location"
                     name="location"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.location}
                     data-test="username-location"
                 />
                     
@@ -78,6 +101,9 @@ const RegisterAgent = () => {
                 <PasswordVariantInput
                     placeholder="Enter password"
                     name="password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.password}
                     data-test="username-password"
                 />
             </div>
@@ -94,7 +120,8 @@ const RegisterAgent = () => {
                 <Button
                     size={"long"}
                     variant="primary"
-                    isLoading={false}
+                    isLoading={isPending}
+                    disabled={!formik.isValid || isPending}
                     dataTest="sign-in"
                     name="sign-in"
                     id="sign-in"
