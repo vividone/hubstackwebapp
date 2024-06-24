@@ -75,7 +75,11 @@ export const VerifyLoginSchema = Yup.object().shape({
 });
 
 export const ResetPasswordSchema = Yup.object().shape({
-  email: Yup.string().required().trim(),
+  email: Yup.string()
+    .required("Email is required")
+    .trim()
+    .lowercase()
+    .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
 });
 
 export const SetPasswordSchema = Yup.object().shape({

@@ -12,7 +12,6 @@ const AgentLogin = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(formik.values)
     formik.handleSubmit()
   };
 
@@ -24,7 +23,7 @@ const AgentLogin = () => {
 
       <div className="md:w-[65%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-center">
        
-        <p className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px]">Login as an agent</p>
+        <p className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px]">Login as an Agent</p>
         
         <form className="pt-8" onSubmit={(e) => handleSubmit(e)}>
             <div className="flex pb-4 flex-col gap-2 w-full md:text-[20px]">

@@ -26,7 +26,7 @@ import { TOKEN } from "@/utils/token";
   import { useRouter } from "next/navigation";
 
 
-// login for business
+// login for agent and individual
 export const useLogin = () => {
     const router = useRouter();
     const { signupUrl } = useUrls();
@@ -53,10 +53,9 @@ export const useLogin = () => {
               setUserDetails(res.data);
               router.push(FRONTEND_URL.VERIFY_ACCOUNT);
             },
-              onError: (res: any) => {
-                setUserDetails(values)
-                router.push(FRONTEND_URL.VERIFY_ACCOUNT);
-              },
+              // onError: (res: any) => {
+
+              // },
           });
           formik.handleReset;
         } catch (error: any) {
@@ -72,7 +71,7 @@ export const useLogin = () => {
 };
 
 
-    // signup for business
+    // signup for individual
     export const useSignupIndividual = () => {
       const router = useRouter();
       const { signupUrl } = useUrls();
@@ -121,7 +120,7 @@ export const useLogin = () => {
 };
   
 
-// Signup for Agent
+// Signup for agent
 export const useSignupAgent = () => {
     const router = useRouter();
     const { signupUrl } = useUrls();
@@ -172,7 +171,7 @@ export const useSignupAgent = () => {
     return { formik, isPending, isSuccess, isError, error: errorString };
 };
 
-  // signup for business
+  // signup for super agent
   export const useSignupSuperAgent = () => {
     const router = useRouter();
     const { signupUrl } = useUrls();
@@ -228,8 +227,6 @@ export const useSignupAgent = () => {
 export const useVerifyLogin = () => {
   const router = useRouter();
   const { verifyLoginUrl } = useUrls();
-  // const { userDetails } = useSelector(userDetailsSelector);
-  // const queryClient = useQueryClient();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["verify account"],
       mutationFn: (payload: Partial<IVerifyLogin>) => {
         return axiosInstance.post(verifyLoginUrl, payload)
@@ -279,8 +276,6 @@ export const useVerifyLogin = () => {
 export const useResetPassword = () => {
   const router = useRouter();
   const { resetPassword } = useUrls();
-  // const { userDetails } = useSelector(userDetailsSelector);
-  // const queryClient = useQueryClient();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["reset password"],
       mutationFn: (payload: Partial<{email: string}>) => {
         return axiosInstance.post(resetPassword, payload)
@@ -292,7 +287,7 @@ export const useResetPassword = () => {
       email: "",
     } as { email: string },
     validateOnBlur: false,
-    validateOnChange: false,
+    validateOnChange: true,
     validationSchema: ResetPasswordSchema,
     onSubmit: async ({ ...values }) => {
       try {
@@ -305,7 +300,7 @@ export const useResetPassword = () => {
               router.push(FRONTEND_URL.RESET_CONFIRMATION)
             },
             onError: (res: any) => {
-              router.push(FRONTEND_URL.RESET_CONFIRMATION)
+                           
             },
           }
         );
@@ -328,8 +323,6 @@ export const useResetPassword = () => {
 export const useSetPassword = () => {
   const router = useRouter();
   const { resetPassword } = useUrls();
-  // const { userDetails } = useSelector(userDetailsSelector);
-  // const queryClient = useQueryClient();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["set password"],
       mutationFn: (payload: Partial<{ newPassword: string, confirmNewPassword: string }>) => {
         return axiosInstance.post(resetPassword, payload)

@@ -23,7 +23,7 @@ const Login = () => {
 
       <div className="md:w-[65%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-center">
        
-        <p className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px]">Login as an individual</p>
+        <p className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px]">Login as an Individual</p>
         
         <form className="pt-8" onSubmit={handleSubmit}>
             <div className="flex pb-4 flex-col gap-2 w-full md:text-[20px]">
@@ -31,44 +31,45 @@ const Login = () => {
               <Input 
                   placeholder="Email Address"
                   name="email"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.errors.email}
                   data-test="username-email"
               />
               <p className="mt-4">Password</p>
               <PasswordVariantInput
                   placeholder="Enter password"
                   name="password"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={formik.errors.password}
                   data-test="username-password"
               />
                 
             </div>
+
+            <p className="text-left 2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
+                Forgot password?
+                <Link href={FRONTEND_URL.RESET_PASSWORD} className="text-[#3D3066] font-medium"> RESET</Link> 
+            </p>
+
+            {/* Already login */}
+            <div className="flex justify-center">
+                <Button 
+                    size={"long"}
+                    variant="primary"
+                    isLoading={isPending}
+                    disabled={!formik.isValid || isPending}
+                    dataTest="sign-in"
+                    name="sign-in"
+                    id="sign-in"
+                    type="submit"
+                >
+                    LOG IN
+                </Button>
+            </div>
         </form>
 
-        <p className="text-left 2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
-            Forgot password?
-            <a href={FRONTEND_URL.RESET_PASSWORD} className="text-[#3D3066] font-medium"> RESET</a> 
-        </p>
-
-        {/* Already login */}
-        <div className="flex justify-center">
-            <Button 
-                size={"long"}
-                variant="primary"
-                isLoading={isPending}
-                disabled={!formik.isValid || isPending}
-                dataTest="sign-in"
-                name="sign-in"
-                id="sign-in"
-                type="submit"
-            >
-                LOG IN
-            </Button>
-        </div>
 
         <p className="text-center 2xl:text-[20px] xl:text-[18px] text-[16px] mt-6">
             Not an individual? 
