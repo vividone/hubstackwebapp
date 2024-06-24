@@ -12,6 +12,7 @@ const AgentLogin = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log(formik.values)
     formik.handleSubmit()
   };
 
@@ -21,7 +22,7 @@ const AgentLogin = () => {
       
       <AuthSideImg />
 
-      <div className="md:w-[65%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-start">
+      <div className="md:w-[65%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-center">
        
         <p className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px]">Login as an agent</p>
         
@@ -47,28 +48,29 @@ const AgentLogin = () => {
               />
                 
             </div>
+
+            
+          <p className="text-left 2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
+              Forgot password?
+              <a href={FRONTEND_URL.RESET_PASSWORD} className="text-[#3D3066] font-medium"> RESET</a> 
+          </p>
+
+          {/* Already login */}
+          <div className="flex justify-center">
+              <Button 
+                  size={"long"}
+                  variant="primary"
+                  isLoading={isPending}
+                  disabled={!formik.isValid || isPending}
+                  dataTest="sign-in"
+                  name="sign-in"
+                  id="sign-in"
+                  type="submit"
+              >
+                  LOG IN
+              </Button>
+          </div>
         </form>
-
-        <p className="text-left 2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
-            Forgot password?
-            <a href={FRONTEND_URL.AGENT_REGISTER} className="text-[#3D3066] font-medium"> RESET</a> 
-        </p>
-
-        {/* Already login */}
-        <div className="flex justify-center">
-            <Button 
-                size={"long"}
-                variant="primary"
-                isLoading={isPending}
-                disabled={!formik.isValid || isPending}
-                dataTest="sign-in"
-                name="sign-in"
-                id="sign-in"
-                type="submit"
-            >
-                LOG IN
-            </Button>
-        </div>
 
         <p className="text-center 2xl:text-[20px] xl:text-[18px] text-[16px] mt-6">
             Not an individual? 
