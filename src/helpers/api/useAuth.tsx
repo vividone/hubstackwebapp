@@ -5,14 +5,18 @@ import {
     IAuthLogin,
     IAuthIndividualSignup,
     IAuthAgentSignup,
-    IAuthSuperAgentSignup
+    IAuthSuperAgentSignup,
+    IVerifyLogin
   } from "@/interface/auth";
 import { IErrorResponseType } from "@/interface/common/error";
 import {
     LoginSchema,
+    ResetPasswordSchema,
+    SetPasswordSchema,
     SignupSchemaAgent,
     SignupSchemaIndividual,
-    SignupSchemaSuperAgent
+    SignupSchemaSuperAgent,
+    VerifyLoginSchema
   } from "@/schema/auth";
   import { HUBSTACKROLES } from "@/types/roles";
   import { FRONTEND_URL } from "@/utils/pages";
@@ -22,11 +26,11 @@ import { TOKEN } from "@/utils/token";
   import { useRouter } from "next/navigation";
 
 
-    // signup for business
+// login for agent and individual
 export const useLogin = () => {
     const router = useRouter();
     const { signupUrl } = useUrls();
-    const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
+    const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["login"],
         mutationFn: (payload: Partial<IAuthLogin>) => {
           return axiosInstance.post(signupUrl, payload)
@@ -45,13 +49,13 @@ export const useLogin = () => {
         try {
           await formik.validateForm();
           mutate(values, {
-            onSuccess: () => {
-              setUserDetails(values.email);
-              router.push(FRONTEND_URL.LOGIN);
+            onSuccess: (res) => {
+              setUserDetails(res.data);
+              router.push(FRONTEND_URL.VERIFY_ACCOUNT);
             },
-            //   onError: (res: any) => {
-  
-            //   },
+              // onError: (res: any) => {
+
+              // },
           });
           formik.handleReset;
         } catch (error: any) {
@@ -67,7 +71,7 @@ export const useLogin = () => {
 };
 
 
-    // signup for business
+    // signup for individual
     export const useSignupIndividual = () => {
       const router = useRouter();
       const { signupUrl } = useUrls();
@@ -116,7 +120,7 @@ export const useLogin = () => {
 };
   
 
-// Signup for Agent
+// Signup for agent
 export const useSignupAgent = () => {
     const router = useRouter();
     const { signupUrl } = useUrls();
@@ -167,7 +171,7 @@ export const useSignupAgent = () => {
     return { formik, isPending, isSuccess, isError, error: errorString };
 };
 
-  // signup for business
+  // signup for super agent
   export const useSignupSuperAgent = () => {
     const router = useRouter();
     const { signupUrl } = useUrls();
@@ -215,4 +219,149 @@ export const useSignupAgent = () => {
       ? typedError?.response?.data?.message[0]
       : typedError?.response?.data?.message || "";
     return { formik, isPending, isSuccess, isError, error: errorString };
+};
+
+
+
+// verifyLogin
+export const useVerifyLogin = () => {
+  const router = useRouter();
+  const { verifyLoginUrl } = useUrls();
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["verify account"],
+      mutationFn: (payload: Partial<IVerifyLogin>) => {
+        return axiosInstance.post(verifyLoginUrl, payload)
+      },
+  })  
+
+  const formik = useFormik({
+    initialValues: {
+      otp: "",
+      email: "user@example.com",
+    } as IVerifyLogin,
+    validateOnBlur: false,
+    validateOnChange: false,
+    validationSchema: VerifyLoginSchema,
+    onSubmit: async ({ ...values }) => {
+      try {
+        mutate(
+          {
+            otp: values.otp,
+            email: values.email,
+          },
+          {
+            onSuccess: () => {
+              router.push("");
+            }
+            //   onError: (res: any) => {
+
+            //   },
+          }
+        );
+        formik.handleReset;
+      } catch (error: any) {
+        throw new Error(error);
+      }
+    },
+  });
+  const typedError = error as IErrorResponseType;
+  const errorString = Array.isArray(typedError?.response?.data?.message)
+    ? typedError?.response?.data?.message[0]
+    : typedError?.response?.data?.message || "";
+  return { formik, isPending, isSuccess, isError, error: errorString };
+};
+
+
+
+// Password reset
+export const useResetPassword = () => {
+  const router = useRouter();
+  const { resetPassword } = useUrls();
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["reset password"],
+      mutationFn: (payload: Partial<{email: string}>) => {
+        return axiosInstance.post(resetPassword, payload)
+      },
+  })  
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+    } as { email: string },
+    validateOnBlur: false,
+    validateOnChange: true,
+    validationSchema: ResetPasswordSchema,
+    onSubmit: async ({ ...values }) => {
+      try {
+        mutate(
+          {
+            email: values.email,
+          },
+          {
+            onSuccess: () => {
+              router.push(FRONTEND_URL.RESET_CONFIRMATION)
+            },
+            onError: (res: any) => {
+                           
+            },
+          }
+        );
+        formik.handleReset;
+      } catch (error: any) {
+        throw new Error(error);
+      }
+    },
+  });
+  const typedError = error as IErrorResponseType;
+  const errorString = Array.isArray(typedError?.response?.data?.message)
+    ? typedError?.response?.data?.message[0]
+    : typedError?.response?.data?.message || "";
+  return { formik, isPending, isSuccess, isError, error: errorString };
+};
+
+
+
+// set new password
+export const useSetPassword = () => {
+  const router = useRouter();
+  const { resetPassword } = useUrls();
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["set password"],
+      mutationFn: (payload: Partial<{ newPassword: string, confirmNewPassword: string }>) => {
+        return axiosInstance.post(resetPassword, payload)
+      },
+  })  
+
+  const formik = useFormik({
+    initialValues: {
+      newPassword: "", 
+      confirmNewPassword: ""
+    } as { newPassword: string, confirmNewPassword: string },
+    validateOnBlur: true,
+    validateOnChange: true,
+    validationSchema: SetPasswordSchema,
+    onSubmit: async ({ ...values }) => {
+      try {
+        mutate(
+          {
+            newPassword: values.newPassword,
+            confirmNewPassword: values.confirmNewPassword
+          },
+          {
+            onSuccess: () => {
+              
+            }
+            //   onError: (res: any) => {
+
+            //   },
+          }
+        );
+        formik.handleReset;
+      } catch (error: any) {
+        throw new Error(error);
+      }
+    },
+  });
+  const typedError = error as IErrorResponseType;
+  const errorString = Array.isArray(typedError?.response?.data?.message)
+    ? typedError?.response?.data?.message[0]
+    : typedError?.response?.data?.message || "";
+  return { formik, isPending, isSuccess, isError, error: errorString };
 };

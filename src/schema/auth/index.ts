@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const LoginSchema = Yup.object().shape({
-  username: Yup.string().required("Email is required").trim().lowercase(),
+  email: Yup.string().required("Email is required").trim().lowercase(),
   password: Yup.string().required("Password is required").trim(),
 });
 
@@ -68,4 +68,23 @@ export const SignupSchemaSuperAgent = Yup.object().shape({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d).+$/, // not written by me yet
       "Password requires uppercase, lowercase, digit, and special character."
     )
+});
+
+export const VerifyLoginSchema = Yup.object().shape({
+  otp: Yup.string().optional().trim(),
+});
+
+export const ResetPasswordSchema = Yup.object().shape({
+  email: Yup.string()
+    .required("Email is required")
+    .trim()
+    .lowercase()
+    .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
+});
+
+export const SetPasswordSchema = Yup.object().shape({
+  newPassword: Yup.string().required().trim(),
+  confirmNewPassword: Yup.string()
+    .oneOf([Yup.ref("newPassword")], "Passwords must match")
+    .required(""),
 });
