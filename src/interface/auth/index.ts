@@ -32,3 +32,19 @@ export interface IAuthSuperAgentSignup {
   location: string;
   password: string;
 }
+
+export interface IVerifyLogin {
+  email?: string;
+  otp?: string;
+}
+
+export interface IForgotPassword {
+  email: string;
+}
+
+export interface IResetPassword {
+  email: string;
+  otp: string;
+  password: string;
+  confirmPassword?: string;
+}
