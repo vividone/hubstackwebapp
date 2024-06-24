@@ -6,12 +6,18 @@ export function useUrls() {
   const loginUrl = `${BASE_URL}/auth/login`;
   const signupUrl = `${BASE_URL}/auth/register`;
   const logOutUrl = `${BASE_URL}/auth/logout`;
+  const verifyLoginUrl = `${BASE_URL}/auth/verify`;
+  const resetPassword = `${BASE_URL}/auth/password-reset`;
+  const resendPasswordEmail = `${BASE_URL}/auth/resend-email`;
 
   // seat
 
   return {
     loginUrl,
     signupUrl,
-    logOutUrl
+    logOutUrl,
+    verifyLoginUrl,
+    resetPassword,
+    resendPasswordEmail
   };
 }
