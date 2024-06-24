@@ -21,11 +21,11 @@ const Login = () => {
       
       <AuthSideImg />
 
-      <div className="md:w-[65%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-start">
+      <div className="md:w-[65%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-center">
        
         <p className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px]">Login as an individual</p>
         
-        <form className="pt-8" onSubmit={(e) => handleSubmit(e)}>
+        <form className="pt-8" onSubmit={handleSubmit}>
             <div className="flex pb-4 flex-col gap-2 w-full md:text-[20px]">
               <p className="mt-4">Email Address</p>
               <Input 
@@ -51,7 +51,7 @@ const Login = () => {
 
         <p className="text-left 2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
             Forgot password?
-            <a href={FRONTEND_URL.AGENT_REGISTER} className="text-[#3D3066] font-medium"> RESET</a> 
+            <a href={FRONTEND_URL.RESET_PASSWORD} className="text-[#3D3066] font-medium"> RESET</a> 
         </p>
 
         {/* Already login */}
