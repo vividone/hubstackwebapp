@@ -7,8 +7,8 @@ export function useUrls() {
   const signupUrl = `${BASE_URL}/auth/register`;
   const logOutUrl = `${BASE_URL}/auth/logout`;
   const verifyLoginUrl = `${BASE_URL}/auth/verify`;
-  const resetPassword = `${BASE_URL}/auth/password-reset`;
-  const resendPasswordEmail = `${BASE_URL}/auth/resend-email`;
+  const resetPasswordUrl = `${BASE_URL}/auth/password-reset`;
+  const resendPasswordEmailUrl = `${BASE_URL}/auth/resend-email`;
 
   // seat
 
@@ -17,7 +17,7 @@ export function useUrls() {
     signupUrl,
     logOutUrl,
     verifyLoginUrl,
-    resetPassword,
-    resendPasswordEmail
+    resetPasswordUrl,
+    resendPasswordEmailUrl
   };
 }

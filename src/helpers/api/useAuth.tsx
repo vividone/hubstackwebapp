@@ -29,11 +29,11 @@ import { TOKEN } from "@/utils/token";
 // login for agent and individual
 export const useLogin = () => {
     const router = useRouter();
-    const { signupUrl } = useUrls();
+    const { loginUrl } = useUrls();
     const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["login"],
         mutationFn: (payload: Partial<IAuthLogin>) => {
-          return axiosInstance.post(signupUrl, payload)
+          return axiosInstance.post(loginUrl, payload)
         },
     })    
   
@@ -275,10 +275,10 @@ export const useVerifyLogin = () => {
 // Password reset
 export const useResetPassword = () => {
   const router = useRouter();
-  const { resetPassword } = useUrls();
+  const { resetPasswordUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["reset password"],
       mutationFn: (payload: Partial<{email: string}>) => {
-        return axiosInstance.post(resetPassword, payload)
+        return axiosInstance.post(resetPasswordUrl, payload)
       },
   })  
 
@@ -322,10 +322,10 @@ export const useResetPassword = () => {
 // set new password
 export const useSetPassword = () => {
   const router = useRouter();
-  const { resetPassword } = useUrls();
+  const { resetPasswordUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["set password"],
       mutationFn: (payload: Partial<{ newPassword: string, confirmNewPassword: string }>) => {
-        return axiosInstance.post(resetPassword, payload)
+        return axiosInstance.post(resetPasswordUrl, payload)
       },
   })  
 
