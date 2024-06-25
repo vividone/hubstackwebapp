@@ -13,7 +13,7 @@ const VerifyAccountPage = () => {
       
       <AuthSideImg />
 
-      <div className="md:w-[55%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[20%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-center">
+      <div className="md:w-[55%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-center">
        
         <h1 className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px]">Please verify your account</h1>
 
