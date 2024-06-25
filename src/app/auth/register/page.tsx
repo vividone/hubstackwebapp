@@ -17,7 +17,7 @@ const Register = () => {
       
       <AuthSideImg />
       
-      <div className="md:w-[65%] w-full flex flex-col items-center mx-auto min-h-screen py-10 px-[5%] scroll max-h-screen overflow-y-scroll hide justify-start">
+      <div className="md:w-[65%] w-full flex flex-col items-center mx-auto min-h-screen py-[15vh] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-start">
        
         <h1 className="2xl:text-[40px] xl:text-[32px] text-[24px]">How would you like to register?</h1>
         
