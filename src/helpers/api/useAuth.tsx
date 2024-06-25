@@ -53,9 +53,9 @@ export const useLogin = () => {
               setUserDetails(res.data);
               router.push(FRONTEND_URL.VERIFY_ACCOUNT);
             },
-              // onError: (res: any) => {
-
-              // },
+            onError: (res: any) => {
+              
+            },
           });
           formik.handleReset;
         } catch (error: any) {
@@ -91,8 +91,8 @@ export const useLogin = () => {
           roles: HUBSTACKROLES.INDIVIDUAL,
           password: "",
         } as IAuthIndividualSignup,
-        validateOnBlur: true,
-        validateOnChange: true,
+        validateOnBlur: false,
+        validateOnChange: false,
         validationSchema: SignupSchemaIndividual,
         onSubmit: async ({ ...values }) => {
           try {
@@ -143,8 +143,8 @@ export const useSignupAgent = () => {
         roles: HUBSTACKROLES.AGENT,
         password: "",
       } as IAuthAgentSignup,
-      validateOnBlur: true,
-      validateOnChange: true,
+      validateOnBlur: false,
+      validateOnChange: false,
       validationSchema: SignupSchemaAgent,
       onSubmit: async ({ ...values }) => {
         try {
@@ -193,8 +193,8 @@ export const useSignupAgent = () => {
         roles: HUBSTACKROLES.AGENT,
         password: "",
       } as IAuthSuperAgentSignup,
-      validateOnBlur: true,
-      validateOnChange: true,
+      validateOnBlur: false,
+      validateOnChange: false,
       validationSchema: SignupSchemaSuperAgent,
       onSubmit: async ({ ...values }) => {
         try {
@@ -286,8 +286,8 @@ export const useResetPassword = () => {
     initialValues: {
       email: "",
     } as { email: string },
-    validateOnBlur: false,
-    validateOnChange: true,
+    validateOnBlur: true,
+    validateOnChange: false,
     validationSchema: ResetPasswordSchema,
     onSubmit: async ({ ...values }) => {
       try {

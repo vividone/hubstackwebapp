@@ -40,7 +40,7 @@ const VerifyAccount = () => {
         {isError && (
           <div className="items-center space-x-2">
             <ErrorIcon />
-            <p className="text-sm  text-maroon-200">{error || ""}</p>
+            <p className="text-sm  text-maroon-200">{error || "Password reset error"}</p>
           </div>
         )}
         
