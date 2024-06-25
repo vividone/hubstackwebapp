@@ -6,9 +6,10 @@ import { FRONTEND_URL } from "@/utils/pages";
 import Link from "@/components/custom/link";
 import { FormEvent } from "react";
 import { useLogin } from "@/helpers/api/useAuth";
+import ToastComponent from "@/components/common/toastComponent";
 
 const AgentLogin = () => {
-  const { formik, isPending } = useLogin()
+  const { formik, isPending, isSuccess, isError, error } = useLogin()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -18,6 +19,11 @@ const AgentLogin = () => {
 
   return (
     <div className="flex pb-10 slideshow lg:pb-0 lg:gap-x-4 xl:gap-x-8 w-full h-screen">
+    <ToastComponent 
+      isSuccess={isSuccess} 
+      isError={isError} 
+      msg={isSuccess ? "Login successful" : isError ? "Login error " + error : ""}
+    />
       
       <AuthSideImg />
 

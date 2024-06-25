@@ -5,9 +5,10 @@ import { Button } from "@/components/common/button";
 import { Input, PasswordVariantInput } from "@/components/common/inputs";
 import Link from "@/components/custom/link";
 import { useSignupSuperAgent } from "@/helpers/api/useAuth";
+import ToastComponent from "@/components/common/toastComponent";
 
 const RegisterSuperAgent = () => {
-    const { formik, isPending } = useSignupSuperAgent()
+    const { formik, isPending, isSuccess, isError, error } = useSignupSuperAgent()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -17,6 +18,12 @@ const RegisterSuperAgent = () => {
 
   return (
     <div className="flex pb-10 slideshow lg:pb-0 lg:gap-x-4 xl:gap-x-8 w-full">
+
+        <ToastComponent
+            isSuccess={isSuccess} 
+            isError={isError} 
+            msg={isSuccess ? "Signup successful" : isError ? "Signup error " + error : ""}
+        />
       
       <AuthSideImg />
       
@@ -31,13 +38,19 @@ const RegisterSuperAgent = () => {
                     <Input 
                         labelname="Firstname"
                         placeholder="Firstname"
-                        name="firstName"
+                        name="firstname"
                         data-test="user-firstname"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.errors.firstname}
                     />
                     <Input 
                         placeholder="Lastname" 
-                        name="lastName"
+                        name="lastname"
                         data-test="user-lastname"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.errors.lastname}
                     />
                 </div>
                 
@@ -46,6 +59,9 @@ const RegisterSuperAgent = () => {
                     placeholder="Email address"
                     name="email"
                     data-test="user-email"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.email}
                 />
                 
                 <p className="mt-4">Phone Number</p>
@@ -53,6 +69,9 @@ const RegisterSuperAgent = () => {
                     placeholder="Phone number"
                     name="phoneNumber"
                     data-test="user-phoneNumber"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.phoneNumber}
                 />
                 
                 <p className="mt-4">Business Name</p>
@@ -60,6 +79,9 @@ const RegisterSuperAgent = () => {
                     placeholder="Business username"
                     name="companyName"
                     data-test="user-companyName"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.companyName}
                 />
 
                 <p className="mt-4">Region/Location</p>
@@ -67,6 +89,9 @@ const RegisterSuperAgent = () => {
                     placeholder="Enter your location"
                     name="location"
                     data-test="user-location"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.location}
                 />
                     
                 <p className="mt-4">Password</p>
@@ -74,6 +99,9 @@ const RegisterSuperAgent = () => {
                     placeholder="Enter password"
                     name="password"
                     data-test="user-password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.password}
                 />
             </div>
 
@@ -90,7 +118,7 @@ const RegisterSuperAgent = () => {
                     size={"long"}
                     variant="primary"
                     isLoading={isPending}
-                    disabled={!formik.isValid || isPending}
+                    disabled={isPending}
                     dataTest="sign-in"
                     name="sign-in"
                     id="sign-in"

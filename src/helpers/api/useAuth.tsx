@@ -29,11 +29,11 @@ import { TOKEN } from "@/utils/token";
 // login for agent and individual
 export const useLogin = () => {
     const router = useRouter();
-    const { signupUrl } = useUrls();
+    const { loginUrl } = useUrls();
     const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["login"],
         mutationFn: (payload: Partial<IAuthLogin>) => {
-          return axiosInstance.post(signupUrl, payload)
+          return axiosInstance.post(loginUrl, payload)
         },
     })    
   
@@ -53,9 +53,9 @@ export const useLogin = () => {
               setUserDetails(res.data);
               router.push(FRONTEND_URL.VERIFY_ACCOUNT);
             },
-              // onError: (res: any) => {
-
-              // },
+            onError: (res: any) => {
+              
+            },
           });
           formik.handleReset;
         } catch (error: any) {
@@ -91,8 +91,8 @@ export const useLogin = () => {
           roles: HUBSTACKROLES.INDIVIDUAL,
           password: "",
         } as IAuthIndividualSignup,
-        validateOnBlur: true,
-        validateOnChange: true,
+        validateOnBlur: false,
+        validateOnChange: false,
         validationSchema: SignupSchemaIndividual,
         onSubmit: async ({ ...values }) => {
           try {
@@ -143,8 +143,8 @@ export const useSignupAgent = () => {
         roles: HUBSTACKROLES.AGENT,
         password: "",
       } as IAuthAgentSignup,
-      validateOnBlur: true,
-      validateOnChange: true,
+      validateOnBlur: false,
+      validateOnChange: false,
       validationSchema: SignupSchemaAgent,
       onSubmit: async ({ ...values }) => {
         try {
@@ -193,8 +193,8 @@ export const useSignupAgent = () => {
         roles: HUBSTACKROLES.AGENT,
         password: "",
       } as IAuthSuperAgentSignup,
-      validateOnBlur: true,
-      validateOnChange: true,
+      validateOnBlur: false,
+      validateOnChange: false,
       validationSchema: SignupSchemaSuperAgent,
       onSubmit: async ({ ...values }) => {
         try {
@@ -275,10 +275,10 @@ export const useVerifyLogin = () => {
 // Password reset
 export const useResetPassword = () => {
   const router = useRouter();
-  const { resetPassword } = useUrls();
+  const { resetPasswordUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["reset password"],
       mutationFn: (payload: Partial<{email: string}>) => {
-        return axiosInstance.post(resetPassword, payload)
+        return axiosInstance.post(resetPasswordUrl, payload)
       },
   })  
 
@@ -286,8 +286,8 @@ export const useResetPassword = () => {
     initialValues: {
       email: "",
     } as { email: string },
-    validateOnBlur: false,
-    validateOnChange: true,
+    validateOnBlur: true,
+    validateOnChange: false,
     validationSchema: ResetPasswordSchema,
     onSubmit: async ({ ...values }) => {
       try {
@@ -322,10 +322,10 @@ export const useResetPassword = () => {
 // set new password
 export const useSetPassword = () => {
   const router = useRouter();
-  const { resetPassword } = useUrls();
+  const { resetPasswordUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["set password"],
       mutationFn: (payload: Partial<{ newPassword: string, confirmNewPassword: string }>) => {
-        return axiosInstance.post(resetPassword, payload)
+        return axiosInstance.post(resetPasswordUrl, payload)
       },
   })  
 

@@ -2,6 +2,7 @@
 import AuthSideImg from "@/components/authSideImg";
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/inputs";
+import ToastComponent from "@/components/common/toastComponent";
 import { useResetPassword } from "@/helpers/api/useAuth";
 import { FRONTEND_URL } from "@/utils/pages";
 import { useRouter } from "next/navigation";
@@ -9,7 +10,7 @@ import { FormEvent } from "react";
 
 const ResetPassword = () => {
   const router = useRouter();
-  const { formik, isPending } = useResetPassword();
+  const { formik, isPending, isSuccess, isError, error } = useResetPassword();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -18,6 +19,12 @@ const ResetPassword = () => {
 
   return (
     <div className="flex pb-10 slideshow lg:pb-0 lg:gap-x-4 xl:gap-x-8 w-full">
+      
+      <ToastComponent
+        isSuccess={isSuccess} 
+        isError={isError} 
+        msg={isSuccess ? "Password reset successful" : isError ? "Password reset error " + error : ""}
+      />
       
       <AuthSideImg />
 
@@ -39,24 +46,29 @@ const ResetPassword = () => {
                 error={formik.errors.email}
             />
 
-            <div className="flex flex-col gap-4 items-center justify-center mt-8">
+            <div className="flex flex-col items-center justify-center mt-8">
                 <Button 
                     size={"long"}
                     variant="primary"
                     isLoading={isPending}
-                    disabled={!formik.isValid || isPending}
+                    disabled={isPending}
                 >
                     SEND
                 </Button>
-                <Button 
-                    size={"long"}
-                    variant="secondary"
-                    onClick={() => router.push(FRONTEND_URL.LOGIN)}
-                >
-                    BACK TO LOGIN
-                </Button>
+                
             </div>
         </form>
+
+        
+        <div className="flex flex-col items-center justify-center mt-4">
+          <Button 
+              size={"long"}
+              variant="secondary"
+              onClick={() => router.push(FRONTEND_URL.LOGIN)}
+          >
+              BACK TO LOGIN
+          </Button>
+        </div>
 
       </div>
     </div>

@@ -6,9 +6,10 @@ import { Button } from "@/components/common/button";
 import { Input, PasswordVariantInput } from "@/components/common/inputs";
 import Link from "@/components/custom/link";
 import { useSignupAgent } from "@/helpers/api/useAuth";
+import ToastComponent from "@/components/common/toastComponent";
 
 const RegisterAgent = () => {
-  const { formik, isPending } = useSignupAgent()
+  const { formik, isPending, isSuccess, isError, error } = useSignupAgent()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -18,6 +19,12 @@ const RegisterAgent = () => {
 
   return (
     <div className="flex pb-10 slideshow lg:pb-0 lg:gap-x-4 xl:gap-x-8 w-full">
+
+    <ToastComponent
+      isSuccess={isSuccess} 
+      isError={isError} 
+      msg={isSuccess ? "Signup successful" : isError ? "Signup error " + error : ""}
+    />
       
       <AuthSideImg />
       
@@ -31,13 +38,19 @@ const RegisterAgent = () => {
                 <div className="flex gap-4 grid grid-cols-2">
                     <Input 
                         placeholder="Firstname"
-                        name="firstName"
+                        name="firstname"
                         data-test="username-firstname"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.errors.firstname}
                     />
                     <Input 
                         placeholder="Lastname"
-                        name="lastName"
+                        name="lastname"
                         data-test="username-lastname"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.errors.lastname}
                     />
                 </div>
                 
@@ -46,6 +59,9 @@ const RegisterAgent = () => {
                     placeholder="Email address"
                     name="email"
                     data-test="username-email"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.email}
                 />
                 
                 <p className="mt-4">Phone Number</p>
@@ -53,6 +69,9 @@ const RegisterAgent = () => {
                     placeholder="Phone number"
                     name="phoneNumber"
                     data-test="username-phoneNumber"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.phoneNumber}
                 />
                 
                 <p className="mt-4">Business User Name</p>
@@ -60,6 +79,9 @@ const RegisterAgent = () => {
                     placeholder="Business user"
                     name="companyName"
                     data-test="username-companyName"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.companyName}
                 />
 
                 <p className="mt-4">Super Agent user</p>
@@ -67,6 +89,9 @@ const RegisterAgent = () => {
                     placeholder="Super Agent user"
                     name="superAgent"
                     data-test="username-superAgent"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.superAgent}
                 />
 
                 <p className="mt-4">Region/Location</p>
@@ -74,6 +99,9 @@ const RegisterAgent = () => {
                     placeholder="Enter your location"
                     name="location"
                     data-test="username-location"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.location}
                 />
                     
                 <p className="mt-4">Password</p>
@@ -81,6 +109,9 @@ const RegisterAgent = () => {
                     placeholder="Enter password"
                     name="password"
                     data-test="username-password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.password}
                 />
             </div>
 
@@ -97,7 +128,7 @@ const RegisterAgent = () => {
                     size={"long"}
                     variant="primary"
                     isLoading={isPending}
-                    disabled={!formik.isValid || isPending}
+                    disabled={isPending}
                     dataTest="sign-in"
                     name="sign-in"
                     id="sign-in"
