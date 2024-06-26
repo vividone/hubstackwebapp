@@ -4,10 +4,12 @@ export interface IAuthLogin {
 }
 
 export interface IAuthIndividualSignup {
-  firstname: string;
-  lastname: string;
+  first_name: string;
+  last_name: string;
+  username: string;
   email: string;
-  phoneNumber: string;
+  phone_number: string;
+  role?: string;
   password: string;
 }
 
