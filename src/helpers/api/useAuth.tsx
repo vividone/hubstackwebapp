@@ -1,6 +1,7 @@
 import axiosInstance from "@/helpers/axiosConfig";
 import { useUrls } from "@/helpers/useUrls";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import useSessionStorage from "@/hooks/useSessionStorage";
 import {
     IAuthLogin,
     IAuthIndividualSignup,
@@ -30,6 +31,8 @@ import { TOKEN } from "@/utils/token";
 export const useLogin = () => {
     const router = useRouter();
     const { loginUrl } = useUrls();
+    const [, setToken] = useSessionStorage(TOKEN.ACCESS);
+    const [, setUserToken] = useSessionStorage(TOKEN.USER);
     const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["login"],
         mutationFn: (payload: Partial<IAuthLogin>) => {
@@ -50,7 +53,9 @@ export const useLogin = () => {
           await formik.validateForm();
           mutate(values, {
             onSuccess: (res) => {
-              setUserDetails(res.data);
+              setUserDetails({email: values.email});
+              setToken(res.data.access_token);
+              setUserToken({email: values.email});
               router.push(FRONTEND_URL.VERIFY_ACCOUNT);
             },
             onError: (res: any) => {

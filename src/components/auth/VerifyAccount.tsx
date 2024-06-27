@@ -38,7 +38,7 @@ const VerifyAccount = () => {
           error={otpError}
         />
         {isError && (
-          <div className="items-center space-x-2">
+          <div className="flex items-center space-x-2">
             <ErrorIcon />
             <p className="text-sm  text-maroon-200">{error || "Password reset error"}</p>
           </div>
@@ -69,7 +69,7 @@ const VerifyAccount = () => {
       {/* Confirmation success modal */}
 
       {
-        isSuccess || isError ?
+        isSuccess ?
         <ConfirmationMessage heading="Hello John" text="Your personal account has been created successfully" />
         : 
         ""
