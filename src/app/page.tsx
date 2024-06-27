@@ -7,7 +7,6 @@ import Link from "@/components/custom/link";
 import { useLogin } from "@/helpers/api/useAuth";
 import { FRONTEND_URL } from "@/utils/pages";
 import { FormEvent } from "react";
-import Dashboard from "../components/page/Dashboard";
 
 const Login = () => {
   const { formik, isPending, isSuccess, isError, error } = useLogin()

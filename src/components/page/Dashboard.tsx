@@ -1,11 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "../custom/link";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
-import AccountBalanceWalletRoundedIcon from "@mui/icons-material/AccountBalanceWalletRounded";
 
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -56,7 +54,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="w-full sm:w-[30%] md:w-[40%] lg:w-[30%] xl:w-[280px] h-screen bg-[#3D3066] flex flex-col gap-[30px] text-[whitesmoke] font-CabinetGrotesk">
+    <div className="w-full sm:w-[60%] md:w-[50%] lg:w-[30%] xl:w-[280px] h-screen bg-[#3D3066] flex flex-col gap-[30px] text-[whitesmoke] font-CabinetGrotesk">
       <div className="pl-[20px] pt-[20px]">
         <span>
           <Image
