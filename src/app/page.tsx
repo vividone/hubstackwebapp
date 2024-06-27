@@ -7,6 +7,7 @@ import Link from "@/components/custom/link";
 import { useLogin } from "@/helpers/api/useAuth";
 import { FRONTEND_URL } from "@/utils/pages";
 import { FormEvent } from "react";
+import Dashboard from "../components/page/Dashboard";
 
 const Login = () => {
   const { formik, isPending, isSuccess, isError, error } = useLogin()
@@ -25,10 +26,10 @@ const Login = () => {
         isError={isError} 
         msg={isSuccess ? "Login successful" : isError ? "Login error " + error : ""}
       />
-      
-      <AuthSideImg />
+       
+       <AuthSideImg /> 
 
-      <div className="md:w-[65%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-center">
+       <div className="md:w-[65%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-center">
        
         <p className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px]">Login as an Individual</p>
         
@@ -55,14 +56,14 @@ const Login = () => {
                 
             </div>
 
-            <p className="text-left 2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
+             <p className="text-left 2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
                 Forgot password?
                 <Link href={FRONTEND_URL.RESET_PASSWORD} className="text-[#3D3066] font-medium"> RESET</Link> 
-            </p>
+            </p> 
 
             {/* Already login */}
-            <div className="flex justify-center">
-                <Button 
+             <div className="flex justify-center"> 
+                 <Button 
                     size={"long"}
                     variant="primary"
                     isLoading={isPending}
@@ -74,17 +75,17 @@ const Login = () => {
                 >
                     LOG IN
                 </Button>
-            </div>
-        </form>
+            </div> 
+         </form> 
 
 
         <p className="text-center 2xl:text-[20px] xl:text-[18px] text-[16px] mt-6">
             Not an individual? 
             <Link href={FRONTEND_URL.AGENT_LOGIN} className="text-[#3D3066] font-medium"> LOGIN AS AN AGENT</Link> 
-        </p>
+        </p> 
 
         {/* Already login */}
-        <div className="flex w-full items-center mt-6 gap-2 justify-center">
+         <div className="flex w-full items-center mt-6 gap-2 justify-center">
           <p className=" text-s">
             Don&apos;t have an account?
           </p>
@@ -94,8 +95,8 @@ const Login = () => {
           >
             CREATE ACCOUNT
           </Link>
-        </div>
-      </div>
+        </div> 
+       </div> 
     </div>
   );
 };
