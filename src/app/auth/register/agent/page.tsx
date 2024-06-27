@@ -38,19 +38,19 @@ const RegisterAgent = () => {
                 <div className="flex gap-4 grid grid-cols-2">
                     <Input 
                         placeholder="Firstname"
-                        name="firstname"
+                        name="first_name"
                         data-test="username-firstname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.firstname}
+                        error={formik.errors.first_name}
                     />
                     <Input 
                         placeholder="Lastname"
-                        name="lastname"
+                        name="last_name"
                         data-test="username-lastname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.lastname}
+                        error={formik.errors.last_name}
                     />
                 </div>
                 
@@ -67,31 +67,31 @@ const RegisterAgent = () => {
                 <p className="mt-4">Phone Number</p>
                 <Input 
                     placeholder="Phone number"
-                    name="phoneNumber"
+                    name="phone_number"
                     data-test="username-phoneNumber"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.phoneNumber}
+                    error={formik.errors.phone_number}
                 />
                 
                 <p className="mt-4">Business User Name</p>
                 <Input 
                     placeholder="Business user"
-                    name="companyName"
+                    name="company_name"
                     data-test="username-companyName"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.companyName}
+                    error={formik.errors.company_name}
                 />
 
                 <p className="mt-4">Super Agent user</p>
                 <Input 
                     placeholder="Super Agent user"
-                    name="superAgent"
+                    name="super_agent"
                     data-test="username-superAgent"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.superAgent}
+                    error={formik.errors.super_agent}
                 />
 
                 <p className="mt-4">Region/Location</p>

@@ -4,36 +4,35 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { Button } from "../common/button";
 import { OTPInput } from "../common/OtpInput";
 import ConfirmationMessage from "./confirmation";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 
 const VerifyAccount = () => {
   const [otpError, setOtpError] = useState(false);
   const [verifyOtp, setVerifyOtp] = useState("");
+  const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   // const { formik: resendFormik, resendOTPIsSuccess } = useResendOTP();
   const { formik, isPending, isSuccess, isError, error } = useVerifyLogin();
 
-  useEffect(() => {
+  const handleChange = (otp: string) => {
+    setVerifyOtp(otp)
     setOtpError(false);
-    if (verifyOtp.length > 5) {
-      formik.setFieldValue("otp", verifyOtp)
+    if (otp.length > 5) {
+      formik.setFieldValue("otp", otp)
+      formik.setFieldValue("email", userDetails.email)
       formik.handleSubmit();
     }
-  }, [verifyOtp]);
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    formik.handleSubmit();
   };
   
   return (
     <div className="flex flex-col w-full">
       {/* form */}
       <form
-        onSubmit={handleSubmit}
         className="flex flex-col mt-8 w-full space-y-4"
       >
         <OTPInput
           className="!w-8 !h-8 lg:!w-12 lg:!h-12"
-          setValue={setVerifyOtp}
+          setValue={handleChange}
           value={verifyOtp}
           error={otpError}
         />
