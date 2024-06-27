@@ -4,7 +4,7 @@ export function useUrls() {
   // Auth endpoints
   // i did not put v1 in the base url because of these things can change
   const loginUrl = `${BASE_URL}/auth/login`;
-  const signupUrl = `${BASE_URL}/auth/register`;
+  const signupUrl = `${BASE_URL}/auth/register-individual`;
   const logOutUrl = `${BASE_URL}/auth/logout`;
   const verifyLoginUrl = `${BASE_URL}/auth/verify`;
   const resetPasswordUrl = `${BASE_URL}/auth/password-reset`;

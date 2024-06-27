@@ -9,7 +9,7 @@ import { useSignupIndividual } from "@/helpers/api/useAuth";
 import ToastComponent from "@/components/common/toastComponent";
 
 const Register = () => {
-  const { formik, isPending, isSuccess, isError, error } = useSignupIndividual()
+  const { formik, isPending, isSuccess, isError, error } = useSignupIndividual("Individual")
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -39,22 +39,31 @@ const Register = () => {
                     <Input 
                         labelname="First name"
                         placeholder="Firstname"
-                        name="firstname"
+                        name="first_name"
                         data-test="user-firstname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.firstname}
+                        error={formik.errors.first_name}
                     />
                     <Input 
                         placeholder="Lastname"
-                        name="lastname"
+                        name="last_name"
                         data-test="user-lastname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.lastname}
+                        error={formik.errors.last_name}
                     />
                 </div>
                 
+                <p className="mt-4">Username</p>
+                <Input 
+                    placeholder="Username"
+                    name="username"
+                    data-test="user-name"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.username}
+                />
                 <p className="mt-4">Email Address</p>
                 <Input 
                     placeholder="Email Address"
@@ -68,11 +77,11 @@ const Register = () => {
                 <p className="mt-4">Phone Number</p>
                 <Input 
                     placeholder="Phone number"
-                    name="phoneNumber"
+                    name="phone_number"
                     data-test="user-phoneNumber"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.phoneNumber}
+                    error={formik.errors.phone_number}
                 />
                     
                 <p className="mt-4">Password</p>

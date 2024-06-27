@@ -11,14 +11,16 @@ export const LoginSchemaPhone = Yup.object().shape({
 });
 
 export const SignupSchemaIndividual = Yup.object().shape({
-  firstname: Yup.string().required("Fullname is required"),
-  lastname: Yup.string().required("Fullname is required"),
+  first_name: Yup.string().required("Fullname is required"),
+  last_name: Yup.string().required("Fullname is required"),
+  username: Yup.string().required("Phone number is required"),
   email: Yup.string()
     .required("Email is required")
     .trim()
     .lowercase()
     .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
-  phoneNumber: Yup.string().required("Phone number is required"),
+  phone_number: Yup.string().required("Phone number is required"),
+  role: Yup.string().optional(),
   password: Yup.string()
     .required("Password is required")
     .min(6, "Password must not be less 6 characters")

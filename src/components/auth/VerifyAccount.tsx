@@ -44,7 +44,7 @@ const VerifyAccount = () => {
           </div>
         )}
         
-        <p className="flex items-center justify-center text-center gap-2 2xl:text-[20px] xl:text-[18px] text-[16px]">
+        <p className="flex items-center justify-center text-center pt-8 gap-2 2xl:text-[20px] xl:text-[18px] text-[16px]">
             Didn&apos;t get code?
             <button className="text-[#3D3066] font-medium"> RESEND</button> 
         </p>

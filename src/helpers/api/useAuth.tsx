@@ -72,7 +72,7 @@ export const useLogin = () => {
 
 
     // signup for individual
-    export const useSignupIndividual = () => {
+    export const useSignupIndividual = (type: string) => {
       const router = useRouter();
       const { signupUrl } = useUrls();
       const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
@@ -84,11 +84,12 @@ export const useLogin = () => {
     
       const formik = useFormik({
         initialValues: {
-          firstname: "",
-          lastname: "",
+          first_name: "",
+          last_name: "",
+          username: "",
           email: "",
-          phoneNumber: "",
-          roles: HUBSTACKROLES.INDIVIDUAL,
+          phone_number: "",
+          role: type,
           password: "",
         } as IAuthIndividualSignup,
         validateOnBlur: false,
@@ -98,8 +99,8 @@ export const useLogin = () => {
           try {
             await formik.validateForm();
             mutate(values, {
-              onSuccess: () => {
-                setUserDetails(values.email);
+              onSuccess: (res) => {
+                setUserDetails(res.data);
                 router.push(FRONTEND_URL.LOGIN);
               },
               //   onError: (res: any) => {
