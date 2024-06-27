@@ -96,7 +96,7 @@ const Login = () => {
             CREATE ACCOUNT
           </Link>
         </div> 
-       </div> 
+       </div>
     </div>
   );
 };
