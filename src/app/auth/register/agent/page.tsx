@@ -76,13 +76,8 @@ const RegisterAgent = () => {
                 
                 <p className="mt-4">Business Name</p>
                 <Input 
-<<<<<<< HEAD
-                    placeholder="Business user"
                     name="company_name"
-=======
                     placeholder="Business Name"
-                    name="companyName"
->>>>>>> 3033043 (Updated few basics)
                     data-test="username-companyName"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -91,13 +86,8 @@ const RegisterAgent = () => {
 
                 <p className="mt-4">Super Agent Reference</p>
                 <Input 
-<<<<<<< HEAD
-                    placeholder="Super Agent user"
+                    placeholder="Super Agent Username"
                     name="super_agent"
-=======
-                    placeholder="Super Agent ID"
-                    name="superAgent"
->>>>>>> 3033043 (Updated few basics)
                     data-test="username-superAgent"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
