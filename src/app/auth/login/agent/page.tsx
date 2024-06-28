@@ -78,8 +78,8 @@ const AgentLogin = () => {
         </form>
 
         <p className="text-center 2xl:text-[20px] xl:text-[18px] text-[16px] mt-6">
-            Not an individual? 
-            <Link href={FRONTEND_URL.LOGIN} className="text-[#3D3066] font-medium uppercase"> login as an individual</Link> 
+            Not an Agent? 
+            <Link href={FRONTEND_URL.LOGIN} className="text-[#3D3066] font-medium uppercase"> login as an Individual</Link> 
         </p>
 
         {/* Already login */}
