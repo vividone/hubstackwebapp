@@ -1,6 +1,6 @@
 export enum HUBSTACKROLES {
-  INDIVIDUAL = "personal", // now personal
+  INDIVIDUAL = "Individual", // now personal
   SUPERAGENT = "superagent",
-  AGENT = "agent",
+  AGENT = "Agent",
   ADMIN = "admin",
 }

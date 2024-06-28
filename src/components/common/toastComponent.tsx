@@ -16,7 +16,7 @@ const ToastComponent = ({ isSuccess, isError, msg }: status) => {
     if (isError) {
         toast.error(msg);
     }
-  }, [isSuccess, isError]);
+  }, [isSuccess, isError, msg]);
 
     return (
         <Toaster containerClassName="p-8" />

@@ -1,6 +1,7 @@
 import axiosInstance from "@/helpers/axiosConfig";
 import { useUrls } from "@/helpers/useUrls";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import useSessionStorage from "@/hooks/useSessionStorage";
 import {
     IAuthLogin,
     IAuthIndividualSignup,
@@ -30,6 +31,8 @@ import { TOKEN } from "@/utils/token";
 export const useLogin = () => {
     const router = useRouter();
     const { loginUrl } = useUrls();
+    const [, setToken] = useSessionStorage(TOKEN.ACCESS);
+    const [, setUserToken] = useSessionStorage(TOKEN.USER);
     const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["login"],
         mutationFn: (payload: Partial<IAuthLogin>) => {
@@ -50,7 +53,9 @@ export const useLogin = () => {
           await formik.validateForm();
           mutate(values, {
             onSuccess: (res) => {
-              setUserDetails(res.data);
+              setUserDetails({email: values.email});
+              setToken(res.data.access_token);
+              setUserToken({email: values.email});
               router.push(FRONTEND_URL.VERIFY_ACCOUNT);
             },
             onError: (res: any) => {
@@ -74,11 +79,11 @@ export const useLogin = () => {
     // signup for individual
     export const useSignupIndividual = (type: string) => {
       const router = useRouter();
-      const { signupUrl } = useUrls();
+      const { signupIndividualUrl } = useUrls();
       const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
       const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up individual"],
           mutationFn: (payload: Partial<IAuthIndividualSignup>) => {
-            return axiosInstance.post(signupUrl, payload)
+            return axiosInstance.post(signupIndividualUrl, payload)
           },
       })    
     
@@ -124,24 +129,24 @@ export const useLogin = () => {
 // Signup for agent
 export const useSignupAgent = () => {
     const router = useRouter();
-    const { signupUrl } = useUrls();
+    const { signupAgentUrl } = useUrls();
     const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up agent"],
         mutationFn: (payload: Partial<IAuthAgentSignup>) => {
-          return axiosInstance.post(signupUrl, payload)
+          return axiosInstance.post(signupAgentUrl, payload)
         },
     })    
   
     const formik = useFormik({
       initialValues: {
-        firstname: "",
-        lastname: "",
+        first_name: "",
+        last_name: "",
         email: "",
-        phoneNumber: "",
-        companyName: "",
-        superAgent: "",
+        phone_number: "",
+        company_name: "",
+        super_agent: "",
         location: "",
-        roles: HUBSTACKROLES.AGENT,
+        role: HUBSTACKROLES.AGENT,
         password: "",
       } as IAuthAgentSignup,
       validateOnBlur: false,
@@ -151,8 +156,8 @@ export const useSignupAgent = () => {
         try {
           await formik.validateForm();
           mutate(values, {
-            onSuccess: () => {
-              setUserDetails(values.email);
+            onSuccess: (res) => {
+              setUserDetails(res.data);
               router.push(FRONTEND_URL.LOGIN);
             },
             //   onError: (res: any) => {
@@ -175,11 +180,11 @@ export const useSignupAgent = () => {
   // signup for super agent
   export const useSignupSuperAgent = () => {
     const router = useRouter();
-    const { signupUrl } = useUrls();
+    const { signupAgentUrl } = useUrls();
     const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up superagent"],
         mutationFn: (payload: Partial<IAuthSuperAgentSignup>) => {
-          return axiosInstance.post(signupUrl, payload)
+          return axiosInstance.post(signupAgentUrl, payload)
         },
     })    
   
@@ -237,7 +242,7 @@ export const useVerifyLogin = () => {
   const formik = useFormik({
     initialValues: {
       otp: "",
-      email: "user@example.com",
+      email: "",
     } as IVerifyLogin,
     validateOnBlur: false,
     validateOnChange: false,
