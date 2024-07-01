@@ -4,7 +4,8 @@ import Image from "next/image";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
-
+import AccountBalanceWalletRoundedIcon from "@mui/icons-material/AccountBalanceWalletRounded";
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -39,12 +40,7 @@ const Dashboard = () => {
     {
       name: "Profile",
       logo: (
-        <Image
-          src="\images\dollar-bag-1.svg"
-          width={27}
-          height={27}
-          alt="logo"
-        />
+        <PermIdentityOutlinedIcon sx={{ fontSize: 30}} />
       ),
       subItems: [
         { name: "View Profile", href: "/profile/view" },
@@ -54,8 +50,8 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="w-full sm:w-[60%] md:w-[50%] lg:w-[30%] xl:w-[280px] h-screen bg-[#3D3066] flex flex-col gap-[30px] text-[whitesmoke] font-CabinetGrotesk">
-      <div className="pl-[20px] pt-[20px]">
+    <div className="w-35%  sm:w-[25%] md:w-[35%] lg:w-[30%] xl:w-[250px] min-h-screen bg-[#3D3066] flex flex-col gap-[20px] text-[whitesmoke] font-CabinetGrotesk  ">
+      <div className="pl-[20px] pt-[20px] h-[10%]">
         <span>
           <Image
             src="/images/hubstackLogo.svg"
@@ -65,7 +61,7 @@ const Dashboard = () => {
           />
         </span>
       </div>
-      <div className="p-[20px] flex flex-col flex-1">
+      <div className="p-[20px] flex flex-col flex-1 f" >
         <ul className="list-none p-0 m-0">
           {menuItems.map((item, index) => (
             <li
