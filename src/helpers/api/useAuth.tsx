@@ -139,12 +139,13 @@ export const useSignupAgent = () => {
   
     const formik = useFormik({
       initialValues: {
-        first_name: "",
-        last_name: "",
+        firstname: "",
+        lastname: "",
+        username: "",
         email: "",
-        phone_number: "",
-        company_name: "",
-        super_agent: "",
+        phonenumber: "",
+        business_username: "",
+        region: "",
         location: "",
         role: HUBSTACKROLES.AGENT,
         password: "",
