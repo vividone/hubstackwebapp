@@ -1,14 +1,23 @@
 'use client'
 import { FRONTEND_URL } from "@/utils/pages";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 import AuthSideImg from "@/components/authSideImg";
 import { Button } from "@/components/common/button";
 import { Input, PasswordVariantInput } from "@/components/common/inputs";
 import Link from "@/components/custom/link";
 import { useSignupAgent } from "@/helpers/api/useAuth";
 import ToastComponent from "@/components/common/toastComponent";
+import { Dropdown } from "@/components/common/Dropdown";
+import { regions, states } from "@/data/locationRegions";
+
+type Options = {
+  label: string,
+  value: string
+}
 
 const RegisterAgent = () => {
+  const [ selectedState, setSelectedState ] = useState<Options>({ label: "", value: "" })
+  const [ selectedRegion, setSelectedRegion ] = useState<Options>()
   const { formik, isPending, isSuccess, isError, error } = useSignupAgent()
 
   const handleSubmit = async (e: FormEvent) => {
@@ -38,22 +47,31 @@ const RegisterAgent = () => {
                 <div className="flex gap-4 grid grid-cols-2">
                     <Input 
                         placeholder="Firstname"
-                        name="first_name"
+                        name="firstname"
                         data-test="username-firstname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.first_name}
+                        error={formik.errors.firstname}
                     />
                     <Input 
                         placeholder="Lastname"
-                        name="last_name"
+                        name="lastname"
                         data-test="username-lastname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.last_name}
+                        error={formik.errors.lastname}
                     />
                 </div>
                 
+                <p className="mt-4">Username</p>
+                <Input 
+                    placeholder="Username"
+                    name="username"
+                    data-test="username"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.errors.username}
+                />
                 <p className="mt-4">Email Address</p>
                 <Input 
                     placeholder="Email address"
@@ -67,41 +85,71 @@ const RegisterAgent = () => {
                 <p className="mt-4">Phone Number</p>
                 <Input 
                     placeholder="Phone number"
-                    name="phone_number"
+                    name="phonenumber"
                     data-test="username-phoneNumber"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.phone_number}
+                    error={formik.errors.phonenumber}
                 />
                 
                 <p className="mt-4">Business Name</p>
                 <Input 
-                    name="company_name"
+                    name="business_username"
                     placeholder="Business Name"
                     data-test="username-companyName"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.company_name}
+                    error={formik.errors.business_username}
                 />
 
-                <p className="mt-4">Super Agent Reference</p>
-                <Input 
-                    placeholder="Super Agent Username"
-                    name="super_agent"
-                    data-test="username-superAgent"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.super_agent}
+                <p className="mt-4">Location</p>
+                <Dropdown
+                  placeholder="Location"
+                  name="location"
+                  value={selectedState || ""}
+                  error={formik.errors.location && formik.touched.location ? true : false}
+                  onChange={(value) => {
+                    if (value) {
+                      const selectedOption = value as Options;
+                      setSelectedState(selectedOption)
+                      formik.setFieldValue("location", selectedOption.value);
+                    } else {
+                      formik.setFieldValue("location", null);
+                    }
+                  }}
+                  onBlur={() => {
+                    formik.setFieldTouched("location", true);
+                  }}
+                  options={states.map((item: any) => ({
+                    label: item,
+                    value: item,
+                  }))}
+                  className="items-start text-start justify-start rounded-lg border border-[#E7E6F2] "
                 />
-
-                <p className="mt-4">Region/Location</p>
-                <Input 
-                    placeholder="Enter your location"
-                    name="location"
-                    data-test="username-location"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.location}
+                
+                <p className="mt-4">Region</p>
+                <Dropdown
+                  placeholder="Region"
+                  name="region"
+                  value={selectedRegion || ""}
+                  error={formik.errors.region && formik.touched.region ? true : false}
+                  onChange={(value) => {
+                    if (value) {
+                      const selectedOption = value as Options;
+                      setSelectedRegion(selectedOption)
+                      formik.setFieldValue("region", selectedOption.value);
+                    } else {
+                      formik.setFieldValue("region", null);
+                    }
+                  }}
+                  onBlur={() => {
+                    formik.setFieldTouched("region", true);
+                  }}
+                  options={regions[selectedState.value]?.map((item: string) => ({
+                    label: item,
+                    value: item,
+                  }))}
+                  className="items-start text-start justify-start rounded-lg border border-[#E7E6F2] "
                 />
                     
                 <p className="mt-4">Password</p>

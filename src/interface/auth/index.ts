@@ -14,14 +14,15 @@ export interface IAuthIndividualSignup {
 }
 
 export interface IAuthAgentSignup {
-  first_name: string;
-  last_name: string;
+  firstname: string;
+  lastname: string;
+  username: string;
   email: string;
-  phone_number: string;
+  phonenumber: string;
   role?: string;
-  company_name: string;
-  super_agent: string;
+  business_username: string;
   location: string;
+  region: string;
   password: string;
 }
 
