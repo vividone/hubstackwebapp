@@ -7,9 +7,9 @@ const Pagelayout = ({ children }: any) => {
     <div className="flex w-full">
       <Dashboard />
       <div className="h-full w-[80%] background-[red]">
-        {/* <Navigation />
-        {children} */}
-        <WalletForm />
+        <Navigation />
+        {children}
+        {/* <WalletForm /> */}
       </div>
     </div>
   );
