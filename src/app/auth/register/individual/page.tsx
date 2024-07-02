@@ -39,19 +39,19 @@ const Register = () => {
                     <Input 
                         labelname="First name"
                         placeholder="Firstname"
-                        name="first_name"
+                        name="firstname"
                         data-test="user-firstname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.first_name}
+                        error={formik.errors.firstname}
                     />
                     <Input 
                         placeholder="Lastname"
-                        name="last_name"
+                        name="lastname"
                         data-test="user-lastname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.last_name}
+                        error={formik.errors.lastname}
                     />
                 </div>
                 

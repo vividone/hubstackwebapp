@@ -11,8 +11,8 @@ export const LoginSchemaPhone = Yup.object().shape({
 });
 
 export const SignupSchemaIndividual = Yup.object().shape({
-  first_name: Yup.string().required("Fullname is required"),
-  last_name: Yup.string().required("Fullname is required"),
+  firstname: Yup.string().required("Fullname is required"),
+  lastname: Yup.string().required("Fullname is required"),
   username: Yup.string().required("Phone number is required"),
   email: Yup.string()
     .required("Email is required")
@@ -31,9 +31,8 @@ export const SignupSchemaIndividual = Yup.object().shape({
 });
 
 export const SignupSchemaAgent = Yup.object().shape({
-  firstname: Yup.string().required("Fullname is required"),
-  lastname: Yup.string().required("Fullname is required"),
-  username: Yup.string().required("Username is required"),
+  firstname: Yup.string().required("First Name is required"),
+  lastname: Yup.string().required("Last Name is required"),
   email: Yup.string()
     .required("Email is required")
     .trim()

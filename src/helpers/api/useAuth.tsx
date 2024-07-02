@@ -89,8 +89,8 @@ export const useLogin = () => {
     
       const formik = useFormik({
         initialValues: {
-          first_name: "",
-          last_name: "",
+          firstname: "",
+          lastname: "",
           username: "",
           email: "",
           phone_number: "",
@@ -141,7 +141,6 @@ export const useSignupAgent = () => {
       initialValues: {
         firstname: "",
         lastname: "",
-        username: "",
         email: "",
         phonenumber: "",
         business_username: "",

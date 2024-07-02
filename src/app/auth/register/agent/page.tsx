@@ -108,7 +108,7 @@ const RegisterAgent = () => {
                   name="location"
                   value={selectedState || ""}
                   error={formik.errors.location && formik.touched.location ? true : false}
-                  onChange={(value) => {
+                  onChange={(value: Options) => {
                     if (value) {
                       const selectedOption = value as Options;
                       setSelectedState(selectedOption)
@@ -133,7 +133,7 @@ const RegisterAgent = () => {
                   name="region"
                   value={selectedRegion || ""}
                   error={formik.errors.region && formik.touched.region ? true : false}
-                  onChange={(value) => {
+                  onChange={(value: Options) => {
                     if (value) {
                       const selectedOption = value as Options;
                       setSelectedRegion(selectedOption)

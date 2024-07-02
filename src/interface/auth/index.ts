@@ -4,8 +4,8 @@ export interface IAuthLogin {
 }
 
 export interface IAuthIndividualSignup {
-  first_name: string;
-  last_name: string;
+  firstname: string;
+  lastname: string;
   username: string;
   email: string;
   phone_number: string;
@@ -16,7 +16,6 @@ export interface IAuthIndividualSignup {
 export interface IAuthAgentSignup {
   firstname: string;
   lastname: string;
-  username: string;
   email: string;
   phonenumber: string;
   role?: string;
