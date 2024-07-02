@@ -3,9 +3,11 @@ import Navigation from "@/components/page/Navigation";
 import Card from "@/components/common/card";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
+import WalletForm from "@/components/common/createwallet";
 
 const Homepage = () => {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
+  const [showWallet, setShowwallet] = useState(false);
   const cardData = [
     {
       logo: "/images/dollar-bag-1.svg",
@@ -51,6 +53,8 @@ const Homepage = () => {
 
   return (
     <div className="flex-1">
+      {showWallet ? <WalletForm /> : null}
+      {}
       <main className="flex flex-col gap-[20px] p-[20px]">
         <div className="self-end">
           <Button size="md">
@@ -62,7 +66,11 @@ const Homepage = () => {
                 height={20}
               />
             </span>
-            {user ? <span>FUND WALLET</span> : <span>CREATE WALLET</span>}
+            {user ? (
+              <span>FUND WALLET</span>
+            ) : (
+              <span onClick={() => setShowwallet(true)}>CREATE WALLET</span>
+            )}
           </Button>
         </div>
         <div className="flex flex-wrap gap-[10px] justify-between">

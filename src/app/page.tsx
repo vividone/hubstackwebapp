@@ -106,11 +106,12 @@ const Login = () => {
             CREATE ACCOUNT
           </Link>
         </div>
+        {/* </div>
+      {/* <Pagelayout>
+       <Homepage/>
+      </Pagelayout> */}
       </div>
     </div>
-    // <Pagelayout>
-    //   <Homepage/>
-    // </Pagelayout>
   );
 };
 

@@ -15,34 +15,34 @@ const WalletForm = () => {
     terms: false,
   };
 
-  const validationSchema = Yup.object({
-    firstName: Yup.string().required("Required"),
-    lastName: Yup.string().required("Required"),
-    email: Yup.string().email("Invalid email address").required("Required"),
-    phoneNumber: Yup.string()
-      .matches(/^\d+$/, "Invalid phone number")
-      .required("Required"),
-    bvn: Yup.string()
-      .length(11, "BVN must be exactly 11 digits")
-      .matches(/^\d+$/, "Invalid BVN")
-      .required("Required"),
-    dateOfBirth: Yup.date().required("Required"),
-    homeAddress: Yup.string().required("Required"),
-    terms: Yup.bool()
-      .oneOf([true], "You must accept the terms and conditions")
-      .required("Required"),
-  });
+  // const validationSchema = Yup.object({
+  //   firstName: Yup.string().required("Required"),
+  //   lastName: Yup.string().required("Required"),
+  //   email: Yup.string().email("Invalid email address").required("Required"),
+  //   phoneNumber: Yup.string()
+  //     .matches(/^\d+$/, "Invalid phone number")
+  //     .required("Required"),
+  //   bvn: Yup.string()
+  //     .length(11, "BVN must be exactly 11 digits")
+  //     .matches(/^\d+$/, "Invalid BVN")
+  //     .required("Required"),
+  //   dateOfBirth: Yup.date().required("Required"),
+  //   homeAddress: Yup.string().required("Required"),
+  //   terms: Yup.bool()
+  //     .oneOf([true], "You must accept the terms and conditions")
+  //     .required("Required"),
+  // });
 
   const onSubmit = (values:any) => {
     console.log(values);
   };
 
   return (
-    <div className="flex flex-col bg-white w-[45%] text-black p-10">
+    <div className="flex flex-col bg-white w-[490px] text-black p-10 h-screen " >
       <h1 className="font-bold text-2xl mb-2">Create Wallet</h1>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        // validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
         <Form className="flex flex-col w-full h-full">
@@ -82,7 +82,7 @@ const WalletForm = () => {
               <Field
                 name="email"
                 type="email"
-                className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2 w-full"
+                className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2 w-full w-[100%] "
               />
               <ErrorMessage name="email" component="div" />
             </div>
@@ -146,6 +146,7 @@ const WalletForm = () => {
             <Button
               className="w-full h-[40px] p-2 text-white rounded-md text-lg "
               type="submit"
+              size="md"
             >
               Proceed
             </Button>
