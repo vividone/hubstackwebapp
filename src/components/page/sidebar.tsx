@@ -4,13 +4,23 @@ import Image from "next/image";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
-import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import Link from "../custom/link";
+import { TOKEN } from "@/utils/token";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { useRouter } from "next/navigation";
+
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
+  const router = useRouter()
 
   const handleMenuItemClick = (index: any) => {
     setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const handleLogout = () => {
+    setUserDetails(null)
+    router.push("/")
   };
 
   const menuItems = [
@@ -33,14 +43,14 @@ const Dashboard = () => {
           alt="logo"
         />
       ),
-      href: "/wallet",
+      href: "/dashboard/wallet",
     },
     {
       name: "Services",
       logo: (
         <Image src="\images\services.svg" width={27} height={27} alt="logo" />
       ),
-      href: "/services",
+      href: "/dashboard/services",
     },
   ];
 
@@ -92,7 +102,7 @@ const Dashboard = () => {
           />
           <span>Profile</span>
         </div>
-        <div className="flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer">
+        <div className="flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer" onClick={() => handleLogout()}>
           <Image
             src="/images/log-out 1.svg"
             width={27}
