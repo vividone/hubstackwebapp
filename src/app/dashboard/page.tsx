@@ -1,7 +1,9 @@
-import Dashboard from "@/components/page/sidebar";
-import Pagelayout from "../pagelayout";
 const DashboardPage = () => {
-  return <Pagelayout></Pagelayout>;
+  return (
+    <>
+    Dashboard
+    </>
+  );
 };
 
 export default DashboardPage;
