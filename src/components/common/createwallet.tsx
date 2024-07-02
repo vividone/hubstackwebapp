@@ -2,8 +2,9 @@ import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Button } from "./button"; // Assuming you have a button component
-
-const WalletForm = () => {
+import Link from "next/link";
+import Image from "next/image";
+const WalletForm = ({setShow}: any) => {
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -33,13 +34,23 @@ const WalletForm = () => {
   //     .required("Required"),
   // });
 
-  const onSubmit = (values:any) => {
+  const onSubmit = (values: any) => {
     console.log(values);
   };
 
   return (
-    <div className="flex flex-col bg-white w-[490px] text-black p-10 h-screen " >
-      <h1 className="font-bold text-2xl mb-2">Create Wallet</h1>
+    <div className="flex flex-col bg-white m-w-[35.5vw] text-black  pt-7 pl-10 pr-10 h-screen">
+      <div className="font-medium text-2xl mb-2 flex justify-between">
+        <span>Create Wallet</span>
+        <Image
+          src="./images/close.svg"
+          onClick={() => setShow(false)}
+          alt="close"
+          width={22}
+          height={22}
+          className="cursor-pointer"
+        />
+      </div>
       <Formik
         initialValues={initialValues}
         // validationSchema={validationSchema}
@@ -48,20 +59,20 @@ const WalletForm = () => {
         <Form className="flex flex-col w-full h-full">
           <div className="flex gap-2">
             <div className="flex flex-col flex-1">
-              <label htmlFor="firstName" className="font-medium mt-2">
+              <label htmlFor="firstName" className="font-normal mt-2 font-openSans">
                 First Name
               </label>
               <div>
                 <Field
                   name="firstName"
                   type="text"
-                  className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2"
+                  className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2 "
                 />
                 <ErrorMessage name="firstName" component="div" />
               </div>
             </div>
             <div className="flex flex-col flex-1">
-              <label htmlFor="lastName" className="font-medium mt-2">
+              <label htmlFor="lastName" className="font-normal mt-2 font-openSans">
                 Last Name
               </label>
               <div>
@@ -75,7 +86,7 @@ const WalletForm = () => {
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="email" className="font-medium mt-2">
+            <label htmlFor="email" className="font-normal mt-2 font-openSans">
               Email Address
             </label>
             <div>
@@ -88,7 +99,7 @@ const WalletForm = () => {
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="phoneNumber" className="font-medium mt-2">
+            <label htmlFor="phoneNumber" className="font-normal mt-2 font-openSans">
               Phone Number
             </label>
             <div>
@@ -101,7 +112,7 @@ const WalletForm = () => {
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="bvn" className="font-medium mt-2">
+            <label htmlFor="bvn" className="font-normal mt-2 font-openSans">
               BVN
             </label>
             <div>
@@ -114,20 +125,20 @@ const WalletForm = () => {
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="dateOfBirth" className="font-medium mt-2">
+            <label htmlFor="dateOfBirth" className="font-normal mt-2 font-openSans">
               Date of Birth
             </label>
             <div>
               <Field
                 name="dateOfBirth"
                 type="date"
-                className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2 w-full"
+                className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2 w-full "
               />
               <ErrorMessage name="dateOfBirth" component="div" />
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="homeAddress" className="font-medium mt-2">
+            <label htmlFor="homeAddress" className="font-normal mt-2 font-openSans">
               Home Address
             </label>
             <div>
@@ -139,12 +150,20 @@ const WalletForm = () => {
               <ErrorMessage name="homeAddress" component="div" />
             </div>
           </div>
-          <div className="flex flex-col mt-2 w-full">
-            <span>By continuing, you agree to our Terms and Conditions</span>
+          <div className="flex flex-col mt-2 w-full font-openSans">
+            <span className="pt-1">
+              By continuing, you agree to our{" "}
+              <Link
+                href={""}
+                className="text-[#3D3066] font-medium cursor-pointer"
+              >
+                Terms and Conditions{" "}
+              </Link>
+            </span>
           </div>
           <div className="flex justify-center mt-5 w-full">
             <Button
-              className="w-full h-[40px] p-2 text-white rounded-md text-lg "
+              className="w-[200px] text-xl font-CabinetGrotesk "
               type="submit"
               size="md"
             >

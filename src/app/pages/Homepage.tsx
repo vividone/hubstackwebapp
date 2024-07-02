@@ -8,6 +8,9 @@ import WalletForm from "@/components/common/createwallet";
 const Homepage = () => {
   const [user, setUser] = useState(false);
   const [showWallet, setShowwallet] = useState(false);
+  const setShow = (bool: any) => {
+    setShowwallet(bool);
+  };
   const cardData = [
     {
       logo: "/images/dollar-bag-1.svg",
@@ -52,24 +55,29 @@ const Homepage = () => {
   ];
 
   return (
-    <div className="flex-1">
-      {showWallet ? <WalletForm /> : null}
-      {}
+    <div className="flex-1 relative">
+      {showWallet && (
+        <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
+          <WalletForm setShow={setShow} />
+        </div>
+      )}
       <main className="flex flex-col gap-[20px] p-[20px]">
         <div className="self-end">
-          <Button size="md">
+        {/*for now till i implement the wallet component */}
+          <Button size="md" onClick={() => setShow(true)}>
             <span className="flex items-center">
               <Image
                 src="/images/cross.svg"
                 alt="crosslogo"
                 width={20}
                 height={20}
+                
               />
             </span>
             {user ? (
-              <span>FUND WALLET</span>
+              <span className="w-full">FUND WALLET</span>
             ) : (
-              <span onClick={() => setShowwallet(true)}>CREATE WALLET</span>
+              <span>CREATE WALLET</span>
             )}
           </Button>
         </div>
