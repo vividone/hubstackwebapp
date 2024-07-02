@@ -300,12 +300,12 @@ export const useVerifyLogin = () => {
 
 
 // Password reset
-export const useResetPassword = () => {
+export const useForgotPassword = () => {
   const router = useRouter();
-  const { resetPasswordUrl } = useUrls();
+  const { forgotPasswordUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["reset password"],
       mutationFn: (payload: Partial<{email: string}>) => {
-        return axiosInstance.post(resetPasswordUrl, payload)
+        return axiosInstance.post(forgotPasswordUrl, payload)
       },
   })  
 
@@ -347,7 +347,7 @@ export const useResetPassword = () => {
 
 
 // set new password
-export const useSetPassword = () => {
+export const useResetPassword = () => {
   const router = useRouter();
   const { resetPasswordUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["set password"],

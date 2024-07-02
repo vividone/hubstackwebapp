@@ -9,7 +9,7 @@ export const FRONTEND_URL = {
     SUPERAGENT_REGISTER: "/auth/register/superagent",
     VERIFY_ACCOUNT: "/auth/verify-account",
     VERIFY_CONFIRMATION: "/auth/verify-confirmation",
-    RESET_PASSWORD: "/auth/reset-password",
+    FORGOT_PASSWORD: "/auth/forgot-password",
     RESET_CONFIRMATION: "/auth/reset-confirmation",
     NEW_PASSWORD: "/auth/new-password",
     DASHBOARD: "/dashboard",
