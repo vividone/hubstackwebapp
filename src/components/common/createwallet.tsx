@@ -151,11 +151,11 @@ const WalletForm = ({ setShow }: any) => {
               </Link>
             </span>
           </div>
-          <div className="flex justify-center mt-5 w-full">
+          <div className="flex justify-center mt-5 w-full ">
             <Button
-              className="p-[10px] w-[60%] text-base font-CabinetGrotesk font-bold"
+              className="p-[10px] w-[70%] text-base font-CabinetGrotesk font-bold"
               type="submit"
-              size="lg"
+              // size="lg"
             >
               Proceed
             </Button>
