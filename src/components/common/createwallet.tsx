@@ -1,10 +1,11 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import { Button } from "./button";
 import Link from "next/link";
 import Image from "next/image";
-const WalletForm = ({setShow}: any) => {
+import { Input } from "./inputs";
+import { validationSchema } from "@/schema/walletschema/validation";
+const WalletForm = ({ setShow }: any) => {
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -16,38 +17,20 @@ const WalletForm = ({setShow}: any) => {
     terms: false,
   };
 
-  // const validationSchema = Yup.object({
-  //   firstName: Yup.string().required("Required"),
-  //   lastName: Yup.string().required("Required"),
-  //   email: Yup.string().email("Invalid email address").required("Required"),
-  //   phoneNumber: Yup.string()
-  //     .matches(/^\d+$/, "Invalid phone number")
-  //     .required("Required"),
-  //   bvn: Yup.string()
-  //     .length(11, "BVN must be exactly 11 digits")
-  //     .matches(/^\d+$/, "Invalid BVN")
-  //     .required("Required"),
-  //   dateOfBirth: Yup.date().required("Required"),
-  //   homeAddress: Yup.string().required("Required"),
-  //   terms: Yup.bool()
-  //     .oneOf([true], "You must accept the terms and conditions")
-  //     .required("Required"),
-  // });
-
   const onSubmit = (values: any) => {
     console.log(values);
   };
 
   return (
-    <div className="flex flex-col bg-white m-w-[35.5vw] text-black  pt-7 pl-10 pr-10 h-screen">
+    <div className="flex flex-col bg-white m-w-[35.5vw] text-black  p-10 h-screen overflow-scroll">
       <div className="font-medium text-2xl mb-2 flex justify-between">
         <span>Create Wallet</span>
         <Image
           src="./images/close.svg"
           onClick={() => setShow(false)}
           alt="close"
-          width={22}
-          height={22}
+          width={20}
+          height={20}
           className="cursor-pointer"
         />
       </div>
@@ -59,93 +42,100 @@ const WalletForm = ({setShow}: any) => {
         <Form className="flex flex-col w-full h-full">
           <div className="flex gap-2">
             <div className="flex flex-col flex-1">
-              <label htmlFor="firstName" className="font-normal mt-2 font-openSans">
-                First Name
-              </label>
-              <div>
-                <Field
-                  name="firstName"
-                  type="text"
-                  className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2 "
-                />
-                <ErrorMessage name="firstName" component="div" />
-              </div>
-            </div>
-            <div className="flex flex-col flex-1">
-              <label htmlFor="lastName" className="font-normal mt-2 font-openSans">
-                Last Name
-              </label>
-              <div>
-                <Field
-                  name="lastName"
-                  type="text"
-                  className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2"
-                />
-                <ErrorMessage name="lastName" component="div" />
+              <div className="flex space-x-4">
+                <div className="flex flex-col flex-1">
+                  <label
+                    htmlFor="firstName"
+                    className="font-medium mt-2 font-openSans color-[#111111]"
+                  >
+                    First Name
+                  </label>
+                  <Input
+                    name="firstName"
+                    type="text"
+                    placeholder="First name"
+                    className="mt-1"
+                  />
+                  <ErrorMessage name="firstName" component="div" />
+                </div>
+                <div className="flex flex-col flex-1 justify-end">
+                  <Input
+                    name="lastName"
+                    type="text"
+                    placeholder="Last name"
+                    className="mt-1"
+                  />
+                  <ErrorMessage name="lastName" component="div" />
+                </div>
               </div>
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="email" className="font-normal mt-2 font-openSans">
+            <label htmlFor="email" className="font-medium mt-2 font-openSans">
               Email Address
             </label>
             <div>
-              <Field
-                name="email"
-                type="email"
-                className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2 w-full w-[100%] "
-              />
+              <Input name="email" type="email" placeholder="Email address" />
               <ErrorMessage name="email" component="div" />
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="phoneNumber" className="font-normal mt-2 font-openSans">
+            <label
+              htmlFor="phoneNumber"
+              className="font-medium mt-2 font-openSans"
+            >
               Phone Number
             </label>
             <div>
-              <Field
-                name="phoneNumber"
-                type="text"
-                className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2 w-full"
-              />
+              <Input name="phoneNumber" type="text" placeholder="09023456789" />
               <ErrorMessage name="phoneNumber" component="div" />
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="bvn" className="font-normal mt-2 font-openSans">
-              BVN
+            <label htmlFor="bvn" className="mt-2 font-openSans">
+              <p className="font-medium">BVN</p>
+              <p className="">
+                your bank verification number isn’t stored for any reason on our
+                database
+              </p>
             </label>
             <div>
-              <Field
+              <Input
                 name="bvn"
                 type="text"
-                className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2 w-full"
+                placeholder="Enter your 11 digit BVN"
               />
               <ErrorMessage name="bvn" component="div" />
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="dateOfBirth" className="font-normal mt-2 font-openSans">
+            <label
+              htmlFor="dateOfBirth"
+              className="font-medium mt-2 font-openSans"
+            >
               Date of Birth
             </label>
             <div>
-              <Field
+              <Input
                 name="dateOfBirth"
                 type="date"
-                className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2 w-full "
+                placeholder="Enter you location"
               />
               <ErrorMessage name="dateOfBirth" component="div" />
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="homeAddress" className="font-normal mt-2 font-openSans">
+            <label
+              htmlFor="homeAddress"
+              className="font-medium mt-2 font-openSans"
+            >
               Home Address
             </label>
             <div>
-              <Field
+              <Input
                 name="homeAddress"
                 type="text"
-                className="h-10 outline-none rounded-md border border-gray-200 text-gray-600 px-2 w-full"
+                placeholder="Enter you location"
               />
               <ErrorMessage name="homeAddress" component="div" />
             </div>
@@ -163,9 +153,9 @@ const WalletForm = ({setShow}: any) => {
           </div>
           <div className="flex justify-center mt-5 w-full">
             <Button
-              className="w-[250px] text-xl font-CabinetGrotesk "
+              className="p-[10px] w-[60%] text-base font-CabinetGrotesk font-bold"
               type="submit"
-              size="md"
+              size="lg"
             >
               Proceed
             </Button>

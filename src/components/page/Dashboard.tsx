@@ -4,7 +4,6 @@ import Image from "next/image";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
-import AccountBalanceWalletRoundedIcon from "@mui/icons-material/AccountBalanceWalletRounded";
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState(null);
