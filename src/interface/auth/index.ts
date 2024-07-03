@@ -23,6 +23,7 @@ export interface IAuthAgentSignup {
   location: string;
   region: string;
   password: string;
+  username: string;
 }
 
 export interface IAuthSuperAgentSignup {
