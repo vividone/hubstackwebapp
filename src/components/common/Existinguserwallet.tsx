@@ -64,7 +64,8 @@ const Mywallet = () => {
         <h4>Transactions</h4>
         {/* <ul>
                 li
-            </ul> */}
+            </ul> */
+        }
         <div>
           <span>VIEW MORE TRANSACTIONS</span>
         </div>
