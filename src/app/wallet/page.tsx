@@ -1,12 +1,11 @@
 'use client'
 import React, { useState } from "react";
-import Navigation from "@/components/page/Navigation";
 import Card from "@/components/common/card";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
 import WalletForm from "@/components/common/createwallet";
 import Pagelayout from "../pagelayout";
-const Homepage = () => {
+const Wallet = () => {
   const [user, setUser] = useState(false);
   const [showWallet, setShowwallet] = useState(false);
   const setShow = (bool: any) => {
@@ -94,4 +93,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default Wallet;

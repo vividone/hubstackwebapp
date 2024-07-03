@@ -4,7 +4,8 @@ import Image from "next/image";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
-import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import Link from "../custom/link";
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -20,9 +21,10 @@ const Dashboard = () => {
         { name: "Overview", href: "/dashboard/overview" },
         { name: "Reports", href: "/dashboard/reports" },
       ],
+      href: "/dashboard",
     },
     {
-      name: "Settings",
+      name: "Wallet",
       logo: (
         <Image
           src="\images\dollar-bag-1.svg"
@@ -31,20 +33,14 @@ const Dashboard = () => {
           alt="logo"
         />
       ),
-      subItems: [
-        { name: "Profile Settings", href: "/settings/profile" },
-        { name: "Account Settings", href: "/settings/account" },
-      ],
+      href: "/wallet",
     },
     {
-      name: "Profile",
+      name: "Services",
       logo: (
-        <PermIdentityOutlinedIcon sx={{ fontSize: 30}} />
+        <Image src="\images\services.svg" width={27} height={27} alt="logo" />
       ),
-      subItems: [
-        { name: "View Profile", href: "/profile/view" },
-        { name: "Edit Profile", href: "/profile/edit" },
-      ],
+      href: "/services",
     },
   ];
 
@@ -60,11 +56,12 @@ const Dashboard = () => {
           />
         </span>
       </div>
-      <div className="p-[20px] flex flex-col flex-1 f" >
+      <div className="p-[20px] flex flex-col flex-1 f">
         <ul className="list-none p-0 m-0">
           {menuItems.map((item, index) => (
-            <li
+            <Link
               key={index}
+              href={item.href}
               className={`flex items-center justify-between list-none p-[15px] w-full mb-[10px] rounded-[8px] relative text-[#FFFFFF80] transition-[0.3s] ease-in-out ${
                 activeIndex === index ? "bg-[#FFFFFF1A] text-[whitesmoke]" : ""
               } hover:bg-[#FFFFFF1A] hover:text-[whitesmoke] cursor-pointer`}
@@ -81,7 +78,7 @@ const Dashboard = () => {
                   <KeyboardArrowRightRoundedIcon sx={{ fontSize: 27 }} />
                 )}
               </span>
-            </li>
+            </Link>
           ))}
         </ul>
       </div>

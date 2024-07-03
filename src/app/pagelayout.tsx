@@ -1,5 +1,5 @@
 import React from "react";
-import Dashboard from "@/components/page/Dashboard";
+import Dashboard from "@/components/page/sidebar";
 import Navigation from "@/components/page/Navigation";
 import Mywallet from "@/components/common/Existinguserwallet";
 
