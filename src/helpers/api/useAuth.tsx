@@ -89,8 +89,8 @@ export const useLogin = () => {
     
       const formik = useFormik({
         initialValues: {
-          first_name: "",
-          last_name: "",
+          firstname: "",
+          lastname: "",
           username: "",
           email: "",
           phone_number: "",
@@ -139,12 +139,13 @@ export const useSignupAgent = () => {
   
     const formik = useFormik({
       initialValues: {
-        first_name: "",
-        last_name: "",
+        firstname: "",
+        lastname: "",
+        username:"",
         email: "",
-        phone_number: "",
-        company_name: "",
-        super_agent: "",
+        phonenumber: "",
+        business_name: "",
+        region: "",
         location: "",
         role: HUBSTACKROLES.AGENT,
         password: "",
@@ -193,6 +194,7 @@ export const useSignupAgent = () => {
         firstname: "",
         lastname: "",
         email: "",
+        username:"",
         phoneNumber: "",
         companyName: "",
         location: "",

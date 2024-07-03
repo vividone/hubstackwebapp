@@ -15,11 +15,11 @@ const Dashboard = () => {
 
   const menuItems = [
     {
-      name: "DashBoard",
+      name: "Dashboard",
       logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
       subItems: [
-        { name: "Overview", href: "/dashboard/overview" },
-        { name: "Reports", href: "/dashboard/reports" },
+        { name: "Overview", href: "/Dashboard/overview" },
+        { name: "Reports", href: "/Dashboard/reports" },
       ],
       href: "/dashboard",
     },

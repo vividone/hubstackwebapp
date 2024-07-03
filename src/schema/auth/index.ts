@@ -11,8 +11,8 @@ export const LoginSchemaPhone = Yup.object().shape({
 });
 
 export const SignupSchemaIndividual = Yup.object().shape({
-  first_name: Yup.string().required("Fullname is required"),
-  last_name: Yup.string().required("Fullname is required"),
+  firstname: Yup.string().required("Fullname is required"),
+  lastname: Yup.string().required("Fullname is required"),
   username: Yup.string().required("Phone number is required"),
   email: Yup.string()
     .required("Email is required")
@@ -31,18 +31,18 @@ export const SignupSchemaIndividual = Yup.object().shape({
 });
 
 export const SignupSchemaAgent = Yup.object().shape({
-  first_name: Yup.string().required("Fullname is required"),
-  last_name: Yup.string().required("Fullname is required"),
+  firstname: Yup.string().required("First Name is required"),
+  lastname: Yup.string().required("Last Name is required"),
   email: Yup.string()
     .required("Email is required")
     .trim()
     .lowercase()
     .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
-  phone_number: Yup.string().required("Phone number is required"),
-  company_name: Yup.string().required("Business name is required"),
-  super_agent: Yup.string().required("Superagent name is required"),
+  phonenumber: Yup.string().required("Phone number is required"),
+  business_name: Yup.string().required("Business name is required"),
   role: Yup.string().optional(),
   location: Yup.string().required("Location is required"),
+  region: Yup.string().required("Region is required"),
   password: Yup.string()
     .required("Password is required")
     .min(6, "Password must not be less 6 characters")
