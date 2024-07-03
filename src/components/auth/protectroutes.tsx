@@ -1,26 +1,24 @@
-// components/withAuth.tsx
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { useEffect } from "react";
+// // components/withAuth.tsx
+// import { useRouter } from "next/router";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../../redux/store";
+// import { useEffect } from "react";
 
-const withAuth = (WrappedComponent: React.ComponentType) => {
-  const ComponentWithAuth = (props: any) => {
-    const router = useRouter();
-    const userDetails = useSelector((state: RootState) => state.userDetails.userDetails);
+// const withAuth = (WrappedComponent: React.ComponentType) => {
+//   const ComponentWithAuth = (props: any) => {
+//     const router = useRouter();
+//     const userDetails = useSelector((state: RootState) => state.userDetails.userDetails);
 
-    useEffect(() => {
-      if (!userDetails.email) {
-        router.push("/login");
-      }
-    }, [userDetails, router]);
+//     useEffect(() => {
+//       if (!userDetails.email) {
+//         router.push("/login");
+//       }
+//     }, [userDetails, router]);
 
-    return userDetails.email ? <WrappedComponent {...props} /> : null;
-  };
+//     return userDetails.email ? <WrappedComponent {...props} /> : null;
+//   };
 
-// ComponentWithAuth.displayName = `WithAuth(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
+//   return ComponentWithAuth;
+// };
 
-  return ComponentWithAuth;
-};
-
-export default withAuth;
+// export default withAuth;

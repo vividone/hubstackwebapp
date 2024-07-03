@@ -1,7 +1,6 @@
 import React from "react";
 import Dashboard from "@/components/page/sidebar";
 import Navigation from "@/components/page/Navigation";
-import Mywallet from "@/components/common/Existinguserwallet";
 
 const Pagelayout = ({ children }: any) => {
   return (
@@ -10,7 +9,6 @@ const Pagelayout = ({ children }: any) => {
       <div className="h-full w-[80%] background-[red]">
         <Navigation /> 
         {children}
-        {/* <Mywallet/> */}
       </div>
     </div>
   );
