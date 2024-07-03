@@ -19,7 +19,7 @@ export interface IAuthAgentSignup {
   email: string;
   phonenumber: string;
   role?: string;
-  business_username: string;
+  business_name: string;
   location: string;
   region: string;
   password: string;
