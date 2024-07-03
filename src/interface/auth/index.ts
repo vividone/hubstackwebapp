@@ -24,6 +24,7 @@ export interface IAuthAgentSignup {
   region: string;
   password: string;
   username: string;
+  superagent_username: string;
 }
 
 export interface IAuthSuperAgentSignup {
