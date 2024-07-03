@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Button } from "./button"; // Assuming you have a button component
+import { Button } from "./button";
 import Link from "next/link";
 import Image from "next/image";
 const WalletForm = ({setShow}: any) => {
@@ -163,7 +163,7 @@ const WalletForm = ({setShow}: any) => {
           </div>
           <div className="flex justify-center mt-5 w-full">
             <Button
-              className="w-[200px] text-xl font-CabinetGrotesk "
+              className="w-[250px] text-xl font-CabinetGrotesk "
               type="submit"
               size="md"
             >
