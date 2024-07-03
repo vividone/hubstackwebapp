@@ -1,11 +1,11 @@
+'use client'
 import React, { useState } from "react";
-import Navigation from "@/components/page/Navigation";
 import Card from "@/components/common/card";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
 import WalletForm from "@/components/common/createwallet";
-
-const Homepage = () => {
+import Pagelayout from "../pagelayout";
+const Wallet = () => {
   const [user, setUser] = useState(false);
   const [showWallet, setShowwallet] = useState(false);
   const setShow = (bool: any) => {
@@ -55,6 +55,7 @@ const Homepage = () => {
   ];
 
   return (
+    <Pagelayout>
     <div className="flex-1 relative">
       {showWallet && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
@@ -88,7 +89,8 @@ const Homepage = () => {
         </div>
       </main>
     </div>
+    </Pagelayout>
   );
 };
 
-export default Homepage;
+export default Wallet;
