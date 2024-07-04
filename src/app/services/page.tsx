@@ -1,11 +1,10 @@
 'use client'
 import Pagelayout from "../pagelayout";
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 
 const services = () => {
-  // const userDetails = useSelector((state: RootState) => state.userDetails);
-
+  // const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   // console.log(userDetails);
   return (
     <Pagelayout>
