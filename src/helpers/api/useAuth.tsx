@@ -263,7 +263,7 @@ export const useVerifyLogin = () => {
   const formik = useFormik({
     initialValues: {
       otp: "",
-      email: "",
+      // email: "",
     } as IVerifyLogin,
     validateOnBlur: false,
     validateOnChange: false,
@@ -273,7 +273,7 @@ export const useVerifyLogin = () => {
         mutate(
           {
             otp: values.otp,
-            email: values.email,
+            // email: values.email,
           },
           {
             onSuccess: () => {

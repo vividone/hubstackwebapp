@@ -19,7 +19,6 @@ const VerifyAccount = () => {
     setOtpError(false);
     if (otp.length > 5) {
       formik.setFieldValue("otp", otp)
-      formik.setFieldValue("email", user)
       formik.handleSubmit();
     }
   };
