@@ -53,10 +53,16 @@ export const useLogin = () => {
           await formik.validateForm();
           mutate(values, {
             onSuccess: (res) => {
-              setUserDetails({email: values.email});
-              setToken(res.data.access_token);
-              setUserToken({email: values.email});
-              router.push(FRONTEND_URL.VERIFY_ACCOUNT);
+              setToken(res.data.token.access_token);
+              setUserToken(values.email);
+              setUserDetails(res.data.data);
+              if(!res.data.data.isVerified) {
+                router.push(FRONTEND_URL.VERIFY_ACCOUNT);
+              }
+              else {
+                router.push(FRONTEND_URL.DASHBOARD);
+              }
+
             },
             onError: (res: any) => {
               
@@ -69,9 +75,9 @@ export const useLogin = () => {
       },
     });
     const typedError = error as IErrorResponseType;
-    const errorString = Array.isArray(typedError?.response?.data?.message)
-      ? typedError?.response?.data?.message[0]
-      : typedError?.response?.data?.message || "";
+    const errorString = Array.isArray(typedError?.response?.data?.message || typedError?.response?.data?.error)
+      ? typedError?.response?.data?.message[0] || typedError?.response?.data?.error[0]
+      : typedError?.response?.data?.message  || typedError?.response?.data?.error || "";
     return { formik, isPending, isSuccess, isError, error: errorString };
 };
 
@@ -80,6 +86,8 @@ export const useLogin = () => {
     export const useSignupIndividual = (type: string) => {
       const router = useRouter();
       const { signupIndividualUrl } = useUrls();
+      const [, setToken] = useSessionStorage(TOKEN.ACCESS);
+      const [, setUserToken] = useSessionStorage(TOKEN.USER);
       const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
       const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up individual"],
           mutationFn: (payload: Partial<IAuthIndividualSignup>) => {
@@ -105,8 +113,10 @@ export const useLogin = () => {
             await formik.validateForm();
             mutate(values, {
               onSuccess: (res) => {
-                setUserDetails(res.data);
-                router.push(FRONTEND_URL.LOGIN);
+                setToken(res.data.token.access_token);
+                setUserToken(values.email);
+                setUserDetails(res.data.data);
+                router.push(FRONTEND_URL.VERIFY_ACCOUNT);
               },
               //   onError: (res: any) => {
     
@@ -130,6 +140,8 @@ export const useLogin = () => {
 export const useSignupAgent = () => {
     const router = useRouter();
     const { signupAgentUrl } = useUrls();
+    const [, setToken] = useSessionStorage(TOKEN.ACCESS);
+    const [, setUserToken] = useSessionStorage(TOKEN.USER);
     const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up agent"],
         mutationFn: (payload: Partial<IAuthAgentSignup>) => {
@@ -145,6 +157,7 @@ export const useSignupAgent = () => {
         email: "",
         phonenumber: "",
         business_name: "",
+        superagent_username: "",
         region: "",
         location: "",
         role: HUBSTACKROLES.AGENT,
@@ -158,8 +171,10 @@ export const useSignupAgent = () => {
           await formik.validateForm();
           mutate(values, {
             onSuccess: (res) => {
-              setUserDetails(res.data);
-              router.push(FRONTEND_URL.LOGIN);
+              setToken(res.data.token.access_token);
+              setUserToken(values.email);
+              setUserDetails(res.data.data);
+              router.push(FRONTEND_URL.VERIFY_ACCOUNT);
             },
             //   onError: (res: any) => {
   
@@ -182,6 +197,8 @@ export const useSignupAgent = () => {
   export const useSignupSuperAgent = () => {
     const router = useRouter();
     const { signupAgentUrl } = useUrls();
+    const [, setToken] = useSessionStorage(TOKEN.ACCESS);
+    const [, setUserToken] = useSessionStorage(TOKEN.USER);
     const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up superagent"],
         mutationFn: (payload: Partial<IAuthSuperAgentSignup>) => {
@@ -208,9 +225,11 @@ export const useSignupAgent = () => {
         try {
           await formik.validateForm();
           mutate(values, {
-            onSuccess: () => {
-              setUserDetails(values.email);
-              router.push(FRONTEND_URL.LOGIN);
+            onSuccess: (res) => {
+              setToken(res.data.token.access_token);
+              setUserToken(values.email);
+              setUserDetails(res.data.data);
+              router.push(FRONTEND_URL.VERIFY_ACCOUNT);
             },
             //   onError: (res: any) => {
   
@@ -281,12 +300,12 @@ export const useVerifyLogin = () => {
 
 
 // Password reset
-export const useResetPassword = () => {
+export const useForgotPassword = () => {
   const router = useRouter();
-  const { resetPasswordUrl } = useUrls();
+  const { forgotPasswordUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["reset password"],
       mutationFn: (payload: Partial<{email: string}>) => {
-        return axiosInstance.post(resetPasswordUrl, payload)
+        return axiosInstance.post(forgotPasswordUrl, payload)
       },
   })  
 
@@ -328,7 +347,7 @@ export const useResetPassword = () => {
 
 
 // set new password
-export const useSetPassword = () => {
+export const useResetPassword = () => {
   const router = useRouter();
   const { resetPasswordUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["set password"],

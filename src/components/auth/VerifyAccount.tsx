@@ -4,13 +4,13 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { Button } from "../common/button";
 import { OTPInput } from "../common/OtpInput";
 import ConfirmationMessage from "./confirmation";
-import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
+import useSessionStorage from "@/hooks/useSessionStorage";
 
 const VerifyAccount = () => {
   const [otpError, setOtpError] = useState(false);
   const [verifyOtp, setVerifyOtp] = useState("");
-  const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
+  const [ user, ] = useSessionStorage<string>(TOKEN.USER);
   // const { formik: resendFormik, resendOTPIsSuccess } = useResendOTP();
   const { formik, isPending, isSuccess, isError, error } = useVerifyLogin();
 
@@ -19,7 +19,7 @@ const VerifyAccount = () => {
     setOtpError(false);
     if (otp.length > 5) {
       formik.setFieldValue("otp", otp)
-      formik.setFieldValue("email", userDetails.email)
+      formik.setFieldValue("email", user)
       formik.handleSubmit();
     }
   };

@@ -7,8 +7,9 @@ export function useUrls() {
   const signupIndividualUrl = `${BASE_URL}/auth/register-individual`;
   const signupAgentUrl = `${BASE_URL}/auth/register-agent`;
   const logOutUrl = `${BASE_URL}/auth/logout`;
-  const verifyLoginUrl = `${BASE_URL}/auth/verify`;
-  const resetPasswordUrl = `${BASE_URL}/auth/password-reset`;
+  const verifyLoginUrl = `${BASE_URL}/auth/verify-otp`;
+  const resetPasswordUrl = `${BASE_URL}/auth/reset-password`;
+  const forgotPasswordUrl = `${BASE_URL}/auth/forgot-password`;
   const resendPasswordEmailUrl = `${BASE_URL}/auth/resend-email`;
 
   // seat
@@ -20,6 +21,7 @@ export function useUrls() {
     logOutUrl,
     verifyLoginUrl,
     resetPasswordUrl,
+    forgotPasswordUrl,
     resendPasswordEmailUrl
   };
 }
