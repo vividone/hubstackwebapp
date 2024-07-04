@@ -22,7 +22,7 @@ const Login = () => {
         isSuccess={isSuccess}
         isError={isError}
         msg={
-          isSuccess ? "Login successful" : isError ? "Login error " + error : ""
+          isSuccess ? "Login successful" : isError ? error || "Login error " : ""
         }
       />
 

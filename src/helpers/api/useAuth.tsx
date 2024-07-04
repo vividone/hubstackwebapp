@@ -53,10 +53,16 @@ export const useLogin = () => {
           await formik.validateForm();
           mutate(values, {
             onSuccess: (res) => {
-              setUserDetails({email: values.email});
-              setToken(res.data.access_token);
-              setUserToken({email: values.email});
-              router.push(FRONTEND_URL.VERIFY_ACCOUNT);
+              setToken(res.data.token.access_token);
+              setUserToken(values.email);
+              setUserDetails(res.data.data);
+              if(!res.data.data.isVerified) {
+                router.push(FRONTEND_URL.VERIFY_ACCOUNT);
+              }
+              else {
+                router.push(FRONTEND_URL.DASHBOARD);
+              }
+
             },
             onError: (res: any) => {
               
@@ -69,9 +75,9 @@ export const useLogin = () => {
       },
     });
     const typedError = error as IErrorResponseType;
-    const errorString = Array.isArray(typedError?.response?.data?.message)
-      ? typedError?.response?.data?.message[0]
-      : typedError?.response?.data?.message || "";
+    const errorString = Array.isArray(typedError?.response?.data?.message || typedError?.response?.data?.error)
+      ? typedError?.response?.data?.message[0] || typedError?.response?.data?.error[0]
+      : typedError?.response?.data?.message  || typedError?.response?.data?.error || "";
     return { formik, isPending, isSuccess, isError, error: errorString };
 };
 
@@ -145,6 +151,7 @@ export const useSignupAgent = () => {
         email: "",
         phonenumber: "",
         business_name: "",
+        superagent_username: "",
         region: "",
         location: "",
         role: HUBSTACKROLES.AGENT,

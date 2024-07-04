@@ -9,6 +9,7 @@ import { useSignupAgent } from "@/helpers/api/useAuth";
 import ToastComponent from "@/components/common/toastComponent";
 import { Dropdown } from "@/components/common/Dropdown";
 import { regions, states } from "@/data/locationRegions";
+import { useSearchParams } from "next/navigation";
 
 type Options = {
   label: string,
@@ -20,8 +21,13 @@ const RegisterAgent = () => {
   const [ selectedRegion, setSelectedRegion ] = useState<Options>()
   const { formik, isPending, isSuccess, isError, error } = useSignupAgent()
 
+  const searchParams = useSearchParams();
+
+  const superAgentUsername = searchParams.get("reffered") || ""
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    formik.setFieldValue("superagent_username", superAgentUsername)
     formik.handleSubmit()
   };
 

@@ -39,6 +39,7 @@ export const SignupSchemaAgent = Yup.object().shape({
     .lowercase()
     .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
   phonenumber: Yup.string().required("Phone number is required"),
+  superagent_username: Yup.string().required("Super Agent name is required"),
   business_name: Yup.string().required("Business name is required"),
   role: Yup.string().optional(),
   location: Yup.string().required("Location is required"),
