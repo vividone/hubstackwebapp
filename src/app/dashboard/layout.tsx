@@ -8,17 +8,17 @@ import { useRouter } from "next/navigation";
 
 const RootLayout = ({ children }: any) => {
     const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-    // const router = useRouter()
+    const router = useRouter()
     // route-protection
-        // if(!userDetails) {
-        //     useEffect(() => {
-        //         router.push("/")
-        //     }, [userDetails])
-        //     return (
-        //         <></>
-        //     )
-        // }
-        // else {
+        if(!userDetails) {
+            useEffect(() => {
+                router.push("/")
+            }, [userDetails])
+            return (
+                <></>
+            )
+        }
+        else {
             return (
                 <div className="flex w-full">
                     <Dashboard />
@@ -28,7 +28,7 @@ const RootLayout = ({ children }: any) => {
                     </div>
                 </div>
             );
-        // }
+        }
 
 };
 

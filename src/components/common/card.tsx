@@ -25,7 +25,7 @@ const Card = ({ value }: CardProps) => {
 
   return (
     <div
-      className="relative h-[160px] w-[250px] rounded-[10px] text-white p-[20px] flex xlg:w-[300px] xlg:h-[170px] 2xl:w-[300px] 2xl:h-[175px]"
+      className="relative h-[160px] w-[250px] rounded-[10px] text-white p-[20px] flex 2xl:w-[300px] 2xl:h-[175px]"
       style={{ backgroundColor: colors.cardBackground }}
     >
       <div
