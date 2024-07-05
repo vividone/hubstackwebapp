@@ -2,18 +2,22 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 
 const Navigation = () => {
   const [showNotification, setShowNotification] = useState(true);
-  const fakeUserData = {
-    name: "Zainab",
-    profilePicture: "/images/profile.jpeg",
-  };
+    const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
+    console.log(userDetails)
+    const fakeUserData = {
+      name: "Zainab",
+      profilePicture: "/images/profile.jpeg",
+    };
 
   return (
-    <div className="flex justify-between items-center p-5 w-full border-b border-gray-300">
+    <div className="flex justify-between items-center p-5 w-full border-b border-gray-300 xlg:px-20 2xl:px-[70px] 2xl:py-[30px]">
       <div className="flex-1">
-        <h2 className="m-0 text-2xl font-semibold">Welcome, {fakeUserData.name}!</h2>
+        <h2 className="m-0 text-2xl font-semibold">Welcome, {userDetails?.user}!</h2>
       </div>
       <div className="flex flex-1 items-center gap-8 justify-end">
         <div className="relative cursor-pointer p-2 rounded-lg border border-gray-300 bg-gray-100" onClick={() => setShowNotification(!showNotification)}>

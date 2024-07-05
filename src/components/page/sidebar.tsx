@@ -12,15 +12,15 @@ import { useRouter } from "next/navigation";
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const router = useRouter()
+  const router = useRouter();
 
-  const handleMenuItemClick = (index: any) => {
+  const handleMenuItemClick = (index:any) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
   const handleLogout = () => {
-    setUserDetails(null)
-    router.push("/")
+    setUserDetails(null);
+    router.push("/");
   };
 
   const menuItems = [
@@ -37,7 +37,7 @@ const Dashboard = () => {
       name: "Wallet",
       logo: (
         <Image
-          src="\images\dollar-bag-1.svg"
+          src="/images/dollar-bag-1.svg"
           width={27}
           height={27}
           alt="logo"
@@ -48,14 +48,14 @@ const Dashboard = () => {
     {
       name: "Services",
       logo: (
-        <Image src="\images\services.svg" width={27} height={27} alt="logo" />
+        <Image src="/images/services.svg" width={27} height={27} alt="logo" />
       ),
       href: "/dashboard/services",
     },
   ];
 
   return (
-    <div className="w-35%  sm:w-[25%] md:w-[35%] lg:w-[30%] xl:w-[250px] min-h-screen bg-[#3D3066] flex flex-col gap-[20px] text-[whitesmoke] font-CabinetGrotesk  ">
+    <div className="w-full sm:w-[25%] md:w-[35%] lg:w-[30%] xl:w-[20%] min-h-screen bg-[#3D3066] flex flex-col gap-[20px] text-[whitesmoke] font-CabinetGrotesk">
       <div className="pl-[20px] pt-[20px] h-[10%]">
         <span>
           <Image
@@ -66,7 +66,7 @@ const Dashboard = () => {
           />
         </span>
       </div>
-      <div className="p-[20px] flex flex-col flex-1 f">
+      <div className="p-[20px] flex flex-col flex-1">
         <ul className="list-none p-0 m-0">
           {menuItems.map((item, index) => (
             <Link
@@ -102,7 +102,10 @@ const Dashboard = () => {
           />
           <span>Profile</span>
         </div>
-        <div className="flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer" onClick={() => handleLogout()}>
+        <div
+          className="flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer"
+          onClick={() => handleLogout()}
+        >
           <Image
             src="/images/log-out 1.svg"
             width={27}
