@@ -26,7 +26,7 @@ const WalletForm = ({ setShow }: any) => {
       <div className="font-medium text-2xl mb-2 flex justify-between">
         <span>Create Wallet</span>
         <Image
-          src="./images/close.svg"
+          src="\images\close.svg"
           onClick={() => setShow(false)}
           alt="close"
           width={20}
@@ -153,7 +153,7 @@ const WalletForm = ({ setShow }: any) => {
           </div>
           <div className="flex justify-center mt-5 w-full ">
             <Button
-              className="p-[10px] w-[60%] text-base font-CabinetGrotesk font-bold"
+              className="p-[10px] w-[190px] text-base font-CabinetGrotesk font-bold"
               type="submit"
             >
               Proceed
