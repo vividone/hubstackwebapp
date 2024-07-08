@@ -28,13 +28,23 @@ const Dashboard = () => {
 
   const adminMenue =[
     {
-      name: "Dashboard",
-      logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
-      subItems: [
-        { name: "Overview", href: "/Dashboard/overview" },
-        { name: "Reports", href: "/Dashboard/reports" },
-      ],
-      href: "/dashboard",
+      name: "Wallet",
+      logo: (
+        <Image
+          src="/images/dollar-bag-1.svg"
+          width={27}
+          height={27}
+          alt="logo"
+        />
+      ),
+      href: "/dashboard/wallet",
+    },
+    {
+      name: "Services",
+      logo: (
+        <Image src="/images/services.svg" width={27} height={27} alt="logo"/>
+      ),
+      href: "/dashboard/services",
     },
   ]
 
@@ -83,7 +93,7 @@ const Dashboard = () => {
       </div>
       <div className="p-[20px] flex flex-col flex-1">
         <ul className="list-none p-0 m-0">
-          {{role ? adminMenue : individualMenue  }.map((item, index) => (
+          {(role === 'admin' ? adminMenue : individualMenue).map((item, index) => (
             <Link
               key={index}
               href={item.href}
