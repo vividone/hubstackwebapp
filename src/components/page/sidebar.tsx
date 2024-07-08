@@ -11,10 +11,12 @@ import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState(null);
-  const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
+  const [userDetails, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
+  const [role,] = useLocalStorage<any>(TOKEN.ROLE);
+
   const router = useRouter();
 
-  const handleMenuItemClick = (index:any) => {
+  const handleMenuItemClick = (index: any) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
@@ -22,8 +24,21 @@ const Dashboard = () => {
     setUserDetails(null);
     router.push("/");
   };
+  console.log(userDetails)
 
-  const menuItems = [
+  const adminMenue =[
+    {
+      name: "Dashboard",
+      logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
+      subItems: [
+        { name: "Overview", href: "/Dashboard/overview" },
+        { name: "Reports", href: "/Dashboard/reports" },
+      ],
+      href: "/dashboard",
+    },
+  ]
+
+  const individualMenue = [
     {
       name: "Dashboard",
       logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
@@ -48,7 +63,7 @@ const Dashboard = () => {
     {
       name: "Services",
       logo: (
-        <Image src="/images/services.svg" width={27} height={27} alt="logo" />
+        <Image src="/images/services.svg" width={27} height={27} alt="logo"/>
       ),
       href: "/dashboard/services",
     },
@@ -68,7 +83,7 @@ const Dashboard = () => {
       </div>
       <div className="p-[20px] flex flex-col flex-1">
         <ul className="list-none p-0 m-0">
-          {menuItems.map((item, index) => (
+          {{role ? adminMenue : individualMenue  }.map((item, index) => (
             <Link
               key={index}
               href={item.href}

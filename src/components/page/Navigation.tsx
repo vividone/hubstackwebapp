@@ -15,7 +15,7 @@ const Navigation = () => {
     };
 
   return (
-    <div className="flex justify-between items-center p-5 w-full border-b border-gray-300 xlg:px-20 2xl:px-[70px] 2xl:py-[30px]">
+    <div className="flex justify-between items-center p-5 w-full border-b border-gray-300 xlg:px-20 2xl:px-[90px] 2xl:py-[30px]">
       <div className="flex-1">
         <h2 className="m-0 text-2xl font-semibold">Welcome, {userDetails?.user}!</h2>
       </div>
