@@ -16,10 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <QueryClientLayout>
-      <html lang="en">
-          <body>{children}</body>
-      </html>
-    </QueryClientLayout>
+      <QueryClientLayout>
+        <html lang="en">
+            <body>{children}</body>
+        </html>
+      </QueryClientLayout>
   );
 }

@@ -1,7 +1,8 @@
 'use client'
+import ConfirmationMessage from "@/components/auth/confirmation";
 import AuthSideImg from "@/components/authSideImg";
 import { Button } from "@/components/common/button";
-import { Input } from "@/components/common/inputs";
+import { PasswordVariantInput } from "@/components/common/inputs";
 import ToastComponent from "@/components/common/toastComponent";
 import { useResetPassword } from "@/helpers/api/useAuth";
 import { FRONTEND_URL } from "@/utils/pages";
@@ -23,7 +24,7 @@ const ResetPassword = () => {
       <ToastComponent
         isSuccess={isSuccess} 
         isError={isError} 
-        msg={isSuccess ? "Password reset successful" : isError ? "Password reset error " + error : ""}
+        msg={isSuccess ? "Password reset successfully" : isError ? "Password reset error " + error : ""}
       />
       
       <AuthSideImg />
@@ -31,19 +32,31 @@ const ResetPassword = () => {
       <div className="md:w-[55%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-center">
        
 
-        <h1 className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px] mt-16">Forgot password</h1>
+        <h1 className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px] mt-16">New password</h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <p className="mt-1 text-primary_dark text-s text-[#8C8B82] mb-6">Please enter the email  you used to create your account so we can send you a link for resetting your password</p>
+            <p className="mt-1 text-primary_dark text-s text-[#8C8B82] mb-6">Choose a new password for ypoour account</p>
           
-            <p className="-mb-2">Email Address</p>
-            <Input 
-                placeholder="EXAMPLE@GMAIL.COM"
-                name="email"
+            <p className="-mb-2">New password</p>
+            <PasswordVariantInput
+                placeholder="Enter password"
+                name="newPassword"
+                data-test="user-password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.errors.newPassword}
+            />
+
+            <p className="mt-1 text-primary_dark text-s text-[#8C8B82] my-2">Your password must be at least 8 characters long and include 1 capital letter and 1 number</p>
+
+            <p className="-mb-2">Confirm new password</p>
+            <PasswordVariantInput
+                placeholder="Enter password"
+                name="confirmNewPassword"
                 data-test="user-email"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.errors.email}
+                error={formik.errors.confirmNewPassword}
             />
 
             <div className="flex flex-col items-center justify-center mt-8">
@@ -53,24 +66,32 @@ const ResetPassword = () => {
                     isLoading={isPending}
                     disabled={isPending}
                 >
-                    SEND
+                    RESET PASSWORD
                 </Button>
-                
             </div>
         </form>
 
-        
         <div className="flex flex-col items-center justify-center mt-4">
-          <Button 
-              size={"long"}
-              variant="secondary"
-              onClick={() => router.push(FRONTEND_URL.LOGIN)}
-          >
-              BACK TO LOGIN
-          </Button>
-        </div>
-
+              <Button 
+                  size={"long"}
+                  variant="secondary"
+                  onClick={() => router.push(FRONTEND_URL.LOGIN)}
+              >
+                  BACK TO LOGIN
+              </Button>
+          </div>
       </div>
+
+    
+
+      {/* Confirmation success modal */}
+
+      {
+        isSuccess ?
+        <ConfirmationMessage heading="Password Reset Successful" text="Log in to your account with your new password" />
+        : 
+        ""
+      }
     </div>
   );
 };

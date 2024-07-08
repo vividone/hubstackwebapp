@@ -30,7 +30,7 @@ const Login = () => {
 
       <div className="md:w-[65%] w-full flex flex-col mx-auto min-h-screen py-10 2xl:px-[15%] lg:px-[10%] px-[5%] scroll max-h-screen overflow-y-scroll hide justify-center">
         <p className="font-medium 2xl:text-[40px] xl:text-[32px] text-[24px]">
-          Login as an Individual
+          Login to your account
         </p>
 
         <form className="pt-8" onSubmit={handleSubmit}>
@@ -58,7 +58,7 @@ const Login = () => {
           <p className="text-left 2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
             Forgot password?
             <Link
-              href={FRONTEND_URL.RESET_PASSWORD}
+              href={FRONTEND_URL.FORGOT_PASSWORD}
               className="text-[#3D3066] font-medium"
             >
               {" "}
@@ -83,16 +83,7 @@ const Login = () => {
           </div>
         </form>
 
-        <p className="text-center 2xl:text-[20px] xl:text-[18px] text-[16px] mt-6">
-          Not an individual?
-          <Link
-            href={FRONTEND_URL.AGENT_LOGIN}
-            className="text-[#3D3066] font-medium"
-          >
-            {" "}
-            LOGIN AS AN AGENT
-          </Link>
-        </p>
+        
 
         {/* Already login */}
         <div className="flex w-full items-center mt-6 gap-2 justify-center">
