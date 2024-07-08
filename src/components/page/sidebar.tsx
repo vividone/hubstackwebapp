@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [userDetails, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const [role,] = useLocalStorage<any>(TOKEN.ROLE);
+  const { role } = userDetails;
 
   const router = useRouter();
 
@@ -24,9 +24,9 @@ const Dashboard = () => {
     setUserDetails(null);
     router.push("/");
   };
-  console.log(userDetails)
+  console.log(userDetails);
 
-  const adminMenue =[
+  const adminMenue = [
     {
       name: "Wallet",
       logo: (
@@ -42,11 +42,11 @@ const Dashboard = () => {
     {
       name: "Services",
       logo: (
-        <Image src="/images/services.svg" width={27} height={27} alt="logo"/>
+        <Image src="/images/services.svg" width={27} height={27} alt="logo" />
       ),
       href: "/dashboard/services",
     },
-  ]
+  ];
 
   const individualMenue = [
     {
@@ -73,7 +73,7 @@ const Dashboard = () => {
     {
       name: "Services",
       logo: (
-        <Image src="/images/services.svg" width={27} height={27} alt="logo"/>
+        <Image src="/images/services.svg" width={27} height={27} alt="logo" />
       ),
       href: "/dashboard/services",
     },
@@ -93,28 +93,32 @@ const Dashboard = () => {
       </div>
       <div className="p-[20px] flex flex-col flex-1">
         <ul className="list-none p-0 m-0">
-          {(role === 'admin' ? adminMenue : individualMenue).map((item, index) => (
-            <Link
-              key={index}
-              href={item.href}
-              className={`flex items-center justify-between list-none p-[15px] w-full mb-[10px] rounded-[8px] relative text-[#FFFFFF80] transition-[0.3s] ease-in-out ${
-                activeIndex === index ? "bg-[#FFFFFF1A] text-[whitesmoke]" : ""
-              } hover:bg-[#FFFFFF1A] hover:text-[whitesmoke] cursor-pointer`}
-              onClick={() => handleMenuItemClick(index)}
-            >
-              <div className="flex gap-[10px] justify-between">
-                <span>{item.logo}</span>
-                <span>{item.name}</span>
-              </div>
-              <span className="flex items-center justify-end w-[30px] transition-transform duration-300">
-                {activeIndex === index ? (
-                  <KeyboardArrowDownRoundedIcon sx={{ fontSize: 27 }} />
-                ) : (
-                  <KeyboardArrowRightRoundedIcon sx={{ fontSize: 27 }} />
-                )}
-              </span>
-            </Link>
-          ))}
+          {(role === "Individual" ? individualMenue : adminMenue).map(
+            (item, index) => (
+              <Link
+                key={index}
+                href={item.href}
+                className={`flex items-center justify-between list-none p-[15px] w-full mb-[10px] rounded-[8px] relative text-[#FFFFFF80] transition-[0.3s] ease-in-out ${
+                  activeIndex === index
+                    ? "bg-[#FFFFFF1A] text-[whitesmoke]"
+                    : ""
+                } hover:bg-[#FFFFFF1A] hover:text-[whitesmoke] cursor-pointer`}
+                onClick={() => handleMenuItemClick(index)}
+              >
+                <div className="flex gap-[10px] justify-between">
+                  <span>{item.logo}</span>
+                  <span>{item.name}</span>
+                </div>
+                <span className="flex items-center justify-end w-[30px] transition-transform duration-300">
+                  {activeIndex === index ? (
+                    <KeyboardArrowDownRoundedIcon sx={{ fontSize: 27 }} />
+                  ) : (
+                    <KeyboardArrowRightRoundedIcon sx={{ fontSize: 27 }} />
+                  )}
+                </span>
+              </Link>
+            )
+          )}
         </ul>
       </div>
       <div className="p-[20px] border-t-[2px] border-[#E7E7E733]">
