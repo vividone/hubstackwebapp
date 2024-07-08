@@ -11,19 +11,43 @@ import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState(null);
-  const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const router = useRouter()
+  const [userDetails, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
+
+  const router = useRouter();
 
   const handleMenuItemClick = (index: any) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
   const handleLogout = () => {
-    setUserDetails(null)
-    router.push("/")
+    setUserDetails(null);
+    router.push("/");
   };
+  console.log(userDetails);
 
-  const menuItems = [
+  const adminMenue = [
+    {
+      name: "Wallet",
+      logo: (
+        <Image
+          src="/images/dollar-bag-1.svg"
+          width={27}
+          height={27}
+          alt="logo"
+        />
+      ),
+      href: "/dashboard/wallet",
+    },
+    {
+      name: "Services",
+      logo: (
+        <Image src="/images/services.svg" width={27} height={27} alt="logo" />
+      ),
+      href: "/dashboard/services",
+    },
+  ];
+
+  const individualMenue = [
     {
       name: "Dashboard",
       logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
@@ -37,7 +61,7 @@ const Dashboard = () => {
       name: "Wallet",
       logo: (
         <Image
-          src="\images\dollar-bag-1.svg"
+          src="/images/dollar-bag-1.svg"
           width={27}
           height={27}
           alt="logo"
@@ -48,14 +72,14 @@ const Dashboard = () => {
     {
       name: "Services",
       logo: (
-        <Image src="\images\services.svg" width={27} height={27} alt="logo" />
+        <Image src="/images/services.svg" width={27} height={27} alt="logo" />
       ),
       href: "/dashboard/services",
     },
   ];
 
   return (
-    <div className="w-35%  sm:w-[25%] md:w-[35%] lg:w-[30%] xl:w-[250px] min-h-screen bg-[#3D3066] flex flex-col gap-[20px] text-[whitesmoke] font-CabinetGrotesk  ">
+    <div className="w-full sm:w-[25%] md:w-[35%] lg:w-[30%] xl:w-[20%] min-h-screen bg-[#3D3066] flex flex-col gap-[20px] text-[whitesmoke] font-CabinetGrotesk">
       <div className="pl-[20px] pt-[20px] h-[10%]">
         <span>
           <Image
@@ -66,30 +90,34 @@ const Dashboard = () => {
           />
         </span>
       </div>
-      <div className="p-[20px] flex flex-col flex-1 f">
+      <div className="p-[20px] flex flex-col flex-1">
         <ul className="list-none p-0 m-0">
-          {menuItems.map((item, index) => (
-            <Link
-              key={index}
-              href={item.href}
-              className={`flex items-center justify-between list-none p-[15px] w-full mb-[10px] rounded-[8px] relative text-[#FFFFFF80] transition-[0.3s] ease-in-out ${
-                activeIndex === index ? "bg-[#FFFFFF1A] text-[whitesmoke]" : ""
-              } hover:bg-[#FFFFFF1A] hover:text-[whitesmoke] cursor-pointer`}
-              onClick={() => handleMenuItemClick(index)}
-            >
-              <div className="flex gap-[10px] justify-between">
-                <span>{item.logo}</span>
-                <span>{item.name}</span>
-              </div>
-              <span className="flex items-center justify-end w-[30px] transition-transform duration-300">
-                {activeIndex === index ? (
-                  <KeyboardArrowDownRoundedIcon sx={{ fontSize: 27 }} />
-                ) : (
-                  <KeyboardArrowRightRoundedIcon sx={{ fontSize: 27 }} />
-                )}
-              </span>
-            </Link>
-          ))}
+          {(userDetails?.role === "Individual" ? individualMenue : adminMenue).map(
+            (item, index) => (
+              <Link
+                key={index}
+                href={item.href}
+                className={`flex items-center justify-between list-none p-[15px] w-full mb-[10px] rounded-[8px] relative text-[#FFFFFF80] transition-[0.3s] ease-in-out ${
+                  activeIndex === index
+                    ? "bg-[#FFFFFF1A] text-[whitesmoke]"
+                    : ""
+                } hover:bg-[#FFFFFF1A] hover:text-[whitesmoke] cursor-pointer`}
+                onClick={() => handleMenuItemClick(index)}
+              >
+                <div className="flex gap-[10px] justify-between">
+                  <span>{item.logo}</span>
+                  <span>{item.name}</span>
+                </div>
+                <span className="flex items-center justify-end w-[30px] transition-transform duration-300">
+                  {activeIndex === index ? (
+                    <KeyboardArrowDownRoundedIcon sx={{ fontSize: 27 }} />
+                  ) : (
+                    <KeyboardArrowRightRoundedIcon sx={{ fontSize: 27 }} />
+                  )}
+                </span>
+              </Link>
+            )
+          )}
         </ul>
       </div>
       <div className="p-[20px] border-t-[2px] border-[#E7E7E733]">
@@ -102,7 +130,10 @@ const Dashboard = () => {
           />
           <span>Profile</span>
         </div>
-        <div className="flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer" onClick={() => handleLogout()}>
+        <div
+          className="flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer"
+          onClick={() => handleLogout()}
+        >
           <Image
             src="/images/log-out 1.svg"
             width={27}

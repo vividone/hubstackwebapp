@@ -22,11 +22,11 @@ const WalletForm = ({ setShow }: any) => {
   };
 
   return (
-    <div className="flex flex-col bg-white w-[37vw] text-black  p-10 h-screen overflow-y-scroll">
+    <div className="flex flex-col bg-white w-[37vw] text-black  p-10 pb-20 h-[100vh] overflow-y-scroll">
       <div className="font-medium text-2xl mb-2 flex justify-between">
         <span>Create Wallet</span>
         <Image
-          src="./images/close.svg"
+          src="\images\close.svg"
           onClick={() => setShow(false)}
           alt="close"
           width={20}
@@ -153,9 +153,8 @@ const WalletForm = ({ setShow }: any) => {
           </div>
           <div className="flex justify-center mt-5 w-full ">
             <Button
-              className="p-[10px] w-[70%] text-base font-CabinetGrotesk font-bold"
+              className="p-[10px] w-[190px] text-base font-CabinetGrotesk font-bold"
               type="submit"
-              // size="lg"
             >
               Proceed
             </Button>

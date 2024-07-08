@@ -25,7 +25,7 @@ const Card = ({ value }: CardProps) => {
 
   return (
     <div
-      className="relative h-[160px] w-[250px] rounded-[10px] text-white p-[20px] flex"
+      className="relative h-[160px] w-[250px] rounded-[10px] text-white p-[20px] flex 2xl:w-[310px] 2xl:h-[185px]"
       style={{ backgroundColor: colors.cardBackground }}
     >
       <div
@@ -67,7 +67,7 @@ const Card = ({ value }: CardProps) => {
             )
           )}
         </div>
-        <div className="self-end mt-auto h-[50%] flex items-end">
+        <div className="self-end mt-auto h-[50%] flex items-end 2xl:pb-[2px]">
           <span>All Time</span>
         </div>
       </div>
