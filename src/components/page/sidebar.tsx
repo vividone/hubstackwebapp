@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [userDetails, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { role } = userDetails;
 
   const router = useRouter();
 
@@ -93,7 +92,7 @@ const Dashboard = () => {
       </div>
       <div className="p-[20px] flex flex-col flex-1">
         <ul className="list-none p-0 m-0">
-          {(role === "Individual" ? individualMenue : adminMenue).map(
+          {(userDetails?.role === "Individual" ? individualMenue : adminMenue).map(
             (item, index) => (
               <Link
                 key={index}
