@@ -6,30 +6,25 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { useRouter } from "next/navigation";
 
-const RootLayout = ({ children }: any) => {
-    // const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-    // const router = useRouter()
-    // route-protection
-        // if(!userDetails) {
-        //     useEffect(() => {
-        //         router.push("/")
-        //     }, [userDetails])
-        //     return (
-        //         <></>
-        //     )
-        // }
-        // else {
-            return (
-                <div className="flex w-full">
-                    <Dashboard />
-                    <div className="h-full w-[80%] background-[red]">
-                        <Navigation /> 
-                        {children}
-                    </div>
-                </div>
-            );
-        // }
+const Layout = ({ children }: any) => {
+    const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
+    const router = useRouter();
 
+    useEffect(() => {
+        if(!userDetails) {
+            router.push("/")
+        }
+    }, [userDetails])
+
+    return (
+        <div className="flex w-full">
+            <Dashboard />
+            <div className="h-full w-[80%] background-[red]">
+                <Navigation /> 
+                {children}
+            </div>
+        </div>
+    );
 };
 
-export default RootLayout;
+export default Layout;
