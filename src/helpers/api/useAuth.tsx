@@ -277,11 +277,11 @@ export const useVerifyLogin = () => {
           },
           {
             onSuccess: () => {
-              router.push("");
-            }
-            //   onError: (res: any) => {
-
-            //   },
+              router.push(FRONTEND_URL.DASHBOARD);
+            },
+            // onError: (res: any) => {
+              
+            // },
           }
         );
         formik.handleReset;
