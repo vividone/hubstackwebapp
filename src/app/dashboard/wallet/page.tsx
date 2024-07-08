@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import Card from "@/components/common/card";
 import { Button } from "@/components/common/button";

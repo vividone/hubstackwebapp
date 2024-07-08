@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect } from "react";
 import Dashboard from "@/components/page/sidebar";
 import Navigation from "@/components/page/Navigation";
