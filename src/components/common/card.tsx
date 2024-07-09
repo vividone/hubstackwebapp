@@ -20,7 +20,7 @@ interface CardProps {
 
 const Card = ({ value }: CardProps) => {
   const { logo, amount, type, visibility, colors } = value;
-  const [showOverlay, setShowOverlay] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(true);
   const [showAmount, setShowAmount] = useState(true);
 
   return (
@@ -29,7 +29,7 @@ const Card = ({ value }: CardProps) => {
       style={{ backgroundColor: colors.cardBackground }}
     >
       <div
-        className={`absolute inset-0 z-[1000] rounded-[10px] bg-black bg-opacity-50 ${
+        className={`absolute inset-0  rounded-[10px] bg-black bg-opacity-50 ${
           showOverlay ? "" : "hidden"
         }`}
       ></div>
