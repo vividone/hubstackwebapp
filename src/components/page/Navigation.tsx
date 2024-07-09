@@ -8,8 +8,8 @@ import { TOKEN } from "@/utils/token";
 const Navigation = () => {
   const [showNotification, setShowNotification] = useState(true);
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { firstname } = userDetails;
-  
+  // const { firstname } = userDetails;
+
   const fakeUserData = {
     name: "Zainab",
     profilePicture: "/images/profile.jpeg",
@@ -19,7 +19,7 @@ const Navigation = () => {
     <div className="flex justify-between items-center p-3 w-full border-b border-gray-300 xlg:px-20 2xl:px-[90px] 2xl:py-[20px]">
       <div className="flex-1">
         <h2 className="m-0 text-2xl font-semibold">
-          Welcome,{firstname}!
+          Welcome,{userDetails?.firstname}!
         </h2>
       </div>
       <div className="flex flex-1 items-center gap-8 justify-end">
