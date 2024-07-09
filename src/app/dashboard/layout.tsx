@@ -23,7 +23,7 @@ const RootLayout = ({ children }: any) => {
     return (
         <div className="flex w-full">
             <Dashboard />
-            <div className="h-full w-[80%] bg-red-500">
+            <div className="h-full w-[80%]">
                 <Navigation />
                 {children}
             </div>
