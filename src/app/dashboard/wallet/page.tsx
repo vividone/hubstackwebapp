@@ -15,7 +15,7 @@ const Wallet = () => {
     {
       logo: "/images/dollar-bag-1.svg",
       amount: "$1000",
-      type: "Income",
+      type: "Wallet Balance",
       visibility: true,
       colors: {
         logoBackground: "#FFFFFF1A",
@@ -25,7 +25,7 @@ const Wallet = () => {
     {
       logo: "/images/boxwcheck.svg",
       amount: "$0",
-      type: "Expense",
+      type: "Inflow",
       visibility: true,
       colors: {
         logoBackground: "#3763D9",
@@ -33,9 +33,9 @@ const Wallet = () => {
       },
     },
     {
-      logo: "/images/frame.svg",
+      logo: "/images/Frame.svg",
       amount: "$0",
-      type: "Savings",
+      type: "Outflow",
       visibility: true,
       colors: {
         logoBackground: "#0CBFD9",
@@ -45,7 +45,7 @@ const Wallet = () => {
     {
       logo: "/images/stack.svg",
       amount: "$0",
-      type: "Investment",
+      type: "Transactions",
       visibility: true,
       colors: {
         logoBackground: "#2F2E31",
@@ -63,7 +63,7 @@ const Wallet = () => {
       )}
       <main className="flex flex-col gap-[20px] p-[20px] ">
         <div className="self-end">
-          <Button size="md" onClick={() => setShow(true)}>
+          <Button size="long" onClick={() => setShow(true)}>
             <span className="flex items-center">
               <Image
                 src="/images/cross.svg"
@@ -79,7 +79,7 @@ const Wallet = () => {
             )}
           </Button>
         </div>
-        <div className="flex flex-wrap gap-[10px]  2xl:gap-[30px] justify-between">
+        <div className="grid lg:grid-cols-4 sm:grid-cols-2 gap-[20px] 2xl:gap-[30px]">
           {cardData.map((value, key) => (
             <Card value={value} key={key} />
           ))}
