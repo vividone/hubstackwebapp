@@ -27,6 +27,15 @@ const Dashboard = () => {
 
   const adminMenue = [
     {
+      name: "Dashboard",
+      logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
+      subItems: [
+        { name: "Overview", href: "/Dashboard/overview" },
+        { name: "Reports", href: "/Dashboard/reports" },
+      ],
+      href: "/dashboard",
+    },
+    {
       name: "Wallet",
       logo: (
         <Image
