@@ -4,7 +4,7 @@ import Card from "@/components/common/card";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
 import WalletForm from "@/components/common/createwallet";
-import Mywallet from "@/components/common/existinguserwallet";
+
 const Wallet = () => {
   const [user, setUser] = useState(true);
   const [showWallet, setShowwallet] = useState(false);
@@ -58,8 +58,8 @@ const Wallet = () => {
     <div className="flex-1 relative 2xl:px-[70px]">
       {showWallet && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
-          {/* <WalletForm setShow={setShow} /> */}
-          <Mywallet setShow={setShow} />
+          <WalletForm setShow={setShow} />
+          
         </div>
       )}
       <main className="flex flex-col gap-[20px] p-[20px] ">
