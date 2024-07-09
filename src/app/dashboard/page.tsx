@@ -26,7 +26,7 @@ const DashboardPage = () => {
       icon: <ServicesIcon />
     },
     {
-      id: 1,
+      id: 2,
       title: "Get Support",
       subText: "Having any issue or do you have questions ? Get quick support now.",
       buttonText: "Get Help",
