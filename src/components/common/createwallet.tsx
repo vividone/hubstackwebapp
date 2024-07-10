@@ -153,7 +153,7 @@ const WalletForm = ({ setShow }: any) => {
           </div>
           <div className="flex justify-center mt-8 mb-8 ">
             <Button
-              className="font-normal font-['Cabinet_Grotesk']  text-[20px] w-[70%] "
+              className="font-normal font-['Cabinet_Grotesk']  text-[20px] w-[60%] "
               type="submit"
 
             >
