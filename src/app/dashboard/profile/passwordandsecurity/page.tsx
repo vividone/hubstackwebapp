@@ -1,9 +1,35 @@
-import React from 'react'
-
+import React from "react";
+import "../../../../components/auth/password.css";
+import { Input } from "@/components/common/inputs";
+import { Button } from "@/components/common/button";
+import { Formik } from "formik";
 const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+  interface formValues {
+    password: string;
+    newPassword: string;
+  }
+  const initialValues: formValues = {
+    password: "",
+    newPassword: "",
+  };
 
-export default page
+  return (
+    <div>
+      <form action="">
+        <div>
+          <label htmlFor="password">Enter New Password</label>
+          <Input />
+        </div>
+        <div>
+          <label htmlFor="newpassword">Re-enter New Password</label>
+          <Input />
+        </div>
+      </form>
+      <Button size="long">
+         Save
+      </Button>
+    </div>
+  );
+};
+
+export default page;

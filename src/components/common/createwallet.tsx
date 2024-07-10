@@ -22,8 +22,8 @@ const WalletForm = ({ setShow }: any) => {
   };
 
   return (
-    <div className="flex flex-col bg-white w-[37vw] text-black  p-10 pb-20 h-[100vh] overflow-y-scroll">
-      <div className="font-medium text-2xl mb-2 flex justify-between">
+    <div className="flex flex-col bg-white w-[721px] text-black  p-10 pb-20 h-[100vh] overflow-y-scroll">
+      <div className="font-normal text-4xl mb-3 flex justify-between">
         <span>Create Wallet</span>
         <Image
           src="\images\close.svg"
@@ -46,9 +46,9 @@ const WalletForm = ({ setShow }: any) => {
                 <div className="flex flex-col flex-1">
                   <label
                     htmlFor="firstName"
-                    className="font-medium mt-2 font-openSans color-[#111111]"
+                    className="font-normal mt-3 text-xl font-openSans color-[#111111]"
                   >
-                    First Name
+                    Full Name
                   </label>
                   <Input
                     name="firstName"
@@ -71,7 +71,7 @@ const WalletForm = ({ setShow }: any) => {
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="email" className="font-medium mt-2 font-openSans">
+            <label htmlFor="email" className="font-normal mt-3 text-xl font-openSans">
               Email Address
             </label>
             <div>
@@ -82,7 +82,7 @@ const WalletForm = ({ setShow }: any) => {
           <div className="flex flex-col w-full">
             <label
               htmlFor="phoneNumber"
-              className="font-medium mt-2 font-openSans"
+              className="font-normal mt-2 text-xl font-openSans"
             >
               Phone Number
             </label>
@@ -92,8 +92,8 @@ const WalletForm = ({ setShow }: any) => {
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="bvn" className="mt-2 font-openSans">
-              <p className="font-medium">BVN</p>
+            <label htmlFor="bvn" className="mt-3 font-openSans">
+              <p className="text-xl font-normal">BVN</p>
               <p className="">
                 your bank verification number isn’t stored for any reason on our
                 database
@@ -111,7 +111,7 @@ const WalletForm = ({ setShow }: any) => {
           <div className="flex flex-col w-full">
             <label
               htmlFor="dateOfBirth"
-              className="font-medium mt-2 font-openSans"
+              className="font-normal mt-3 text-xl text-xl font-openSans"
             >
               Date of Birth
             </label>
@@ -127,7 +127,7 @@ const WalletForm = ({ setShow }: any) => {
           <div className="flex flex-col w-full">
             <label
               htmlFor="homeAddress"
-              className="font-medium mt-2 font-openSans"
+              className="font-normal mt-3 text-xl font-openSans"
             >
               Home Address
             </label>
@@ -140,7 +140,7 @@ const WalletForm = ({ setShow }: any) => {
               <ErrorMessage name="homeAddress" component="div" />
             </div>
           </div>
-          <div className="flex flex-col mt-2 w-full font-openSans">
+          <div className="flex flex-col mt-3 w-full font-Inter text-[20px] ">
             <span className="pt-1">
               By continuing, you agree to our{" "}
               <Link
@@ -151,11 +151,10 @@ const WalletForm = ({ setShow }: any) => {
               </Link>
             </span>
           </div>
-          <div className="flex justify-center mt-5 w-full ">
+          <div className="flex justify-center mt-6 w-full ">
             <Button
-              className="w-[290px] text-[20px] font-CabinetGrotesk font-normal"
+              className="w-[290px] text-[20px]  font-normal"
               type="submit"
-              size="full"
             >
               Proceed
             </Button>

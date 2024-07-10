@@ -1,27 +1,18 @@
 import React, { Children } from "react";
 import Link from "@/components/custom/link";
-import Personalsettings from "@/components/profile/personalsettings";
-import Passwordandsecurity from "@/components/profile/passwordandsecurity";
+import "../../../components/auth/profile.css" 
+
 const RootLayout = ({children}:any) => {
   return (
-    <div>
-      <h2>Manage your account</h2>
-      <nav>
-        <ul>
-          <li className="">
+    <div className="p-[20px_25px]">
+      <h2 className="font-bold text-3xl mb-[20px]">Manage your account</h2>
+      <nav className="w-full">
+        <ul className="h-[30px] bg-red flex gap-10 w-[80%] ">
+          <li className="Link hover:text-[#3D3066] font-bold border-solid border-[#3D3066] text-lg ">
             <Link href="/dashboard/profile/personalsettings" >Personal Settings</Link>
           </li>
-          <li className="">
-            <Link href ="/passwordandsecurity" >Password and Security</Link>
-          </li>
-          <li className="">
-            <Link href="/security">Security</Link>
-          </li>
-          <li className="">
-            <Link href="/security">Security</Link>
-          </li>
-          <li className="">
-            <Link href="/security">Security</Link>
+          <li className="Link  hover:text-[#3D3066] font-bold border-solid border-[#3D3066] text-lg ">
+            <Link href ="/dashboard/profile/passwordandsecurity" >Password and Security</Link>
           </li>
         </ul>
       </nav>
