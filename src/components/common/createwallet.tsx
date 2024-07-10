@@ -22,7 +22,7 @@ const WalletForm = ({ setShow }: any) => {
   };
 
   return (
-    <div className="flex flex-col bg-white w-[52vw] text-black  p-[40px_50px] h-[100vh] overflow-y-scroll">
+    <div className="flex flex-col bg-white w-[40vw] text-black  p-[40px_50px] h-[100vh] overflow-y-scroll">
       <div className="font-normal text-4xl mb-6 flex justify-between">
         <span>Create Wallet</span>
         <Image
@@ -151,10 +151,11 @@ const WalletForm = ({ setShow }: any) => {
               </Link>
             </span>
           </div>
-          <div className="flex justify-center mt-8 mb-8 w-full ">
+          <div className="flex justify-center mt-8 mb-8 ">
             <Button
-              className="w-[290px] text-[20px]  font-normal font-['Cabinet_Grotesk']  text-[20px]"
+              className="font-normal font-['Cabinet_Grotesk']  text-[20px] w-[70%] "
               type="submit"
+
             >
               Proceed
             </Button>

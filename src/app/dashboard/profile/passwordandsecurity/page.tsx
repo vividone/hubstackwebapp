@@ -2,7 +2,7 @@ import React from "react";
 import { Input } from "@/components/common/inputs";
 import { Button } from "@/components/common/button";
 import { Formik } from "formik";
-const page = () => {
+const PageSecurity = () => {
   interface formValues {
     password: string;
     newPassword: string;
@@ -31,4 +31,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default PageSecurity;
