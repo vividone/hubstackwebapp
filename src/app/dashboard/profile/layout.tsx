@@ -1,18 +1,21 @@
-import React, { Children } from "react";
+import React, { ReactNode } from "react";
 import Link from "@/components/custom/link";
-import "../../../components/auth/profile.css" 
 
-const RootLayout = ({children}:any) => {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <div className="p-[20px_25px]">
       <h2 className="font-bold text-3xl mb-[20px]">Manage your account</h2>
-      <nav className="w-full">
-        <ul className="h-[30px] bg-red flex gap-10 w-[80%] ">
-          <li className="Link hover:text-[#3D3066] font-bold border-solid border-[#3D3066] text-lg ">
-            <Link href="/dashboard/profile/personalsettings" >Personal Settings</Link>
+      <nav className="w-full mb-[20px]">
+        <ul className="flex gap-10 w-[80%] h-[30px]">
+          <li className="font-bold text-lg border-b-2 border-transparent transition duration-100 ease-in-out hover:border-[#3D3066] hover:text-[#3D3066] active:border-[#3D3066]">
+            <Link href="/dashboard/profile/personalsettings">Personal Settings</Link>
           </li>
-          <li className="Link  hover:text-[#3D3066] font-bold border-solid border-[#3D3066] text-lg ">
-            <Link href ="/dashboard/profile/passwordandsecurity" >Password and Security</Link>
+          <li className="font-bold text-lg border-b-2 border-transparent transition duration-100 ease-in-out hover:border-[#3D3066] hover:text-[#3D3066] active:border-[#3D3066]">
+            <Link href="/dashboard/profile/passwordandsecurity">Password and Security</Link>
           </li>
         </ul>
       </nav>

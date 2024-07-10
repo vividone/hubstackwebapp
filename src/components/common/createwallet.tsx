@@ -22,8 +22,8 @@ const WalletForm = ({ setShow }: any) => {
   };
 
   return (
-    <div className="flex flex-col bg-white w-[721px] text-black  p-10 pb-20 h-[100vh] overflow-y-scroll">
-      <div className="font-normal text-4xl mb-3 flex justify-between">
+    <div className="flex flex-col bg-white w-[52vw] text-black  p-[40px_50px] h-[100vh] overflow-y-scroll">
+      <div className="font-normal text-4xl mb-6 flex justify-between">
         <span>Create Wallet</span>
         <Image
           src="\images\close.svg"
@@ -46,7 +46,7 @@ const WalletForm = ({ setShow }: any) => {
                 <div className="flex flex-col flex-1">
                   <label
                     htmlFor="firstName"
-                    className="font-normal mt-3 text-xl font-openSans color-[#111111]"
+                    className="font-normal mt-5 text-xl font-openSans color-[#111111]"
                   >
                     Full Name
                   </label>
@@ -71,7 +71,7 @@ const WalletForm = ({ setShow }: any) => {
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="email" className="font-normal mt-3 text-xl font-openSans">
+            <label htmlFor="email" className="font-normal mt-5 text-xl font-openSans">
               Email Address
             </label>
             <div>
@@ -82,7 +82,7 @@ const WalletForm = ({ setShow }: any) => {
           <div className="flex flex-col w-full">
             <label
               htmlFor="phoneNumber"
-              className="font-normal mt-2 text-xl font-openSans"
+              className="font-normal mt-5 text-xl font-openSans"
             >
               Phone Number
             </label>
@@ -92,9 +92,9 @@ const WalletForm = ({ setShow }: any) => {
             </div>
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="bvn" className="mt-3 font-openSans">
+            <label htmlFor="bvn" className="mt-5 font-openSans">
               <p className="text-xl font-normal">BVN</p>
-              <p className="">
+              <p className="text-[14px]">
                 your bank verification number isn’t stored for any reason on our
                 database
               </p>
@@ -111,15 +111,15 @@ const WalletForm = ({ setShow }: any) => {
           <div className="flex flex-col w-full">
             <label
               htmlFor="dateOfBirth"
-              className="font-normal mt-3 text-xl text-xl font-openSans"
+              className="font-normal mt-5 text-xl text-xl font-openSans"
             >
               Date of Birth
             </label>
             <div>
               <Input
                 name="dateOfBirth"
-                type="date"
-                placeholder="Enter you location"
+                // type="date"
+                placeholder="DD/MM/YY"
               />
               <ErrorMessage name="dateOfBirth" component="div" />
             </div>
@@ -127,7 +127,7 @@ const WalletForm = ({ setShow }: any) => {
           <div className="flex flex-col w-full">
             <label
               htmlFor="homeAddress"
-              className="font-normal mt-3 text-xl font-openSans"
+              className="font-normal mt-5 text-xl font-openSans"
             >
               Home Address
             </label>
@@ -135,12 +135,12 @@ const WalletForm = ({ setShow }: any) => {
               <Input
                 name="homeAddress"
                 type="text"
-                placeholder="Enter you location"
+                placeholder="Enter your location"
               />
               <ErrorMessage name="homeAddress" component="div" />
             </div>
           </div>
-          <div className="flex flex-col mt-3 w-full font-Inter text-[20px] ">
+          <div className="flex flex-col mt-5 w-full font-Inter text-[20px] ">
             <span className="pt-1">
               By continuing, you agree to our{" "}
               <Link
@@ -151,9 +151,9 @@ const WalletForm = ({ setShow }: any) => {
               </Link>
             </span>
           </div>
-          <div className="flex justify-center mt-6 w-full ">
+          <div className="flex justify-center mt-8 mb-8 w-full ">
             <Button
-              className="w-[290px] text-[20px]  font-normal"
+              className="w-[290px] text-[20px]  font-normal font-['Cabinet_Grotesk']  text-[20px]"
               type="submit"
             >
               Proceed

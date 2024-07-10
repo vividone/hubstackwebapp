@@ -1,5 +1,4 @@
 import React from "react";
-import "../../../../components/auth/password.css";
 import { Input } from "@/components/common/inputs";
 import { Button } from "@/components/common/button";
 import { Formik } from "formik";

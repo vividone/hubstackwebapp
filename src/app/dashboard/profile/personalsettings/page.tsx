@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-// import "../../../../components/auth/profilesetting.css";
 import { Input } from "@/components/common/inputs";
 import { Button } from "@/components/common/button";
 import { Formik, ErrorMessage } from "formik";

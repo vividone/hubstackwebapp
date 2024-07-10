@@ -28,7 +28,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
   };
 
   return (
-    <div className="h-screen w-[35vw] bg-white overflow-y-scroll z-[1000]">
+    <div className="h-screen w-[52vw] bg-white overflow-y-scroll z-[1000]">
       <div className="flex justify-between p-[30px_40px] pt-[55px]">
         <h3 className="text-4xl font-medium text-[#111111]">My Wallet</h3>
         <Image
@@ -40,7 +40,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
           className="cursor-pointer"
         />
       </div>
-      <div className="p-[10px_40px] border-y border-[#E7E6F2]">
+      <div className="p-[40px_50px] border-y border-[#E7E6F2]">
         <div className="flex justify-between">
           <div>
             <span className="block font-bold text-[#111111] text-[18px]">Current Balance</span>
