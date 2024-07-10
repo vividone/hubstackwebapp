@@ -130,7 +130,7 @@ const Dashboard = () => {
         </ul>
       </div>
       <div className="p-[20px] border-t-[2px] border-[#E7E7E733]">
-        <div className="profile flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer">
+        <Link href="/dashboard/profile" className="profile flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer ">
           <Image
             src="/images/user-alt-3.svg"
             width={27}
@@ -138,7 +138,7 @@ const Dashboard = () => {
             alt="icon_profile"
           />
           <span>Profile</span>
-        </div>
+        </Link>
         <div
           className="flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer"
           onClick={() => handleLogout()}
