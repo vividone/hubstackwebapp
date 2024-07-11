@@ -10,7 +10,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { useCookies } from "@/hooks/useCookies";
 
 const Dashboard = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const { removeCookie } = useCookies();
   const [userDetails, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const handleMenuItemClick = (index: any) => {
@@ -21,9 +21,8 @@ const Dashboard = () => {
     removeCookie(TOKEN.ACCESS)
     setUserDetails(null);
   };
-  console.log(userDetails);
 
-  const adminMenue = [
+  const adminMenu = [
     {
       name: "Dashboard",
       logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
@@ -54,7 +53,7 @@ const Dashboard = () => {
     },
   ];
 
-  const individualMenue = [
+  const individualMenu = [
     {
       name: "Dashboard",
       logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
@@ -86,7 +85,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="w-full sm:w-[25%] md:w-[35%] lg:w-[30%] xl:w-[20%] min-h-screen bg-[#3D3066] flex flex-col gap-[20px] text-[whitesmoke] font-CabinetGrotesk">
+    <div className="w-full sm:w-[35%] md:w-[35%] lg:w-[30%] xl:w-[20%] min-h-screen bg-[#3D3066] flex flex-col gap-[20px] text-[whitesmoke] font-CabinetGrotesk">
       <div className="pl-[20px] pt-[20px] h-[10%]">
         <span>
           <Image
@@ -99,7 +98,7 @@ const Dashboard = () => {
       </div>
       <div className="p-[20px] flex flex-col flex-1">
         <ul className="list-none p-0 m-0">
-          {(userDetails?.role === "Individual" ? individualMenue : adminMenue).map(
+          {(userDetails?.role === "Individual" ? individualMenu : adminMenu).map(
             (item, index) => (
               <Link
                 key={index}
@@ -128,7 +127,10 @@ const Dashboard = () => {
         </ul>
       </div>
       <div className="p-[20px] border-t-[2px] border-[#E7E7E733]">
-        <Link href="/dashboard/profile" className="profile flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer ">
+        <Link
+          href="/dashboard/profile"
+          className="profile flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer"
+        >
           <Image
             src="/images/user-alt-3.svg"
             width={27}
