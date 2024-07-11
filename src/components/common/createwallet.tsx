@@ -22,7 +22,7 @@ const WalletForm = ({ setShow }: any) => {
   };
 
   return (
-    <div className="flex flex-col bg-white w-[40vw] text-black  p-[40px_50px] h-[100vh] overflow-y-scroll">
+    <div className="flex flex-col bg-white w-[45vw] text-black  p-[40px_50px] h-[100vh] overflow-y-scroll">
       <div className="font-normal text-4xl mb-6 flex justify-between">
         <span>Create Wallet</span>
         <Image
