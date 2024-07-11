@@ -23,7 +23,7 @@ export const useCookies = (): {
     return cookies;
   };
 
-  const setCookie = (name: string, value: string, days = 7): void => {
+  const setCookie = (name: string, value: string, days = 2): void => {
     if (typeof window === "undefined") {
       console.warn("Cookies cannot be set in this environment.");
       return;
