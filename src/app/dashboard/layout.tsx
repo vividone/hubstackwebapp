@@ -7,18 +7,18 @@ import { TOKEN } from "@/utils/token";
 import { useRouter } from "next/navigation";
 
 const RootLayout = ({ children }: any) => {
-    const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-    const router = useRouter();
+    // const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
+    // const router = useRouter();
 
-    useEffect(() => {
-        if (!userDetails) {
-            router.push("/"); 
-        }
-    }, [userDetails, router]);
+    // useEffect(() => {
+    //     if (!userDetails) {
+    //         router.push("/"); 
+    //     }
+    // }, [userDetails, router]);
 
-    if (!userDetails) {
-        return null;
-    }
+    // if (!userDetails) {
+    //     return null;
+    // }
 
     return (
         <div className="flex w-full">
