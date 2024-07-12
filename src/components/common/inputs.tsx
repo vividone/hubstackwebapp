@@ -15,10 +15,14 @@ export const Input: FC<Partial<InputProps>> = ({ ...props }) => {
             props.error
               ? "border-[#FFAFAF] shadow-glow"
               : focus
-              ? "bg-white  border  border-primary-200 shadow-focus-glow"
-              : "bg-white  border-[#E7E6F2]"
+              ? " border  border-primary-200 shadow-focus-glow"
+              : " border-[#E7E6F2]"
           }
           placeholder:text-primary_royal-400
+          ${
+            props.disabled
+            ? "bg-[#E7E6F2]/[0.5]": "bg-white "
+          }
           ${containerClassName}
           `}
       onFocus={() => setFocus(true)}

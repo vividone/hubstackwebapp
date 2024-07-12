@@ -1,7 +1,7 @@
 import axiosInstance from "@/helpers/axiosConfig";
 import { useUrls } from "@/helpers/useUrls";
+import { useCookies } from "@/hooks/useCookies";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import useSessionStorage from "@/hooks/useSessionStorage";
 import {
     IAuthLogin,
     IAuthIndividualSignup,
@@ -31,8 +31,7 @@ import { TOKEN } from "@/utils/token";
 export const useLogin = () => {
     const router = useRouter();
     const { loginUrl } = useUrls();
-    const [, setToken] = useSessionStorage(TOKEN.ACCESS);
-    const [, setUserToken] = useSessionStorage(TOKEN.USER);
+    const { setCookie } = useCookies();
     const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["login"],
         mutationFn: (payload: Partial<IAuthLogin>) => {
@@ -53,8 +52,9 @@ export const useLogin = () => {
           await formik.validateForm();
           mutate(values, {
             onSuccess: (res) => {
-              setToken(res.data.token.access_token);
-              setUserToken(values.email);
+              setCookie(TOKEN.ACCESS, res.data.token.access_token);
+              setCookie(TOKEN.ROLE, res.data.data.role);
+              setCookie(TOKEN.ID, res.data.data._id);
               setUserDetails(res.data.data);
               if(!res.data.data.isVerified) {
                 router.push(FRONTEND_URL.VERIFY_ACCOUNT);
@@ -86,8 +86,7 @@ export const useLogin = () => {
     export const useSignupIndividual = (type: string) => {
       const router = useRouter();
       const { signupIndividualUrl } = useUrls();
-      const [, setToken] = useSessionStorage(TOKEN.ACCESS);
-      const [, setUserToken] = useSessionStorage(TOKEN.USER);
+      const { setCookie } = useCookies();
       const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
       const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up individual"],
           mutationFn: (payload: Partial<IAuthIndividualSignup>) => {
@@ -113,8 +112,9 @@ export const useLogin = () => {
             await formik.validateForm();
             mutate(values, {
               onSuccess: (res) => {
-                setToken(res.data.token.access_token);
-                setUserToken(values.email);
+                setCookie(TOKEN.ACCESS, res.data.token.access_token);
+                setCookie(TOKEN.ROLE, res.data.data.role);
+                setCookie(TOKEN.ID, res.data.data._id);
                 setUserDetails(res.data.data);
                 router.push(FRONTEND_URL.VERIFY_ACCOUNT);
               },
@@ -140,8 +140,7 @@ export const useLogin = () => {
 export const useSignupAgent = () => {
     const router = useRouter();
     const { signupAgentUrl } = useUrls();
-    const [, setToken] = useSessionStorage(TOKEN.ACCESS);
-    const [, setUserToken] = useSessionStorage(TOKEN.USER);
+    const { setCookie } = useCookies();
     const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up agent"],
         mutationFn: (payload: Partial<IAuthAgentSignup>) => {
@@ -171,8 +170,9 @@ export const useSignupAgent = () => {
           await formik.validateForm();
           mutate(values, {
             onSuccess: (res) => {
-              setToken(res.data.token.access_token);
-              setUserToken(values.email);
+              setCookie(TOKEN.ACCESS, res.data.token.access_token);
+              setCookie(TOKEN.ROLE, res.data.data.role);
+              setCookie(TOKEN.ID, res.data.data._id);
               setUserDetails(res.data.data);
               router.push(FRONTEND_URL.VERIFY_ACCOUNT);
             },
@@ -197,8 +197,7 @@ export const useSignupAgent = () => {
   export const useSignupSuperAgent = () => {
     const router = useRouter();
     const { signupAgentUrl } = useUrls();
-    const [, setToken] = useSessionStorage(TOKEN.ACCESS);
-    const [, setUserToken] = useSessionStorage(TOKEN.USER);
+    const { setCookie } = useCookies();
     const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up superagent"],
         mutationFn: (payload: Partial<IAuthSuperAgentSignup>) => {
@@ -226,8 +225,9 @@ export const useSignupAgent = () => {
           await formik.validateForm();
           mutate(values, {
             onSuccess: (res) => {
-              setToken(res.data.token.access_token);
-              setUserToken(values.email);
+              setCookie(TOKEN.ACCESS, res.data.token.access_token);
+              setCookie(TOKEN.ROLE, res.data.data.role);
+              setCookie(TOKEN.ID, res.data.data._id);
               setUserDetails(res.data.data);
               router.push(FRONTEND_URL.VERIFY_ACCOUNT);
             },

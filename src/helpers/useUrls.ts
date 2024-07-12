@@ -2,7 +2,6 @@ export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export function useUrls() {
   // Auth endpoints
-  // i did not put v1 in the base url because of these things can change
   const loginUrl = `${BASE_URL}/auth/login`;
   const signupIndividualUrl = `${BASE_URL}/auth/register-individual`;
   const signupAgentUrl = `${BASE_URL}/auth/register-agent`;
@@ -11,6 +10,10 @@ export function useUrls() {
   const resetPasswordUrl = `${BASE_URL}/auth/reset-password`;
   const forgotPasswordUrl = `${BASE_URL}/auth/forgot-password`;
   const resendPasswordEmailUrl = `${BASE_URL}/auth/resend-email`;
+
+  // Update profile 
+  const updateIndividualProfileUrl = `${BASE_URL}/users/update-profile`;
+  const updateAgentProfileUrl = `${BASE_URL}/agent/update-profile`;
 
   // seat
 
@@ -22,6 +25,8 @@ export function useUrls() {
     verifyLoginUrl,
     resetPasswordUrl,
     forgotPasswordUrl,
-    resendPasswordEmailUrl
+    resendPasswordEmailUrl,
+    updateIndividualProfileUrl,
+    updateAgentProfileUrl
   };
 }
