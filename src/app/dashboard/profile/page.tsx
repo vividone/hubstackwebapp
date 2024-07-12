@@ -1,9 +1,13 @@
-import React from 'react'
-const page = () => {
+import React, { Children } from "react";
+import Link from "@/components/custom/link";
+import Personalsettings from "@/components/profile/personalsettings";
+import Passwordandsecurity from "@/components/profile/passwordandsecurity";
+const RootLayout = ({children}:any) => {
   return (
-    <>
-    </>
-  )
-}
+    <div>
 
-export default page
+    </div>
+  );
+};
+
+export default RootLayout;

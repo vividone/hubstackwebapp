@@ -15,7 +15,7 @@ const Wallet = () => {
     {
       logo: "/images/dollar-bag-1.svg",
       amount: "$1000",
-      type: "Wallet Balance",
+      type: "Balance",
       visibility: true,
       colors: {
         logoBackground: "#FFFFFF1A",
@@ -26,7 +26,7 @@ const Wallet = () => {
       logo: "/images/boxwcheck.svg",
       amount: "$0",
       type: "Inflow",
-      visibility: true,
+      visibility: false,
       colors: {
         logoBackground: "#3763D9",
         cardBackground: "#507FFF",
@@ -36,7 +36,7 @@ const Wallet = () => {
       logo: "/images/Frame.svg",
       amount: "$0",
       type: "Outflow",
-      visibility: true,
+      visibility: false,
       colors: {
         logoBackground: "#0CBFD9",
         cardBackground: "#00D7F7",
@@ -46,7 +46,7 @@ const Wallet = () => {
       logo: "/images/stack.svg",
       amount: "$0",
       type: "Transactions",
-      visibility: true,
+      visibility: false,
       colors: {
         logoBackground: "#2F2E31",
         cardBackground: "#000000",
