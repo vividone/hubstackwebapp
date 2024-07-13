@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import Link from "../custom/link";
 import { TOKEN } from "@/utils/token";
-import useLocalStorage from "@/hooks/useLocalStorage";
 import { useCookies } from "@/hooks/useCookies";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -30,7 +30,7 @@ const Dashboard = () => {
         { name: "Overview", href: "/Dashboard/overview" },
         { name: "Reports", href: "/Dashboard/reports" },
       ],
-      href: "/dashboard",
+      href: "/account/dashboard",
     },
     {
       name: "Wallet",
@@ -42,14 +42,14 @@ const Dashboard = () => {
           alt="logo"
         />
       ),
-      href: "/dashboard/wallet",
+      href: "/account/wallet",
     },
     {
       name: "Services",
       logo: (
         <Image src="/images/services.svg" width={27} height={27} alt="logo" />
       ),
-      href: "/dashboard/services",
+      href: "account/services",
     },
   ];
 
@@ -61,7 +61,7 @@ const Dashboard = () => {
         { name: "Overview", href: "/Dashboard/overview" },
         { name: "Reports", href: "/Dashboard/reports" },
       ],
-      href: "/dashboard",
+      href: "/account",
     },
     {
       name: "Wallet",
@@ -73,19 +73,19 @@ const Dashboard = () => {
           alt="logo"
         />
       ),
-      href: "/dashboard/wallet",
+      href: "/account/wallet",
     },
     {
       name: "Services",
       logo: (
         <Image src="/images/services.svg" width={27} height={27} alt="logo" />
       ),
-      href: "/dashboard/services",
+      href: "/account/services",
     },
   ];
 
   return (
-    <div className="w-full sm:w-[35%] md:w-[35%] lg:w-[30%] xl:w-[20%] min-h-screen bg-[#3D3066] flex flex-col gap-[20px] text-[whitesmoke] font-CabinetGrotesk">
+    <div className="w-full sm:w-[35%] md:w-[35%] lg:w-[30%] xl:w-[20%] h-[100vh] bg-[#3D3066] flex flex-col gap-[20px] text-[whitesmoke] font-CabinetGrotesk">
       <div className="pl-[20px] pt-[20px] h-[10%]">
         <span>
           <Image
@@ -128,7 +128,7 @@ const Dashboard = () => {
       </div>
       <div className="p-[20px] border-t-[2px] border-[#E7E7E733]">
         <Link
-          href="/dashboard/profile"
+          href="/account/profile"
           className="profile flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer"
         >
           <Image

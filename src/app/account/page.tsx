@@ -36,7 +36,7 @@ const DashboardPage = () => {
   ]
 
   return (
-    <div className="p-[5%]">
+    <div className="p-[1.5rem]">
 
       <h1 className="2xl:text-[36px] xl:text-[28px] text-[24px]">What would you like to do today ?</h1>
 

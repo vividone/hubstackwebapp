@@ -11,6 +11,12 @@ export function useUrls() {
   const forgotPasswordUrl = `${BASE_URL}/auth/forgot-password`;
   const resendPasswordEmailUrl = `${BASE_URL}/auth/resend-email`;
 
+  // create wallet
+  const createWalletUrl = `${BASE_URL}/wallet/create-account`
+  const walletCheck = `${BASE_URL}/users/wallet-check`
+  const getAllWallets = `${BASE_URL}/wallet/sub-accounts`
+  const getWalletBalance = `${BASE_URL}/wallet/account-balance/`
+
   // Update profile 
   const updateIndividualProfileUrl = `${BASE_URL}/users/update-profile`;
   const updateAgentProfileUrl = `${BASE_URL}/agent/update-profile`;
@@ -27,6 +33,11 @@ export function useUrls() {
     forgotPasswordUrl,
     resendPasswordEmailUrl,
     updateIndividualProfileUrl,
-    updateAgentProfileUrl
+    updateAgentProfileUrl,
+    createWalletUrl ,
+    walletCheck,
+    getAllWallets,
+    getWalletBalance
   };
+
 }
