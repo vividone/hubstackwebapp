@@ -11,7 +11,7 @@ export function useUrls() {
   const resetPasswordUrl = `${BASE_URL}/auth/reset-password`;
   const forgotPasswordUrl = `${BASE_URL}/auth/forgot-password`;
   const resendPasswordEmailUrl = `${BASE_URL}/auth/resend-email`;
-
+  const createWalletUrl = `${BASE_URL}/wallet/create-account`;
   // seat
 
   return {
@@ -22,6 +22,7 @@ export function useUrls() {
     verifyLoginUrl,
     resetPasswordUrl,
     forgotPasswordUrl,
-    resendPasswordEmailUrl
+    resendPasswordEmailUrl,
+    createWalletUrl,
   };
 }

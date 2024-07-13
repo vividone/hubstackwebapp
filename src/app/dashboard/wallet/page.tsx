@@ -6,7 +6,7 @@ import Image from "next/image";
 import WalletForm from "@/components/common/createwallet";
 // import Mywallet from "@/components/common/Existinguserwallet";
 const Wallet = () => {
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
   const [showWallet, setShowwallet] = useState(false);
   const setShow = (bool: any) => {
     setShowwallet(bool);
@@ -14,7 +14,7 @@ const Wallet = () => {
   const cardData = [
     {
       logo: "/images/dollar-bag-1.svg",
-      amount: "$1000",
+      amount: "₦1000",
       type: "Balance",
       visibility: true,
       colors: {
@@ -24,7 +24,7 @@ const Wallet = () => {
     },
     {
       logo: "/images/boxwcheck.svg",
-      amount: "$0",
+      amount: "₦0",
       type: "Inflow",
       visibility: false,
       colors: {
@@ -34,7 +34,7 @@ const Wallet = () => {
     },
     {
       logo: "/images/Frame.svg",
-      amount: "$0",
+      amount: "₦0",
       type: "Outflow",
       visibility: false,
       colors: {
@@ -44,7 +44,7 @@ const Wallet = () => {
     },
     {
       logo: "/images/stack.svg",
-      amount: "$0",
+      amount: "₦0",
       type: "Transactions",
       visibility: false,
       colors: {
@@ -55,7 +55,7 @@ const Wallet = () => {
   ];
 
   return (
-    <div className="flex-1 relative 2xl:px-[70px]">
+    <div className="flex-1 relative">
       {showWallet && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
           <WalletForm setShow={setShow} />
