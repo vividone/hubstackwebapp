@@ -7,21 +7,19 @@ import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import Link from "../custom/link";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { useRouter } from "next/navigation";
+import { useCookies } from "@/hooks/useCookies";
 
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const { removeCookie } = useCookies();
   const [userDetails, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-
-  const router = useRouter();
-
-  const handleMenuItemClick = (index: number) => {
+  const handleMenuItemClick = (index: any) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
   const handleLogout = () => {
+    removeCookie(TOKEN.ACCESS)
     setUserDetails(null);
-    router.push("/");
   };
 
   const adminMenu = [
