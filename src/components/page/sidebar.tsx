@@ -8,6 +8,7 @@ import Link from "../custom/link";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useCookies } from "@/hooks/useCookies";
+import { usePathname, useRouter } from "next/navigation";
 
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -17,9 +18,13 @@ const Dashboard = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  const router = useRouter()
+  const pathname = usePathname()
+
   const handleLogout = () => {
     removeCookie(TOKEN.ACCESS)
     setUserDetails(null);
+    router.push("/")
   };
 
   const adminMenu = [
@@ -42,14 +47,14 @@ const Dashboard = () => {
           alt="logo"
         />
       ),
-      href: "/dashboard/wallet",
+      href: "/account/wallet",
     },
     {
       name: "Services",
       logo: (
         <Image src="/images/services.svg" width={27} height={27} alt="logo" />
       ),
-      href: "/dashboard/services",
+      href: "/account/services",
     },
   ];
 
@@ -73,20 +78,20 @@ const Dashboard = () => {
           alt="logo"
         />
       ),
-      href: "/dashboard/wallet",
+      href: "/account/wallet",
     },
     {
       name: "Services",
       logo: (
         <Image src="/images/services.svg" width={27} height={27} alt="logo" />
       ),
-      href: "/dashboard/services",
+      href: "/account/services",
     },
   ];
 
   return (
     <div className="w-full sm:w-[35%] md:w-[35%] lg:w-[30%] xl:w-[20%] min-h-screen bg-[#3D3066] flex flex-col gap-[20px] text-[whitesmoke] font-CabinetGrotesk">
-      <div className="pl-[20px] pt-[20px] h-[10%]">
+      <div className="pl-[20px] pt-[10px] h-[10%]">
         <span>
           <Image
             src="/images/hubstackLogo.svg"
@@ -104,7 +109,7 @@ const Dashboard = () => {
                 key={index}
                 href={item.href}
                 className={`flex items-center justify-between list-none p-[15px] w-full mb-[10px] rounded-[8px] relative text-[#FFFFFF80] transition-[0.3s] ease-in-out ${
-                  activeIndex === index
+                  pathname === item.href
                     ? "bg-[#FFFFFF1A] text-[whitesmoke]"
                     : ""
                 } hover:bg-[#FFFFFF1A] hover:text-[whitesmoke] cursor-pointer`}
@@ -128,7 +133,7 @@ const Dashboard = () => {
       </div>
       <div className="p-[20px] border-t-[2px] border-[#E7E7E733]">
         <Link
-          href="/dashboard/profile"
+          href="/account/profile"
           className="profile flex gap-[10px] w-full p-[15px] rounded-[8px] hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer"
         >
           <Image

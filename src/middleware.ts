@@ -8,6 +8,9 @@ export function middleware(request: NextRequest) {
     return Response.redirect(new URL('/', request.url))
   }
 
+  if (!currentUser && request.nextUrl.pathname.startsWith('/account')) {
+    return Response.redirect(new URL('/', request.url))
+  }
 }
  
 export const config = {

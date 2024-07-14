@@ -55,7 +55,7 @@ const Wallet = () => {
   ];
 
   return (
-    <div className="flex-1 relative 2xl:px-[70px]">
+    <div className="flex-1 relative 2xl:px-[20px]">
       {showWallet && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
           <WalletForm setShow={setShow} />
