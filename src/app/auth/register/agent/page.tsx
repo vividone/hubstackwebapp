@@ -23,7 +23,7 @@ const RegisterAgent = () => {
 
   const searchParams = useSearchParams();
 
-  const superAgentUsername = searchParams.get("reffered") || null
+  const superAgentUsername = searchParams.get("referred") || null
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();

@@ -15,7 +15,7 @@ const Navigation = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center p-[25px] pr-[20px] w-full border-b border-gray-300 xlg:px-20 2xl:px-[90px] 2xl:py-[20px]">
+    <div className="flex flex-col md:flex-row justify-between items-center px-[25px] py-[15px] w-full border-b border-gray-300">
       <div className="flex-1 mb-4 md:mb-0">
         <h2 className="m-0 text-2xl font-semibold text-center md:text-left">
           Welcome, {userDetails?.firstname}!

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 interface CardData {
   logo: string;
   amount: string;
@@ -20,30 +21,29 @@ interface CardProps {
 
 const Card = ({ value }: CardProps) => {
   const { logo, amount, type, visibility, colors } = value;
-  const [showOverlay, setShowOverlay] = useState(true);
   const [showAmount, setShowAmount] = useState(true);
-
+  const [hasWallet,] = useLocalStorage(TOKEN.HASWALLET)
   return (
     <div
-      className="relative h-[160px] w-full rounded-[8px] text-white p-[20px] flex 2xl:h-[185px]"
+      className="relative h-[160px] w-full rounded-[8px] text-white p-[1.5em] flex 2xl:h-[185px]"
       style={{ backgroundColor: colors.cardBackground }}
     >
       <div
         className={`absolute inset-0  rounded-[10px] bg-black bg-opacity-50 ${
-          showOverlay ? "" : "hidden"
+          hasWallet ? "hidden" : ""
         }`}
       ></div>
       <div className="flex flex-col h-full w-full">
         <div className="flex-2 h-[50%]">
           <span
-            className="flex items-center justify-center h-[35px] w-[35px] rounded-full"
+            className="flex items-center justify-center h-[40px] w-[40px] rounded-full"
             style={{ background: colors.logoBackground }}
           >
             <Image src={logo} alt="card logo" width={20} height={20} />
           </span>
         </div>
         <div className="flex flex-col justify-center items-center h-[50%]">
-          <span className="font-bold text-[25px] w-full font-sans">
+          <span className="flex items-center font-bold text-[25px] w-full font-sans">
             {showAmount ? amount : "****"}
           </span>
           <span className="font-normal text-[18px] w-full font-sans">

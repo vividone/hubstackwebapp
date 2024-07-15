@@ -2,6 +2,7 @@ import axiosInstance from "@/helpers/axiosConfig";
 import { useUrls } from "@/helpers/useUrls";
 import { useCookies } from "@/hooks/useCookies";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import useSessionStorage from "@/hooks/useSessionStorage";
 import {
     IAuthLogin,
     IAuthIndividualSignup,
@@ -32,7 +33,9 @@ export const useLogin = () => {
     const router = useRouter();
     const { loginUrl } = useUrls();
     const { setCookie } = useCookies();
+    const [, setUserToken] = useSessionStorage<string>(TOKEN.USER, "");
     const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL); // to persist
+    const [hasWallet,setHasWallet] = useLocalStorage<any>(TOKEN.HASWALLET)
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["login"],
         mutationFn: (payload: Partial<IAuthLogin>) => {
           return axiosInstance.post(loginUrl, payload)
@@ -55,8 +58,10 @@ export const useLogin = () => {
               setCookie(TOKEN.ACCESS, res.data.token.access_token);
               setCookie(TOKEN.ROLE, res.data.data.role);
               setCookie(TOKEN.ID, res.data.data._id);
+              setHasWallet(res.data.hasWallet)
               setUserDetails(res.data.data);
               if(!res.data.data.isVerified) {
+                setUserToken(values.email);
                 router.push(FRONTEND_URL.VERIFY_ACCOUNT);
               }
               else {
@@ -303,6 +308,7 @@ export const useVerifyLogin = () => {
 export const useForgotPassword = () => {
   const router = useRouter();
   const { forgotPasswordUrl } = useUrls();
+  const [, setUserToken] = useSessionStorage<string>(TOKEN.USER, "");
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["reset password"],
       mutationFn: (payload: Partial<{email: string}>) => {
         return axiosInstance.post(forgotPasswordUrl, payload)
@@ -324,6 +330,7 @@ export const useForgotPassword = () => {
           },
           {
             onSuccess: () => {
+              setUserToken(values.email);
               router.push(FRONTEND_URL.RESET_CONFIRMATION)
             },
             onError: (res: any) => {
@@ -347,12 +354,12 @@ export const useForgotPassword = () => {
 
 
 // set new password
-export const useResetPassword = () => {
+export const useResetPassword = (token: string | null) => {
   const router = useRouter();
   const { resetPasswordUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["set password"],
       mutationFn: (payload: Partial<{ newPassword: string, confirmNewPassword: string }>) => {
-        return axiosInstance.post(resetPasswordUrl, payload)
+        return axiosInstance.post(resetPasswordUrl + "/" + token, payload)
       },
   })  
 

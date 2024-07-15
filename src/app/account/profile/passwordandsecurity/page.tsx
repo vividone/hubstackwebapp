@@ -2,14 +2,11 @@
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/inputs";
 import ToastComponent from "@/components/common/toastComponent";
-import { useProfilePasswordUpdate } from "@/helpers/profile";
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { TOKEN } from "@/utils/token";
+import { useResetPassword } from "@/helpers/api/useAuth";
 import { FormEvent } from "react";
 
 const PageSecurity = () => {
-  const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { formik, isPending, isSuccess, isError, error } = useProfilePasswordUpdate(userDetails?._id, userDetails?.role)
+  const { formik, isPending, isSuccess, isError, error } = useResetPassword("")
   
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -34,22 +31,23 @@ const PageSecurity = () => {
             <label htmlFor="firstname">Enter New Password</label>
             <Input
               placeholder="Password"
-              name="password"
+              name="newPassword"
               data-test="password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
+            <p className="text-[12px] text-red-500 text-center">{formik.errors.newPassword}</p>
           </div>
           <div className="w-full text-[#8c8b92] text-[20px] flex flex-col gap-3">
             <label htmlFor="firstname">Re-enter New Password</label>
             <Input
               placeholder="Confirm password"
-              name="confirmPassword"
+              name="confirmNewPassword"
               data-test="confirm-password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            <p className="text-[12px] text-red-500 text-center">{formik.errors.confirmPassword}</p>
+            <p className="text-[12px] text-red-500 text-center">{formik.errors.confirmNewPassword}</p>
           </div>
         </div>
       </div>
