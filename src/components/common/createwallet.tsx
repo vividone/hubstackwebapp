@@ -6,17 +6,18 @@ import { Input } from "./inputs";
 import { Button } from "./button";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { useCreateWalletForm } from "@/helpers/wallet";
+import { useCreateWallet } from "@/helpers/wallet";
 import ToastComponent from "@/components/common/toastComponent";
 
 const WalletForm = ({ setShow }: any) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { formik, isPending, isSuccess, isError, error } = useCreateWalletForm();
+  const { formik, isPending, isSuccess, isError, error } = useCreateWallet();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     console.log("Submitting form...");
     formik.handleSubmit();
+    console.log(formik.errors)
   };
 
   <ToastComponent
@@ -103,9 +104,10 @@ const WalletForm = ({ setShow }: any) => {
             <Input
               name="mobilenumber"
               type="number"
-              placeholder="09023456789"
-              value={formik.values.phone_number}
-              disabled
+              placeholder=""
+              value={formik.values.mobilenumber}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
           </div>
         </div>
@@ -113,19 +115,19 @@ const WalletForm = ({ setShow }: any) => {
           <label htmlFor="bvn" className="mt-5 font-openSans">
             <p className="text-xl font-normal">BVN</p>
             <p className="text-[14px]">
-              Your bank verification number isn’t stored for any reason on our
+              Your bank verification number isn't stored for any reason on our
               database
             </p>
           </label>
           <div>
             <Input
-              name="bvn"
+              name="BVN"
               type="text"
               placeholder="Enter your 11 digit BVN"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               className={`${
-                  formik.touched.bvn && formik.errors.bvn ? "border-red-500" : ""
+                  formik.touched.BVN && formik.errors.BVN ? "border-red-500" : ""
               }`}
             />
           </div>
@@ -151,28 +153,7 @@ const WalletForm = ({ setShow }: any) => {
             />
           </div>
         </div>
-        <div className="flex flex-col w-full">
-          <label
-            htmlFor="homeAddress"
-            className="font-normal mt-5 text-xl font-openSans"
-          >
-            Home Address
-          </label>
-          <div>
-            <Input
-              name="homeAddress"
-              type="text"
-              placeholder="Enter your location"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className={`${
-                formik.touched.homeAddress && formik.errors.homeAddress
-                  ? "border-red-500"
-                  : ""
-              }`}
-            />
-          </div>
-        </div>
+        
         <div className="flex flex-col mt-5 w-full font-Inter text-[20px]">
           <span className="pt-1">
             By continuing, you agree to our{" "}

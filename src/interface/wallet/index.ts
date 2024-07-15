@@ -1,10 +1,8 @@
 export interface ICreateWalletUpdate{
     firstname: string;
     lastname: string;
-    email:string;
-    phone_number:string;
-    mobilenumber?:string;
-    bvn:string;
-    dateOfBirth?:string;
-    homeAddress?:any;
+    email: string;
+    mobilenumber: string;
+    BVN: string;
+    dateOfBirth: string;
 }
