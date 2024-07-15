@@ -33,6 +33,7 @@ export const useLogin = () => {
     const { loginUrl } = useUrls();
     const { setCookie } = useCookies();
     const [, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL); // to persist
+    const [hasWallet,setHasWallet] = useLocalStorage<any>(TOKEN.HASWALLET)
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["login"],
         mutationFn: (payload: Partial<IAuthLogin>) => {
           return axiosInstance.post(loginUrl, payload)
@@ -55,12 +56,13 @@ export const useLogin = () => {
               setCookie(TOKEN.ACCESS, res.data.token.access_token);
               setCookie(TOKEN.ROLE, res.data.data.role);
               setCookie(TOKEN.ID, res.data.data._id);
+              setHasWallet(res.data.hasWallet)
               setUserDetails(res.data.data);
               if(!res.data.data.isVerified) {
                 router.push(FRONTEND_URL.VERIFY_ACCOUNT);
               }
               else {
-                router.push(FRONTEND_URL.DASHBOARD);
+                router.push(FRONTEND_URL.ACCOUNT);
               }
 
             },
@@ -277,7 +279,7 @@ export const useVerifyLogin = () => {
           },
           {
             onSuccess: () => {
-              router.push(FRONTEND_URL.DASHBOARD);
+              router.push(FRONTEND_URL.ACCOUNT);
             },
             // onError: (res: any) => {
               

@@ -11,13 +11,11 @@ import ToastComponent from "@/components/common/toastComponent";
 
 const WalletForm = ({ setShow }: any) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { formik, isPending, isSuccess, isError, error } = useCreateWalletForm(
-    userDetails?._id,
-    userDetails?.role
-  );
+  const { formik, isPending, isSuccess, isError, error } = useCreateWalletForm();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log("Submitting form...");
     formik.handleSubmit();
   };
 
@@ -26,16 +24,15 @@ const WalletForm = ({ setShow }: any) => {
     isError={isError}
     msg={
       isSuccess
-        ? "wallet creation is sucessful "
+        ? "Wallet creation is successful"
         : isError
-        ? "wallet creation error " + error
+        ? "Wallet creation error: " + error
         : Object.values(formik.errors)?.join(", ")
     }
   />;
-
   return (
     <div className="flex flex-col bg-white w-[45vw] text-black p-[40px_50px] h-[100vh] overflow-y-scroll">
-      <div className="font-normal text-4xl mb-6 flex justify-between">
+      <div className="font-normal text-4xl mb-4 flex justify-between">
         <span>Create Wallet</span>
         <Image
           src="/images/close.svg"
@@ -59,25 +56,21 @@ const WalletForm = ({ setShow }: any) => {
                 </label>
                 <Input
                   type="text"
-                  name="firstName"
-                  className="mt-1 text-[#8c8b92]"
+                  name="firstname"
                   data-test="username-firstname"
                   placeholder="First name"
-                  value={userDetails?.firstname}
-                  disabled={true}
+                  value={formik.values.firstname}
+                  disabled
                 />
-               
               </div>
-              <div className="flex flex-col flex-1 justify-end">
+              <div className="flex flex-col flex-1 justify-end text-[#8c8b92]">
                 <Input
-                  name="lastName"
+                  name="lastname"
                   type="text"
                   placeholder="Last name"
-                  className="mt-1 text-[#8c8b92]"
-                  value={userDetails?.lastname}
-                  disabled={true}
+                  value={formik.values.lastname}
+                  disabled
                 />
-               
               </div>
             </div>
           </div>
@@ -94,10 +87,9 @@ const WalletForm = ({ setShow }: any) => {
               name="email"
               type="email"
               placeholder="Email address"
-              value={userDetails?.email}
-              disabled={true}
+              value={formik.values.email}
+              disabled
             />
-           
           </div>
         </div>
         <div className="flex flex-col w-full text-[#8c8b92]">
@@ -109,13 +101,12 @@ const WalletForm = ({ setShow }: any) => {
           </label>
           <div>
             <Input
-              name="phoneNumber"
+              name="mobilenumber"
               type="number"
               placeholder="09023456789"
-              value={userDetails?.phone_number}
-              disabled={true}
+              value={formik.values.phone_number}
+              disabled
             />
-            
           </div>
         </div>
         <div className="flex flex-col w-full">
@@ -133,8 +124,10 @@ const WalletForm = ({ setShow }: any) => {
               placeholder="Enter your 11 digit BVN"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              className={`${
+                  formik.touched.bvn && formik.errors.bvn ? "border-red-500" : ""
+              }`}
             />
-            
           </div>
         </div>
         <div className="flex flex-col w-full">
@@ -150,8 +143,12 @@ const WalletForm = ({ setShow }: any) => {
               placeholder="DD/MM/YY"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              className={`${
+                formik.touched.dateOfBirth && formik.errors.dateOfBirth
+                  ? "border-red-500"
+                  : ""
+              }`}
             />
-           
           </div>
         </div>
         <div className="flex flex-col w-full">
@@ -168,8 +165,12 @@ const WalletForm = ({ setShow }: any) => {
               placeholder="Enter your location"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              className={`${
+                formik.touched.homeAddress && formik.errors.homeAddress
+                  ? "border-red-500"
+                  : ""
+              }`}
             />
-           
           </div>
         </div>
         <div className="flex flex-col mt-5 w-full font-Inter text-[20px]">

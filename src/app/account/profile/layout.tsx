@@ -20,10 +20,10 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       <nav className="w-full mb-[20px]">
         <ul className="flex gap-10">
           <li className={`text-lg border-b-2 border-transparent transition duration-100 ease-in-out hover:border-[#3D3066] hover:text-[#3D3066] ${pathname === "/dashboard/profile" ? "text-[#3D3066] font-bold border-b-[#3D3066]" : "font-normal"}`}>
-            <Link href="/dashboard/profile">Personal Settings</Link>
+            <Link href="/account/profile">Personal Settings</Link>
           </li>
           <li className={`text-lg border-b-2 border-transparent transition duration-100 ease-in-out hover:border-[#3D3066] hover:text-[#3D3066] ${pathname === "/dashboard/profile/passwordandsecurity" ? "text-[#3D3066] font-bold border-b-[#3D3066]" : "font-normal"}`}>
-            <Link href="/dashboard/profile/passwordandsecurity">Password and Security</Link>
+            <Link href="/account/profile/passwordandsecurity">Password and Security</Link>
           </li>
         </ul>
       </nav>

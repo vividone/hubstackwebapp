@@ -4,10 +4,11 @@ import Card from "@/components/common/card";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
 import WalletForm from "@/components/common/createwallet";
-// import Mywallet from "@/components/common/Existinguserwallet";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 const Wallet = () => {
-  const [user, setUser] = useState(false);
   const [showWallet, setShowwallet] = useState(false);
+  const [hasWallet,] = useLocalStorage(TOKEN.HASWALLET)
   const setShow = (bool: any) => {
     setShowwallet(bool);
   };
@@ -73,7 +74,7 @@ const Wallet = () => {
                 height={20}
               />
             </span>
-            { user ? (
+            { hasWallet ? (
               <span >FUND WALLET</span>
             ) : (
               <span>CREATE WALLET</span>

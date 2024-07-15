@@ -13,7 +13,4 @@ export const createWalletValidationSchema = Yup.object({
     .required("Required"),
   dateOfBirth: Yup.date().required("Required"),
   homeAddress: Yup.string().required("Required"),
-  terms: Yup.bool()
-    .oneOf([true], "You must accept the terms and conditions")
-    .required("Required"),
 });

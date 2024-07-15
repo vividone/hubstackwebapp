@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 interface CardData {
   logo: string;
   amount: string;
@@ -20,9 +21,8 @@ interface CardProps {
 
 const Card = ({ value }: CardProps) => {
   const { logo, amount, type, visibility, colors } = value;
-  const [showOverlay, setShowOverlay] = useState(true);
   const [showAmount, setShowAmount] = useState(true);
-
+  const [hasWallet,] = useLocalStorage(TOKEN.HASWALLET)
   return (
     <div
       className="relative h-[160px] w-full rounded-[8px] text-white p-[1.5em] flex 2xl:h-[185px]"
@@ -30,7 +30,7 @@ const Card = ({ value }: CardProps) => {
     >
       <div
         className={`absolute inset-0  rounded-[10px] bg-black bg-opacity-50 ${
-          showOverlay ? "" : "hidden"
+          hasWallet ? "hidden" : ""
         }`}
       ></div>
       <div className="flex flex-col h-full w-full">

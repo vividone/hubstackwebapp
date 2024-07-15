@@ -5,4 +5,5 @@ export const TOKEN = {
   PHONENUMBER: "phonenumber",
   ROLE: "role",
   ID: "userId",
+  HASWALLET:"haswallet"
 };
