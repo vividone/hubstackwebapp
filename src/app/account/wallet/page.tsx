@@ -65,7 +65,7 @@ const Wallet = () => {
       )}
       <main className="flex flex-col gap-[20px] p-[20px] ">
         <div className="self-end">
-          <Button size="long" onClick={() => setShow(true)}>
+          <Button size="lg" onClick={() => setShow(true)}>
             <span className="flex items-center">
               <Image
                 src="/images/cross.svg"
@@ -81,7 +81,7 @@ const Wallet = () => {
             )}
           </Button>
         </div>
-        <div className="grid lg:grid-cols-4 sm:grid-cols-2 gap-[20px] 2xl:gap-[30px]">
+        <div className="grid xl:grid-cols-4 sm:grid-cols-2 gap-[20px] 2xl:gap-[30px]">
           {cardData.map((value, key) => (
             <Card value={value} key={key} />
           ))}

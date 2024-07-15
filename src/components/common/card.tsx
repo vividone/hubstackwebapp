@@ -36,14 +36,14 @@ const Card = ({ value }: CardProps) => {
       <div className="flex flex-col h-full w-full">
         <div className="flex-2 h-[50%]">
           <span
-            className="flex items-center justify-center h-[35px] w-[35px] rounded-full"
+            className="flex items-center justify-center h-[40px] w-[40px] rounded-full"
             style={{ background: colors.logoBackground }}
           >
             <Image src={logo} alt="card logo" width={20} height={20} />
           </span>
         </div>
         <div className="flex flex-col justify-center items-center h-[50%]">
-          <span className="font-bold text-[25px] w-full font-sans">
+          <span className="flex items-center font-bold text-[25px] w-full font-sans">
             {showAmount ? amount : "****"}
           </span>
           <span className="font-normal text-[18px] w-full font-sans">

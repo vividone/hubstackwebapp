@@ -8,7 +8,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -19,6 +19,8 @@ const Dashboard = () => {
   const handleMenuItemClick = (index: any) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
+
+  const pathname = usePathname()
 
   const handleLogout = () => {
     removeCookie(TOKEN.ACCESS);
@@ -47,6 +49,13 @@ const Dashboard = () => {
         />
       ),
       href: "/account/wallet",
+    },
+    {
+      name: "Services",
+      logo: (
+        <Image src="/images/services.svg" width={27} height={27} alt="logo" />
+      ),
+      href: "/account/services",
     },
   ];
 
@@ -77,7 +86,7 @@ const Dashboard = () => {
       logo: (
         <Image src="/images/services.svg" width={27} height={27} alt="logo" />
       ),
-      href: "services",
+      href: "/account/services",
     },
   ];
 
@@ -100,8 +109,8 @@ const Dashboard = () => {
               <Link
                 key={index}
                 href={item.href}
-                className={`flex items-center justify-between p-4 w-full mb-2 rounded-lg relative text-[#FFFFFF80] transition-all duration-300 ${
-                  activeIndex === index
+                className={`flex items-center justify-between list-none p-[15px] w-full mb-[10px] rounded-[8px] relative text-[#FFFFFF80] transition-[0.3s] ease-in-out ${
+                  pathname === item.href
                     ? "bg-[#FFFFFF1A] text-[whitesmoke]"
                     : ""
                 } hover:bg-[#FFFFFF1A] hover:text-[whitesmoke] cursor-pointer`}

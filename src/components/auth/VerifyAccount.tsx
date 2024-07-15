@@ -68,7 +68,7 @@ const VerifyAccount = () => {
 
       {
         isSuccess ?
-        <ConfirmationMessage heading="Hello John" text="Your personal account has been created successfully" />
+        <ConfirmationMessage heading={"Hello " + user} text="Your account has been verified successfully" type={"verify"} />
         : 
         ""
       }
