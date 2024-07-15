@@ -5,7 +5,7 @@ import { isExpired } from "react-jwt"
 export function middleware(request: NextRequest) {
   const currentUser = request.cookies.get(TOKEN.ACCESS)?.value
 
-  const protectedRoutes = ["/dashboard", "/account"]
+  const protectedRoutes = ["/dashboard", "/account", "/account/services", "/account/profile", "/account/wallet"]
 
   if ((!currentUser || isExpired(currentUser)) && protectedRoutes.includes(request.nextUrl.pathname)) {
     return Response.redirect(new URL('/', request.url))
