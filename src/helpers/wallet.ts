@@ -6,7 +6,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { useUrls } from "./useUrls";
 import { TOKEN } from "@/utils/token";
 import { ICreateWalletUpdate } from "@/interface/wallet";
-import { createWalletSchema } from "@/schema/wallet/walletSchema";
+import { createWalletValidationSchema } from "@/schema/walletschema/validation";
 
 // Create a wallet
 export const useCreateWallet = ( ) => {
@@ -29,7 +29,7 @@ export const useCreateWallet = ( ) => {
             dateOfBirth: "",
         } as ICreateWalletUpdate,
         validateOnBlur: false,
-        validationSchema: createWalletSchema,
+        validationSchema: createWalletValidationSchema,
         validateOnChange: false,
         onSubmit: async ({ ...values }) => {
         try {

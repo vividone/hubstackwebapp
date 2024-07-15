@@ -115,7 +115,7 @@ const WalletForm = ({ setShow }: any) => {
           <label htmlFor="bvn" className="mt-5 font-openSans">
             <p className="text-xl font-normal">BVN</p>
             <p className="text-[14px]">
-              Your bank verification number isn't stored for any reason on our
+              Your bank verification number isn&apos;t stored for any reason on our
               database
             </p>
           </label>
