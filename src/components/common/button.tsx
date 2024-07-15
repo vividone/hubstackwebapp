@@ -29,8 +29,8 @@ export const Button = ({
   const sizes = {
     sm: "py-[8px] text-[12px] px-[6px] h-[32px] w-[max-content]",
     md: "  text-sm  text-base h-10 w-[max-content]",
-    lg: " text-base h-12 w-[max-content]",
-    long: " text-[18px] py-[20px] 2xl:w-[457px] md:w-[400px] w-full",
+    lg: " text-[18px] py-[20px] 2xl:w-[347px] md:w-[300px] w-full",
+    long: " text-[18px] py-[20px] 2xl:w-[447px] md:w-[400px] w-full",
     full: "w-full text-[13px] text  px-5",
     content: "text-base max-w-[max-content]",
   };

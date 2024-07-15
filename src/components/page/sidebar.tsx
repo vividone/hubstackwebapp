@@ -91,7 +91,7 @@ const Dashboard = () => {
 
   return (
     <div className="w-full sm:w-[35%] md:w-[35%] lg:w-[30%] xl:w-[20%] min-h-screen bg-[#3D3066] flex flex-col gap-[20px] text-[whitesmoke] font-CabinetGrotesk">
-      <div className="pl-[20px] pt-[10px] h-[10%]">
+      <div className="pl-[20px] pt-[20px] h-[10%]">
         <span>
           <Image
             src="/images/hubstackLogo.svg"
