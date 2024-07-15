@@ -36,7 +36,7 @@ const Dashboard = () => {
         { name: "Overview", href: "/Dashboard/overview" },
         { name: "Reports", href: "/Dashboard/reports" },
       ],
-      href: "/account",
+      href: "/dashboard",
     },
     {
       name: "Wallet",
@@ -67,7 +67,7 @@ const Dashboard = () => {
         { name: "Overview", href: "/Dashboard/overview" },
         { name: "Reports", href: "/Dashboard/reports" },
       ],
-      href: "/account",
+      href: "/dashboard",
     },
     {
       name: "Wallet",
@@ -91,7 +91,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="flex flex-col h-full w-full text-[whitesmoke] font-CabinetGrotesk">
+    <div className="flex flex-col h-full text-[whitesmoke]  bg-[#3D3066] h-screen sm:w-[35%] lg:w-[30%] xl:w-[20%]">
       <div className="pl-6 pt-6 h-[10%]">
         <span>
           <Image

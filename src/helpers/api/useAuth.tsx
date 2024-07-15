@@ -65,7 +65,7 @@ export const useLogin = () => {
                 router.push(FRONTEND_URL.VERIFY_ACCOUNT);
               }
               else {
-                router.push(FRONTEND_URL.ACCOUNT);
+                router.push(FRONTEND_URL.DASHBOARD);
               }
 
             },
@@ -282,7 +282,7 @@ export const useVerifyLogin = () => {
           },
           {
             onSuccess: () => {
-              router.push(FRONTEND_URL.ACCOUNT);
+              router.push(FRONTEND_URL.DASHBOARD);
             },
             // onError: (res: any) => {
               

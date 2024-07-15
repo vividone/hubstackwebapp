@@ -12,5 +12,5 @@ export const FRONTEND_URL = {
     FORGOT_PASSWORD: "/auth/forgot-password",
     RESET_CONFIRMATION: "/auth/reset-confirmation",
     NEW_PASSWORD: "/auth/new-password",
-    ACCOUNT: "/account",
+    DASHBOARD: "/dashboard",
 }
