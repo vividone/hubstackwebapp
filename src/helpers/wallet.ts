@@ -54,6 +54,3 @@ export const useCreateWallet = ( ) => {
         : typedError?.response?.data?.message || "";
     return { formik, isPending, isSuccess, isError, error: errorString };
 };
-
-
-
