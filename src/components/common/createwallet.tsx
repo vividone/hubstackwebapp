@@ -11,7 +11,7 @@ import ToastComponent from "@/components/common/toastComponent";
 
 const WalletForm = ({ setShow }: any) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { formik, isLoading, isSuccess, isError, error } = useCreateWallet();
+  const { formik, isPending, isSuccess, isError, error } = useCreateWallet();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -91,7 +91,7 @@ const WalletForm = ({ setShow }: any) => {
             <Input
               name="mobilenumber"
               type="text" // Changed to text to handle string
-              placeholder=""
+              placeholder="08059837774"
               value={formik.values.mobilenumber}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -156,8 +156,8 @@ const WalletForm = ({ setShow }: any) => {
           <Button
             type="submit"
             size={"long"}
-            isLoading={isLoading}
-            disabled={isLoading}
+            isLoading={isPending}
+            disabled={isPending}
           >
             Proceed
           </Button>
