@@ -36,7 +36,7 @@ const DashboardPage = () => {
   ]
 
   return (
-    <div className="p-[20px_25px]">
+    <div className="p-[40px_25px]">
 
       <h1 className="2xl:text-[36px] xl:text-[28px] text-[24px]">What would you like to do today ?</h1>
 
