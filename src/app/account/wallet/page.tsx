@@ -63,7 +63,8 @@ const Wallet = () => {
           {/* <Mywallet setShow={setShow} /> */}
         </div>
       )}
-      <main className="flex flex-col gap-[20px] p-[20px] ">
+      <main className="flex flex-col gap-[20px] p-[20px] pt-[1.5rem]">
+      <h2 className="2xl:text-[36px] xl:text-[26px] text-[24px] pl-[0.5rem]">YOUR WALLET</h2>
         <div className="self-end">
           <Button size="lg" onClick={() => setShow(true)}>
             <span className="flex items-center">
@@ -81,7 +82,7 @@ const Wallet = () => {
             )}
           </Button>
         </div>
-        <div className="grid xl:grid-cols-4 sm:grid-cols-2 gap-[20px] 2xl:gap-[30px]">
+        <div className="pl-[0.2rem] grid xl:grid-cols-4 sm:grid-cols-2 gap-[20px] 2xl:gap-[30px]">
           {cardData.map((value, key) => (
             <Card value={value} key={key} />
           ))}

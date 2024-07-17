@@ -1,5 +1,5 @@
 export interface ICreateWalletUpdate{
-    firstname: string;
+    firstname:string;
     lastname: string;
     email: string;
     mobilenumber: string;

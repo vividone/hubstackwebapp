@@ -11,26 +11,13 @@ import ToastComponent from "@/components/common/toastComponent";
 
 const WalletForm = ({ setShow }: any) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { formik, isPending, isSuccess, isError, error } = useCreateWallet();
+  const { formik, isLoading, isSuccess, isError, error } = useCreateWallet();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("Submitting form...");
     formik.handleSubmit();
-    console.log(formik.errors)
   };
 
-  <ToastComponent
-    isSuccess={isSuccess}
-    isError={isError}
-    msg={
-      isSuccess
-        ? "Wallet creation is successful"
-        : isError
-        ? "Wallet creation error: " + error
-        : Object.values(formik.errors)?.join(", ")
-    }
-  />;
   return (
     <div className="flex flex-col bg-white w-[45vw] text-black p-[40px_50px] h-[100vh] overflow-y-scroll">
       <div className="font-normal text-4xl mb-4 flex justify-between">
@@ -103,7 +90,7 @@ const WalletForm = ({ setShow }: any) => {
           <div>
             <Input
               name="mobilenumber"
-              type="number"
+              type="text" // Changed to text to handle string
               placeholder=""
               value={formik.values.mobilenumber}
               onChange={formik.handleChange}
@@ -127,7 +114,7 @@ const WalletForm = ({ setShow }: any) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               className={`${
-                  formik.touched.BVN && formik.errors.BVN ? "border-red-500" : ""
+                formik.touched.BVN && formik.errors.BVN ? "border-red-500" : ""
               }`}
             />
           </div>
@@ -169,13 +156,25 @@ const WalletForm = ({ setShow }: any) => {
           <Button
             type="submit"
             size={"long"}
-            isLoading={isPending}
-            disabled={isPending}
+            isLoading={isLoading}
+            disabled={isLoading}
           >
             Proceed
           </Button>
         </div>
       </form>
+      <ToastComponent
+        isSuccess={isSuccess}
+        isError={isError}
+        msg={
+          isSuccess
+            ? "Wallet creation is successful"
+            : isError
+            ? "Wallet creation error: " + error
+            : Object.values(formik.errors)?.join(", ")
+
+        }
+      />
     </div>
   );
 };
