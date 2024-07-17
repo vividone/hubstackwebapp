@@ -5,7 +5,6 @@ import Link from "../custom/link";
 import { TOKEN } from "@/utils/token";
 import { useCookies } from "@/hooks/useCookies";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import { usePathname, useRouter } from "next/navigation";
@@ -73,7 +72,8 @@ const Dashboard = () => {
       <div className="p-5 border-t-[2px] border-[#E7E7E733]">
         <Link
           href="/account/profile"
-          className="flex gap-4 w-full p-4 rounded-lg hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer"
+          className={`flex gap-4 items-center w-full p-4 rounded-lg hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer
+          ${pathname.includes("/account/profile") ? "bg-[#FFFFFF1A] text-[whitesmoke]" : "" }`}
         >
           <Image
             src="/images/user-alt-3.svg"
