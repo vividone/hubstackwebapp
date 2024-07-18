@@ -1,7 +1,7 @@
 import { IErrorResponseType } from "@/interface/common/error";
 import { useFormik } from "formik";
 import axiosInstance from "./axiosConfig";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useUrls } from "./useUrls";
 import { TOKEN } from "@/utils/token";
@@ -31,7 +31,7 @@ export const useCreateWallet = ( ) => {
         validateOnBlur: false,
         validationSchema: createWalletValidationSchema,
         validateOnChange: false,
-        onSubmit: async ({ ...values }) => {
+        onSubmit: async ({ email, ...values }) => {
         try {
             await formik.validateForm();
             mutate(values, {
@@ -54,3 +54,46 @@ export const useCreateWallet = ( ) => {
         : typedError?.response?.data?.message || "";
     return { formik, isPending, isSuccess, isError, error: errorString };
 };
+
+export const useGetSubAccounts = () => {
+  const { getAllWallets } = useUrls();
+
+  const queryKey = ["Get sub accounts"]; // Unique key for the query
+
+  const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
+    const response = await axiosInstance.get(getAllWallets);
+    const responseData = response.data;
+    console.log(responseData)
+    return responseData;
+  }});
+  
+  const allWallets = data || [];
+  return {
+    allWallets,
+    isLoading,
+    isError,
+    error
+  };
+};
+
+export const useGetAccountBalance = () => {
+    const { getWalletBalance } = useUrls();
+  
+    const queryKey = ["Get wallet balance"]; // Unique key for the query
+  
+    const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
+      const response = await axiosInstance.get(getWalletBalance);
+      const responseData = response.data;
+      console.log(responseData)
+      return responseData;
+    }});
+
+    const walletBalance = data || {};
+
+    return {
+      walletBalance,
+      isLoading,
+      isError,
+      error
+    };
+  };

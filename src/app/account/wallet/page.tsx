@@ -1,93 +1,87 @@
 "use client";
-import React, { useState } from "react";
-import Card from "@/components/common/card";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
 import WalletForm from "@/components/common/createwallet";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
+import { useGetSubAccounts } from "@/helpers/wallet";
+import Card from "@/components/common/card";
+import Mywallet from "@/components/common/Existinguserwallet";
+
+
 const Wallet = () => {
   const [showWallet, setShowwallet] = useState(false);
   const [hasWallet,] = useLocalStorage(TOKEN.HASWALLET)
+  const { allWallets } = useGetSubAccounts()
+
+
   const setShow = (bool: any) => {
     setShowwallet(bool);
   };
-  const cardData = [
-    {
+
+  useEffect(() => {
+    console.log(allWallets)
+  }, [allWallets])
+
+  const cardData = {
       logo: "/images/dollar-bag-1.svg",
-      amount: "₦1000",
-      type: "Balance",
+      amount: "₦0.0",
+      type: "Wallet Balance",
       visibility: true,
-      colors: {
-        logoBackground: "#FFFFFF1A",
-        cardBackground: "#3D3066",
-      },
-    },
-    {
-      logo: "/images/boxwcheck.svg",
-      amount: "₦0",
-      type: "Inflow",
-      visibility: false,
-      colors: {
-        logoBackground: "#3763D9",
-        cardBackground: "#507FFF",
-      },
-    },
-    {
-      logo: "/images/Frame.svg",
-      amount: "₦0",
-      type: "Outflow",
-      visibility: false,
-      colors: {
-        logoBackground: "#0CBFD9",
-        cardBackground: "#00D7F7",
-      },
-    },
-    {
-      logo: "/images/stack.svg",
-      amount: "₦0",
-      type: "Transactions",
-      visibility: false,
-      colors: {
-        logoBackground: "#2F2E31",
-        cardBackground: "#000000",
-      },
-    },
-  ];
+    }
 
   return (
-    <div className="flex-1 relative">
-      <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque p-[20px_25px] text-[#000000]">Your Wallet</h2>
-      {showWallet && (
-        <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
-          <WalletForm setShow={setShow} />
-          {/* <Mywallet setShow={setShow} /> */}
-        </div>
-      )}
-      <main className="flex flex-col gap-[20px] p-[0px_20px]">
-        <div className="self-end">
-          <Button size="lg" onClick={() => setShow(true)}>
-            <span className="flex items-center">
-              <Image
-                src="/images/cross.svg"
-                alt="crosslogo"
-                width={20}
-                height={20}
-              />
-            </span>
-            { hasWallet ? (
-              <span >FUND WALLET</span>
-            ) : (
+    <div className="flex-1 relative h-full p-[50px_25px] ">
+
+      <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] font-medium">Wallet</h2>
+
+      {
+        !hasWallet ? 
+        <>
+        {showWallet && (
+          <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
+            <WalletForm setShow={setShow} />
+          </div>
+        )}
+
+        <div className="flex flex-col flex-1 justify-center items-center gap-4 my-8">
+
+          <Image src={"/images/magnifyingGlass.png"} alt="magnifying glass" width={160} height={100} />
+
+          <p className="mt-1 text-primary_dark 2xl:text-[32px] text-[24px] my-4">You do not have a wallet yet</p>
+
+          <div className="flex flex-col gap-4 items-center justify-center mt-2">
+            <Button size="lg" onClick={() => setShow(true)}>
+              <span className="flex items-center">
+                <Image
+                  src="/images/cross.svg"
+                  alt="crosslogo"
+                  width={20}
+                  height={20}
+                />
+              </span>
               <span>CREATE WALLET</span>
-            )}
-          </Button>
+            </Button>
+          </div>
         </div>
-        <div className="pl-[0.2rem] grid xl:grid-cols-4 sm:grid-cols-2 gap-[20px] 2xl:gap-[30px]">
-          {cardData.map((value, key) => (
-            <Card value={value} key={key} />
-          ))}
+        </>
+        : 
+        
+        <div className="w-[353px]">
+          {showWallet && (
+            <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
+              <Mywallet setShow={setShow} />
+            </div>
+          )}
+          <Card value={cardData} />
+          <div className="mt-12">
+            <Button size="full" onClick={() => setShow(true)}>
+              FUND WALLET
+            </Button>
+          </div>
         </div>
-      </main>
+        }
     </div>
   );
 };

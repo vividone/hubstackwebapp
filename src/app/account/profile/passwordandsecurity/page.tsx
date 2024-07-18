@@ -1,6 +1,6 @@
 'use client'
 import { Button } from "@/components/common/button";
-import { Input } from "@/components/common/inputs";
+import { PasswordVariantInput } from "@/components/common/inputs";
 import ToastComponent from "@/components/common/toastComponent";
 import { useResetPassword } from "@/helpers/api/useAuth";
 import { FormEvent } from "react";
@@ -29,7 +29,7 @@ const PageSecurity = () => {
         <div className="flex flex-col gap-[60px] items-center lg:w-[60%] w-full">
           <div className="w-full text-[#8c8b92] text-[20px] flex flex-col gap-3">
             <label htmlFor="firstname">Enter New Password</label>
-            <Input
+            <PasswordVariantInput
               placeholder="Password"
               name="newPassword"
               data-test="password"
@@ -40,7 +40,7 @@ const PageSecurity = () => {
           </div>
           <div className="w-full text-[#8c8b92] text-[20px] flex flex-col gap-3">
             <label htmlFor="firstname">Re-enter New Password</label>
-            <Input
+            <PasswordVariantInput
               placeholder="Confirm password"
               name="confirmNewPassword"
               data-test="confirm-password"

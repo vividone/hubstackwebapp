@@ -15,6 +15,7 @@ const WalletForm = ({ setShow }: any) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log(formik.errors)
     formik.handleSubmit();
   };
 
@@ -129,6 +130,7 @@ const WalletForm = ({ setShow }: any) => {
           <div>
             <Input
               name="dateOfBirth"
+              type="date"
               placeholder="DD/MM/YY"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
