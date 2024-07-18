@@ -56,8 +56,6 @@ export const useLogin = () => {
           mutate(values, {
             onSuccess: (res) => {
               setCookie(TOKEN.ACCESS, res.data.token.access_token);
-              setCookie(TOKEN.ROLE, res.data.data.role);
-              setCookie(TOKEN.ID, res.data.data._id);
               setHasWallet(res.data.hasWallet)
               setUserDetails(res.data.data);
               if(!res.data.data.isVerified) {

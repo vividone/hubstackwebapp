@@ -2,17 +2,10 @@ import React, { useState } from "react";
 import Image from "next/image";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { TOKEN } from "@/utils/token";
+import DollarBagIcon from "@/assets/icons/DollarBagIcon";
 interface CardData {
-  logo: string;
   amount: string;
   type: string;
-  visibility: boolean;
-  colors: {
-    logoBackground: string;
-    cardBackground: string;
-  };
 }
 
 interface CardProps {
@@ -20,53 +13,44 @@ interface CardProps {
 }
 
 const Card = ({ value }: CardProps) => {
-  const { logo, amount, type, visibility, colors } = value;
-  const [showAmount, setShowAmount] = useState(true);
-  const [hasWallet,] = useLocalStorage(TOKEN.HASWALLET)
+  const [visibility, setVisibility] = useState(false)
+  const { amount, type } = value;
+
   return (
     <div
-      className="relative h-[160px] w-full rounded-[8px] text-white p-[1.5em] flex 2xl:h-[185px]"
-      style={{ backgroundColor: colors.cardBackground }}
+      className="flex flex-col gap-6 min-h-[210px] w-[353px] text-[#111111] bg-[#ECEBF0] rounded-[8px] p-[30px]"
     >
-      <div
-        className={`absolute inset-0  rounded-[10px] bg-black bg-opacity-50 ${
-          hasWallet ? "hidden" : ""
-        }`}
-      ></div>
-      <div className="flex flex-col h-full w-full">
+     
+      <div className="flex justify-between items-start gap-4 h-full w-full">
         <div className="flex-2 h-[50%]">
           <span
-            className="flex items-center justify-center h-[40px] w-[40px] rounded-full"
-            style={{ background: colors.logoBackground }}
+            className="flex items-center justify-center h-[60px] w-[60px] bg-[#000]/[0.1] rounded-full"
           >
-            <Image src={logo} alt="card logo" width={20} height={20} />
+            <DollarBagIcon />
           </span>
         </div>
+
+        <button className="h-[50%]" onClick={() => setVisibility(!visibility)}>
+          {
+            !visibility ? 
+              <RemoveRedEyeOutlinedIcon />
+               :
+              <VisibilityOffOutlinedIcon />
+          }
+        </button>
+      </div>
+
+
+      <div className="flex justify-between items-end h-full w-full">
         <div className="flex flex-col justify-center items-center h-[50%]">
-          <span className="flex items-center font-bold text-[25px] w-full font-sans">
-            {showAmount ? amount : "****"}
+          <span className="flex items-center font-bold  2xl:text-[32px] text-[24px] w-full font-sans">
+            {visibility ? amount : "****"}
           </span>
           <span className="font-normal text-[18px] w-full font-sans">
             {type}
           </span>
         </div>
-      </div>
-      <div className="flex flex-col items-end h-full w-full">
-        <div className="flex-1 h-[50%] pt-[5px]">
-          {visibility && (
-            showAmount ? (
-              <RemoveRedEyeOutlinedIcon
-                className="cursor-pointer"
-                onClick={() => setShowAmount(false)}
-              />
-            ) : (
-              <VisibilityOffOutlinedIcon
-                className="cursor-pointer"
-                onClick={() => setShowAmount(true)}
-              />
-            )
-          )}
-        </div>
+
         <div className="self-end mt-auto h-[50%] flex items-end 2xl:pb-[2px]">
           <span>All Time</span>
         </div>

@@ -11,8 +11,8 @@ const RootLayout = ({ children }: RootLayoutProps) => {
   const pathname = usePathname()
 
   return (
-    <div className="p-[40px_25px]">
-      <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] mb-[20px]">Manage your account</h2>
+    <div className="p-[50px_25px]">
+      <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] mb-[20px] font-medium">Manage your account</h2>
 
       <nav className="w-full mb-[20px] border border-transparent border-b-[#E7E7E7]">
         <ul className="flex gap-10">
