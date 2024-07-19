@@ -120,7 +120,7 @@ const WalletForm = ({ setShow }: any) => {
             />
           </div>
         </div>
-        <div className="flex flex-col w-full">
+        {/* <div className="flex flex-col w-full">
           <label
             htmlFor="dateOfBirth"
             className="font-normal mt-5 text-xl font-openSans"
@@ -141,7 +141,7 @@ const WalletForm = ({ setShow }: any) => {
               }`}
             />
           </div>
-        </div>
+        </div> */}
         
         <div className="flex flex-col mt-5 w-full font-Inter text-[20px]">
           <span className="pt-1">
