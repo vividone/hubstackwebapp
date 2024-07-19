@@ -3,7 +3,7 @@ import DollarBagIcon from "@/assets/icons/DollarBagIcon";
 import AgentsIcon from "@/assets/icons/AgentsIcon";
 import ServiceIconDashboard from "@/assets/icons/ServiceIconDashboard";
 
-export const adminMenu = [
+export const superAgent = [
   {
     name: "Dashboard",
     logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
@@ -41,9 +41,9 @@ export const individualMenu = [
     name: "Services",
     logo: <ServiceIconDashboard />,
     subItems: [
-      { Name: "NIN Services", href: "/services" },
-      { Name: "Bill Payment Subscription", href: "/services/billpayment" },
-      { Name: "Subscription", href: "/services/subscription" },
+      { Name: "NIN Services", href: "account/services" },
+      { Name: "Bill Payment", href: "account/services/billpayment" },
+      { Name: "Subscription", href: "account/services/subscription" },
     ],
     href: "/account/services",
   },

@@ -1,20 +1,37 @@
 "use client";
-import  { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "../custom/link";
+import { useRouter, usePathname } from "next/navigation";
+import { superAgent, individualMenu } from "@/utils/sidebarMenue";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import { TOKEN } from "@/utils/token";
 import { useCookies } from "@/hooks/useCookies";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { usePathname, useRouter } from "next/navigation";
-import { adminMenu, individualMenu } from "@/utils/sidebarMenue";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
+import Link from "../custom/link";
 
 const Dashboard = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const { removeCookie } = useCookies();
   const router = useRouter();
+  const pathname = usePathname();
   const [userDetails, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
+
+  useEffect(() => {
+    const currentMenu = userDetails?.role === "Individual" ? individualMenu : superAgent;
+
+    const activeItemIndex = currentMenu.findIndex(
+      (item: any) =>
+        item.href === pathname ||
+        (item.subItems && item.subItems.some((subItem: any) => subItem.href === pathname))
+    );
+
+    if (activeItemIndex !== -1) {
+      setActiveIndex(activeItemIndex);
+    } else {
+      setActiveIndex(null);
+    }
+  }, [pathname, userDetails]);
 
   const handleMenuItemClick = (item: any, index: number) => {
     if (item.subItems) {
@@ -26,10 +43,18 @@ const Dashboard = () => {
   };
 
   const handleSubItemClick = (subItem: any) => {
-    router.push(subItem.href);
+    router.push(subItem.href.startsWith("/") ? subItem.href : `/${subItem.href}`);
   };
 
-  const pathname = usePathname();
+  const isActive = (item: any) => {
+    if (pathname === item.href) return true;
+    if (item.subItems) {
+      return item.subItems.some(
+        (subItem: any) => pathname === subItem.href || pathname.includes(subItem.href)
+      );
+    }
+    return false;
+  };
 
   const handleLogout = () => {
     removeCookie(TOKEN.ACCESS);
@@ -38,7 +63,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-col h-full text-[whitesmoke]  bg-[#3D3066] h-screen sm:w-[40%] lg:w-[35%] xl:w-[24%]">
+    <div className="flex flex-col h-full text-[whitesmoke] bg-[#3D3066] h-screen sm:w-[40%] lg:w-[35%] xl:w-[24%]">
       <div className="pl-6 pt-6 h-[10%]">
         <span>
           <Image
@@ -51,16 +76,11 @@ const Dashboard = () => {
       </div>
       <div className="p-6 flex flex-col flex-1 overflow-auto">
         <ul className="list-none p-0 m-0">
-          {(userDetails?.role === "Individual"
-            ? individualMenu
-            : adminMenu
-          ).map((item: any, index) => (
+          {(userDetails?.role === "Individual" ? individualMenu : superAgent).map((item: any, index: number) => (
             <li key={index}>
               <div
                 className={`flex items-center justify-between list-none p-[15px] w-full mb-[10px] rounded-[8px] relative text-[#FFFFFF80] transition-[0.3s] ease-in-out ${
-                  pathname === item.href
-                    ? "bg-[#FFFFFF1A] text-[whitesmoke]"
-                    : ""
+                  isActive(item) ? "bg-[#FFFFFF1A] text-[whitesmoke]" : ""
                 } hover:bg-[#FFFFFF1A] hover:text-[whitesmoke] cursor-pointer`}
                 onClick={() => handleMenuItemClick(item, index)}
               >
@@ -68,20 +88,24 @@ const Dashboard = () => {
                   <span>{item.logo}</span>
                   <span>{item.name}</span>
                 </div>
-                <span className="flex items-center justify-end w-8 transition-transform duration-300">
-                  {activeIndex === index ? (
-                    <KeyboardArrowDownRoundedIcon sx={{ fontSize: 27 }} />
-                  ) : (
-                    <KeyboardArrowRightRoundedIcon sx={{ fontSize: 27 }} />
-                  )}
-                </span>
+                {item.subItems && (
+                  <span className="flex items-center justify-end w-8 transition-transform duration-300">
+                    {activeIndex === index ? (
+                      <KeyboardArrowDownRoundedIcon sx={{ fontSize: 27 }} />
+                    ) : (
+                      <KeyboardArrowRightRoundedIcon sx={{ fontSize: 27 }} />
+                    )}
+                  </span>
+                )}
               </div>
               {activeIndex === index && item.subItems && (
-                <ul className="list-none p-0 m-0 pl-8">
+                <ul className="">
                   {item.subItems.map((subItem: any, subIndex: number) => (
                     <li
                       key={subIndex}
-                      className="p-[10px] text-[#FFFFFF80] hover:bg-[#FFFFFF1A] hover:text-[whitesmoke] rounded-[8px] cursor-pointer"
+                      className={`p-[10px] text-[#FFFFFF80] hover:text-[whitesmoke] rounded-[8px] cursor-pointer ${
+                        pathname === subItem.href ? "bg-[#FFFFFF1A] text-[whitesmoke]" : ""
+                      }`}
                       onClick={() => handleSubItemClick(subItem)}
                     >
                       {subItem.Name}
@@ -96,11 +120,8 @@ const Dashboard = () => {
       <div className="p-5 border-t-[2px] border-[#E7E7E733]">
         <Link
           href="/account/profile"
-          className={`flex gap-4 items-center w-full p-4 rounded-lg hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer
-          ${
-            pathname.includes("/account/profile")
-              ? "bg-[#FFFFFF1A] text-[whitesmoke]"
-              : ""
+          className={`flex gap-4 items-center w-full p-4 rounded-lg hover:bg-[#FFFFFF1A] text-[#FFFFFF80] hover:text-[whitesmoke] cursor-pointer ${
+            pathname.includes("/account/profile") ? "bg-[#FFFFFF1A] text-[whitesmoke]" : ""
           }`}
         >
           <Image
