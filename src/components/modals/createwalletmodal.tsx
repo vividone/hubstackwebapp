@@ -2,8 +2,8 @@
 import React, { FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Input } from "./inputs";
-import { Button } from "./button";
+import { Input } from "../common/inputs";
+import { Button } from "../common/button";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useCreateWallet } from "@/helpers/wallet";
