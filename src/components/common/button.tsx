@@ -66,5 +66,5 @@ export const Button = ({
     >
       {isLoading ? <Loader className="fill-white"/> : children}
     </button>
-  );
+  )
 };
