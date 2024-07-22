@@ -1,13 +1,15 @@
 "use client";
-import React, { useState ,FormEvent } from "react";
-import Close from "@/assets/icons/close";
-import { Button } from "../common/button";
-import { Input } from "../common/inputs";
-import EyeIcon from "@/assets/icons/EyeIcon";
 import Image from "next/image";
+import Close from "@/assets/icons/close";
+import { Input } from "../common/inputs";
+import { Button } from "../common/button";
+import EyeIcon from "@/assets/icons/EyeIcon";
+import EyeSlashIcon from "@/assets/icons/EyeSlashIcon";
+import React, { useState, FormEvent } from "react";
+import { useElectricBll } from "@/helpers/services";
+import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import { useElectricBll } from "@/helpers/services";
 
 const ElectrictyBillmodal = ({ setShow }: any) => {
   const [checkBalance, setBalance] = useState(false);
@@ -17,36 +19,40 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(formik.errors)
     formik.handleSubmit();
+    console.log(formik.errors);
+  };
+  const Amount = {
+    total: `1,100`,
   };
   return (
     <div className="flex flex-col bg-white w-[45vw] text-black p-[40px_50px] h-[100vh] overflow-y-scroll">
-      <div className="font-normal text-4xl mb-4 flex justify-between">
-        <h3 className="text-4xl font-medium text-[#111111]">
-          Electricity Bill
-        </h3>
+      <div className="font-normal text-4xl flex justify-between">
+        <span>Electricity Bill</span>
         <Image
-          src="/images/close.svg"
-          alt="closebutton"
           width={20}
           height={20}
-          onClick={() => setShow(false)}
+          alt="closebutton"
+          src="/images/close.svg"
           className="cursor-pointer"
+          onClick={() => setShow(false)}
         />
       </div>
-      <div className="">
+      <div className="mt-10">
         <div className="flex justify-between">
           <div>
             <span className="block font-bold text-[#111111] text-[22px]">
               Wallet Balance
             </span>
-            <span className="block text-[#111111] text-[32px] font-bold font-openSans">
+            <span className="flex block text-[#111111] text-[32px] font-bold font-openSans  items-center">
+              <span className="pt-1">
+                <NairaIconElectricBill />
+              </span>
               {visibility ? "2000" : "****"}
             </span>
           </div>
           <div>
-            <span className="cursor-pointer">
+            <span className="cursor-pointer pr-[2rem]">
               {visibility ? (
                 <RemoveRedEyeOutlinedIcon
                   onClick={() => setVisibility(false)}
@@ -60,10 +66,7 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
           </div>
         </div>
       </div>
-      <form
-        action=""
-        className="flex flex-col w-full h-full justify-cente"
-      >
+      {/* <form action="" className="flex flex-col w-full h-full justify-cente">
         <div className="flex flex-col w-full">
           <label
             htmlFor="meterNumber"
@@ -73,8 +76,8 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
           </label>
           <div className="text-[#8c8b92]">
             <Input
-              name="meterNumber"
               type="number"
+              name="meterNumber"
               placeholder="123456789101112131415"
               // value={formik.values.email}
             />
@@ -106,7 +109,7 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
           <div className="text-[#8c8b92]">
             <Input
               name="email"
-              type="email"
+              type="select"
               placeholder="Email address"
               // value={formik.values.email}
             />
@@ -128,26 +131,47 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
             />
           </div>
         </div>
+        <div className="mt-5">
+          <p className="font-bold text-[#111111] font-[20px] font-openSans">SERVICE FEE: span {Amount.total}</p>
+          <p className="font-bold text-[#111111] font-[20px] font-openSans">TOTAL:{Amount.total}</p>
+        </div>
         <div className="w-full flex align-center justify-center mt-[2.5rem]">
           <Button type="submit" size={"long"}>
-            PAY
+            PAY NGN {Amount.total}
           </Button>
         </div>
-      </form>
-      {/* <div className="sucessfull">
-        <div>
-          <Image src={""} alt=""/>
-          <p>Subscription Successful</p>
+      </form> */}
+      {/* ======> sucessful and successful <====== */}
+      <div className="flex flex-col mt-10 gap-10 w-full h-[392px] items-center justify-center">
+        <div className="">
+          <div className="flex flex-col gap-10 items-center">
+            <Image
+              src="/images/successful.svg"
+              height={167}
+              width={167}
+              alt=""
+            />
+            <p className="text-[32px] text-[#111111] font-semibold font-cabinet-grostequeue">
+              Subscription Successful
+            </p>
+            <Button size={"long"}>RETRY</Button>
+          </div>
         </div>
-        <Button >DOWNLOAD RECEIPT</Button>
+        <div>
+          <div className="flex flex-col gap-10 items-center">
+            <Image
+              src="/images/unsuccessful.svg"
+              height={167}
+              width={167}
+              alt=""
+            />
+            <p className="text-[32px] text-[#111111] font-semibold font-cabinet-grostequeue">
+              Subscription Successful
+            </p>
+            <Button size={"long"}>RETRY</Button>
+          </div>
+        </div>
       </div>
-      <div className="unsucessfull">
-        <div>
-          <Image src={""} alt=""/>
-          <p>Subscription Unsuccessful</p>
-        </div>
-        <Button size={"md"}>RETRY</Button>
-      </div> */}
     </div>
   );
 };

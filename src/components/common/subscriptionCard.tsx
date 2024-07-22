@@ -1,10 +1,9 @@
 "use client"
 import React from "react";
-import "./index.css";
 import { Button } from "./button";
 import Subcard from "@/assets/icons/Subcard";
 
-const SubscriptionCard = ({value,setShow}: any) => {
+const SubscriptionCard = ({values,setShow}: any) => {
   
   const placeholder = {
     title: "DSTV",
@@ -18,7 +17,7 @@ const SubscriptionCard = ({value,setShow}: any) => {
         {placeholder.logo}
       </p>
       <div>
-        <p className="font-semibold text-[#000000] font-[Open Sans]">{value}</p>
+        <p className="font-semibold text-[#000000] font-[Open Sans]">{values}</p>
         <p className="text-[#8C8B92] my-2">{placeholder.subText}</p>
       </div>
       <Button

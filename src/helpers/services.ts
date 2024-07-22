@@ -7,7 +7,7 @@ import { TOKEN } from "@/utils/token";
 import { electricBillValidationSchema } from "@/schema/servicesschema/electricBill";
 import { IElectricBill } from "@/interface/services";
 export const useElectricBll = ( ) => {
-  const [ , setUserWallet] = useLocalStorage(""); // to persist
+  const [ Data, setData] = useLocalStorage(""); // to persist
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Create wallet"],
       mutationFn: (payload: Partial<IElectricBill>) => {
@@ -30,7 +30,7 @@ export const useElectricBll = ( ) => {
           await formik.validateForm();
           mutate(values, {
           onSuccess: (res) => {
-              setUserWallet(res.data.user);
+            setData(res.data.user);
           },
           //   onError: (res: any) => {
   
