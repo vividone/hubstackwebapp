@@ -27,7 +27,7 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
   };
   return (
     <div className="flex flex-col bg-white w-[45vw] text-black p-[40px_50px] h-[100vh] overflow-y-scroll">
-      <div className="font-normal text-4xl flex justify-between">
+      <div className="font-medium text-4xl flex justify-between">
         <span>Electricity Bill</span>
         <Image
           width={20}
@@ -38,7 +38,7 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
           onClick={() => setShow(false)}
         />
       </div>
-      <div className="mt-10">
+      {/* <div className="mt-10">
         <div className="flex justify-between">
           <div>
             <span className="block font-bold text-[#111111] text-[22px]">
@@ -65,7 +65,7 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* <form action="" className="flex flex-col w-full h-full justify-cente">
         <div className="flex flex-col w-full">
           <label
@@ -142,7 +142,7 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
         </div>
       </form> */}
       {/* ======> sucessful and successful <====== */}
-      <div className="flex flex-col mt-10 gap-10 w-full h-[392px] items-center justify-center">
+      <div className="flex flex-col mt-10  w-full h-[392px] items-center justify-center">
         {/* <div className="">
           <div className="flex flex-col gap-10 items-center">
             <Image
@@ -165,7 +165,7 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
               width={167}
               alt=""
             />
-            <p className="text-[32px] text-[#111111] font-semibold font-cabinet-grostequeue">
+            <p className="text-[32px] text-[#111111] font-medium font-cabinet-grostequeue">
               Subscription Successful
             </p>
             <Button size={"long"}>RETRY</Button>
