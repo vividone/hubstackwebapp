@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
-import WalletForm from "@/components/common/createwallet";
+import WalletForm from "@/components/modals/createwalletmodal";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { useGetSubAccounts } from "@/helpers/wallet";

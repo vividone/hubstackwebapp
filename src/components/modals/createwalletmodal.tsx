@@ -2,8 +2,8 @@
 import React, { FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Input } from "./inputs";
-import { Button } from "./button";
+import { Input } from "../common/inputs";
+import { Button } from "../common/button";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useCreateWallet } from "@/helpers/wallet";
@@ -21,7 +21,7 @@ const WalletForm = ({ setShow }: any) => {
 
   return (
     <div className="flex flex-col bg-white w-[45vw] text-black p-[40px_50px] h-[100vh] overflow-y-scroll">
-      <div className="font-normal text-4xl mb-4 flex justify-between">
+      <div className="font-medium text-4xl mb-4 flex justify-between">
         <span>Create Wallet</span>
         <Image
           src="/images/close.svg"
