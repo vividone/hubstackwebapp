@@ -23,7 +23,7 @@ export const adminMenu = [
   {
     name: "Services",
     logo: (
-      <Image src="/images/services.svg" width={27} height={27} alt="logo" />
+      <Image src="/images/service 1.svg" width={27} height={27} alt="logo" />
     ),
     href: "/account/services",
   },

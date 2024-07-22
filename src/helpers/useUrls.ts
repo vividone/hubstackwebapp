@@ -12,10 +12,11 @@ export function useUrls() {
   const resendPasswordEmailUrl = `${BASE_URL}/auth/resend-email`;
 
   // create wallet
-  const createWalletUrl = `${BASE_URL}/wallet/create-account`
+  const createWalletUrl = `${BASE_URL}/mockwallet/create-and-validate-customer`
   const walletCheck = `${BASE_URL}/users/wallet-check`
   const getAllWallets = `${BASE_URL}/wallet/sub-accounts`
   const getWalletBalance = `${BASE_URL}/wallet/account-balance/`
+  const getAllBanks = `${BASE_URL}/wallet/banks`
 
   // Update profile 
   const updateIndividualProfileUrl = `${BASE_URL}/users/update-profile`;
@@ -37,7 +38,8 @@ export function useUrls() {
     createWalletUrl ,
     walletCheck,
     getAllWallets,
-    getWalletBalance
+    getWalletBalance,
+    getAllBanks
   };
 
 }

@@ -4,10 +4,10 @@ import { Button } from "./button";
 import Image from "next/image";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import { Input } from "./inputs";
 import Link from "next/link";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import ShareIcon from "@/assets/icons/shareIcon";
+import AlternateWalletFunding from "./AlternateFunding";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
@@ -16,6 +16,7 @@ interface MywalletProps {
 const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
   const [visibility, setVisibility] = useState(true);
   const [copiedText, setCopiedText] = useState("");
+  const [showAlternate, setShowAlternate] = useState(false)
 
   const existingData = {
     currentBalance: "#0.00",
@@ -30,7 +31,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
   };
 
   return (
-    <div className="h-screen w-[40vw] bg-white overflow-y-scroll z-[1000]">
+    <div className="relative h-screen w-[40vw] bg-white overflow-y-scroll z-[1000]">
       <div className="flex justify-between p-[30px_40px] pt-[55px]">
         <h3 className="text-4xl font-medium text-[#111111]">Fund Wallet</h3>
         <Image
@@ -60,17 +61,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
             </span>
           </div>
         </div>
-        {/* <div className="mt-4">
-          <label htmlFor="desiredAmount" className="block text-[18px] font-normal">
-            Enter desired amount
-          </label>
-          <Input name="desiredAmount" type="number" placeholder="#5000" />
-          <div className="mt-2 h-20">
-            <Button>
-              <span className="text-[16px]">FUND WALLET</span>
-            </Button>
-          </div>
-        </div> */}
+        
       </div>
       <div className="p-[20px_30px] mt-4">
         <div className="bg-[#E7E6F2] p-[30px]">
@@ -138,9 +129,16 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
           <Link href="" className="text-[#3D3066] mt-8 mb-6 flex justify-center items-center gap-2">SHARE DETAILS <ShareIcon /></Link>
 
           <div className="mt-10 h-20">
-            <Button variant="secondary">
+            <Button variant="secondary" onClick={() => setShowAlternate(!showAlternate)}>
               <span className="text-[16px]">USE ALTERNATE POP-UP METHOD</span>
             </Button>
+
+            {
+              showAlternate ?
+              <AlternateWalletFunding setShow={setShowAlternate} />
+              : 
+              ""
+            }
           </div>
         </div>
       </div>

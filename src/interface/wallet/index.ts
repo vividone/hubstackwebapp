@@ -3,6 +3,7 @@ export interface ICreateWalletUpdate{
     lastname: string;
     email: string;
     mobilenumber: string;
-    BVN: string;
-    dateOfBirth: string;
+    bvn: string;
+    existingAccountNumber: string,
+    existingBankName: string,
 }

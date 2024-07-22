@@ -5,7 +5,7 @@ import Image from "next/image";
 import WalletForm from "@/components/common/createwallet";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
-import { useGetSubAccounts } from "@/helpers/wallet";
+import { useGetAllBanks } from "@/helpers/wallet";
 import Card from "@/components/common/card";
 import Mywallet from "@/components/common/Existinguserwallet";
 
@@ -13,7 +13,7 @@ import Mywallet from "@/components/common/Existinguserwallet";
 const Wallet = () => {
   const [showWallet, setShowwallet] = useState(false);
   const [hasWallet,] = useLocalStorage(TOKEN.HASWALLET)
-  const { allWallets } = useGetSubAccounts()
+  const { allBanks } = useGetAllBanks()
 
 
   const setShow = (bool: any) => {
@@ -21,8 +21,8 @@ const Wallet = () => {
   };
 
   useEffect(() => {
-    console.log(allWallets)
-  }, [allWallets])
+    console.log(allBanks)
+  }, [allBanks])
 
   const cardData = {
       logo: "/images/dollar-bag-1.svg",

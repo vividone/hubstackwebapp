@@ -25,13 +25,14 @@ export const useCreateWallet = ( ) => {
             lastname: userDetails?.lastname,
             email: userDetails?.email,
             mobilenumber: "",
-            BVN: "",
-            dateOfBirth: "",
+            bvn: "",
+            existingAccountNumber: "",
+            existingBankName: "",
         } as ICreateWalletUpdate,
         validateOnBlur: false,
         validationSchema: createWalletValidationSchema,
         validateOnChange: false,
-        onSubmit: async ({ email, ...values }) => {
+        onSubmit: async ({ ...values }) => {
         try {
             await formik.validateForm();
             mutate(values, {
@@ -97,3 +98,25 @@ export const useGetAccountBalance = () => {
       error
     };
   };
+
+export const useGetAllBanks = () => {
+  const { getAllBanks } = useUrls();
+
+  const queryKey = ["Get wallet balance"]; // Unique key for the query
+
+  const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
+    const response = await axiosInstance.get(getAllBanks);
+    const responseData = response.data;
+    console.log(responseData)
+    return responseData;
+  }});
+
+  const allBanks = data || {};
+
+  return {
+    allBanks,
+    isLoading,
+    isError,
+    error
+  };
+};

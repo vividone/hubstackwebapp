@@ -7,9 +7,10 @@ export const createWalletValidationSchema = Yup.object({
   mobilenumber: Yup.string()
     .matches(/^\d+$/, "Invalid phone number")
     .required("Required"),
-  BVN: Yup.string()
+  bvn: Yup.string()
     .length(11, "BVN must be exactly 11 digits")
     .matches(/^\d+$/, "Invalid BVN")
     .required("Required"),
-  dateOfBirth: Yup.date().required("Required"),
+  existingAccountNumber: Yup.string().required("Required"),
+  existingBankName: Yup.string().required("Required"),
 });
