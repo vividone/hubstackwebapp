@@ -16,9 +16,7 @@ export const superAgent = [
   },
   {
     name: "Services",
-    logo: (
-      <Image src="/images/services.svg" width={27} height={27} alt="logo" />
-    ),
+    logo: <ServiceIconDashboard />,
     href: "/account/services",
   },
   {
