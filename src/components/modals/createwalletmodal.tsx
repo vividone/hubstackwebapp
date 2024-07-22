@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Input } from "./inputs";
@@ -8,27 +8,16 @@ import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useCreateWallet } from "@/helpers/wallet";
 import ToastComponent from "@/components/common/toastComponent";
-import { Dropdown } from "./Dropdown";
-import { banks } from "@/data/bankCodes";
-import axios from "axios";
-import axiosInstance from "@/helpers/axiosConfig";
 
 const WalletForm = ({ setShow }: any) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const { formik, isPending, isSuccess, isError, error } = useCreateWallet();
-  const [selectedBank, setSelectedBank] = useState<{ label: string, value: string }>()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     console.log(formik.errors)
     formik.handleSubmit();
   };
-
-  useEffect(() => {
-    axiosInstance.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wallet/banks`)
-    .then(response => console.log(response))
-    .catch(error => console.log(error))
-  }, [])
 
   return (
     <div className="flex flex-col bg-white w-[45vw] text-black p-[40px_50px] h-[100vh] overflow-y-scroll">
@@ -59,8 +48,8 @@ const WalletForm = ({ setShow }: any) => {
                   name="firstname"
                   data-test="username-firstname"
                   placeholder="First name"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  value={formik.values.firstname}
+                  disabled
                 />
               </div>
               <div className="flex flex-col flex-1 justify-end text-[#8c8b92]">
@@ -68,8 +57,8 @@ const WalletForm = ({ setShow }: any) => {
                   name="lastname"
                   type="text"
                   placeholder="Last name"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  value={formik.values.lastname}
+                  disabled
                 />
               </div>
             </div>
@@ -110,14 +99,6 @@ const WalletForm = ({ setShow }: any) => {
             />
           </div>
         </div>
-        
-        <div className="flex flex-col w-full mt-8">
-            <p className="text-xl font-normal">KYC Verification</p>
-            <p className="text-[14px]">
-              We are required to confirm your identity
-            </p>
-        </div>
-
         <div className="flex flex-col w-full">
           <label htmlFor="bvn" className="mt-5 font-openSans">
             <p className="text-xl font-normal">BVN</p>
@@ -128,67 +109,37 @@ const WalletForm = ({ setShow }: any) => {
           </label>
           <div>
             <Input
-              name="bvn"
+              name="BVN"
               type="text"
               placeholder="Enter your 11 digit BVN"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               className={`${
-                formik.touched.bvn && formik.errors.bvn ? "border-red-500" : ""
+                formik.touched.BVN && formik.errors.BVN ? "border-red-500" : ""
               }`}
             />
           </div>
         </div>
         <div className="flex flex-col w-full">
-          <label htmlFor="accountNumber" className="mt-5 font-openSans">
-            <p className="text-xl font-normal">Existing Account Number</p>
-            <p className="text-[14px]">
-              Any of your bank Account number tied to your bvn
-            </p>
-          </label>
-          <div>
-            <Input
-              name="existingAccountNumber"
-              type="text"
-              placeholder="Enter your 10 digit NUBAN"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col w-full">
           <label
             htmlFor="dateOfBirth"
             className="font-normal mt-5 text-xl font-openSans"
           >
-            Bank
+            Date of Birth
           </label>
           <div>
-          <Dropdown
-                  placeholder="Enter your existing bank name"
-                  name="existingBankName"
-                  value={selectedBank || ""}
-                  error={formik.errors.existingBankName && formik.touched.existingBankName ? true : false}
-                  onChange={(value) => {
-                    if (value) {
-                      const selectedOption = value as { label: string, value: string };
-                      setSelectedBank(selectedOption)
-                      formik.setFieldValue("existingBankName", selectedOption.value);
-                    } else {
-                      formik.setFieldValue("existingBankName", null);
-                    }
-                  }}
-                  onBlur={() => {
-                    formik.setFieldTouched("existingBankName", true);
-                  }}
-                  options={banks.map((item: any) => ({
-                    label: item.name,
-                    value: item.name,
-                  }))}
-                  className="items-start text-start justify-start rounded-lg border border-[#E7E6F2] "
-                />
+            <Input
+              name="dateOfBirth"
+              type="date"
+              placeholder="DD/MM/YY"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className={`${
+                formik.touched.dateOfBirth && formik.errors.dateOfBirth
+                  ? "border-red-500"
+                  : ""
+              }`}
+            />
           </div>
         </div>
         

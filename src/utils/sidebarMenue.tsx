@@ -1,31 +1,30 @@
-import Image from "next/image";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
-import WalletIcon from "@/assets/icons/WalletIcon";
-import ServicesIcon from "@/assets/icons/ServicesIcon";
+import DollarBagIcon from "@/assets/icons/DollarBagIcon";
+import AgentsIcon from "@/assets/icons/AgentsIcon";
+import ServiceIconDashboard from "@/assets/icons/ServiceIconDashboard";
 
-export const adminMenu = [
+export const superAgent = [
   {
     name: "Dashboard",
     logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
-    subItems: [
-      { name: "Overview", href: "/Dashboard/overview" },
-      { name: "Reports", href: "/Dashboard/reports" },
-    ],
     href: "/dashboard",
   },
   {
     name: "Wallet",
-    logo: (
-      <Image src="/images/dollar-bag-1.svg" width={27} height={27} alt="logo" />
-    ),
+    logo: <DollarBagIcon />,
     href: "/account/wallet",
   },
   {
     name: "Services",
     logo: (
-      <Image src="/images/service 1.svg" width={27} height={27} alt="logo" />
+      <Image src="/images/services.svg" width={27} height={27} alt="logo" />
     ),
     href: "/account/services",
+  },
+  {
+    name: "Agents",
+    logo: <AgentsIcon />,
+    href: "/account/Agents",
   },
 ];
 
@@ -33,28 +32,20 @@ export const individualMenu = [
   {
     name: "Dashboard",
     logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
-    subItems: [
-      { name: "Overview", href: "/Dashboard/overview" },
-      { name: "Reports", href: "/Dashboard/reports" },
-    ],
     href: "/dashboard",
   },
   {
     name: "Wallet",
-    logo: (
-      <Image src="/images/dollar-bag-1.svg" width={27} height={27} alt="logo" />
-    ),
+    logo: <DollarBagIcon />,
     href: "/account/wallet",
   },
   {
     name: "Services",
-    logo: (
-      <Image src="/images/service 1.svg" width={27} height={27} alt="logo" style={{color:"red"}}/>
-    ),
-    DropdownMenue: [
-      { Name: "NIN Services", href: "" },
-      { Name: "Bill Payment Subscription", href: "" },
-      { Name: "Subscription", href: "" },
+    logo: <ServiceIconDashboard />,
+    subItems: [
+      { Name: "NIN Services", href: "account/services" },
+      { Name: "Bill Payment", href: "account/services/billpayment" },
+      { Name: "Subscription", href: "account/services/subscription" },
     ],
     href: "/account/services",
   },
