@@ -6,7 +6,7 @@ import { Input } from "../common/inputs";
 import { Button } from "../common/button";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { useCreateWallet } from "@/helpers/wallet";
+import { useCreateWallet, useGetAllBanks } from "@/helpers/wallet";
 import ToastComponent from "@/components/common/toastComponent";
 import { banks } from "@/data/bankCodes";
 import axiosInstance from "@/helpers/axiosConfig";
@@ -16,6 +16,7 @@ const WalletForm = ({ setShow }: any) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const { formik, isPending, isSuccess, isError, error } = useCreateWallet();
   const [selectedBank, setSelectedBank] = useState<{ label: string, value: string }>()
+  const { allBanks } = useGetAllBanks()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -58,8 +59,8 @@ const WalletForm = ({ setShow }: any) => {
                   name="firstname"
                   data-test="username-firstname"
                   placeholder="First name"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  value={userDetails?.firstname}
+                  disabled
                 />
               </div>
               <div className="flex flex-col flex-1 justify-end text-[#8c8b92]">
@@ -67,8 +68,8 @@ const WalletForm = ({ setShow }: any) => {
                   name="lastname"
                   type="text"
                   placeholder="Last name"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  value={userDetails?.lastname}
+                  disabled
                 />
               </div>
             </div>
@@ -182,7 +183,7 @@ const WalletForm = ({ setShow }: any) => {
                   onBlur={() => {
                     formik.setFieldTouched("existingBankName", true);
                   }}
-                  options={banks.map((item: any) => ({
+                  options={allBanks?.data?.map((item: any) => ({
                     label: item.name,
                     value: item.name,
                   }))}

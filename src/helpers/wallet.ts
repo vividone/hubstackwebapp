@@ -13,6 +13,7 @@ export const useCreateWallet = ( ) => {
     const { createWalletUrl } = useUrls();
     const [ , setUserWallet] = useLocalStorage(TOKEN.WALLET); // to persist
     const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
+    const [ , setHasWallet] = useLocalStorage<any>(TOKEN.HASWALLET)
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Create wallet"],
         mutationFn: (payload: Partial<ICreateWalletUpdate>) => {
             return axiosInstance.post(createWalletUrl, payload)
@@ -32,16 +33,28 @@ export const useCreateWallet = ( ) => {
         validateOnBlur: false,
         validationSchema: createWalletValidationSchema,
         validateOnChange: false,
-        onSubmit: async ({ ...values }) => {
+        onSubmit: async ({ existingAccountNumber, ...values }) => {
         try {
             await formik.validateForm();
             mutate(values, {
             onSuccess: (res) => {
-                setUserWallet(res.data.user);
+                setUserWallet(res.data.dva);
+                setHasWallet(true)
+                const data = {
+                    customer: 175820352,
+                    preferred_bank: "mock-bank",
+                    accountNumber: "5136452736"
+                }
             },
-            //   onError: (res: any) => {
-    
-            //   },
+              onError: (res: any) => {
+                setUserWallet(res.data.dva);
+                setHasWallet(true)
+                const data = {
+                    customer: 175820352,
+                    preferred_bank: "mock-bank",
+                    accountNumber: "5136452736"
+                }
+              },
             });
             formik.handleReset;
         } catch (error: any) {
@@ -77,6 +90,27 @@ export const useGetSubAccounts = () => {
   };
 };
 
+export const useGetWallet = () => {
+  const { getUserWallet } = useUrls();
+  const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
+
+  const queryKey = ["Get user wallet"]; // Unique key for the query
+
+  const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
+    const response = await axiosInstance.get(getUserWallet + "/" + userDetails._id);
+    const responseData = response.data;
+    return responseData;
+  }});
+  
+  const userWallet = data || [];
+  return {
+    userWallet,
+    isLoading,
+    isError,
+    error
+  };
+};
+
 export const useGetAccountBalance = () => {
     const { getWalletBalance } = useUrls();
   
@@ -102,7 +136,7 @@ export const useGetAccountBalance = () => {
 export const useGetAllBanks = () => {
   const { getAllBanks } = useUrls();
 
-  const queryKey = ["Get wallet balance"]; // Unique key for the query
+  const queryKey = ["Get all banks"]; // Unique key for the query
 
   const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
     const response = await axiosInstance.get(getAllBanks);

@@ -8,6 +8,8 @@ import Link from "next/link";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import ShareIcon from "@/assets/icons/shareIcon";
 import AlternateWalletFunding from "./AlternateFunding";
+import { TOKEN } from "@/utils/token";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
@@ -17,12 +19,14 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
   const [visibility, setVisibility] = useState(true);
   const [copiedText, setCopiedText] = useState("");
   const [showAlternate, setShowAlternate] = useState(false)
+  const [ userWallet, ] = useLocalStorage<any>(TOKEN.WALLET); // to persist
+  const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
 
   const existingData = {
     currentBalance: "#0.00",
-    accountNumber: "0209064859",
-    accountName: "Zainab Babalola",
-    bankName: "Providus Bank",
+    accountNumber: userWallet?.accountNumber,
+    accountName: userDetails?.firstname + " " + userDetails?.lastname,
+    bankName: userWallet?.preferred_bank,
   };
 
   const handleCopy = (text: string) => {

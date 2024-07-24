@@ -17,7 +17,7 @@ export const superAgent = [
   {
     name: "Services",
     logo: <ServiceIconDashboard />,
-    href: "/account/services",
+    href: "/account/services/nin-services",
   },
   {
     name: "Agents",
@@ -41,7 +41,7 @@ export const individualMenu = [
     name: "Services",
     logo: <ServiceIconDashboard />,
     subItems: [
-      { Name: "NIN Services", href: "account/services" },
+      { Name: "NIN Services", href: "account/services/nin-services" },
       { Name: "Bill Payment", href: "account/services/billpayment" },
       { Name: "Subscription", href: "account/services/subscription" },
     ],
