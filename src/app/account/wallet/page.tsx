@@ -6,11 +6,14 @@ import WalletForm from "@/components/modals/createwalletmodal";
 import { useGetWallet } from "@/helpers/wallet";
 import Card from "@/components/common/card";
 import Mywallet from "@/components/common/Existinguserwallet";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 
 
 const Wallet = () => {
   const [showWallet, setShowwallet] = useState(false);
-  const [wallet, setWallet] = useState({})
+  const { userWallet } = useGetWallet()
+  const [hasWallet, ] = useLocalStorage<any>(TOKEN.HASWALLET)
 
 
   const setShow = (bool: any) => {
@@ -18,14 +21,8 @@ const Wallet = () => {
   };
 
   useEffect(() => {
-    if(localStorage.wallet) {
-      setWallet(localStorage.wallet)
-    }
-    else if(localStorage.hasWallet) {
-      const { userWallet } = useGetWallet()
-      setWallet(userWallet)
-    }
-  }, [localStorage.hasWallet, localStorage.wallet])
+    console.log(userWallet)
+  }, [userWallet])
 
   const cardData = {
       logo: "/images/dollar-bag-1.svg",
@@ -40,7 +37,7 @@ const Wallet = () => {
       <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] font-medium">Wallet</h2>
 
       {
-        localStorage.hasWallet ? 
+        !hasWallet ? 
         <>
         {showWallet && (
           <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
