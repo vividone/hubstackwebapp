@@ -11,17 +11,17 @@ export function useUrls() {
   const forgotPasswordUrl = `${BASE_URL}/auth/forgot-password`;
   const resendPasswordEmailUrl = `${BASE_URL}/auth/resend-email`;
 
-  // create wallet
-  const createWalletUrl = `${BASE_URL}/wallet/create-account`
+  // wallet
+  const createWalletUrl = `${BASE_URL}/mockwallet/create-and-validate-customer`
+  const getUserWallet = `${BASE_URL}/mockwallet`
   const walletCheck = `${BASE_URL}/users/wallet-check`
   const getAllWallets = `${BASE_URL}/wallet/sub-accounts`
   const getWalletBalance = `${BASE_URL}/wallet/account-balance/`
+  const getAllBanks = `${BASE_URL}/wallet/banks`
 
   // Update profile 
   const updateIndividualProfileUrl = `${BASE_URL}/users/update-profile`;
   const updateAgentProfileUrl = `${BASE_URL}/agent/update-profile`;
-
-  // seat
 
   return {
     loginUrl,
@@ -36,8 +36,10 @@ export function useUrls() {
     updateAgentProfileUrl,
     createWalletUrl ,
     walletCheck,
+    getUserWallet,
     getAllWallets,
-    getWalletBalance
+    getWalletBalance,
+    getAllBanks
   };
 
 }

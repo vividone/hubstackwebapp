@@ -2,31 +2,9 @@ import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import DollarBagIcon from "@/assets/icons/DollarBagIcon";
 import AgentsIcon from "@/assets/icons/AgentsIcon";
 import ServiceIconDashboard from "@/assets/icons/ServiceIconDashboard";
+import ReferralIcon from "@/assets/icons/Referral";
 
-export const superAgent = [
-  {
-    name: "Dashboard",
-    logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
-    href: "/dashboard",
-  },
-  {
-    name: "Wallet",
-    logo: <DollarBagIcon />,
-    href: "/account/wallet",
-  },
-  {
-    name: "Services",
-    logo: <ServiceIconDashboard />,
-    href: "/account/services",
-  },
-  {
-    name: "Agents",
-    logo: <AgentsIcon />,
-    href: "/account/Agents",
-  },
-];
-
-export const individualMenu = [
+export const menuList = [
   {
     name: "Dashboard",
     logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
@@ -41,10 +19,14 @@ export const individualMenu = [
     name: "Services",
     logo: <ServiceIconDashboard />,
     subItems: [
-      { Name: "NIN Services", href: "account/services" },
+      { Name: "NIN Services", href: "account/services/nin-services" },
       { Name: "Bill Payment", href: "account/services/billpayment" },
-      { Name: "Subscription", href: "account/services/subscription" },
     ],
-    href: "/account/services",
+    href: "/account/services/nin-services",
+  },
+  {
+    name: "Referal",
+    logo: <ReferralIcon />,
+    href: "/account/referral",
   },
 ];

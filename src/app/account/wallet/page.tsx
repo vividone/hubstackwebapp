@@ -3,17 +3,18 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
 import WalletForm from "@/components/modals/createwalletmodal";
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { TOKEN } from "@/utils/token";
-import { useGetSubAccounts } from "@/helpers/wallet";
+import { useGetWallet } from "@/helpers/wallet";
 import Card from "@/components/common/card";
 import Mywallet from "@/components/common/Existinguserwallet";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 
 
 const Wallet = () => {
   const [showWallet, setShowwallet] = useState(false);
-  const [hasWallet,] = useLocalStorage(TOKEN.HASWALLET)
-  const { allWallets } = useGetSubAccounts()
+  const { userWallet } = useGetWallet()
+  const [hasWallet, ] = useLocalStorage<any>(TOKEN.HASWALLET)
+  const [wallet, setWallet] = useLocalStorage<any>(TOKEN.WALLET)
 
 
   const setShow = (bool: any) => {
@@ -21,8 +22,8 @@ const Wallet = () => {
   };
 
   useEffect(() => {
-    console.log(allWallets)
-  }, [allWallets])
+    setWallet(userWallet)
+  }, [userWallet])
 
   const cardData = {
       logo: "/images/dollar-bag-1.svg",
@@ -32,12 +33,13 @@ const Wallet = () => {
     }
 
   return (
-    <div className="flex-1 relative h-full p-[50px_25px] ">
+    <div className="flex flex-1 relative h-full ">
+      <div className="md:pr-[30px] p-[60px_25px]  border border-transparent border-r-[#E7E7E7]">
 
       <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] font-medium">Wallet</h2>
 
       {
-        !hasWallet ? 
+        !hasWallet && !wallet ? 
         <>
         {showWallet && (
           <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
@@ -82,6 +84,27 @@ const Wallet = () => {
           </div>
         </div>
         }
+        </div>
+
+        <div className="flex-1 p-[60px_30px]">
+          <h2 className="font-medium 2xl:text-[25px] text-[20px] pb-[40px]">Wallet History</h2>
+          
+          <div className="w-full py-2 overflow-x-auto">
+            <table className="table-auto text-left w-full min-w-[700px]">
+                      <thead>
+                          <tr className="bg-[#3D3066]/[0.1]">
+                              <th className="p-[20px]">Date</th>
+                              <th className="p-[20px]">Amount</th>
+                              <th className="p-[20px]">Status</th>
+                          </tr>
+                      </thead>
+                      <tbody className="">
+
+                      </tbody>
+            </table>
+          </div>
+
+        </div>
     </div>
   );
 };
