@@ -95,6 +95,7 @@ const Wallet = () => {
                           <tr className="bg-[#3D3066]/[0.1]">
                               <th className="p-[20px]">Date</th>
                               <th className="p-[20px]">Amount</th>
+                              <th className="p-[20px]">Type</th>
                               <th className="p-[20px]">Status</th>
                           </tr>
                       </thead>
