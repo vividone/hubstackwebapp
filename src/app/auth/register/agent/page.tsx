@@ -23,11 +23,11 @@ const RegisterAgent = () => {
 
   const searchParams = useSearchParams();
 
-  const superAgentUsername = searchParams.get("referred") || null
+  const referralCode = searchParams.get("ref") || null
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    formik.setFieldValue("superagent_username", superAgentUsername || formik.values.superagent_username)
+    formik.setFieldValue("referralCode", referralCode || formik.values.referralCode)
     formik.handleSubmit()
   };
 
@@ -68,16 +68,6 @@ const RegisterAgent = () => {
                         error={formik.errors.lastname}
                     />
                 </div>
-                
-                <p className="mt-4">Username</p>
-                <Input 
-                    placeholder="Username"
-                    name="username"
-                    data-test="username"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.username}
-                />
                 <p className="mt-4">Email Address</p>
                 <Input 
                     placeholder="Email address"
@@ -106,17 +96,6 @@ const RegisterAgent = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={formik.errors.business_name}
-                />
-                
-                <p className="mt-4">Super Agent Username</p>
-                <Input 
-                    name="superagent_username"
-                    placeholder="SuperAgent Username"
-                    data-test="username-companyName"
-                    value={superAgentUsername || formik.values.superagent_username}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.superagent_username}
                 />
 
                 <p className="mt-4">Location</p>
@@ -177,6 +156,16 @@ const RegisterAgent = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={formik.errors.password}
+                />
+
+<p className="mt-4">Referral Code</p>
+                <Input 
+                    placeholder="Enter referral code"
+                    value={referralCode || formik.values.referralCode}
+                    name="referralCode"
+                    data-test="referralCode"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                 />
             </div>
 

@@ -6,7 +6,7 @@ import QueryClientLayout from "@/helpers/useQueryClient";
 
 export const metadata: Metadata = {
   title: "Hubstack",
-  description: "",
+  description: "Innovate. Simplify. Prosper. Hassle-free financial services and bill payments powered by AI.",
 };
 
 

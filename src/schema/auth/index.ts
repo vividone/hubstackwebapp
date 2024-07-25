@@ -14,6 +14,7 @@ export const SignupSchemaIndividual = Yup.object().shape({
   firstname: Yup.string().required("Fullname is required"),
   lastname: Yup.string().required("Fullname is required"),
   username: Yup.string().required("Phone number is required"),
+  referralCode: Yup.string().optional(),
   email: Yup.string()
     .required("Email is required")
     .trim()
@@ -39,7 +40,7 @@ export const SignupSchemaAgent = Yup.object().shape({
     .lowercase()
     .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
   phonenumber: Yup.string().required("Phone number is required"),
-  superagent_username: Yup.string().required("Super Agent name is required"),
+  referralCode: Yup.string().optional(),
   business_name: Yup.string().required("Business name is required"),
   role: Yup.string().optional(),
   location: Yup.string().required("Location is required"),

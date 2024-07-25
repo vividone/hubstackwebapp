@@ -25,7 +25,7 @@ export const menuList = [
     href: "/account/services/nin-services",
   },
   {
-    name: "Referal",
+    name: "Referral",
     logo: <ReferralIcon />,
     href: "/account/referral",
   },

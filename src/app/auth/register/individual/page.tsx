@@ -53,17 +53,7 @@ const Register = () => {
                         onBlur={formik.handleBlur}
                         error={formik.errors.lastname}
                     />
-                </div>
-                
-                <p className="mt-4">Username</p>
-                <Input 
-                    placeholder="Username"
-                    name="username"
-                    data-test="user-name"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.errors.username}
-                />
+                </div>           
                 <p className="mt-4">Email Address</p>
                 <Input 
                     placeholder="Email Address"
@@ -92,6 +82,14 @@ const Register = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={formik.errors.password}
+                />
+                     <p className="mt-4">Referral Code</p>
+                <Input 
+                    placeholder="Enter referral code"
+                    name="referralCode"
+                    data-test="referralCode"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                 />
             </div>
 

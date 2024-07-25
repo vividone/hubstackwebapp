@@ -6,7 +6,7 @@ export interface IAuthLogin {
 export interface IAuthIndividualSignup {
   firstname: string;
   lastname: string;
-  username: string;
+  referralCode: string;
   email: string;
   phone_number: string;
   role?: string;
@@ -24,7 +24,7 @@ export interface IAuthAgentSignup {
   region: string;
   password: string;
   username: string;
-  superagent_username: string;
+  referralCode: string;
 }
 
 export interface IAuthSuperAgentSignup {

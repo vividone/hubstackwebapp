@@ -106,6 +106,7 @@ export const useLogin = () => {
           phone_number: "",
           role: type,
           password: "",
+          referralCode:""
         } as IAuthIndividualSignup,
         validateOnBlur: false,
         validateOnChange: false,
@@ -159,11 +160,11 @@ export const useSignupAgent = () => {
         email: "",
         phonenumber: "",
         business_name: "",
-        superagent_username: "",
         region: "",
         location: "",
         role: HUBSTACKROLES.AGENT,
         password: "",
+        referralCode:""
       } as IAuthAgentSignup,
       validateOnBlur: false,
       validateOnChange: false,
