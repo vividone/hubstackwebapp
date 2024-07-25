@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-import { superAgent, individualMenu } from "@/utils/sidebarMenue";
+import { menuList } from "@/utils/sidebarMenue";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import { TOKEN } from "@/utils/token";
@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [userDetails, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
 
   useEffect(() => {
-    const currentMenu = userDetails?.role === "Individual" ? individualMenu : superAgent;
+    const currentMenu = menuList;
 
     const activeItemIndex = currentMenu.findIndex(
       (item: any) =>
@@ -76,7 +76,7 @@ const Dashboard = () => {
       </div>
       <div className="p-6 flex flex-col flex-1 overflow-auto">
         <ul className="list-none p-0 m-0">
-          {(userDetails?.role === "Individual" ? individualMenu : superAgent).map((item: any, index: number) => (
+          {menuList.map((item: any, index: number) => (
             <li key={index}>
               <div
                 className={`flex items-center justify-between list-none p-[15px] w-full mb-[10px] rounded-[8px] relative text-[#FFFFFF80] transition-[0.3s] ease-in-out ${

@@ -11,9 +11,9 @@ export function useUrls() {
   const forgotPasswordUrl = `${BASE_URL}/auth/forgot-password`;
   const resendPasswordEmailUrl = `${BASE_URL}/auth/resend-email`;
 
-  // create wallet
+  // wallet
   const createWalletUrl = `${BASE_URL}/mockwallet/create-and-validate-customer`
-  const getUserWallet = `${BASE_URL}/wallet`
+  const getUserWallet = `${BASE_URL}/mockwallet`
   const walletCheck = `${BASE_URL}/users/wallet-check`
   const getAllWallets = `${BASE_URL}/wallet/sub-accounts`
   const getWalletBalance = `${BASE_URL}/wallet/account-balance/`
@@ -22,8 +22,6 @@ export function useUrls() {
   // Update profile 
   const updateIndividualProfileUrl = `${BASE_URL}/users/update-profile`;
   const updateAgentProfileUrl = `${BASE_URL}/agent/update-profile`;
-
-  // seat
 
   return {
     loginUrl,

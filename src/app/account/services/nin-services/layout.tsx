@@ -17,7 +17,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       <nav className="w-full mb-[20px] border border-transparent border-b-[#E7E7E7]">
         <ul className="flex gap-10">
           <li className={`pr-[3%] text-lg border-b-2 border-transparent transition duration-100 ease-in-out hover:border-[#3D3066] hover:text-[#3D3066] ${pathname === "/account/services/nin-services" ? "text-[#3D3066] font-bold border-b-[#3D3066]" : "font-normal"}`}>
-            <Link href="/account/services/nin-services">NIN Search</Link>
+            <Link href="/account/services/nin-services">NIN Products</Link>
           </li>
           <li className={`pr-[3%] text-lg border-b-2 border-transparent transition duration-100 ease-in-out hover:border-[#3D3066] hover:text-[#3D3066] ${pathname === "/account/services/nin-services/unit" ? "text-[#3D3066] font-bold border-b-[#3D3066]" : "font-normal"}`}>
             <Link href="/account/services/nin-services/unit">Unit</Link>
