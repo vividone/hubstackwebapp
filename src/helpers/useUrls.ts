@@ -12,8 +12,8 @@ export function useUrls() {
   const resendPasswordEmailUrl = `${BASE_URL}/auth/resend-email`;
 
   // wallet
-  const createWalletUrl = `${BASE_URL}/mockwallet/create-and-validate-customer`
-  const getUserWallet = `${BASE_URL}/mockwallet`
+  const createWalletUrl = `${BASE_URL}/wallet/create-and-validate-customer`
+  const getUserWallet = `${BASE_URL}/wallet`
   const walletCheck = `${BASE_URL}/users/wallet-check`
   const getAllWallets = `${BASE_URL}/wallet/sub-accounts`
   const getWalletBalance = `${BASE_URL}/wallet/account-balance/`
