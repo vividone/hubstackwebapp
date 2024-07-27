@@ -1,15 +1,16 @@
 'use client'
-import React from "react";
+import React, { useState } from "react";
 import Dashboard from "@/components/page/sidebar";
 import Navigation from "@/components/page/Navigation";
 
 const RootLayout = ({ children }: any) => {
+    const [open, setOpen] = useState(false)
 
     return (
         <div className="flex w-full">
-            <Dashboard />
-            <div className="h-full w-[80%] scroll max-h-screen overflow-y-scroll hide">
-                <Navigation />
+            <Dashboard open={open} setOpen={setOpen}/>
+            <div className="h-full md::w-[80%] w-full scroll max-h-screen overflow-y-scroll hide">
+                <Navigation open={open} setOpen={setOpen}/>
                 {children}
             </div>
         </div>

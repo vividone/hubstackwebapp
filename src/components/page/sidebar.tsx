@@ -9,51 +9,24 @@ import { TOKEN } from "@/utils/token";
 import { useCookies } from "@/hooks/useCookies";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import Link from "../custom/link";
+import MenuIcon from "@/assets/icons/MenuIcon";
 
-const Dashboard = () => {
+const Dashboard = ({ open, setOpen }: any) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const { removeCookie } = useCookies();
   const router = useRouter();
   const pathname = usePathname();
   const [userDetails, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
 
-  useEffect(() => {
-    const currentMenu = menuList;
-
-    const activeItemIndex = currentMenu.findIndex(
-      (item: any) =>
-        item.href === pathname ||
-        (item.subItems && item.subItems.some((subItem: any) => subItem.href === pathname))
-    );
-
-    if (activeItemIndex !== -1) {
-      setActiveIndex(activeItemIndex);
-    } else {
-      setActiveIndex(null);
-    }
-  }, [pathname, userDetails]);
-
-  const handleMenuItemClick = (item: any, index: number) => {
-    if (item.subItems) {
+  const handleMenuItemClick = (e: any, item: any, index: number) => {
+    if (item.subItems && userDetails?.role === "Agent") {
+      e.stopPropagation()
+      e.preventDefault()
       setActiveIndex(activeIndex === index ? null : index);
     } else {
       setActiveIndex(null);
       router.push(item.href);
     }
-  };
-
-  const handleSubItemClick = (subItem: any) => {
-    router.push(subItem.href.startsWith("/") ? subItem.href : `/${subItem.href}`);
-  };
-
-  const isActive = (item: any) => {
-    if (pathname === item.href) return true;
-    if (item.subItems) {
-      return item.subItems.some(
-        (subItem: any) => pathname === subItem.href || pathname.includes(subItem.href)
-      );
-    }
-    return false;
   };
 
   const handleLogout = () => {
@@ -63,8 +36,9 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-col h-full text-[whitesmoke] bg-[#3D3066] h-screen sm:w-[40%] lg:w-[35%] xl:w-[24%]">
-      <div className="pl-6 pt-6 h-[10%]">
+    <div className={`flex flex-col md:static fixed top-0 left-0 h-full text-[whitesmoke] bg-[#3D3066] h-screen sm:w-[40%] lg:w-[35%] xl:w-[24%] w-[300px] z-[1000] duration-700 ${open ? "translate-x-0" : "md:translate-x-0 translate-x-[-100%]" }`}>
+      <div className="flex items-center pl-6 pt-6 h-[10%]">
+        <button className="p-2 md:hidden" onClick={() => setOpen(!open)}><MenuIcon /></button>
         <span>
           <Image
             src="/images/hubstackLogo.svg"
@@ -78,38 +52,38 @@ const Dashboard = () => {
         <ul className="list-none p-0 m-0">
           {menuList.map((item: any, index: number) => (
             <li key={index}>
-              <div
+              <Link
                 className={`flex items-center justify-between list-none p-[15px] w-full mb-[10px] rounded-[8px] relative text-[#FFFFFF80] transition-[0.3s] ease-in-out ${
-                  isActive(item) ? "bg-[#FFFFFF1A] text-[whitesmoke]" : ""
+                  pathname.indexOf(item.href) !== -1 ? "bg-[#FFFFFF1A] text-[whitesmoke]" : ""
                 } hover:bg-[#FFFFFF1A] hover:text-[whitesmoke] cursor-pointer`}
-                onClick={() => handleMenuItemClick(item, index)}
+                href={item.href}
               >
                 <div className="flex gap-4">
                   <span>{item.logo}</span>
                   <span>{item.name}</span>
                 </div>
-                {item.subItems && (
-                  <span className="flex items-center justify-end w-8 transition-transform duration-300">
+                {(item.subItems && userDetails?.role === "Agent") && (
+                  <button className="flex items-center justify-end w-8 transition-transform duration-300" onClick={(e) => handleMenuItemClick(e, item, index)}>
                     {activeIndex === index ? (
                       <KeyboardArrowDownRoundedIcon sx={{ fontSize: 27 }} />
                     ) : (
                       <KeyboardArrowRightRoundedIcon sx={{ fontSize: 27 }} />
                     )}
-                  </span>
+                  </button>
                 )}
-              </div>
-              {activeIndex === index && item.subItems && (
+              </Link>
+              {activeIndex === index && item.subItems && userDetails?.role === "Agent" && (
                 <ul className="">
                   {item.subItems.map((subItem: any, subIndex: number) => (
-                    <li
+                    <Link
                       key={subIndex}
-                      className={`p-[10px] text-[#FFFFFF80] hover:text-[whitesmoke] rounded-[8px] cursor-pointer ${
+                      className={`block p-[10px] text-[#FFFFFF80] hover:text-[whitesmoke] rounded-[8px] cursor-pointer ${
                         pathname === subItem.href ? "bg-[#FFFFFF1A] text-[whitesmoke]" : ""
                       }`}
-                      onClick={() => handleSubItemClick(subItem)}
+                      href={subItem.href}
                     >
                       {subItem.Name}
-                    </li>
+                    </Link>
                   ))}
                 </ul>
               )}
