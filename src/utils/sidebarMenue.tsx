@@ -19,10 +19,10 @@ export const menuList = [
     name: "Services",
     logo: <ServiceIconDashboard />,
     subItems: [
-      { Name: "NIN Services", href: "account/services/nin-services" },
-      { Name: "Bill Payment", href: "account/services/billpayment" },
+      { Name: "NIN Services", href: "/account/services/nin-services" },
+      { Name: "Bill Payment", href: "/account/services/bill-payment" },
     ],
-    href: "/account/services/nin-services",
+    href: "/account/services/bill-payment",
   },
   {
     name: "Referral",
