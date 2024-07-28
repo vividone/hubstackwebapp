@@ -7,7 +7,7 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 import Link from "next/link";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import ShareIcon from "@/assets/icons/shareIcon";
-import AlternateWalletFunding from "./AlternateFunding";
+import AlternateWalletFunding from "../modals/AlternateFunding";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
 

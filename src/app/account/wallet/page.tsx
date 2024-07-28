@@ -21,10 +21,6 @@ const Wallet = () => {
     setShowwallet(bool);
   };
 
-  useEffect(() => {
-    setWallet(userWallet)
-  }, [])
-
   const cardData = {
       logo: "/images/dollar-bag-1.svg",
       amount: "₦0.0",
@@ -39,7 +35,7 @@ const Wallet = () => {
       <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] font-medium">Wallet</h2>
 
       {
-        !hasWallet || !wallet ? 
+        !hasWallet || !userWallet ? 
         <>
         {showWallet && (
           <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">

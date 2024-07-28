@@ -1,10 +1,10 @@
 "use client"
 import React, { useState } from "react";
-import { Button } from "./button";
+import { Button } from "../common/button";
 import Image from "next/image";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import { Input } from "./inputs";
+import { Input } from "../common/inputs";
 import Link from "../custom/link";
 
 interface MywalletProps {
