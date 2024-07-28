@@ -9,7 +9,7 @@ const RootLayout = ({ children }: any) => {
     return (
         <div className="flex w-full">
             <Dashboard open={open} setOpen={setOpen}/>
-            <div className="h-full md::w-[80%] w-full scroll max-h-screen overflow-y-scroll hide">
+            <div className="h-full md::w-[80%] w-full scroll sm:max-h-screen sm:overflow-y-scroll sm:hide">
                 <Navigation open={open} setOpen={setOpen}/>
                 {children}
             </div>
