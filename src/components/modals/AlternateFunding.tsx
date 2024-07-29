@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { Input } from "./inputs";
-import { Button } from "./button";
+import { Input } from "../common/inputs";
+import { Button } from "../common/button";
 import { SetStateAction, useState } from "react";
-import { Dropdown } from "./Dropdown";
+import { Dropdown } from "../common/Dropdown";
 
 type Options = {
     label: string,

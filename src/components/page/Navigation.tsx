@@ -4,8 +4,9 @@ import Image from "next/image";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
+import MenuIcon from "@/assets/icons/MenuIcon";
 
-const Navigation = () => {
+const Navigation = ({ open, setOpen }: any) => {
   const [showNotification, setShowNotification] = useState(true);
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
 
@@ -15,8 +16,9 @@ const Navigation = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center px-[25px] py-[15px] w-full border-b border-gray-300">
-      <div className="flex-1 mb-4 md:mb-0">
+    <div className="flex justify-between items-center px-[25px] py-[15px] w-full border-b border-gray-300">
+      <div className="flex-1 flex flex-row items-center gap-2">
+        <button className="p-3 md:hidden" onClick={() => setOpen(!open)}><MenuIcon /></button>
         <h2 className="m-0 text-2xl font-semibold text-center md:text-left">
           Welcome, {userDetails?.firstname}!
         </h2>
