@@ -10,6 +10,7 @@ import ShareIcon from "@/assets/icons/shareIcon";
 import AlternateWalletFunding from "../modals/AlternateFunding";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { Input } from "./inputs";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
@@ -19,6 +20,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
   const [visibility, setVisibility] = useState(true);
   const [copiedText, setCopiedText] = useState("");
   const [showAlternate, setShowAlternate] = useState(false)
+  const [showVerify, setShowVerify] = useState(false)
   const [ userWallet, ] = useLocalStorage<any>(TOKEN.WALLET); // to persist
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
 
@@ -47,28 +49,17 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
           className="cursor-pointer"
         />
       </div>
-      <div className="p-[20px_50px] border-y border-[#E7E6F2]">
-        <div className="flex justify-between">
-          <div>
-            <span className="block font-bold text-[#111111] text-[18px]">Current Balance</span>
-            <span className="block p-[0_10px] text-[#3D3066] text-[32px]  font-bold font-openSans">
-              {visibility ? existingData.currentBalance : "****"}
-            </span>
-          </div>
-          <div>
-            <span className="cursor-pointer">
-              {visibility ? (
-                <RemoveRedEyeOutlinedIcon onClick={() => setVisibility(false)} />
-              ) : (
-                <VisibilityOffOutlinedIcon onClick={() => setVisibility(true)} />
-              )}
-            </span>
-          </div>
-        </div>
-        
+      <div className="px-[30px]">      
+        <label htmlFor="desiredAmount" className="block text-[18px] mb-2 mt-8 font-normal">
+            { showVerify ? "Transfer" : "Enter Amount" }
+        </label>
+        <Input name="desiredAmount" type="number" placeholder="#0.00" />
       </div>
       <div className="p-[20px_30px] mt-4">
         <div className="bg-[#E7E6F2] p-[30px]">
+          <p className="font-bold text-lg mb-6">
+            { showVerify ? "Confirm that you have made transfer" : "Make transfer to the account details below" }
+          </p>
           <div className="flex justify-between w-full gap-5">
             <div className="">
               <CopyToClipboard text={existingData.accountNumber} onCopy={() => handleCopy(existingData.accountNumber)}>
@@ -130,12 +121,32 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
             </div>
           </div>
 
+          { showVerify ? 
+          <p className="mt-6 font-bold">Give us few minutes to confirm your transaction</p>
+          :
           <Link href="" className="text-[#3D3066] mt-8 mb-6 flex justify-center items-center gap-2">SHARE DETAILS <ShareIcon /></Link>
+          }
 
-          <div className="mt-10 h-20">
-            <Button variant="secondary" onClick={() => setShowAlternate(!showAlternate)}>
-              <span className="text-[16px]">USE ALTERNATE POP-UP METHOD</span>
-            </Button>
+        </div>
+        
+        <div className="mt-10 flex flex-col items-center gap-4">
+          
+          { showVerify ? 
+          
+          <Button variant="primary" size="long" onClick={() => setShowVerify(!showVerify)}>
+            <span className="text-[16px]">TRANSFER MADE</span>
+          </Button>
+          : 
+          <>
+          <Button variant="primary" size="long" onClick={() => setShowVerify(!showVerify)}>
+            <span className="text-[16px]">CONTINUE</span>
+          </Button>
+
+          <Button variant="secondary" size="long" onClick={() => setShowAlternate(!showAlternate)}>
+            <span className="text-[16px]">USE ALTERNATE POP-UP METHOD</span>
+          </Button> 
+        </>
+        }
 
             {
               showAlternate ?
@@ -144,18 +155,6 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
               ""
             }
           </div>
-        </div>
-      </div>
-      <div className="p-[20px_30px]">
-        <div className="border border-[#E7E6F2] p-4">
-          <h4 className="text-[20px] font-nl">Transactions</h4>
-          <p className="text-[15px] font-normal">Your transaction shows here when you make any</p>
-          <div className="w-full text-center text-[#3D3066] font-['Cabinet_Grotesk'] font-bold mt-8">
-            <Link href={""} className="block">
-              VIEW MORE TRANSACTIONS
-            </Link>
-          </div>
-        </div>
       </div>
       {copiedText && <div className="fixed bottom-4 right-4 p-2 bg-[#3D3066] text-white">Copied: {copiedText}</div>}
     </div>
