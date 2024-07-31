@@ -3,6 +3,7 @@ import Image from "next/image";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import DollarBagIcon from "@/assets/icons/DollarBagIcon";
+import NairaIcon from "@/assets/icons/nairaIcon";
 interface CardData {
   amount: string;
   type: string;
@@ -44,15 +45,11 @@ const Card = ({ value }: CardProps) => {
       <div className="flex justify-between items-end h-full w-full">
         <div className="flex flex-col justify-center items-center h-[50%]">
           <span className="flex items-center font-bold  2xl:text-[32px] text-[24px] w-full font-sans">
-            {visibility ? amount : "****"}
+            {visibility ? <><NairaIcon className="w-[18px]" /> {amount}</> : "****"}
           </span>
           <span className="font-normal text-[18px] w-full font-sans">
             {type}
           </span>
-        </div>
-
-        <div className="self-end mt-auto h-[50%] flex items-end 2xl:pb-[2px]">
-          <span>All Time</span>
         </div>
       </div>
     </div>

@@ -12,12 +12,14 @@ export function useUrls() {
   const resendPasswordEmailUrl = `${BASE_URL}/auth/resend-email`;
 
   // wallet
-  const createWalletUrl = `${BASE_URL}/wallet/create-and-validate-customer`
+  const createWalletUrl = `${BASE_URL}/wallet/create-wallet`
   const getUserWallet = `${BASE_URL}/wallet`
   const walletCheck = `${BASE_URL}/users/wallet-check`
   const getAllWallets = `${BASE_URL}/wallet/sub-accounts`
   const getWalletBalance = `${BASE_URL}/wallet/account-balance/`
   const getAllBanks = `${BASE_URL}/wallet/banks`
+  const fundWallet = `${BASE_URL}/transact/fund-wallet/initialize`
+  const verifyFunding = `${BASE_URL}/transact/fund-wallet/verify`
 
   // Update profile 
   const updateIndividualProfileUrl = `${BASE_URL}/users/update-profile`;
@@ -39,7 +41,9 @@ export function useUrls() {
     getUserWallet,
     getAllWallets,
     getWalletBalance,
-    getAllBanks
+    getAllBanks,
+    fundWallet,
+    verifyFunding,
   };
 
 }
