@@ -20,6 +20,7 @@ export function useUrls() {
   const getAllBanks = `${BASE_URL}/wallet/banks`
   const fundWallet = `${BASE_URL}/transact/fund-wallet/initialize`
   const verifyFunding = `${BASE_URL}/transact/fund-wallet/verify`
+  const getWalletHistory = `${BASE_URL}/transact/all`
 
   // Update profile 
   const updateIndividualProfileUrl = `${BASE_URL}/users/update-profile`;
@@ -44,6 +45,7 @@ export function useUrls() {
     getAllBanks,
     fundWallet,
     verifyFunding,
+    getWalletHistory,
   };
 
 }
