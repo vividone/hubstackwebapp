@@ -63,7 +63,7 @@ const NinProductsPage = () => {
                   size={"full"}
                   variant="secondary"
                   onClick={() => { setActive(item.title); setShow(true) }}
-                  className="border-2 bg-[#00D7F7]"
+                  className="border-2 !bg-[#00D7F7]"
               >
                   ORDER
               </Button>

@@ -7,10 +7,13 @@ import { useUrls } from "./useUrls";
 import { TOKEN } from "@/utils/token";
 import { ICreateWalletUpdate } from "@/interface/wallet";
 import { createWalletValidationSchema } from "@/schema/walletschema/validation";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 // Create a wallet
 export const useCreateWallet = ( ) => {
     const { createWalletUrl } = useUrls();
+    const router = useRouter()
     const [ , setUserWallet] = useLocalStorage(TOKEN.WALLET); // to persist
     const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
     const [ , setHasWallet] = useLocalStorage<any>(TOKEN.HASWALLET)
@@ -40,20 +43,10 @@ export const useCreateWallet = ( ) => {
             onSuccess: (res) => {
                 setUserWallet(res.data.dva);
                 setHasWallet(true)
-                const data = {
-                    customer: 175820352,
-                    preferred_bank: "mock-bank",
-                    accountNumber: "5136452736"
-                }
+                router.refresh()
+                
             },
               onError: (res: any) => {
-                setUserWallet(res.data.dva);
-                setHasWallet(true)
-                const data = {
-                    customer: 175820352,
-                    preferred_bank: "mock-bank",
-                    accountNumber: "5136452736"
-                }
               },
             });
             formik.handleReset;
@@ -153,4 +146,88 @@ export const useGetAllBanks = () => {
     isError,
     error
   };
+};
+
+
+export const useFundWallet = ( ) => {
+  const { fundWallet } = useUrls();
+  const [trxId, setTrxId] = useState("")
+  const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Fund wallet"],
+      mutationFn: (payload: Partial<any>) => {
+          return axiosInstance.post(fundWallet, payload)
+      },
+  })    
+  const formik = useFormik({
+      initialValues: {
+          email: userDetails?.email,
+          amount: "",
+          paymentMode: "account transfer",
+          userId: userDetails?._id,
+      } as any,
+      validateOnBlur: false,
+      validateOnChange: false,
+      onSubmit: async ({...values }) => {
+      try {
+          await formik.validateForm();
+          mutate(values, {
+          onSuccess: (res) => {
+              setTrxId(res.data._id);              
+          },
+            onError: (res: any) => {
+            },
+          });
+          formik.handleReset;
+      } catch (error: any) {
+          throw new Error(error);
+      }
+      },
+  });
+  const typedError = error as IErrorResponseType;
+  const errorString = Array.isArray(typedError?.response?.data?.message)
+      ? typedError?.response?.data?.message[0]
+      : typedError?.response?.data?.message || "";
+  return { trxId, formik, isPending, isSuccess, isError, error: errorString };
+};
+
+
+
+export const useVerifyFund = ( ) => {
+  const [data, setData] = useState({ amount: 0 })
+  const { verifyFunding } = useUrls();
+  const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Verify Fund"],
+      mutationFn: (payload: Partial<any>) => {
+          return axiosInstance.post(verifyFunding, payload)
+      },
+  })    
+  
+  const formik = useFormik({
+      initialValues: {
+          transactionId: "",
+          userId: userDetails?._id,
+      } as any,
+      validateOnBlur: false,
+      validateOnChange: false,
+      onSubmit: async ({...values }) => {
+      try {
+          await formik.validateForm();
+          mutate(values, {
+          onSuccess: (res) => {
+              setData(res.data);              
+          },
+            onError: (res: any) => {
+            },
+          });
+          formik.handleReset;
+      } catch (error: any) {
+          throw new Error(error);
+      }
+      },
+  });
+  const typedError = error as IErrorResponseType;
+  const errorString = Array.isArray(typedError?.response?.data?.message)
+      ? typedError?.response?.data?.message[0]
+      : typedError?.response?.data?.message || "";
+  return { data, formik, isPending, isSuccess, isError, error: errorString };
 };

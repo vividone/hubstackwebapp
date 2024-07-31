@@ -1,26 +1,32 @@
 "use client"
-import React, { useState } from "react";
+import React, { FormEvent, use, useEffect, useState } from "react";
 import { Button } from "./button";
 import Image from "next/image";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import Link from "next/link";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import ShareIcon from "@/assets/icons/shareIcon";
 import AlternateWalletFunding from "../modals/AlternateFunding";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { Input } from "./inputs";
+import { useFundWallet, useVerifyFund } from "@/helpers/wallet";
+import ToastComponent from "./toastComponent";
+import Confirmation from "../modals/confirmation";
+import { useRouter } from "next/navigation";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
 }
 
 const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
-  const [visibility, setVisibility] = useState(true);
+  const { trxId, formik, isPending, isSuccess, isError, error } = useFundWallet()
+  const { data, formik: verify, isSuccess: isSuccessVerify } = useVerifyFund()
   const [copiedText, setCopiedText] = useState("");
   const [showAlternate, setShowAlternate] = useState(false)
+  const [showVerify, setShowVerify] = useState(false)
   const [ userWallet, ] = useLocalStorage<any>(TOKEN.WALLET); // to persist
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
+  const router = useRouter()
 
   const existingData = {
     currentBalance: "#0.00",
@@ -34,8 +40,36 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
     setTimeout(() => setCopiedText(""), 2000);
   };
 
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    console.log(formik.errors)
+    if(showVerify) {
+      verify.setFieldValue("transactionId", trxId)
+      verify.handleSubmit()
+      console.log(trxId)
+    }
+    else {
+      formik.handleSubmit()
+    }
+    
+  };
+
+  useEffect(() => {
+    if(isSuccess) {
+      setShowVerify(!showVerify)
+    }
+  }, [isSuccess])
+
   return (
     <div className="relative h-screen w-[40vw] bg-white overflow-y-scroll z-[1000]">
+
+    <ToastComponent
+      isSuccess={isSuccess} 
+      isError={isError} 
+      msg={isSuccess ? "successful" : isError ? error : ""}
+    />
+    <form onSubmit={handleSubmit}>
+
       <div className="flex justify-between p-[30px_40px] pt-[55px]">
         <h3 className="text-4xl font-medium text-[#111111]">Fund Wallet</h3>
         <Image
@@ -47,28 +81,23 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
           className="cursor-pointer"
         />
       </div>
-      <div className="p-[20px_50px] border-y border-[#E7E6F2]">
-        <div className="flex justify-between">
-          <div>
-            <span className="block font-bold text-[#111111] text-[18px]">Current Balance</span>
-            <span className="block p-[0_10px] text-[#3D3066] text-[32px]  font-bold font-openSans">
-              {visibility ? existingData.currentBalance : "****"}
-            </span>
-          </div>
-          <div>
-            <span className="cursor-pointer">
-              {visibility ? (
-                <RemoveRedEyeOutlinedIcon onClick={() => setVisibility(false)} />
-              ) : (
-                <VisibilityOffOutlinedIcon onClick={() => setVisibility(true)} />
-              )}
-            </span>
-          </div>
-        </div>
-        
+      <div className="px-[30px]">      
+        <label htmlFor="desiredAmount" className="block text-[18px] mb-2 mt-8 font-normal">
+            { showVerify ? "Transfer" : "Enter Amount" }
+        </label>
+        <Input 
+          name="amount"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          type="number" 
+          placeholder="#0.00" 
+        />
       </div>
       <div className="p-[20px_30px] mt-4">
-        <div className="bg-[#E7E6F2] p-[30px]">
+        <div className="bg-[#E6FBFF] p-[30px]">
+          <p className="font-bold text-lg mb-6">
+            { showVerify ? "Confirm that you have made transfer" : "Make transfer to the account details below" }
+          </p>
           <div className="flex justify-between w-full gap-5">
             <div className="">
               <CopyToClipboard text={existingData.accountNumber} onCopy={() => handleCopy(existingData.accountNumber)}>
@@ -130,12 +159,31 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
             </div>
           </div>
 
+          { showVerify ? 
+          <p className="mt-6 font-bold">Give us few minutes to confirm your transaction</p>
+          :
           <Link href="" className="text-[#3D3066] mt-8 mb-6 flex justify-center items-center gap-2">SHARE DETAILS <ShareIcon /></Link>
+          }
 
-          <div className="mt-10 h-20">
-            <Button variant="secondary" onClick={() => setShowAlternate(!showAlternate)}>
-              <span className="text-[16px]">USE ALTERNATE POP-UP METHOD</span>
-            </Button>
+        </div>
+        
+        <div className="mt-10 flex flex-col items-center gap-4">
+          <Button 
+            variant="primary" 
+            size="long"
+            type="submit"
+            isLoading={isPending}
+            disabled={isPending} 
+          >
+            <span className="text-[16px]">{ !showVerify ? "CONTINUE" : "TRANSFER MADE" }</span>
+          </Button>
+
+          { !showVerify ? 
+          <Button variant="secondary" size="long" onClick={() => setShowAlternate(!showAlternate)}>
+            <span className="text-[16px]">USE ALTERNATE POP-UP METHOD</span>
+          </Button>
+          : ""
+          }
 
             {
               showAlternate ?
@@ -143,21 +191,26 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
               : 
               ""
             }
+            {/* Confirmation success modal */}
+
+            {
+              isSuccessVerify ?
+              
+                <Confirmation 
+                  status={"success"} 
+                  setShow={setShow} 
+                  heading={"Fund Wallet"} 
+                  text={"Transaction Successful"} 
+                  subtext={"You wallet has been credited with #" + data.amount} 
+                  buttonProps={{ text: "THANK YOU", action: () => {router.push("/account/wallet"); setShow(false)} }} 
+                />
+              : 
+              ""
+            }
           </div>
-        </div>
-      </div>
-      <div className="p-[20px_30px]">
-        <div className="border border-[#E7E6F2] p-4">
-          <h4 className="text-[20px] font-nl">Transactions</h4>
-          <p className="text-[15px] font-normal">Your transaction shows here when you make any</p>
-          <div className="w-full text-center text-[#3D3066] font-['Cabinet_Grotesk'] font-bold mt-8">
-            <Link href={""} className="block">
-              VIEW MORE TRANSACTIONS
-            </Link>
-          </div>
-        </div>
       </div>
       {copiedText && <div className="fixed bottom-4 right-4 p-2 bg-[#3D3066] text-white">Copied: {copiedText}</div>}
+      </form>
     </div>
   );
 };
