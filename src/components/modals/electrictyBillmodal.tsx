@@ -38,7 +38,7 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
           onClick={() => setShow(false)}
         />
       </div>
-      {/* <div className="mt-10">
+      <div className="mt-10">
         <div className="flex justify-between">
           <div>
             <span className="block font-bold text-[#111111] text-[22px]">
@@ -65,8 +65,8 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
             </span>
           </div>
         </div>
-      </div> */}
-      {/* <form action="" className="flex flex-col w-full h-full justify-cente">
+      </div>
+      <form action="" className="flex flex-col w-full h-full justify-cente">
         <div className="flex flex-col w-full">
           <label
             htmlFor="meterNumber"
@@ -132,18 +132,22 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
           </div>
         </div>
         <div className="mt-5">
-          <p className="font-bold text-[#111111] font-[20px] font-openSans">SERVICE FEE: span {Amount.total}</p>
-          <p className="font-bold text-[#111111] font-[20px] font-openSans">TOTAL:{Amount.total}</p>
+          <p className="font-bold text-[#111111] font-[20px] font-openSans">
+            SERVICE FEE: span {Amount.total}
+          </p>
+          <p className="font-bold text-[#111111] font-[20px] font-openSans">
+            TOTAL:{Amount.total}
+          </p>
         </div>
         <div className="w-full flex align-center justify-center mt-[2.5rem]">
           <Button type="submit" size={"long"}>
             PAY NGN {Amount.total}
           </Button>
         </div>
-      </form> */}
+      </form>
       {/* ======> sucessful and successful <====== */}
-      <div className="flex flex-col mt-10  w-full h-[392px] items-center justify-center">
-        {/* <div className="">
+      {/* <div className="flex flex-col mt-10  w-full h-[392px] items-center justify-center">
+         <div className="">
           <div className="flex flex-col gap-10 items-center">
             <Image
               src="/images/successful.svg"
@@ -156,8 +160,8 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
             </p>
             <Button size={"long"}>RETRY</Button>
           </div>
-        </div> */}
-        <div>
+        </div>  
+         <div>
           <div className="flex flex-col gap-10 items-center">
             <Image
               src="/images/unsuccessful.svg"
@@ -171,7 +175,7 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
             <Button size={"long"}>RETRY</Button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
