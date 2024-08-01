@@ -151,7 +151,7 @@ export const useGetAllBanks = () => {
 
 export const useFundWallet = ( ) => {
   const { fundWallet } = useUrls();
-  const [trxId, setTrxId] = useState("")
+  const [data, setData] = useState({ _id: 0, amount: 0 })
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Fund wallet"],
       mutationFn: (payload: Partial<any>) => {
@@ -172,7 +172,7 @@ export const useFundWallet = ( ) => {
           await formik.validateForm();
           mutate(values, {
           onSuccess: (res) => {
-              setTrxId(res.data._id);              
+              setData(res.data);              
           },
             onError: (res: any) => {
             },
@@ -187,7 +187,7 @@ export const useFundWallet = ( ) => {
   const errorString = Array.isArray(typedError?.response?.data?.message)
       ? typedError?.response?.data?.message[0]
       : typedError?.response?.data?.message || "";
-  return { trxId, formik, isPending, isSuccess, isError, error: errorString };
+  return { data, formik, isPending, isSuccess, isError, error: errorString };
 };
 
 
@@ -230,4 +230,28 @@ export const useVerifyFund = ( ) => {
       ? typedError?.response?.data?.message[0]
       : typedError?.response?.data?.message || "";
   return { data, formik, isPending, isSuccess, isError, error: errorString };
+};
+
+
+export const useGetWalletHistory = () => {
+  const { getWalletHistory } = useUrls();
+  const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
+
+  const queryKey = ["Get all wallet history"]; // Unique key for the query
+
+  const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
+    const response = await axiosInstance.get(getWalletHistory + "/" + userDetails._id + "/fundwallet");
+    const responseData = response.data;
+    console.log(responseData)
+    return responseData;
+  }});
+
+  const history = data || {};
+
+  return {
+    history,
+    isLoading,
+    isError,
+    error
+  };
 };

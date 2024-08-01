@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
 import WalletForm from "@/components/modals/createwalletmodal";
-import { useGetWallet } from "@/helpers/wallet";
+import { useGetWallet, useGetWalletHistory } from "@/helpers/wallet";
 import Card from "@/components/common/card";
 import Mywallet from "@/components/common/Existinguserwallet";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -14,16 +14,21 @@ const Wallet = () => {
   const [showWallet, setShowwallet] = useState(false);
   const { userWallet } = useGetWallet()
   const [hasWallet, ] = useLocalStorage<any>(TOKEN.HASWALLET)
-  const [wallet, setWallet] = useLocalStorage<any>(TOKEN.WALLET)
+  const [ wallet, setWallet] = useLocalStorage<any>(TOKEN.WALLET); 
+  const { history } = useGetWalletHistory()
 
 
   const setShow = (bool: any) => {
     setShowwallet(bool);
   };
 
+  useEffect(() => {
+    setWallet({ ...wallet, ...userWallet })
+  }, [userWallet, wallet])
+
   const cardData = {
       logo: "/images/dollar-bag-1.svg",
-      amount: userWallet.balance || "0",
+      amount: wallet?.balance || "0",
       type: "Balance",
       visibility: true,
     }
