@@ -13,7 +13,7 @@ const ReferralPage = () => {
         <h2 className="text-[24px] md:text-[28px] 2xl:text-[36px] font-CabinetGrotesque font-medium">
           Referral
         </h2>
-        <div className="pt-[20px] md:pt-[45px]">
+        <div className="pt-[20px] md:mt-6">
           <h3 className="font-bold text-[#111111] text-[18px] md:text-[22px] font-OpenSans">
             Invite your friends & earn commissions on every transaction for
             life!
@@ -33,18 +33,27 @@ const ReferralPage = () => {
               </div>
             </div>
           </div>
-          <div className="w-full flex flex-col  gap-4 mt-4">
-            <Button size={"full"}>COPY</Button>
-            <Button size={"full"} variant="secondary">
+          <div className="w-full flex flex-col  gap-4 mt-12">
+            <Button
+              size={"full"}
+              className="text-[20px] font-bold font-CabinetGrotesk"
+            >
+              COPY
+            </Button>
+            <Button
+              size={"full"}
+              variant="secondary"
+              className="mt-2 text-[20px] font-bold text-[#3D3066] font-CabinetGrotesk"
+            >
               SHARE WITH A FRIEND
             </Button>
           </div>
         </div>
       </div>
       <div className="hidden md:block md:mt-[60px] border-r border-[#E7E7E7]"></div>
-      <div className="w-full md:w-[70%] mt-[30px] md:mt-[50px]">
+      <div className="w-full md:w-[70%] md:mt-[82px] 2xl:mt-[93px]">
         <div className="flex flex-col gap-[30px] p-[30px] md:p-[60px_25px]">
-          <p className="mt-[20px] md:mt-[35px] text-[25px] font-medium">
+          <p className="text-[25px] font-medium">
             <span className="text-[#8C8B92] font-medium">Bronze Account </span>
             7% Per Transaction
           </p>

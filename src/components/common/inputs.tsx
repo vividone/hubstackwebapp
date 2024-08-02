@@ -250,13 +250,13 @@ export const SearchInput: any  = ({ ...props }) => {
 
   return (
     <div
-      className={`flex items-center relative w-[340px] w-[${size}] xl:h-[66px] h-[45px] gap-x-3 px-6 border rounded-2xl transition-all ease-in duration-100
+      className={`flex items-center relative w-[340px] xl:h-[66px] h-[45px] gap-x-3 px-6 border rounded-2xl transition-all ease-in duration-100
         ${
           props.error
             ? 'border-[#FFAFAF] shadow-glow'
             : focus
             ? 'bg-white border border-primary-500'
-            : 'bg-[#E7E6F2] border-[#E7E6F2]'
+            : 'bg-[white] border-[#E7E6F2]'
         }
         ${containerClassName}
       `}
@@ -265,7 +265,7 @@ export const SearchInput: any  = ({ ...props }) => {
     >
       <SearchIcon/>
       <input
-        className={`!outline-none bg-gray-200 focus:bg-transparent transition-all duration-300 ease-in-out w-full
+        className={`!outline-none focus:bg-transparent transition-all duration-300 ease-in-out w-full
           ${className ? className : ''}
           placeholder:text-s lg:placeholder:text-base placeholder:text-[#8C8B92]-400 text-[16px]
         `}
