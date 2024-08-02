@@ -40,6 +40,7 @@ const axiosInstance = axios.create({
   headers: {
     Accept: "application/json",
     "content-type": "application/json",
+    "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY,
     common: {
       Authorization: getAuthorizationHeader(),
     },

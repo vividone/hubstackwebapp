@@ -67,11 +67,11 @@ const Register = () => {
                 <p className="mt-4">Phone Number</p>
                 <Input 
                     placeholder="Phone number"
-                    name="phone_number"
+                    name="phonenumber"
                     data-test="user-phoneNumber"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.phone_number}
+                    error={formik.errors.phonenumber}
                 />
                     
                 <p className="mt-4">Password</p>

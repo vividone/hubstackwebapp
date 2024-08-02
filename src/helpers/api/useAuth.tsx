@@ -101,9 +101,8 @@ export const useLogin = () => {
         initialValues: {
           firstname: "",
           lastname: "",
-          username: "",
           email: "",
-          phone_number: "",
+          phonenumber: "",
           role: type,
           password: "",
           referralCode:""
@@ -117,14 +116,12 @@ export const useLogin = () => {
             mutate(values, {
               onSuccess: (res) => {
                 setCookie(TOKEN.ACCESS, res.data.token.access_token);
-                setCookie(TOKEN.ROLE, res.data.data.role);
-                setCookie(TOKEN.ID, res.data.data._id);
                 setUserDetails(res.data.data);
                 router.push(FRONTEND_URL.VERIFY_ACCOUNT);
               },
-              //   onError: (res: any) => {
-    
-              //   },
+              onError: (res: any) => {
+  
+              },
             });
             formik.handleReset;
           } catch (error: any) {
@@ -175,8 +172,6 @@ export const useSignupAgent = () => {
           mutate(values, {
             onSuccess: (res) => {
               setCookie(TOKEN.ACCESS, res.data.token.access_token);
-              setCookie(TOKEN.ROLE, res.data.data.role);
-              setCookie(TOKEN.ID, res.data.data._id);
               setUserDetails(res.data.data);
               router.push(FRONTEND_URL.VERIFY_ACCOUNT);
             },
@@ -195,63 +190,7 @@ export const useSignupAgent = () => {
       ? typedError?.response?.data?.message[0]
       : typedError?.response?.data?.message || "";
     return { formik, isPending, isSuccess, isError, error: errorString };
-};
-
-  // signup for super agent
-  export const useSignupSuperAgent = () => {
-    const router = useRouter();
-    const { signupAgentUrl } = useUrls();
-    const { setCookie } = useCookies();
-    const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
-    const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up superagent"],
-        mutationFn: (payload: Partial<IAuthSuperAgentSignup>) => {
-          return axiosInstance.post(signupAgentUrl, payload)
-        },
-    })    
-  
-    const formik = useFormik({
-      initialValues: {
-        firstname: "",
-        lastname: "",
-        email: "",
-        username:"",
-        phoneNumber: "",
-        companyName: "",
-        location: "",
-        roles: HUBSTACKROLES.AGENT,
-        password: "",
-      } as IAuthSuperAgentSignup,
-      validateOnBlur: false,
-      validateOnChange: false,
-      validationSchema: SignupSchemaSuperAgent,
-      onSubmit: async ({ ...values }) => {
-        try {
-          await formik.validateForm();
-          mutate(values, {
-            onSuccess: (res) => {
-              setCookie(TOKEN.ACCESS, res.data.token.access_token);
-              setCookie(TOKEN.ROLE, res.data.data.role);
-              setCookie(TOKEN.ID, res.data.data._id);
-              setUserDetails(res.data.data);
-              router.push(FRONTEND_URL.VERIFY_ACCOUNT);
-            },
-            //   onError: (res: any) => {
-  
-            //   },
-          });
-          formik.handleReset;
-        } catch (error: any) {
-          throw new Error(error);
-        }
-      },
-    });
-    const typedError = error as IErrorResponseType;
-    const errorString = Array.isArray(typedError?.response?.data?.message)
-      ? typedError?.response?.data?.message[0]
-      : typedError?.response?.data?.message || "";
-    return { formik, isPending, isSuccess, isError, error: errorString };
-};
-
+}
 
 
 // verifyLogin
