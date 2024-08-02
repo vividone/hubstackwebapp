@@ -8,7 +8,7 @@ export interface IAuthIndividualSignup {
   lastname: string;
   referralCode: string;
   email: string;
-  phone_number: string;
+  phonenumber: string;
   role?: string;
   password: string;
 }

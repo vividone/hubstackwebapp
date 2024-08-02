@@ -13,14 +13,12 @@ export const LoginSchemaPhone = Yup.object().shape({
 export const SignupSchemaIndividual = Yup.object().shape({
   firstname: Yup.string().required("Fullname is required"),
   lastname: Yup.string().required("Fullname is required"),
-  username: Yup.string().required("Phone number is required"),
   referralCode: Yup.string().optional(),
-  email: Yup.string()
+  email: Yup.string().email()
     .required("Email is required")
     .trim()
-    .lowercase()
-    .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
-  phone_number: Yup.string().required("Phone number is required"),
+    .lowercase(),
+  phonenumber: Yup.string().required("Phone number is required"),
   role: Yup.string().optional(),
   password: Yup.string()
     .required("Password is required")
