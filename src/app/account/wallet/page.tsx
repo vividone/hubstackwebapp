@@ -22,13 +22,17 @@ const Wallet = () => {
     setShowwallet(bool);
   };
 
+  const refresh = (amount: number) => {
+    setWallet({ ...wallet, balance: amount})
+  }
+
   useEffect(() => {
     setWallet({ ...wallet, ...userWallet })
-  }, [userWallet, wallet])
+  }, [userWallet])
 
   const cardData = {
       logo: "/images/dollar-bag-1.svg",
-      amount: wallet?.balance || "0",
+      amount: wallet?.balance,
       type: "Balance",
       visibility: true,
     }
@@ -74,7 +78,7 @@ const Wallet = () => {
           <div className="md:w-[353px] w-full">
             {showWallet && (
               <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
-                <Mywallet setShow={setShow} />
+                <Mywallet setShow={setShow} refreshWallet={refresh}/>
               </div>
             )}
             <Card value={cardData} />

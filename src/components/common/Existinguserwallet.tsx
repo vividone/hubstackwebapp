@@ -16,9 +16,10 @@ import NairaIcon from "@/assets/icons/nairaIcon";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
+  refreshWallet: (amount: number) => void;
 }
 
-const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
+const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
   const { data: fundData, formik, isPending, isSuccess, isError, error } = useFundWallet()
   const { data, formik: verify, isSuccess: isSuccessVerify } = useVerifyFund()
   const [showAlternate, setShowAlternate] = useState(false)
@@ -39,6 +40,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow }) => {
       setUserWallet({ ...userWallet, balance: userWallet.balance + fundData.amount})
       verify.setFieldValue("transactionId", fundData._id)
       verify.handleSubmit()
+      refreshWallet(userWallet.balance + fundData.amount)
     }
     else {
       formik.handleSubmit()
