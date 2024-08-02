@@ -49,7 +49,7 @@ const Billpayment = () => {
             {data.map((value, index) => (
               <div
                 key={index}
-                className="w-[206px] bg-[#00D7F7] h-[200px]  rounded-lg flex flex-col items-center justify-center text-center"
+                className="w-[206px] bg-[#00D7F7] h-[200px]  rounded-lg flex flex-col items-center justify-center text-center transform hover:scale-105 cursor-pointer"
               >
                 <div className="p-[18px_16px] rounded-full bg-[#3D30661A]">{value.Icon}</div>
                 <p className="mt-4 text-[20px] font-semibold font-OpenSans text-[#000000]">{value.text}</p>
@@ -105,7 +105,7 @@ const Billpayment = () => {
                 </tbody>
               </table>
             ) : (
-              <div className="mt-[30px] flex flex-col gap-10 items-center">
+              <div className="mt-[50px] flex flex-col gap-10 items-center">
                 <Image
                   src="/images/notransactions.svg"
                   height={167}

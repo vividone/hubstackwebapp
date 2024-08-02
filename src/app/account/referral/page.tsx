@@ -1,11 +1,11 @@
 "use client";
-import { Button } from "@/components/common/button";
+import Image from "next/image";
+import SortIcon from "@/assets/icons/SortIcon";
 import CopyIcon from "@/assets/icons/CopyIcon";
 import CaratDown from "@/assets/icons/CaratDown";
-import SortIcon from "@/assets/icons/SortIcon";
+import { Button } from "@/components/common/button";
 import { SearchInput } from "@/components/common/inputs";
-import SearchIcon from "@/assets/icons/SearchIcon";
-import Image from "next/image";
+
 const ReferralPage = () => {
   return (
     <div className="flex flex-col md:flex-row w-full">
@@ -90,7 +90,7 @@ const ReferralPage = () => {
                 </tbody>
               </table>
             ) : (
-              <div className="mt-[30px] flex flex-col gap-10 items-center ">
+              <div className="mt-[50px] flex flex-col gap-10 items-center ">
                 <Image
                   src="/images/notransactions.svg"
                   height={167}
