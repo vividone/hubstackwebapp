@@ -6,7 +6,6 @@ export const setAuthToken = (token: string) => {
   if (token) {
     // Apply to every request
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-    axios.defaults.headers.common.X_API_KEY = process.env.NEXT_PUBLIC_X_API_KEY;
   } else {
     // Delete auth header
     delete axios.defaults.headers.common["Authorization"];
@@ -41,6 +40,7 @@ const axiosInstance = axios.create({
   headers: {
     Accept: "application/json",
     "content-type": "application/json",
+    "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY,
     common: {
       Authorization: getAuthorizationHeader(),
     },
