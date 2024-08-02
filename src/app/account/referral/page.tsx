@@ -5,7 +5,7 @@ import CaratDown from "@/assets/icons/CaratDown";
 import SortIcon from "@/assets/icons/SortIcon";
 import { SearchInput } from "@/components/common/inputs";
 import SearchIcon from "@/assets/icons/SearchIcon";
-
+import Image from "next/image";
 const ReferralPage = () => {
   return (
     <div className="flex flex-col md:flex-row w-full">
@@ -27,7 +27,7 @@ const ReferralPage = () => {
           <div className="w-full mt-[60px]">
             <p className="mb-2">Your Unique Referral Code</p>
             <div className="w-full h-[66px] flex items-center justify-between border border-gray-300 rounded-[7px] p-4">
-              <p className="font-bold">ZEEBEAUTY12RR</p>
+              <p className="font-bold text-[#8C8B92]">ZEEBEAUTY12RR</p>
               <div className="p-2 cursor-pointer">
                 <CopyIcon />
               </div>
@@ -51,9 +51,8 @@ const ReferralPage = () => {
           <div className="flex flex-wrap gap-[12px] items-center md:gap-[24px]">
             <SearchInput
               type="text"
-              size={"4000px"}
               className="flex-grow border-none bg-white"
-              placeholder="Search..."
+              placeholder="Search"
             />
             <div className="flex items-center h-[45px] rounded-lg p-[12px] border border-[#89939F] bg-white">
               <span className="text-[12px] text-[#292D32] font-medium font-CabinetGrotesk">
@@ -73,22 +72,36 @@ const ReferralPage = () => {
             </div>
           </div>
           <div className="w-full py-4 overflow-x-auto">
-            <table className="table-auto text-left w-full min-w-[500px]">
-              <thead>
-                <tr className="bg-[#3D3066]/[0.1]">
-                  <th className="p-[20px]">Date</th>
-                  <th className="p-[20px]">Referred</th>
-                  <th className="p-[20px]">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="m-[200px] bg-red">
-                  <td >12/7/2024</td>
-                  <td>Jayson Benson</td>
-                  <td>Activate</td>
-                </tr>
-              </tbody>
-            </table>
+            {false ? (
+              <table className="table-auto text-left w-full min-w-[500px]">
+                <thead>
+                  <tr className="bg-[#3D3066]/[0.1]">
+                    <th className="p-[20px]">Date</th>
+                    <th className="p-[20px]">Referred</th>
+                    <th className="p-[20px]">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="m-[200px] bg-red">
+                    <td>12/7/2024</td>
+                    <td>Jayson Benson</td>
+                    <td>Activate</td>
+                  </tr>
+                </tbody>
+              </table>
+            ) : (
+              <div className="mt-[30px] flex flex-col gap-10 items-center ">
+                <Image
+                  src="/images/notransactions.svg"
+                  height={167}
+                  width={167}
+                  alt=""
+                />
+                <p className="text-[32px] text-[#111111] font-medium font-cabinet-grostequeue">
+                  No transactions yet
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

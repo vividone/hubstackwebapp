@@ -256,7 +256,7 @@ export const SearchInput: any  = ({ ...props }) => {
             ? 'border-[#FFAFAF] shadow-glow'
             : focus
             ? 'bg-white border border-primary-500'
-            : 'bg-[#F9F9F9] border-[#E7E6F2]'
+            : 'bg-[#E7E6F2] border-[#E7E6F2]'
         }
         ${containerClassName}
       `}
@@ -265,9 +265,9 @@ export const SearchInput: any  = ({ ...props }) => {
     >
       <SearchIcon/>
       <input
-        className={`!outline-none bg-transparent transition-all duration-300 ease-in-out w-full
+        className={`!outline-none bg-gray-200 focus:bg-transparent transition-all duration-300 ease-in-out w-full
           ${className ? className : ''}
-          placeholder:text-s lg:placeholder:text-base placeholder:text-grey-700
+          placeholder:text-s lg:placeholder:text-base placeholder:text-[#8C8B92]-400 text-[16px]
         `}
         {...rest}
         placeholder={props.placeholder || 'Search...'} 
