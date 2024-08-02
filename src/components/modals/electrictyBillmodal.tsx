@@ -132,16 +132,31 @@ const ElectrictyBillmodal = ({ setShow }: any) => {
           </div>
         </div>
         <div className="mt-5">
-          <p className="font-bold text-[#111111] font-[20px] font-openSans">
-            SERVICE FEE: span {Amount.total}
+          <p className="font-bold text-[#111111] text-[20px] font-openSans">
+            SERVICE CHARGE:
+            <span className="align-left font-normal">
+              <NairaIconElectricBill />
+              {Amount.total}
+            </span>
           </p>
-          <p className="font-bold text-[#111111] font-[20px] font-openSans">
-            TOTAL:{Amount.total}
+          <p className="font-bold text-[#111111] text-[20px] font-openSans">
+            TOTAL:
+            <span className="align-left font-normal">
+              <NairaIconElectricBill />
+              {Amount.total}
+            </span>
           </p>
         </div>
+        <p className="font-inter text-20px font-normal">
+          By continuing, you agree to our{" "}
+          <span className="text-[#3D3066]">Terms and Conditions </span>
+        </p>
         <div className="w-full flex align-center justify-center mt-[2.5rem]">
           <Button type="submit" size={"long"}>
-            PAY NGN {Amount.total}
+            REVIEW ORDER
+          </Button>
+          <Button size={"long"} variant="secondary">
+            FUND WALLET
           </Button>
         </div>
       </form>

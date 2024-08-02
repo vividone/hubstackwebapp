@@ -44,25 +44,24 @@ const Billpayment = () => {
         <h2 className="text-[24px] md:text-[28px] 2xl:text-[36px] font-CabinetGrotesque font-medium">
           Bill Payments
         </h2>
-        <div className="flex mt-[45px] border-r border-[#E7E7E7]">
+        <div className="flex mt-[50px] border-r border-[#E7E7E7]">
           <div className="flex flex-wrap gap-[30px] ">
             {data.map((value, index) => (
               <div
                 key={index}
-                className="w-[206px] bg-[#00D7F7] h-[200px] bg-gray-300 rounded-lg flex flex-col items-center justify-center text-center"
+                className="w-[206px] bg-[#00D7F7] h-[200px]  rounded-lg flex flex-col items-center justify-center text-center"
               >
                 <div className="p-[18px_16px] rounded-full bg-[#3D30661A]">{value.Icon}</div>
-                <p className="mt-2 text-lg font-medium">{value.text}</p>
+                <p className="mt-4 text-[20px] font-semibold font-OpenSans text-[#000000]">{value.text}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
-      {/* <div className="hidden md:block md:mt-[143px] border-r border-[#E7E7E7]"></div> */}
       <div className="w-full md:w-[50%] mt-[30px] md:mt-[50px]">
         <div className="flex flex-col gap-[30px] p-[30px] md:p-[60px_25px]">
           <p className="mt-[20px] md:mt-[35px] text-[25px] font-medium">
-            <span className="">History</span>
+            <span className="font-normal font-CabinetGrotesk text-25px">History</span>
           </p>
           <div className="flex flex-wrap gap-[12px] items-center md:gap-[24px]">
             <SearchInput
