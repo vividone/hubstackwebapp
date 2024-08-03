@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
 import WalletForm from "@/components/modals/createwalletmodal";
-import { useGetWallet, useGetWalletHistory } from "@/helpers/wallet";
+import { useGetWallet } from "@/helpers/wallet";
 import Card from "@/components/common/card";
 import Mywallet from "@/components/common/Existinguserwallet";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -15,7 +15,6 @@ const Wallet = () => {
   const { userWallet } = useGetWallet()
   const [hasWallet, ] = useLocalStorage<any>(TOKEN.HASWALLET)
   const [ wallet, setWallet] = useLocalStorage<any>(TOKEN.WALLET); 
-  const { history } = useGetWalletHistory()
 
 
   const setShow = (bool: any) => {
@@ -28,7 +27,7 @@ const Wallet = () => {
 
   useEffect(() => {
     setWallet({ ...wallet, ...userWallet })
-  }, [userWallet])
+  }, [])
 
   const cardData = {
       logo: "/images/dollar-bag-1.svg",
@@ -39,13 +38,13 @@ const Wallet = () => {
 
   return (
     <div className="">
-      <div className="md:pr-[30px] p-[60px_25px]  border border-transparent border-r-[#E7E7E7]">
+      <div className="md:pr-[30px] px-[25px] ">
 
-      <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] font-medium">Wallet</h2>
 
       {
         !hasWallet || !userWallet ? 
         <>
+        <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] font-medium">Wallet</h2>
         {showWallet && (
           <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
             <WalletForm setShow={setShow} />
@@ -75,7 +74,8 @@ const Wallet = () => {
         </>
         : 
         <div className="flex flex-1 flex-wrap relative h-full ">
-          <div className="md:w-[353px] w-full">
+          <div className="md:w-[383px] w-full pr-[30px] py-[60px] border border-transparent sm:border-r-[#E7E7E7]">
+            <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[30px] font-medium">Wallet</h2>
             {showWallet && (
               <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
                 <Mywallet setShow={setShow} refreshWallet={refresh}/>
@@ -90,7 +90,7 @@ const Wallet = () => {
           </div>
         
           <div className="flex-1 md:p-[60px_30px] w-full">
-            <h2 className="font-medium 2xl:text-[25px] text-[20px] pb-[40px]">Wallet History</h2>
+            <h2 className="font-medium 2xl:text-[25px] text-[20px] pb-[30px]">Wallet History</h2>
             
             <div className="w-full py-2 overflow-x-auto">
               <table className="table-auto text-left w-full min-w-[700px]">

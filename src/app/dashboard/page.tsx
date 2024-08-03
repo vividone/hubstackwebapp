@@ -22,7 +22,7 @@ const DashboardPage = () => {
       title: "Request Services",
       subText: "Verify and print NIN slips, purchase airtime, data and pay for various bills.",
       buttonText: "Request Services",
-      buttonHref: "/account/services",
+      buttonHref: "/account/services/bill-payment",
       icon: <ServicesIcon />
     },
     {

@@ -31,7 +31,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
     currentBalance: "#0.00",
     accountNumber: userWallet?.accountNumber,
     accountName: userDetails?.firstname + " " + userDetails?.lastname,
-    bankName: userWallet?.preferred_bank,
+    bankName: userWallet?.bankName,
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -107,9 +107,9 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
           <p className="font-bold text-lg mb-6">
             { showVerify ? "" : "Make transfer to the account details below" }
           </p>
-          <ClipBoard text={existingData.accountNumber} />
-          <ClipBoard text={existingData.accountName} />
-          <ClipBoard text={existingData.bankName} />
+          <ClipBoard label={"Account Number"} text={existingData.accountNumber} />
+          <ClipBoard label={"Account Name"} text={existingData.accountName} />
+          <ClipBoard label={"Bank Name"} text={existingData.bankName} />
 
           { showVerify ? 
           ""
