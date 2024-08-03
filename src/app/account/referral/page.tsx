@@ -24,12 +24,12 @@ const ReferralPage = () => {
             bonus on your first referral&apos;s transaction. Start sharing your
             code now!
           </p>
-          <div className="w-full mt-[60px]">
+          <div className="w-full mt-12">
             <p className="mb-2">Your Unique Referral Code</p>
             <div className="w-full h-[66px] flex items-center justify-between border border-gray-300 rounded-[7px] p-4">
-              <p className="font-bold text-[#8C8B92]">ZEEBEAUTY12RR</p>
+              <p className="font-normal text-[#8C8B92]">ZEEBEAUTY12RR</p>
               <div className="p-2 cursor-pointer">
-                <CopyIcon />
+                <CopyIcon width={20.31} height={20.31} />
               </div>
             </div>
           </div>
