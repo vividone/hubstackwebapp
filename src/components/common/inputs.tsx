@@ -4,7 +4,7 @@ import EyeSlashIcon from "@/assets/icons/EyeSlashIcon";
 import { InputProps, TextareaProps } from "@/interface/common/input";
 import { ChangeEvent, FC, useState } from "react";
 import PhoneInput from "react-phone-number-input";
-
+import SearchIcon from "@/assets/icons/SearchIcon";
 export const Input: FC<Partial<InputProps>> = ({ ...props }) => {
   const [focus, setFocus] = useState(false);
   const { className, containerClassName, ...rest } = props;
@@ -239,6 +239,38 @@ export const PhoneNumberInput: FC<Partial<InputProps>> = (props) => {
           focus ? " " : "   !outline-none !shadow-none"
         }text-sm transition-all duration-300 `}
         value={props.value || ""}
+      />
+    </div>
+  );
+};
+
+export const SearchInput: any  = ({ ...props }) => {
+  const [focus, setFocus] = useState(false);
+  const { className, containerClassName,size,...rest } = props;
+
+  return (
+    <div
+      className={`flex items-center relative w-[340px] xl:h-[66px] h-[45px] gap-x-3 px-6 border rounded-2xl transition-all ease-in duration-100
+        ${
+          props.error
+            ? 'border-[#FFAFAF] shadow-glow'
+            : focus
+            ? 'bg-white border border-primary-500'
+            : 'bg-[white] border-[#E7E6F2]'
+        }
+        ${containerClassName}
+      `}
+      onFocus={() => setFocus(true)}
+      onBlur={() => setFocus(false)}
+    >
+      <SearchIcon/>
+      <input
+        className={`!outline-none focus:bg-transparent transition-all duration-300 ease-in-out w-full
+          ${className ? className : ''}
+          placeholder:text-s lg:placeholder:text-base placeholder:text-[#8C8B92]-400 text-[16px]
+        `}
+        {...rest}
+        placeholder={props.placeholder || 'Search...'} 
       />
     </div>
   );
