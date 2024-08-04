@@ -95,7 +95,7 @@ export const Dropdown = ({ error, ...props }: Partial<DropdownType>) => {
     }),
     menu: (base) => ({
       ...base,
-      boxShadow: "0px -1px 8px 0px #C6CBCD4D",
+      boxShadow: "0px -1px 0px 0px #C6CBCD4D",
       maxWidth: "95%",
       marginLeft: "5%",
     }),

@@ -9,8 +9,19 @@ import InternetIcon from "@/assets/icons/InternetIcon";
 import CableTvIcon from "@/assets/icons/CableTvIcon";
 import ElectricityIcon from "@/assets/icons/ElectricityIcon";
 import BettingIcon from "@/assets/icons/BettingIcon";
+import { useGetBillPayments } from "@/helpers/categories";
+import { useEffect, useState } from "react";
+import ElectricityBillModal from "@/components/modals/electrictyBillmodal";
 
 const Billpayment = () => {
+  const { billPayments, isLoading } = useGetBillPayments()
+  const [active, setActive] = useState("")
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    console.log(billPayments, isLoading)
+  }, [isLoading])
+
   const data = [
     {
       Icon: <AirtimeIcon />,
@@ -45,15 +56,16 @@ const Billpayment = () => {
           Bill Payments
         </h2>
         <div className="flex mt-[50px] border-r border-[#E7E7E7]">
-          <div className="flex flex-wrap gap-[30px] ">
+          <div className="grid 2xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-2 gap-[30px] pr-6 w-full">
             {data.map((value, index) => (
-              <div
+              <button
                 key={index}
-                className="w-[206px] bg-[#00D7F7] h-[200px]  rounded-lg flex flex-col items-center justify-center text-center transform hover:scale-105 cursor-pointer"
+                className="bg-[#00D7F7] h-[180px] rounded-lg flex flex-col items-center justify-center text-center transform hover:scale-105 cursor-pointer"
+                onClick={() => {setActive(value.text); setShow(!show)}}
               >
-                <div className="p-[18px_16px] rounded-[30px] bg-[#3D30661A]">{value.Icon}</div>
-                <p className="mt-4 text-[20px] font-semibold font-OpenSans text-[#000000]">{value.text}</p>
-              </div>
+                <span className="p-[18px_16px] rounded-[30px] bg-[#3D30661A]">{value.Icon}</span>
+                <span className="mt-4 text-[20px] font-semibold font-OpenSans text-[#000000]">{value.text}</span>
+              </button>
             ))}
           </div>
         </div>
@@ -119,6 +131,12 @@ const Billpayment = () => {
             )}
           </div>
         </div>
+
+        {
+          active === "Electricity" && show ?
+          <ElectricityBillModal show={show} setShow={setShow} />
+          : ""
+        }
       </div>
     </div>
   );

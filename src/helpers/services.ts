@@ -6,6 +6,8 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { electricBillValidationSchema } from "@/schema/servicesschema/electricBill";
 import { IElectricBill } from "@/interface/services";
+
+
 export const useElectricBll = ( ) => {
   const [ Data, setData] = useLocalStorage(""); // to persist
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
@@ -17,6 +19,7 @@ export const useElectricBll = ( ) => {
   
   const formik = useFormik({
       initialValues: {
+          serviceProvider: "",
           metrenumber: "",
           state: "",
           metretype:"",

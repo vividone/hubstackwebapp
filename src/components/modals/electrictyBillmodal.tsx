@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, FormEvent } from "react";
-import Image from "next/image";
 import { Input } from "../common/inputs";
 import { Button } from "../common/button";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
@@ -8,13 +7,18 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { useElectricBll } from "@/helpers/services";
 import Confirmation from "./confirmation";
+import ModalsLayout from "./modalsLayout";
+import { Dropdown } from "../common/Dropdown";
+import { states } from "@/data/locationRegions";
 const Amount = {
   total: `1,100`,
 };
 
-const ElectricityBillModal = ({ setShow }: any) => {
-  const [visibility, setVisibility] = useState(true);
-  const { formik, isPending, isSuccess, isError, error } = useElectricBll();
+const ElectricityBillModal = ({ show, setShow }: any) => {
+  const { formik } = useElectricBll();
+  const [serviceProvider, setServiceProvider] = useState<any>()
+  const [state, setState] = useState<any>()
+  const [meterType, setMeterType] = useState<any>()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -23,42 +27,9 @@ const ElectricityBillModal = ({ setShow }: any) => {
   };
 
   return (
-    <div className="flex flex-col bg-white w-[90vw] md:w-[45vw] text-black p-10 h-[100vh] overflow-y-scroll">
-      <header className="flex justify-between items-center font-medium text-4xl mb-12">
-        <h1>Electricity Bill</h1>
-        <Image
-          width={20}
-          height={20}
-          alt="close button"
-          src="/images/close.svg"
-          className="cursor-pointer"
-          onClick={() => setShow(false)}
-        />
-      </header>
+    <ModalsLayout header={"Electricity Bill"} setShow={setShow} show={show}>
 
-      <main className="flex flex-col">
-        <div className="flex justify-between items-center ">
-          <div>
-            <span className="block font-bold text-[#111111] text-[22px]">
-              Wallet Balance
-            </span>
-            <span className="flex items-center text-[#111111] text-[32px] font-bold font-openSans">
-              <NairaIconElectricBill
-                width={19.5}
-                height={18.25}
-                className="pt-1"
-              />
-              {visibility ? "2000" : "****"}
-            </span>
-          </div>
-          <span className="cursor-pointer pr-[2rem]">
-            {visibility ? (
-              <RemoveRedEyeOutlinedIcon onClick={() => setVisibility(false)} />
-            ) : (
-              <VisibilityOffOutlinedIcon onClick={() => setVisibility(true)} />
-            )}
-          </span>
-        </div>
+      <main className="flex flex-col">         
 
         <form
           onSubmit={handleSubmit}
@@ -69,9 +40,37 @@ const ElectricityBillModal = ({ setShow }: any) => {
               htmlFor="meterNumber"
               className="font-normal text-xl font-openSans text-[#111111]"
             >
+              Service Provider
+            </label>
+            <div className="text-[#8c8b92] mt-2">
+              <Dropdown
+                name="serviceProvider"
+                value={serviceProvider}
+                onChange={(value) => {
+                  if (value) {
+                    const selectedOption = value as any;
+                    setServiceProvider(selectedOption)
+                  } else {
+                    setServiceProvider({ label: "+93", value: "+93" })
+                  }
+                }}
+                options={["IKEJA"].map((item: string) => ({
+                  label: item,
+                  value: item,
+                }))}
+                className="items-start text-start justify-start rounded-[8px] border border-[#E7E6F2]"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col w-full mt-5">
+            <label
+              htmlFor="meterNumber"
+              className="font-normal text-xl font-openSans text-[#111111]"
+            >
               Meter Number
             </label>
-            <div className="text-[#8c8b92]">
+            <div className="text-[#8c8b92] mt-2">
               <Input
                 type="number"
                 name="meterNumber"
@@ -87,8 +86,24 @@ const ElectricityBillModal = ({ setShow }: any) => {
             >
               State
             </label>
-            <div className="text-[#8c8b92]">
-              <Input type="text" name="state" placeholder="Oyo" />
+            <div className="text-[#8c8b92] mt-2">
+            <Dropdown
+                name="state"
+                value={state}
+                onChange={(value) => {
+                  if (value) {
+                    const selectedOption = value as any;
+                    setState(selectedOption)
+                  } else {
+                    setState({ label: "Abia", value: "Abia" })
+                  }
+                }}
+                options={states.map((item: string) => ({
+                  label: item,
+                  value: item,
+                }))}
+                className="items-start text-start justify-start rounded-lg border border-[#E7E6F2]"
+              />
             </div>
           </div>
 
@@ -99,8 +114,24 @@ const ElectricityBillModal = ({ setShow }: any) => {
             >
               Meter Type
             </label>
-            <div className="text-[#8c8b92]">
-              <Input type="select" name="meterType" placeholder="Meter Type" />
+            <div className="text-[#8c8b92] mt-2">
+            <Dropdown
+                name="meterType"
+                value={meterType}
+                onChange={(value) => {
+                  if (value) {
+                    const selectedOption = value as any;
+                    setMeterType(selectedOption)
+                  } else {
+                    setMeterType({ label: "Prepaid", value: "Prepaid" })
+                  }
+                }}
+                options={["Prepaid", "Postpaid"].map((item: string) => ({
+                  label: item,
+                  value: item,
+                }))}
+                className="items-start text-start justify-start rounded-lg border border-[#E7E6F2]"
+              />
             </div>
           </div>
 
@@ -111,22 +142,22 @@ const ElectricityBillModal = ({ setShow }: any) => {
             >
               How Much Electricity Do You Want To Buy?
             </label>
-            <div className="text-[#8c8b92]">
+            <div className="text-[#8c8b92] mt-2">
               <Input type="number" name="amount" placeholder="#1000" />
             </div>
           </div>
 
           <div className="mt-5">
-            <div className="flex gap-2 items-center font-openSans">
+            <div className="flex gap-2 items-center justify-between font-openSans">
               <span className="font-bold text-[#111111] text-[16px]">
                 SERVICE CHARGE
               </span>
               <span className="flex items-center font-normal">
                 <NairaIconElectricBill width={19.5} height={18.25} />
-                <p className="font-normal text-[20px]">{Amount.total}</p>
+                <p className="font-normal text-[20px]">100</p>
               </span>
             </div>
-            <div className="flex gap-2 items-center font-bold text-[#111111] text-[16px] font-openSans">
+            <div className="flex gap-2 items-center justify-between font-bold text-[#111111] text-[16px] font-openSans">
               <span className="font-bold text-[#111111] text-[16px]">
                 TOTAL
               </span>
@@ -161,7 +192,7 @@ const ElectricityBillModal = ({ setShow }: any) => {
           </div>
         </form>
       </main>
-    </div>
+    </ModalsLayout>
   );
 };
 
