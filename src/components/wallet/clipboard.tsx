@@ -12,7 +12,7 @@ export default function ClipBoard({ text, label }: {text: string, label: string}
     };
 
     return (
-        <div className="flex justify-between gap-5 mt-4">
+        <div className="flex justify-between gap-5">
             <div className="">
             <span className="block text-[12px]">{label}</span>
             <CopyToClipboard text={text} onCopy={() => handleCopy(text)}>

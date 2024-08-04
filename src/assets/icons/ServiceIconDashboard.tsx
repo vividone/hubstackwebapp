@@ -10,7 +10,7 @@ const ServiceIconDashboard = (props: SVGProps<SVGSVGElement>) => {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g clip-path="url(#clip0_1349_3359)">
+      <g clipPath="url(#clip0_1349_3359)">
         <path
           opacity="0.98"
           fillRule="evenodd"
