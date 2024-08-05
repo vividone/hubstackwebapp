@@ -86,7 +86,7 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
             </label>
             <div className="text-[#8c8b92] mt-2">
               <Input
-                type="number"
+                type=""
                 name="customerCode"
                 onChange={formik.handleChange}
                 placeholder="123456789101112131415"
