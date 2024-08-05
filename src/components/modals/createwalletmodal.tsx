@@ -213,7 +213,7 @@ const WalletForm = ({ setShow }: any) => {
             By continuing, you agree to our{" "}
             <Link
               href={""}
-              className="text-[#3D3066] font-medium cursor-pointer"
+              className="text-[#3D3066] font-medium "
             >
               Terms and Conditions{" "}
             </Link>

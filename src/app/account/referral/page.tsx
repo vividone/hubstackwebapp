@@ -36,14 +36,14 @@ const ReferralPage = () => {
           <div className="w-full flex flex-col  gap-4 mt-12">
             <Button
               size={"full"}
-              className="text-[20px] font-bold font-CabinetGrotesk"
+              // className="text-[20px] font-bold font-CabinetGrotesk"
             >
               COPY
             </Button>
             <Button
               size={"full"}
               variant="secondary"
-              className="mt-2 text-[20px] font-bold text-[#3D3066] font-CabinetGrotesk"
+              className="mt-2 "  //text-[20px] font-bold text-[#3D3066] font-CabinetGrotesk
             >
               SHARE WITH A FRIEND
             </Button>

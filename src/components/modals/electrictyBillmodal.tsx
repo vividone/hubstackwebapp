@@ -3,12 +3,12 @@ import React, { useState, FormEvent } from "react";
 import Image from "next/image";
 import { Input } from "../common/inputs";
 import { Button } from "../common/button";
+import Confirmation from "./confirmation";
+import { useElectricBll } from "@/helpers/services";
+import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import { useElectricBll } from "@/helpers/services";
-import Confirmation from "./confirmation";
-import { formatAmount } from "@/helpers/amountFormatter";
 
 const ElectricityBillModal = ({ setShow }: any) => {
   const Amount = {
