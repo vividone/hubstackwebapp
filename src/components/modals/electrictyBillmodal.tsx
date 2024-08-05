@@ -8,18 +8,29 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { useElectricBll } from "@/helpers/services";
 import Confirmation from "./confirmation";
-const Amount = {
-  total: `1,100`,
-};
+import { formatAmount } from "@/helpers/amountFormatter";
 
 const ElectricityBillModal = ({ setShow }: any) => {
+  const Amount = {
+    total: `1,100.00`,
+  };
+
   const [visibility, setVisibility] = useState(true);
+  const [amount, setAmount] = useState("");
   const { formik, isPending, isSuccess, isError, error } = useElectricBll();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     formik.handleSubmit();
     console.log(formik.errors);
+  };
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.target.value);
+  };
+
+  const handleAmountBlur = () => {
+    setAmount(formatAmount(amount));
   };
 
   return (
@@ -48,7 +59,7 @@ const ElectricityBillModal = ({ setShow }: any) => {
                 height={18.25}
                 className="pt-1"
               />
-              {visibility ? "2000" : "****"}
+              {visibility ? "2000.00" : "****"}
             </span>
           </div>
           <span className="cursor-pointer pr-[2rem]">
@@ -112,7 +123,14 @@ const ElectricityBillModal = ({ setShow }: any) => {
               How Much Electricity Do You Want To Buy?
             </label>
             <div className="text-[#8c8b92]">
-              <Input type="number" name="amount" placeholder="#1000" />
+              <Input
+                type="number"
+                name="amount"
+                placeholder="#1000.00"
+                value={amount}
+                onChange={handleAmountChange}
+                onBlur={handleAmountBlur}
+              />
             </div>
           </div>
 

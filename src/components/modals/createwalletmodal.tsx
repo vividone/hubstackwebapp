@@ -1,34 +1,40 @@
 "use client";
-import React, { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { TOKEN } from "@/utils/token";
+import { banks } from "@/data/bankCodes";
 import { Input } from "../common/inputs";
 import { Button } from "../common/button";
-import { TOKEN } from "@/utils/token";
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { useCreateWallet, useGetAllBanks } from "@/helpers/wallet";
-import ToastComponent from "@/components/common/toastComponent";
-import { banks } from "@/data/bankCodes";
-import axiosInstance from "@/helpers/axiosConfig";
 import { Dropdown } from "../common/Dropdown";
+import axiosInstance from "@/helpers/axiosConfig";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import React, { FormEvent, useEffect, useState } from "react";
+import ToastComponent from "@/components/common/toastComponent";
+import { useCreateWallet, useGetAllBanks } from "@/helpers/wallet";
 
 const WalletForm = ({ setShow }: any) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const { formik, isPending, isSuccess, isError, error } = useCreateWallet();
-  const [selectedBank, setSelectedBank] = useState<{ label: string, value: string }>()
-  const { allBanks } = useGetAllBanks()
+  const [selectedBank, setSelectedBank] = useState<{
+    label: string;
+    value: string;
+  }>();
+  const { allBanks } = useGetAllBanks();
+
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(formik.errors)
+    console.log(formik.errors);
     formik.handleSubmit();
   };
 
   useEffect(() => {
-    axiosInstance.get(`${process.env.NEXT_PUBLIC_BASE_URL}/wallet/banks`)
-    .then(response => console.log(response))
-    .catch(error => console.log(error))
-  }, [])
+    axiosInstance
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/wallet/banks`)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  }, []);
+
 
   return (
     <div className="flex flex-col bg-white w-[45vw] text-black p-[40px_50px] h-[100vh] overflow-y-scroll">
@@ -110,20 +116,20 @@ const WalletForm = ({ setShow }: any) => {
             />
           </div>
         </div>
-        
+
         <div className="flex flex-col w-full mt-8">
-            <p className="text-xl font-normal">KYC Verification</p>
-            <p className="text-[14px]">
-              We are required to confirm your identity
-            </p>
+          <p className="text-xl font-normal">KYC Verification</p>
+          <p className="text-[14px]">
+            We are required to confirm your identity
+          </p>
         </div>
 
         <div className="flex flex-col w-full">
           <label htmlFor="bvn" className="mt-5 font-openSans">
             <p className="text-xl font-normal">BVN</p>
             <p className="text-[14px]">
-              Your bank verification number isn&apos;t stored for any reason on our
-              database
+              Your bank verification number isn&apos;t stored for any reason on
+              our database
             </p>
           </label>
           <div>
@@ -153,7 +159,6 @@ const WalletForm = ({ setShow }: any) => {
               placeholder="Enter your 10 digit NUBAN"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              
             />
           </div>
         </div>
@@ -166,32 +171,43 @@ const WalletForm = ({ setShow }: any) => {
             Bank
           </label>
           <div>
-          <Dropdown
-                  placeholder="Enter your existing bank name"
-                  name="existingBankName"
-                  value={selectedBank || ""}
-                  error={formik.errors.existingBankName && formik.touched.existingBankName ? true : false}
-                  onChange={(value: any) => {
-                    if (value) {
-                      const selectedOption = value as { label: string, value: string };
-                      setSelectedBank(selectedOption)
-                      formik.setFieldValue("existingBankName", selectedOption.value);
-                    } else {
-                      formik.setFieldValue("existingBankName", null);
-                    }
-                  }}
-                  onBlur={() => {
-                    formik.setFieldTouched("existingBankName", true);
-                  }}
-                  options={allBanks?.data?.map((item: any) => ({
-                    label: item.name,
-                    value: item.name,
-                  }))}
-                  className="items-start text-start justify-start rounded-lg border border-[#E7E6F2] "
-                />
+            <Dropdown
+              placeholder="Enter your existing bank name"
+              name="existingBankName"
+              value={selectedBank || ""}
+              error={
+                formik.errors.existingBankName &&
+                formik.touched.existingBankName
+                  ? true
+                  : false
+              }
+              onChange={(value: any) => {
+                if (value) {
+                  const selectedOption = value as {
+                    label: string;
+                    value: string;
+                  };
+                  setSelectedBank(selectedOption);
+                  formik.setFieldValue(
+                    "existingBankName",
+                    selectedOption.value
+                  );
+                } else {
+                  formik.setFieldValue("existingBankName", null);
+                }
+              }}
+              onBlur={() => {
+                formik.setFieldTouched("existingBankName", true);
+              }}
+              options={allBanks?.data?.map((item: any) => ({
+                label: item.name,
+                value: item.name,
+              }))}
+              className="items-start text-start justify-start rounded-lg border border-[#E7E6F2] "
+            />
           </div>
         </div>
-        
+
         <div className="flex flex-col mt-5 w-full font-Inter text-[20px]">
           <span className="pt-1">
             By continuing, you agree to our{" "}
@@ -223,7 +239,6 @@ const WalletForm = ({ setShow }: any) => {
             : isError
             ? "Wallet creation error: " + error
             : Object.values(formik.errors)?.join(", ")
-
         }
       />
     </div>
