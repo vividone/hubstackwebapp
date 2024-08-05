@@ -9,43 +9,49 @@ import InternetIcon from "@/assets/icons/InternetIcon";
 import CableTvIcon from "@/assets/icons/CableTvIcon";
 import ElectricityIcon from "@/assets/icons/ElectricityIcon";
 import BettingIcon from "@/assets/icons/BettingIcon";
-import { useGetBillPayments } from "@/helpers/categories";
+import { useGetBillPayments, useGetBillersByCategoryId } from "@/helpers/categories";
 import { useEffect, useState } from "react";
 import ElectricityBillModal from "@/components/modals/electrictyBillmodal";
 
 const Billpayment = () => {
-  const { billPayments, isLoading } = useGetBillPayments()
+  const { billers, isLoading } = useGetBillersByCategoryId("1")
   const [active, setActive] = useState("")
   const [show, setShow] = useState(false)
+  const [billersList, setBillersList] = useState([])
 
   useEffect(() => {
-    console.log(billPayments, isLoading)
+    setBillersList(billers?.BillerList?.Category)
   }, [isLoading])
-
+  
   const data = [
     {
-      Icon: <AirtimeIcon />,
       text: "Airtime",
+      billerCategoryId: "4",
     },
     {
       Icon: <DataIcon />,
       text: "Data",
+      billerCategoryId: "4",
     },
     {
       Icon: <InternetIcon />,
       text: "Internet",
+      billerCategoryId: "5",
     },
     {
       Icon: <CableTvIcon />,
       text: "Cable TV",
+      billerCategoryId: "2",
     },
     {
       Icon: <ElectricityIcon />,
       text: "Electricity",
+      billerCategoryId: "1",
     },
     {
       Icon: <BettingIcon />,
       text: "Betting",
+      billerCategoryId: "41",
     },
   ];
 
@@ -134,7 +140,7 @@ const Billpayment = () => {
 
         {
           active === "Electricity" && show ?
-          <ElectricityBillModal show={show} setShow={setShow} />
+          <ElectricityBillModal billers={billersList?.filter((item: any) => item.Id === 1)[0]} show={show} setShow={setShow} />
           : ""
         }
       </div>

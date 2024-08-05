@@ -6,24 +6,28 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { electricBillValidationSchema } from "@/schema/servicesschema/electricBill";
 import { IElectricBill } from "@/interface/services";
+import { useUrls } from "./useUrls";
 
 
-export const useElectricBll = ( ) => {
-  const [ Data, setData] = useLocalStorage(""); // to persist
+export const usePayElectricity = ( ) => {
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Create wallet"],
+  const { payBillUrl } = useUrls();
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay Electricity"],
       mutationFn: (payload: Partial<IElectricBill>) => {
-          return axiosInstance.post("", payload)
+          return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/electricity`, payload)
       },
   })    
   
   const formik = useFormik({
       initialValues: {
-          serviceProvider: "",
-          metrenumber: "",
-          state: "",
-          metretype:"",
+          service: "",
+          biller: "",
+          billerId: "",
+          paymentCode: "",
+          paymentMode: "",
+          customerCode:"",
           amount: "",
+          category: ""
       } as IElectricBill,
       validateOnBlur: false,
       validationSchema: electricBillValidationSchema,
@@ -33,7 +37,7 @@ export const useElectricBll = ( ) => {
           await formik.validateForm();
           mutate(values, {
           onSuccess: (res) => {
-            setData(res.data.user);
+            console.log(res.data.user);
           },
           //   onError: (res: any) => {
   

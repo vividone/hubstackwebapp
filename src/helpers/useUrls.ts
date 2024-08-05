@@ -24,6 +24,10 @@ export function useUrls() {
 
   // categories
   const getBillPaymentsUrl = `${BASE_URL}/categories/billpayments`
+  const getBillersByCategoryUrl = `${BASE_URL}/categories/billers`
+
+  // services payment
+  const payBillUrl = `${BASE_URL}/transact`
 
   // Update profile 
   const updateIndividualProfileUrl = `${BASE_URL}/users/update-profile`;
@@ -49,7 +53,9 @@ export function useUrls() {
     fundWallet,
     verifyFunding,
     getWalletHistory,
-    getBillPaymentsUrl
+    getBillPaymentsUrl,
+    getBillersByCategoryUrl,
+    payBillUrl
   };
 
 }

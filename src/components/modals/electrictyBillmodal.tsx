@@ -1,33 +1,48 @@
 "use client";
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { Input } from "../common/inputs";
 import { Button } from "../common/button";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import { useElectricBll } from "@/helpers/services";
-import Confirmation from "./confirmation";
+import { usePayElectricity } from "@/helpers/services";
 import ModalsLayout from "./modalsLayout";
 import { Dropdown } from "../common/Dropdown";
 import { states } from "@/data/locationRegions";
+import ToastComponent from "../common/toastComponent";
 const Amount = {
   total: `1,100`,
 };
 
-const ElectricityBillModal = ({ show, setShow }: any) => {
-  const { formik } = useElectricBll();
+const ElectricityBillModal = ({ show, setShow, billers }: any) => {
+  const { formik, isError, isPending, isSuccess, error } = usePayElectricity();
   const [serviceProvider, setServiceProvider] = useState<any>()
   const [state, setState] = useState<any>()
   const [meterType, setMeterType] = useState<any>()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    const biller = billers?.Billers?.filter((item: any) => item.Name === serviceProvider.value)[0]
+
+    formik.setFieldValue("service", serviceProvider.value)
+    formik.setFieldValue("biller", biller.Name)
+    formik.setFieldValue("billerId", biller.Id)
+    formik.setFieldValue("paymentMode", "wallet")
+    formik.setFieldValue("paymentCode", biller.PayDirectProductId)
+    formik.setFieldValue("category", biller.CategoryId)
+    
+    console.log(formik.values, formik.errors)
+
     formik.handleSubmit();
-    console.log(formik.errors);
   };
 
   return (
     <ModalsLayout header={"Electricity Bill"} setShow={setShow} show={show}>
+
+      <ToastComponent
+        isSuccess={isSuccess} 
+        isError={isError} 
+        msg={isSuccess ? "Successful" : isError ? "Error " + error : ""}
+      />
 
       <main className="flex flex-col">         
 
@@ -51,12 +66,11 @@ const ElectricityBillModal = ({ show, setShow }: any) => {
                     const selectedOption = value as any;
                     setServiceProvider(selectedOption)
                   } else {
-                    setServiceProvider({ label: "+93", value: "+93" })
                   }
                 }}
-                options={["IKEJA"].map((item: string) => ({
-                  label: item,
-                  value: item,
+                options={billers?.Billers?.map((item: any) => ({
+                  label: item.Name,
+                  value: item.Name,
                 }))}
                 className="items-start text-start justify-start rounded-[8px] border border-[#E7E6F2]"
               />
@@ -73,7 +87,8 @@ const ElectricityBillModal = ({ show, setShow }: any) => {
             <div className="text-[#8c8b92] mt-2">
               <Input
                 type="number"
-                name="meterNumber"
+                name="customerCode"
+                onChange={formik.handleChange}
                 placeholder="123456789101112131415"
               />
             </div>
@@ -143,7 +158,7 @@ const ElectricityBillModal = ({ show, setShow }: any) => {
               How Much Electricity Do You Want To Buy?
             </label>
             <div className="text-[#8c8b92] mt-2">
-              <Input type="number" name="amount" placeholder="#1000" />
+              <Input type="number" name="amount" onChange={formik.handleChange} placeholder="#1000" />
             </div>
           </div>
 
@@ -184,6 +199,7 @@ const ElectricityBillModal = ({ show, setShow }: any) => {
               <Button
                 size={"full"}
                 variant="secondary"
+                isLoading={isPending}
                 className="text-[20px] font-CabinetGrotesk font-bold text-[#3D3066]"
               >
                 FUND WALLET

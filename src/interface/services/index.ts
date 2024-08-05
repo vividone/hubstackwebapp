@@ -1,6 +1,9 @@
 export interface IElectricBill{
-    metrenumber:string,
-    state: string,
-    metretype:string,
+    biller: string,
+    billerId: string,
+    paymentCode: string,
+    paymentMode: string,
+    customerCode:string,
     amount: string,
+    category: string
 }
