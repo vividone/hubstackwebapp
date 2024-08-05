@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 
-export default function ClipBoard({ text }: {text: string}) {
+export default function ClipBoard({ text, label }: {text: string, label: string}) {
     const [copiedText, setCopiedText] = useState("");
 
     const handleCopy = (text: string) => {
@@ -12,12 +12,12 @@ export default function ClipBoard({ text }: {text: string}) {
     };
 
     return (
-        <div className="flex justify-between gap-5 mt-4">
+        <div className="flex justify-between gap-5">
             <div className="">
+            <span className="block text-[12px]">{label}</span>
             <CopyToClipboard text={text} onCopy={() => handleCopy(text)}>
                 <span className="block font-bold text-[18px] cursor-pointer">{text}</span>
             </CopyToClipboard>
-            <span className="block text-[16px]">Bank Name</span>
             </div>
             <div className="pt-1">
             <CopyToClipboard text={text} onCopy={() => handleCopy(text)}>

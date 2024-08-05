@@ -45,13 +45,13 @@ const Billpayment = () => {
           Bill Payments
         </h2>
         <div className="flex mt-[50px] border-r border-[#E7E7E7]">
-          <div className="flex flex-wrap gap-[30px] ">
+          <div className="flex flex-wrap gap-[30px] md:[30px] lg:gap-[30px] xl:gap[70px] ">
             {data.map((value, index) => (
               <div
                 key={index}
-                className="w-[206px] bg-[#00D7F7] h-[200px]  rounded-lg flex flex-col items-center justify-center text-center transform hover:scale-105 cursor-pointer"
+                className="w-[12.875rem] bg-[#00D7F7] h-[12.5rem]  rounded-lg flex flex-col items-center justify-center text-center transform hover:scale-105 cursor-pointer"
               >
-                <div className="p-[18px_16px] rounded-full bg-[#3D30661A]">{value.Icon}</div>
+                <div className="p-[18px_16px] rounded-[30px] bg-[#3D30661A]">{value.Icon}</div>
                 <p className="mt-4 text-[20px] font-semibold font-OpenSans text-[#000000]">{value.text}</p>
               </div>
             ))}

@@ -31,7 +31,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
     currentBalance: "#0.00",
     accountNumber: userWallet?.accountNumber,
     accountName: userDetails?.firstname + " " + userDetails?.lastname,
-    bankName: userWallet?.preferred_bank,
+    bankName: userWallet?.bankName,
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -103,14 +103,17 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
          }
       </div>
       <div className="p-[20px_30px] mt-4">
-        <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
+        <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
+          { showVerify ? "" : 
           <p className="font-bold text-lg mb-6">
-            { showVerify ? "" : "Make transfer to the account details below" }
+            Make transfer to the account details below
           </p>
-          <ClipBoard text={existingData.accountNumber} />
-          <ClipBoard text={existingData.accountName} />
-          <ClipBoard text={existingData.bankName} />
-
+          }
+          <div className="flex flex-col gap-4">
+            <ClipBoard label={"Account Number"} text={existingData.accountNumber} />
+            <ClipBoard label={"Account Name"} text={existingData.accountName} />
+            <ClipBoard label={"Bank Name"} text={existingData.bankName} />
+          </div>
           { showVerify ? 
           ""
           :
@@ -139,35 +142,32 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
             <span className="text-[16px]">{ !showVerify ? "CONTINUE" : "I HAVE MADE THIS TRANSFER" }</span>
           </Button>
 
-          <Button variant="secondary" size="long" onClick={() => setShowAlternate(!showAlternate)}>
-            <span className="text-[16px]">{ !showVerify ? "USE ALTERNATE POP-UP METHOD" : "USE PAYSTACK INSTEAD" }</span>
-          </Button>
-
-            {
-              showAlternate ?
-              <AlternateWalletFunding setShow={setShowAlternate} />
-              : 
-              ""
-            }
-            {/* Confirmation success modal */}
-
-            {
-              isSuccessVerify ?
-              
-                <Confirmation 
-                  status={"success"} 
-                  setShow={setShow} 
-                  heading={"Fund Wallet"} 
-                  text={"Transaction Successful"} 
-                  subtext={"You wallet has been credited with #" + data.amount} 
-                  buttonProps={{ text: "THANK YOU", action: () => closeSuccess() }} 
-                />
-              : 
-              ""
-            }
           </div>
       </div>
       </form>
+      
+      <div className="flex justify-center">
+        <Button variant="secondary" size="long" onClick={() => setShowAlternate(!showAlternate)}>
+            <span className="text-[16px]">{ !showVerify ? "USE ALTERNATE POP-UP METHOD" : "USE PAYSTACK INSTEAD" }</span>
+        </Button>
+      </div>
+
+      
+      { showAlternate ? <AlternateWalletFunding setShow={setShowAlternate} /> : "" }
+            
+      {/* Confirmation success modal */}
+      { isSuccessVerify ?
+        <Confirmation 
+          status={"success"} 
+          setShow={setShow} 
+          heading={"Fund Wallet"} 
+          text={"Transaction Successful"} 
+          subtext={"You wallet has been credited with #" + data.amount} 
+          buttonProps={{ text: "THANK YOU", action: () => closeSuccess() }} 
+        />
+      : 
+        ""
+      }
     </div>
   );
 };
