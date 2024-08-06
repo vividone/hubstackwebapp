@@ -5,6 +5,8 @@ import ElectrictyBillmodal from "@/components/modals/electrictyBillmodal";
 import YourOrderModal from "@/components/modals/YourorderModal";
 import UserUtilityYourOrder from "@/components/modals/UtilityBillYourOrder";
 import YourWallet from "@/components/modals/Yourwallet";
+import TokenDetails from "@/components/modals/TokenDetails";
+import AlternatePayment from "@/components/modals/AlternatePayment";
 const Utility = () => {
   const [show, setShow] = useState<any>(false);
   const cardsName = ["DSTV", "GOTV", "NETFLIX"];
@@ -15,7 +17,9 @@ const Utility = () => {
           {/* <ElectrictyBillmodal setShow={setShow} /> */}
           {/* <YourOrderModal setShow={setShow} /> */}
           {/* {<UserUtilityYourOrder setShow={setShow}/>} */}
-          <YourWallet setShow={setShow}/>
+          {/* <YourWallet setShow={setShow}/> */}
+          {/* <TokenDetails setShow={setShow}/> */}
+          {<AlternatePayment setShow={setShow}/>}
         </div>
       )}
       {cardsName.map((value, key) => {
