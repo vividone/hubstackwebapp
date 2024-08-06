@@ -173,7 +173,7 @@ const RegisterAgent = () => {
             
             <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
                 By continuing, you agree to our 
-                <a href={""} className="text-[#3D3066] font-bold"> Terms and Conditions</a> 
+                <a href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</a> 
             </p>
 
 

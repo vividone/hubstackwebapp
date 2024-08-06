@@ -53,7 +53,7 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
       />
 
       
-      { isError ? <DetailsModal data={data} flow={flow} setFlow={setFlow} /> : 
+      { isSuccess ? <DetailsModal data={data} flow={flow} setFlow={setFlow} /> : 
 
       <main className="flex flex-col">         
 
