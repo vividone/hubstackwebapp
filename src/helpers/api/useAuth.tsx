@@ -107,7 +107,7 @@ export const useLogin = () => {
           password: "",
           referralCode:""
         } as IAuthIndividualSignup,
-        validateOnBlur: false,
+        validateOnBlur: true,
         validateOnChange: false,
         validationSchema: SignupSchemaIndividual,
         onSubmit: async ({ ...values }) => {
@@ -163,7 +163,7 @@ export const useSignupAgent = () => {
         password: "",
         referralCode:""
       } as IAuthAgentSignup,
-      validateOnBlur: false,
+      validateOnBlur: true,
       validateOnChange: false,
       validationSchema: SignupSchemaAgent,
       onSubmit: async ({ ...values }) => {

@@ -1,6 +1,6 @@
 'use client'
 import { Button } from "@/components/common/button";
-import NinPaymentModal from "@/components/modals/ninPaymentModal";
+import NinPaymentModal from "@/components/modals/nin/ninPaymentModal";
 import Image from "next/image";
 import { useState } from "react";
 

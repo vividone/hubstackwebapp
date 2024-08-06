@@ -13,6 +13,7 @@ const Register = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log(formik.errors)
     formik.handleSubmit()
   };
 
@@ -35,7 +36,7 @@ const Register = () => {
         <form className="pt-8" onSubmit={handleSubmit}>
             <div className="flex pb-4 flex-col gap-2 w-full md:text-[20px]">
                 <p className="mt-4">Fullname</p>
-                <div className="flex gap-4 grid grid-cols-2">
+                <div className="gap-4 grid grid-cols-2">
                     <Input 
                         labelname="First name"
                         placeholder="Firstname"
@@ -97,7 +98,7 @@ const Register = () => {
             
             <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
                 By continuing, you agree to our 
-                <a href={""} className="text-[#3D3066] font-bold"> Terms and Conditions</a> 
+                <a href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</a> 
             </p>
 
 

@@ -1,31 +1,27 @@
 "use client"
 import React, { useState } from "react";
+import { Button } from "../../common/button";
 import Image from "next/image";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import Link from "../custom/link";
-import { Input } from "../common/inputs";
-import { Button } from "../common/button";
-import Confirmation from "./confirmation";
+import { Input } from "../../common/inputs";
+import Link from "../../custom/link";
 
 interface MywalletProps {
-  slip: string;
   setShow: (show: boolean) => void;
 }
 
-const NinPaymentModal: React.FC<MywalletProps> = ({ slip, setShow }) => {
+const BuyUnitsModal: React.FC<MywalletProps> = ({ setShow }) => {
   const [visibility, setVisibility] = useState(true);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [status, setStatus] = useState("error");
 
   const existingData = {
-    currentBalance: "0",
+    currentBalance: "#0.00",
   };
 
   return (
-    <div className="relative h-screen md:w-[40vw] sm:w-[300px] w-full bg-white duration-500 overflow-y-scroll z-[1000]">
+    <div className="relative h-screen w-[40vw] bg-white overflow-y-scroll z-[1000]">
       <div className="flex justify-between p-[30px_40px] pt-[55px]">
-        <h3 className="text-4xl font-medium text-[#111111]">{slip}</h3>
+        <h3 className="text-4xl font-medium text-[#111111]">Buy unit</h3>
         <Image
           src="/images/close.svg"
           alt="closebutton"
@@ -35,10 +31,10 @@ const NinPaymentModal: React.FC<MywalletProps> = ({ slip, setShow }) => {
           className="cursor-pointer"
         />
       </div>
-      <div className="px-[40px] pt-[20px]">
+      <div className="p-[20px_40px]">
         <div className="flex justify-between">
           <div>
-            <span className="block font-bold text-[#111111] text-[18px]">Unit Balance</span>
+            <span className="block font-bold text-[#111111] text-[18px]">Wallet Balance</span>
             <span className="block text-[#3D3066] text-[32px]  font-bold font-openSans">
               {visibility ? existingData.currentBalance : "****"}
             </span>
@@ -56,42 +52,34 @@ const NinPaymentModal: React.FC<MywalletProps> = ({ slip, setShow }) => {
         
       </div>
 
-      <div className="px-[40px] pb-[50px]">
-        <div className="">
+      <div className="p-[20px_50px]">
+        <div className="mt-4">
+            <label htmlFor="unit" className="block text-[18px] mb-2 font-normal">
+                Units
+            </label>
+            
+            <Input 
+                placeholder="Unit:"
+                name="unit"
+                data-test="unit"
+            />
 
             <label htmlFor="desiredAmount" className="block text-[18px] mb-2 mt-8 font-normal">
-                Enter NIN
+                Price
             </label>
-            <Input name="NIN" type="number" placeholder="123456789011" />
+            <Input name="desiredAmount" type="number" placeholder="#0.00" />
             <p className="font-bold mt-2">UNIT COST: 1</p>
 
             <p className=" mt-16">By continuing, you agree to our <Link href={"/dashboard"} className="text-[#3D3066]">Terms and conditions</Link></p>
             <div className="mt-2 h-20">
-                <Button onClick={() => setIsSuccess(true)}>
-                <span className="text-[16px] uppercase">PROCEED TO BUY UNIT</span>
+                <Button>
+                <span className="text-[16px] uppercase">PAY NGN 150</span>
                 </Button>
             </div>
         </div>
       </div>
-
-      {/* Confirmation success modal */}
-
-      {
-        isSuccess ?
-        
-          <Confirmation 
-            status={status} 
-            setShow={setShow} 
-            heading={"NIN Long Slip"} 
-            text={status === "error" ? "No Record Found" : "Transaction Successful"} 
-            subtext={status === "error" ? "No unit was debited" : "You have been debitted 2 units"} 
-            buttonProps={{ text: status === "error" ? "TRY AGAIN" : "DOWNLOAD SLIP", action: setIsSuccess }} 
-          />
-        : 
-        ""
-      }
     </div>
   );
 };
 
-export default NinPaymentModal;
+export default BuyUnitsModal;

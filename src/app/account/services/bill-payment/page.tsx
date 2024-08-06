@@ -9,32 +9,49 @@ import InternetIcon from "@/assets/icons/InternetIcon";
 import CableTvIcon from "@/assets/icons/CableTvIcon";
 import ElectricityIcon from "@/assets/icons/ElectricityIcon";
 import BettingIcon from "@/assets/icons/BettingIcon";
+import { useGetBillPayments, useGetBillersByCategoryId } from "@/helpers/categories";
+import { useEffect, useState } from "react";
+import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 
 const Billpayment = () => {
+  const { billers, isLoading } = useGetBillersByCategoryId("1")
+  const [active, setActive] = useState("")
+  const [show, setShow] = useState(false)
+  const [billersList, setBillersList] = useState([])
+
+  useEffect(() => {
+    setBillersList(billers?.BillerList?.Category)
+  }, [isLoading])
+  
   const data = [
     {
-      Icon: <AirtimeIcon />,
       text: "Airtime",
+      billerCategoryId: "4",
     },
     {
       Icon: <DataIcon />,
       text: "Data",
+      billerCategoryId: "4",
     },
     {
       Icon: <InternetIcon />,
       text: "Internet",
+      billerCategoryId: "5",
     },
     {
       Icon: <CableTvIcon />,
       text: "Cable TV",
+      billerCategoryId: "2",
     },
     {
       Icon: <ElectricityIcon />,
       text: "Electricity",
+      billerCategoryId: "1",
     },
     {
       Icon: <BettingIcon />,
       text: "Betting",
+      billerCategoryId: "41",
     },
   ];
 
@@ -45,15 +62,16 @@ const Billpayment = () => {
           Bill Payments
         </h2>
         <div className="flex mt-[50px] border-r border-[#E7E7E7]">
-          <div className="flex flex-wrap gap-[30px] md:[30px] lg:gap-[30px] xl:gap[70px] ">
+          <div className="grid 2xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-2 gap-[30px] pr-6 w-full">
             {data.map((value, index) => (
-              <div
+              <button
                 key={index}
-                className="w-[12.875rem] bg-[#00D7F7] h-[12.5rem]  rounded-lg flex flex-col items-center justify-center text-center transform hover:scale-105 cursor-pointer"
+                className="bg-[#00D7F7] h-[180px] rounded-lg flex flex-col items-center justify-center text-center transform hover:scale-105 cursor-pointer"
+                onClick={() => {setActive(value.text); setShow(!show)}}
               >
-                <div className="p-[18px_16px] rounded-[30px] bg-[#3D30661A]">{value.Icon}</div>
-                <p className="mt-4 text-[20px] font-semibold font-OpenSans text-[#000000]">{value.text}</p>
-              </div>
+                <span className="p-[18px_16px] rounded-[30px] bg-[#3D30661A]">{value.Icon}</span>
+                <span className="mt-4 text-[20px] font-semibold font-OpenSans text-[#000000]">{value.text}</span>
+              </button>
             ))}
           </div>
         </div>
@@ -119,6 +137,12 @@ const Billpayment = () => {
             )}
           </div>
         </div>
+
+        {
+          active === "Electricity" && show ?
+          <ElectricityBillModal billers={billersList?.filter((item: any) => item.Id === 1)[0]} show={show} setShow={setShow} />
+          : ""
+        }
       </div>
     </div>
   );

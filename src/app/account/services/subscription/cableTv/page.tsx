@@ -1,7 +1,7 @@
 "use client"
 import React,{useState} from 'react'
 import SubscriptionCard from '@/components/common/subscriptionCard'
-import ElectrictyBillmodal from '@/components/modals/electrictyBillmodal'
+import ElectrictyBillmodal from '@/components/modals/electricity/electrictyBillmodal'
 const CableTv = () => {
     const [show, setShow] = useState<any>(false);
     const cardsName  = ["DSTV","GOTv","NETFLIX","SHOWMAX","PRIMEVIDEO","STARTIMES"]

@@ -3,7 +3,7 @@ import Image from "next/image";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import CopyIcon from "@/assets/icons/CopyIcon";
 import ShareIcon from "@/assets/icons/shareIcon";
-import { Button } from "../common/button";
+import { Button } from "../../common/button";
 import ArrowDown from "@/assets/icons/arrowDown";
 
 const YourOrderModal = ({ setShow }:any) => {

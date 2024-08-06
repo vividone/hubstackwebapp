@@ -1,3 +1,5 @@
+'use client'
+import { useState } from "react";
 import { IErrorResponseType } from "@/interface/common/error";
 import { useFormik } from "formik";
 import axiosInstance from "./axiosConfig";
@@ -5,22 +7,30 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { electricBillValidationSchema } from "@/schema/servicesschema/electricBill";
-import { IElectricBill } from "@/interface/services";
-export const useElectricBll = ( ) => {
-  const [ Data, setData] = useLocalStorage(""); // to persist
+import { IElectricBill, IServicesData } from "@/interface/services";
+import { useUrls } from "./useUrls";
+
+
+export const usePayElectricity = ( ) => {
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Create wallet"],
+  const [data, setData] = useState<IServicesData>()
+  const { payBillUrl } = useUrls();
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay Electricity"],
       mutationFn: (payload: Partial<IElectricBill>) => {
-          return axiosInstance.post("", payload)
+          return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/electricity`, payload)
       },
   })    
   
   const formik = useFormik({
       initialValues: {
-          metrenumber: "",
-          state: "",
-          metretype:"",
+          service: "",
+          biller: "",
+          billerId: "",
+          paymentCode: "",
+          paymentMode: "",
+          customerId: "",
           amount: "",
+          category: ""
       } as IElectricBill,
       validateOnBlur: false,
       validationSchema: electricBillValidationSchema,
@@ -30,7 +40,7 @@ export const useElectricBll = ( ) => {
           await formik.validateForm();
           mutate(values, {
           onSuccess: (res) => {
-            setData(res.data.user);
+            setData(res.data);
           },
           //   onError: (res: any) => {
   
@@ -46,5 +56,5 @@ export const useElectricBll = ( ) => {
   const errorString = Array.isArray(typedError?.response?.data?.message)
       ? typedError?.response?.data?.message[0]
       : typedError?.response?.data?.message || "";
-  return { formik, isPending, isSuccess, isError, error: errorString };
+  return { data, formik, isPending, isSuccess, isError, error: errorString };
 };
