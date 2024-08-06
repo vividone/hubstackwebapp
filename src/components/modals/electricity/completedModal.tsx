@@ -1,25 +1,22 @@
 "use client"
 import React, { useState } from "react";
-import Image from "next/image";
 import { Button } from "../../common/button";
 import NairaIcon from "@/assets/icons/nairaIcon";
-import { Dropdown } from "../../common/Dropdown";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { formatAmount } from "@/helpers/amountFormatter";
+import ClipBoard from "@/components/wallet/clipboard";
 
 type FlowProps = {
   flow: string;
   setFlow: (aug0: string) => void;
   data: any;
-  completePayment: () => void;
 }
 
-const DetailsModal: React.FC<FlowProps> = ({ flow, setFlow, data, completePayment }) => {
+const CompletedBillModal: React.FC<FlowProps> = ({ flow, setFlow, data }) => {
   const [showAlternate, setShowAlternate] = useState(false)
-  const [meterType, setMeterType] = useState<any>()
   const [visibility, setVisibility ] = useState(false)
   const [ wallet, ] = useLocalStorage<any>(TOKEN.WALLET); 
 
@@ -55,46 +52,20 @@ const DetailsModal: React.FC<FlowProps> = ({ flow, setFlow, data, completePaymen
 
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
           <div className="flex justify-between flex-wrap items-center gap-4">
-            <Image src="/images/ibedc.png" alt="ibedc" width={80} height={30} />
-            <p>{data?.transactionDetails.customerId}</p>
-            <Dropdown
-                name="meterType"
-                value={meterType}
-                onChange={(value) => {
-                  if (value) {
-                    const selectedOption = value as any;
-                    setMeterType(selectedOption)
-                  } else {
-                    setMeterType({ label: "Prepaid", value: "Prepaid" })
-                  }
-                }}
-                options={["Prepaid", "Postpaid"].map((item: string) => ({
-                  label: item,
-                  value: item,
-                }))}
-                className="items-start text-start justify-start rounded-lg bg-[#00D7F7] w-[170px] border border-[#E7E6F2]"
-            />
-          </div>
-          <div className="flex flex-col gap-4">
-            <div className="">
-              <span className="block">Meter Name</span>
-              <span className="flex items-center opacity-[0.7]">Mariam</span>
-            </div>
-            <div className="">
-              <span className="block">Address</span>
-              <span className="flex items-center opacity-[0.7]">...</span>
-            </div>
+            <ClipBoard text={"123456789"} label="" />
           </div>
 
         </div>
         
         <div className="mt-10 flex flex-col gap-1">
-          
-        {
-          flow !== "Pay with Wallet" ?
           <div className="flex flex-col gap-1">
             <div className="flex justify-between items-center gap-5">
               <span className="block ">Electricity Amount</span>
+              <span className="flex items-center"><NairaIcon className="w-[12px]" />{formatAmount(data?.amount)}</span>
+            </div>
+            
+            <div className="flex justify-between items-center gap-5">
+              <span className="block ">Unit</span>
               <span className="flex items-center"><NairaIcon className="w-[12px]" />{formatAmount(data?.amount)}</span>
             </div>
             
@@ -109,26 +80,21 @@ const DetailsModal: React.FC<FlowProps> = ({ flow, setFlow, data, completePaymen
             </div>
 
           </div>
-          :
-          
-          <p className="text-center">The amount of  NGN{formatAmount((+data?.amount + 100).toString())} will be debited from your wallet balance, proceed below to complete transaction </p>
-        }
+
           <div className="flex flex-col gap-4">
             <Button 
               variant="primary" 
               size="full"
               type="submit"
               onClick={() => {
-                flow === "Pay with Wallet" ?
-                completePayment()
-                : setFlow("Pay with Wallet")
+                setFlow("Pay with Wallet")
               }}
             >
-              <span className="text-[16px]">{ flow !== "Pay with Wallet" ? "PAY WITH WALLET" : "PROCEED WITH WALLET" }</span>
+              <span className="text-[16px]">SHARE TOKEN</span>
             </Button>
           
             <Button variant="secondary" size="full" onClick={() => setShowAlternate(!showAlternate)}>
-                <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
+                <span className="text-[16px]">VIEW RECEIPT</span>
             </Button>
           </div>
           </div>
@@ -138,4 +104,4 @@ const DetailsModal: React.FC<FlowProps> = ({ flow, setFlow, data, completePaymen
   );
 };
 
-export default DetailsModal;
+export default CompletedBillModal;

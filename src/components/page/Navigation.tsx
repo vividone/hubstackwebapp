@@ -16,9 +16,11 @@ const Navigation = ({ open, setOpen }: any) => {
   };
 
   return (
-    <div className="flex justify-between items-center px-[25px] py-[15px] w-full border-b border-gray-300">
+    <div className="flex justify-between items-center sm:px-[25px] px-5 py-[15px] w-full border-b border-gray-300">
       <div className="flex-1 flex flex-row items-center gap-2">
-        <button className="p-3 md:hidden" onClick={() => setOpen(!open)}><MenuIcon /></button>
+
+        <button className="p-2 md:hidden" onClick={() => setOpen(!open)}><MenuIcon /></button>
+
         <h2 className="m-0 text-2xl font-semibold text-center md:text-left">
           Welcome, {userDetails?.firstname}!
         </h2>

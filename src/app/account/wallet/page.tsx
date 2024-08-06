@@ -13,15 +13,11 @@ import Mywallet from "@/components/modals/wallet/Existinguserwallet";
 
 
 const Wallet = () => {
-  const [showWallet, setShowwallet] = useState(false);
+  const [showWallet, setShowWallet] = useState(false);
   const { userWallet, isLoading } = useGetWallet()
   const [hasWallet, ] = useLocalStorage<any>(TOKEN.HASWALLET)
   const [ wallet, setWallet] = useLocalStorage<any>(TOKEN.WALLET); 
   const { history } = useGetWalletHistory()
-
-  const setShow = (bool: any) => {
-    setShowwallet(bool);
-  };
 
   const refresh = (amount: number) => {
     setWallet({ ...wallet, balance: amount})
@@ -32,7 +28,11 @@ const Wallet = () => {
       amount: wallet?.balance || userWallet?.balance,
       type: "Balance",
       visibility: true,
-    }
+  }
+
+  useEffect(() => {
+    setWallet({ ...wallet, balance: userWallet?.balance })
+  }, [userWallet?.balance])
 
   return (
     <div className="">
@@ -43,11 +43,7 @@ const Wallet = () => {
         !hasWallet || !userWallet ? 
         <>
         <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] mt-[60px] font-medium">Wallet</h2>
-        {showWallet && (
-          <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
-            <WalletForm setShow={setShow} />
-          </div>
-        )}
+        { showWallet && <WalletForm show={showWallet} setShow={setShowWallet} /> }
 
         {
           isLoading ? <Loader /> :
@@ -58,7 +54,7 @@ const Wallet = () => {
           <p className="mt-1 text-primary_dark 2xl:text-[32px] text-[24px] my-4">You do not have a wallet yet</p>
 
           <div className="flex flex-col gap-4 items-center justify-center mt-2">
-            <Button size="lg" onClick={() => setShow(true)}>
+            <Button size="lg" onClick={() => setShowWallet(true)}>
               <span className="flex items-center">
                 <Image
                   src="/images/cross.svg"
@@ -75,19 +71,19 @@ const Wallet = () => {
         </>
         : 
         <div className="flex flex-1 flex-wrap relative h-full ">
-          <div className="md:w-[383px] w-full pr-[30px] py-[60px] border border-transparent sm:border-r-[#E7E7E7]">
+          <div className="md:w-[383px] w-full sm:pr-[30px] py-[60px] border border-transparent sm:border-r-[#E7E7E7]">
             <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[30px] font-medium">Wallet</h2>
-            {showWallet && (
-              <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
-                <Mywallet setShow={setShow} refreshWallet={refresh}/>
-              </div>
-            )}
+
+            { showWallet && <Mywallet setShow={setShowWallet} refreshWallet={refresh}/> }
+
             <Card value={cardData} />
+
             <div className="mt-12">
-              <Button size="full" onClick={() => setShow(true)}>
+              <Button size="full" onClick={() => setShowWallet(true)}>
                 FUND WALLET
               </Button>
             </div>
+
           </div>
         
           <div className="flex-1 md:p-[60px_30px] w-full">
