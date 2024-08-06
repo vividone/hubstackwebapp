@@ -73,7 +73,6 @@ export const Dropdown = ({ error, ...props }: Partial<DropdownType>) => {
       ...css,
       fontWeight: 400,
       paddingLeft: "1rem",
-      background: "#FFFFFF",
       border: "1px solid #E7E6F2",
       "&:hover": {
         background: "#FCFDFD",

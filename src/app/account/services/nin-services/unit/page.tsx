@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/components/common/button";
-import BuyUnitsModal from "@/components/modals/buyUnitsModal";
+import BuyUnitsModal from "@/components/modals/nin/buyUnitsModal";
 import DollarBagIcon from "@/assets/icons/DollarBagIcon";
 import { History } from "@/components/tables/history";
 

@@ -1,48 +1,59 @@
 "use client";
 import React, { useState, FormEvent, useEffect } from "react";
-import { Input } from "../common/inputs";
-import { Button } from "../common/button";
+import { Input } from "../../common/inputs";
+import { Button } from "../../common/button";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import { usePayElectricity } from "@/helpers/services";
-import ModalsLayout from "./modalsLayout";
-import { Dropdown } from "../common/Dropdown";
+import ModalsLayout from "../modalsLayout";
+import { Dropdown } from "../../common/Dropdown";
 import { states } from "@/data/locationRegions";
-import ToastComponent from "../common/toastComponent";
+import ToastComponent from "../../common/toastComponent";
+import DetailsModal from "./detailsModal";
 const Amount = {
   total: `1,100`,
 };
 
 const ElectricityBillModal = ({ show, setShow, billers }: any) => {
-  const { formik, isError, isPending, isSuccess, error } = usePayElectricity();
+  const { data, formik, isError, isPending, isSuccess, error } = usePayElectricity();
   const [serviceProvider, setServiceProvider] = useState<any>()
   const [state, setState] = useState<any>()
   const [meterType, setMeterType] = useState<any>()
+  const [flow, setFlow ] = useState("getTransactionRef")
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const biller = billers?.Billers?.filter((item: any) => item.Name === serviceProvider.value)[0]
 
-    formik.setFieldValue("service", serviceProvider.value)
-    formik.setFieldValue("biller", biller.Name)
-    formik.setFieldValue("billerId", biller.Id)
+    formik.setFieldValue("service", "DSTV Mobile") //serviceProvider.value
+    formik.setFieldValue("biller", "DSTV") //biller.Name
+    formik.setFieldValue("billerId", "480") //biller.Id
     formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("paymentCode", biller.PayDirectProductId)
-    formik.setFieldValue("category", biller.CategoryId)
+    formik.setFieldValue("paymentCode", "10902") //biller.PayDirectProductId
+    formik.setFieldValue("category", "billpayment") //biller.CategoryId
     
     console.log(formik.values, formik.errors)
 
     formik.handleSubmit();
   };
 
+  useEffect(() => {
+    if(isSuccess) {
+      setFlow("details")
+    }
+  }, [isSuccess])
+
   return (
-    <ModalsLayout header={"Electricity Bill"} setShow={setShow} show={show}>
+    <ModalsLayout header={isError ? "Your Order" : "Electricity Bill"} setShow={setShow} show={show}>
 
       <ToastComponent
         isSuccess={isSuccess} 
         isError={isError} 
         msg={isSuccess ? "Successful" : isError ? "Error " + error : ""}
       />
+
+      
+      { isError ? <DetailsModal data={data} flow={flow} setFlow={setFlow} /> : 
 
       <main className="flex flex-col">         
 
@@ -86,8 +97,8 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
             </label>
             <div className="text-[#8c8b92] mt-2">
               <Input
-                type=""
-                name="customerCode"
+                type="text"
+                name="customerId"
                 onChange={formik.handleChange}
                 placeholder="123456789101112131415"
               />
@@ -208,6 +219,7 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
           </div>
         </form>
       </main>
+      }
     </ModalsLayout>
   );
 };

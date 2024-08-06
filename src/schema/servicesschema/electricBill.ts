@@ -6,7 +6,7 @@ export const electricBillValidationSchema = Yup.object({
   billerId: Yup.string().required("Required"),
   paymentCode: Yup.string().required("Required"),
   paymentMode: Yup.string().required("Required"),
-  customerCode:Yup.string().required("Required"),
+  customerId:Yup.string().required("Required"),
   amount: Yup.string().required("Required"),
   category: Yup.string().required("Required")
 });

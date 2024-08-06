@@ -1,3 +1,5 @@
+'use client'
+import { useState } from "react";
 import { IErrorResponseType } from "@/interface/common/error";
 import { useFormik } from "formik";
 import axiosInstance from "./axiosConfig";
@@ -5,12 +7,13 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { electricBillValidationSchema } from "@/schema/servicesschema/electricBill";
-import { IElectricBill } from "@/interface/services";
+import { IElectricBill, IServicesData } from "@/interface/services";
 import { useUrls } from "./useUrls";
 
 
 export const usePayElectricity = ( ) => {
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
+  const [data, setData] = useState<IServicesData>()
   const { payBillUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay Electricity"],
       mutationFn: (payload: Partial<IElectricBill>) => {
@@ -25,7 +28,7 @@ export const usePayElectricity = ( ) => {
           billerId: "",
           paymentCode: "",
           paymentMode: "",
-          customerCode:"",
+          customerId: "",
           amount: "",
           category: ""
       } as IElectricBill,
@@ -37,7 +40,7 @@ export const usePayElectricity = ( ) => {
           await formik.validateForm();
           mutate(values, {
           onSuccess: (res) => {
-            console.log(res.data.user);
+            setData(res.data);
           },
           //   onError: (res: any) => {
   
@@ -53,5 +56,5 @@ export const usePayElectricity = ( ) => {
   const errorString = Array.isArray(typedError?.response?.data?.message)
       ? typedError?.response?.data?.message[0]
       : typedError?.response?.data?.message || "";
-  return { formik, isPending, isSuccess, isError, error: errorString };
+  return { data, formik, isPending, isSuccess, isError, error: errorString };
 };

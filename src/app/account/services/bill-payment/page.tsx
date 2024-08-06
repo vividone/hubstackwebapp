@@ -11,7 +11,7 @@ import ElectricityIcon from "@/assets/icons/ElectricityIcon";
 import BettingIcon from "@/assets/icons/BettingIcon";
 import { useGetBillPayments, useGetBillersByCategoryId } from "@/helpers/categories";
 import { useEffect, useState } from "react";
-import ElectricityBillModal from "@/components/modals/electrictyBillmodal";
+import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 
 const Billpayment = () => {
   const { billers, isLoading } = useGetBillersByCategoryId("1")

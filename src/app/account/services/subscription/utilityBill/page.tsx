@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SubscriptionCard from "@/components/common/subscriptionCard";
-import ElectrictyBillmodal from "@/components/modals/electrictyBillmodal";
-import YourOrderModal from "@/components/modals/YourorderModal";
+import ElectrictyBillmodal from "@/components/modals/electricity/electrictyBillmodal";
+import YourOrderModal from "@/components/modals/electricity/YourorderModal";
 const Utility = () => {
   const [show, setShow] = useState<any>(false);
   const cardsName = ["DSTV", "GOTV", "NETFLIX"];
