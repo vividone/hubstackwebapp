@@ -11,8 +11,10 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import React, { FormEvent, useEffect, useState } from "react";
 import ToastComponent from "@/components/common/toastComponent";
 import { useCreateWallet, useGetAllBanks } from "@/helpers/wallet";
+import ModalsLayout from "../modalsLayout";
+import { ModalsProp } from "@/interface/common/modals";
 
-const WalletForm = ({ setShow }: any) => {
+const WalletForm = ({ show, setShow }: ModalsProp) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const { formik, isPending, isSuccess, isError, error } = useCreateWallet();
   const [selectedBank, setSelectedBank] = useState<{
@@ -37,18 +39,7 @@ const WalletForm = ({ setShow }: any) => {
 
 
   return (
-    <div className="flex flex-col bg-white w-[45vw] text-black p-[40px_50px] h-[100vh] overflow-y-scroll">
-      <div className="font-medium text-4xl mb-4 flex justify-between">
-        <span>Create Wallet</span>
-        <Image
-          src="/images/close.svg"
-          onClick={() => setShow(false)}
-          alt="close"
-          width={20}
-          height={20}
-          className="cursor-pointer"
-        />
-      </div>
+    <ModalsLayout header="Create Wallet" setShow={setShow} show={show}>
       <form onSubmit={handleSubmit} className="flex flex-col w-full h-full">
         <div className="flex gap-2">
           <div className="flex flex-col flex-1">
@@ -241,7 +232,7 @@ const WalletForm = ({ setShow }: any) => {
             : Object.values(formik.errors)?.join(", ")
         }
       />
-    </div>
+      </ModalsLayout>
   );
 };
 
