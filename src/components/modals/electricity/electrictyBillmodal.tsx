@@ -29,12 +29,12 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
 
     const biller = billers?.Billers?.filter((item: any) => item.Name === serviceProvider.value)[0]
 
-    formik.setFieldValue("service", "DSTV Mobile") //serviceProvider.value
-    formik.setFieldValue("biller", "DSTV") //biller.Name
-    formik.setFieldValue("billerId", "480") //biller.Id
+    formik.setFieldValue("service", serviceProvider.value) //
+    formik.setFieldValue("biller", biller.Name) //
+    formik.setFieldValue("billerId", biller.Id) //
     formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("paymentCode", "10902") //biller.PayDirectProductId
-    formik.setFieldValue("category", "billpayment") //biller.CategoryId
+    formik.setFieldValue("paymentCode", biller.PayDirectProductId) //
+    formik.setFieldValue("category", "billpayment") //
     
     console.log(formik.values, formik.errors)
 
@@ -42,15 +42,14 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
   };
 
   const completePayment = () => {
-    
-    completedForm.setFieldValue("service", "DSTV Mobile") //serviceProvider.value
-    completedForm.setFieldValue("biller", "DSTV") //biller.Name
-    completedForm.setFieldValue("billerId", "480") //biller.Id
-    completedForm.setFieldValue("paymentMode", "wallet")
-    completedForm.setFieldValue("paymentCode", "10902") //biller.PayDirectProductId
-    completedForm.setFieldValue("category", "billpayment") //biller.CategoryId
-    completedForm.setFieldValue("amount", amount) //amount
-    completedForm.setFieldValue("customerId", data?.transactionDetails.customerId) //customerId
+    completedForm.setValues({ 
+      paymentCode: data?.transactionDetails.paymentCode?.toString(), 
+      customerId: data?.transactionDetails.customerId?.toString(), 
+      customerEmail: "testJ@test.com",
+      customerMobile: "2349077746616",
+      requestReference: data?.transactionReference, 
+      amount: data?.amount
+    })
     console.log(completedForm.errors)
     completedForm.handleSubmit()
   }
@@ -77,8 +76,12 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
       />
 
       
-      { flow === "details" || flow === "Pay with Wallet" ? <DetailsModal data={data} flow={flow} setFlow={setFlow} completePayment={completePayment} /> : 
-       flow === "completed" ? <CompletedBillModal data={completedBill} flow={flow} setFlow={setFlow} /> :
+      { 
+        flow === "details" || flow === "Pay with Wallet" ? 
+        <DetailsModal data={data} flow={flow} setFlow={setFlow} completePayment={completePayment} /> : 
+
+        flow === "completed" ? 
+        <CompletedBillModal data={completedBill} flow={flow} setFlow={setFlow} /> :
 
       <main className="flex flex-col">         
 
