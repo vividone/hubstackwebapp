@@ -16,7 +16,7 @@ const Wallet = () => {
   const [showWallet, setShowWallet] = useState(false);
   const { userWallet, isLoading } = useGetWallet()
   const [hasWallet, ] = useLocalStorage<any>(TOKEN.HASWALLET)
-  const [ wallet, setWallet] = useLocalStorage<any>(TOKEN.WALLET); 
+  const [ wallet, setWallet] = useState(userWallet); 
   const { history } = useGetWalletHistory()
 
   const refresh = (amount: number) => {
@@ -29,10 +29,6 @@ const Wallet = () => {
       type: "Balance",
       visibility: true,
   }
-
-  useEffect(() => {
-    setWallet(userWallet)
-  }, [userWallet])
 
   return (
     <div className="">

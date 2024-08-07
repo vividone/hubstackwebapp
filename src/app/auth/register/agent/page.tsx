@@ -177,7 +177,7 @@ const RegisterAgent = () => {
               
             
             <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
-                By clicking the "Create Account" button, you agree to our 
+                By clicking the &quot;Create Account&quot; button, you agree to our 
                 <a href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</a> 
             </p>
 

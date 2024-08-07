@@ -29,11 +29,11 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
 
     const biller = billers?.Billers?.filter((item: any) => item.Name === serviceProvider.value)[0]
 
-    formik.setFieldValue("service", serviceProvider.value) //
-    formik.setFieldValue("biller", biller.Name) //
-    formik.setFieldValue("billerId", biller.Id) //
+    formik.setFieldValue("service", serviceProvider?.value) //
+    formik.setFieldValue("biller", biller?.Name) //
+    formik.setFieldValue("billerId", biller?.Id) //
     formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("paymentCode", biller.PayDirectProductId) //
+    formik.setFieldValue("paymentCode", biller?.PayDirectProductId) //
     formik.setFieldValue("category", "billpayment") //
     
     console.log(formik.values, formik.errors)

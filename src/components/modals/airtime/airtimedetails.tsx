@@ -54,7 +54,7 @@ const AirtimeDetailsModal: React.FC<FlowProps> = ({ flow, setFlow, data, complet
 
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
           <div className="flex  flex-wrap items-center gap-4">
-            <Image src={`/images/airtime/${data.network}.png`} alt={data.network} width={80} height={30} />
+            <Image src={`/images/airtime/${data?.network || "mtn"}.png`} alt={data?.network} width={80} height={30} />
             <p>{data?.phonenumber}</p>
           </div>
 
