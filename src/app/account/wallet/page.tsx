@@ -31,8 +31,8 @@ const Wallet = () => {
   }
 
   useEffect(() => {
-    setWallet({ ...wallet, balance: userWallet?.balance })
-  }, [userWallet?.balance])
+    setWallet(userWallet)
+  }, [userWallet])
 
   return (
     <div className="">

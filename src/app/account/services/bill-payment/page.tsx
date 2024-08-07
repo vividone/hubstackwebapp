@@ -12,6 +12,7 @@ import BettingIcon from "@/assets/icons/BettingIcon";
 import { useGetBillPayments, useGetBillersByCategoryId } from "@/helpers/categories";
 import { useEffect, useState } from "react";
 import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
+import AirtimePayment from "@/components/modals/airtime/airtimePayment";
 
 const Billpayment = () => {
   const { billers, isLoading } = useGetBillersByCategoryId("1")
@@ -142,7 +143,10 @@ const Billpayment = () => {
         {
           active === "Electricity" && show ?
           <ElectricityBillModal billers={billersList?.filter((item: any) => item.Id === 1)[0]} show={show} setShow={setShow} />
-          : ""
+          : 
+          active === "Airtime" && show ?
+          <AirtimePayment show={show} setShow={setShow} />
+          :""
         }
       </div>
     </div>
