@@ -1,17 +1,17 @@
 "use client"
-import React, { FormEvent, use, useEffect, useState } from "react";
-import { Button } from "./button";
+import React, { FormEvent, useEffect, useState } from "react";
+import { Button } from "../../common/button";
 import Image from "next/image";
 import Link from "next/link";
 import ShareIcon from "@/assets/icons/shareIcon";
-import AlternateWalletFunding from "../modals/AlternateFunding";
+import AlternateWalletFunding from "../../modals/wallet/AlternateFunding";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { Input } from "./inputs";
-import { useFundWallet, useGetWallet, useVerifyFund } from "@/helpers/wallet";
-import ToastComponent from "./toastComponent";
-import Confirmation from "../modals/confirmation";
-import ClipBoard from "../wallet/clipboard";
+import { Input } from "../../common/inputs";
+import { useFundWallet, useVerifyFund } from "@/helpers/wallet";
+import ToastComponent from "../../common/toastComponent";
+import Confirmation from "../confirmation";
+import ClipBoard from "../../wallet/clipboard";
 import NairaIcon from "@/assets/icons/nairaIcon";
 
 interface MywalletProps {

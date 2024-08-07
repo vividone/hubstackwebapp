@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
-import WalletForm from "@/components/modals/createwalletmodal";
+import WalletForm from "@/components/modals/wallet/createwalletmodal";
 import { useGetWallet, useGetWalletHistory } from "@/helpers/wallet";
 import Card from "@/components/common/card";
-import Mywallet from "@/components/common/Existinguserwallet";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { History } from "@/components/tables/history";
 import { Loader } from "@/assets/common/loader";
+import Mywallet from "@/components/modals/wallet/Existinguserwallet";
 
 
 const Wallet = () => {

@@ -4,15 +4,6 @@ import { useEffect, useState } from "react"
 import Pagination from "./pagination"
 import { dateConvert } from "@/helpers/dateConvert"
 
-
-// type history = { 
-//     _id: string, 
-//     updatedAt: string, 
-//     amount: number, 
-//     transactionType: string, 
-//     transactionStatus: string 
-// }[]
-
 export function History({ history }: any) {
     const [page, setPage] = useState(0)
     const [reversedHistory, setReversedHistory] = useState<any>([])

@@ -9,6 +9,7 @@ export const Input: FC<Partial<InputProps>> = ({ ...props }) => {
   const [focus, setFocus] = useState(false);
   const { className, containerClassName, ...rest } = props;
   return (
+    <div>
     <div
       className={`flex items-center rounded-lg xl:h-[66px] h-12 gap-x-3 px-6 border transition-all ease-in duration-100 
           ${
@@ -45,6 +46,8 @@ export const Input: FC<Partial<InputProps>> = ({ ...props }) => {
       {props.rightIcon && !focus && <props.rightIcon />}
       {props.activeRightIcon && !focus && <props.activeRightIcon />}
     </div>
+    <p className={`text-[12px] mt-1 ${props.error ? "text-red-600" : "opacity-[0.7]"}`}>{props.error}</p>
+    </div>
   );
 };
 
@@ -63,6 +66,7 @@ export const VariantInput: FC<Partial<InputProps>> = ({ ...props }) => {
   };
 
   return (
+    <>
     <div
       className={`flex items-center  relative  rounded-md xl:h-[66px] h-12  gap-x-3  px-4 border transition-all ease-in duration-100 
           ${
@@ -105,6 +109,8 @@ export const VariantInput: FC<Partial<InputProps>> = ({ ...props }) => {
       {props.rightIcon && !focus && <props.rightIcon />}
       {props.activeRightIcon && !focus && <props.activeRightIcon />}
     </div>
+    <p className={`text-[12px] ${props.error ? "text-red-600" : "opacity-[0.7]"}`}>{props.error}</p>
+    </>
   );
 };
 
@@ -166,6 +172,7 @@ export const PasswordVariantInput: FC<Partial<InputProps>> = ({ ...props }) => {
   const [show, setShow] = useState(false);
   const { className, containerClassName, ...rest } = props;
   return (
+    <>
     <div
       className={`flex items-center  relative  rounded-md xl:h-[66px] h-12  gap-x-3  px-6 border transition-all ease-in duration-100 
             ${
@@ -211,6 +218,8 @@ export const PasswordVariantInput: FC<Partial<InputProps>> = ({ ...props }) => {
         <EyeIcon onClick={() => setShow(!show)} />
       )}
     </div>
+    <p className={`text-[12px] ${props.error ? "text-red-600" : "opacity-[0.7]"}`}>{props.error}</p>
+    </>
   );
 };
 
