@@ -29,7 +29,7 @@ export const usePayElectricity = ( ) => {
           paymentCode: "",
           paymentMode: "",
           customerId: "",
-          amount: "",
+          amount: 0,
           category: ""
       } as IElectricBill,
       validateOnBlur: false,
@@ -65,7 +65,7 @@ export const useCompleteBillPayment = (trxId: string) => {
     const [data, setData] = useState<IServicesData>()
     const { payBillUrl } = useUrls();
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Complete payment"],
-        mutationFn: (payload: Partial<IElectricBill>) => {
+        mutationFn: (payload: Partial<any>) => {
             return axiosInstance.post(`${payBillUrl}/${trxId}/pay-bill/complete`, payload)
         },
     })    
@@ -73,15 +73,13 @@ export const useCompleteBillPayment = (trxId: string) => {
     const formik = useFormik({
         initialValues: 
         {
-            service: "",
-            biller: "",
-            billerId: "",
+            requestReference: "",
+            customerMobile: "",
             paymentCode: "",
-            paymentMode: "",
+            customerEmail: "",
             customerId: "",
-            amount: "",
-            category: ""
-        } as IElectricBill,
+            amount: 0,
+        } as any,
         validateOnBlur: false,
         validateOnChange: false,
         onSubmit: async ({ ...values }) => {
