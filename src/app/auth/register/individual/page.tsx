@@ -44,7 +44,7 @@ const Register = () => {
                         data-test="user-firstname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.firstname}
+                        error={formik.touched.firstname && formik.errors.firstname}
                     />
                     <Input 
                         placeholder="Lastname"
@@ -52,7 +52,7 @@ const Register = () => {
                         data-test="user-lastname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.lastname}
+                        error={formik.touched.lastname && formik.errors.lastname}
                     />
                 </div>           
                 <p className="mt-4">Email Address</p>
@@ -62,7 +62,7 @@ const Register = () => {
                     data-test="user-email"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.email}
+                    error={formik.touched.email && formik.errors.email}
                 />
                 
                 <p className="mt-4">Phone Number</p>
@@ -72,7 +72,7 @@ const Register = () => {
                     data-test="user-phoneNumber"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.phonenumber}
+                    error={formik.touched.phonenumber && formik.errors.phonenumber}
                 />
                     
                 <p className="mt-4">Password</p>
@@ -82,7 +82,7 @@ const Register = () => {
                     data-test="user-password"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.password}
+                    error={formik.touched.password && formik.errors.password}
                 />
                      <p className="mt-4">Referral Code</p>
                 <Input 
@@ -97,7 +97,7 @@ const Register = () => {
               
             
             <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
-                By continuing, you agree to our 
+                By clicking the "Create Account" button, you agree to our 
                 <a href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</a> 
             </p>
 

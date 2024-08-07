@@ -57,7 +57,7 @@ const RegisterAgent = () => {
                         data-test="username-firstname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.firstname}
+                        error={formik.touched.firstname && formik.errors.firstname}
                     />
                     <Input 
                         placeholder="Lastname"
@@ -65,7 +65,7 @@ const RegisterAgent = () => {
                         data-test="username-lastname"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        error={formik.errors.lastname}
+                        error={formik.touched.lastname && formik.errors.lastname}
                     />
                 </div>
                 <p className="mt-4">Email Address</p>
@@ -75,7 +75,7 @@ const RegisterAgent = () => {
                     data-test="username-email"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.email}
+                    error={formik.touched.email && formik.errors.email}
                 />
                 
                 <p className="mt-4">Phone Number</p>
@@ -85,7 +85,7 @@ const RegisterAgent = () => {
                     data-test="username-phoneNumber"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.phonenumber}
+                    error={formik.touched.phonenumber && formik.errors.phonenumber}
                 />
                 
                 <p className="mt-4">Business Name</p>
@@ -95,7 +95,7 @@ const RegisterAgent = () => {
                     data-test="username-companyName"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.business_name}
+                    error={formik.touched.business_name && formik.errors.business_name}
                 />
 
                 <p className="mt-4">Location</p>
@@ -103,7 +103,7 @@ const RegisterAgent = () => {
                   placeholder="Location"
                   name="location"
                   value={selectedState || ""}
-                  error={formik.errors.location && formik.touched.location ? true : false}
+                  error={formik.touched.location && formik.errors.location ? true : false}
                   onChange={(value) => {
                     if (value) {
                       const selectedOption = value as Options;
@@ -120,7 +120,7 @@ const RegisterAgent = () => {
                     label: item,
                     value: item,
                   }))}
-                  className="items-start text-start justify-start rounded-lg border border-[#E7E6F2] "
+                  className="items-start text-start justify-start rounded-lg"
                 />
                 
                 <p className="mt-4">Region</p>
@@ -128,7 +128,7 @@ const RegisterAgent = () => {
                   placeholder="Region"
                   name="region"
                   value={selectedRegion || ""}
-                  error={formik.errors.region && formik.touched.region ? true : false}
+                  error={formik.touched.region && formik.errors.region ? true : false}
                   onChange={(value) => {
                     if (value) {
                       const selectedOption = value as Options;
@@ -145,7 +145,7 @@ const RegisterAgent = () => {
                     label: item,
                     value: item,
                   }))}
-                  className="items-start text-start justify-start rounded-lg border border-[#E7E6F2] "
+                  className="items-start text-start justify-start rounded-lg"
                 />
                     
                 <p className="mt-4">Password</p>
@@ -155,10 +155,10 @@ const RegisterAgent = () => {
                     data-test="username-password"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.password}
+                    error={formik.touched.password && formik.errors.password}
                 />
 
-<p className="mt-4">Referral Code</p>
+                <p className="mt-4">Referral Code</p>
                 <Input 
                     placeholder="Enter referral code"
                     value={referralCode || formik.values.referralCode}
@@ -172,7 +172,7 @@ const RegisterAgent = () => {
               
             
             <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
-                By continuing, you agree to our 
+                By clicking the "Create Account" button, you agree to our 
                 <a href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</a> 
             </p>
 

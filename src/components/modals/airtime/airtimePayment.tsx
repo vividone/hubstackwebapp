@@ -59,7 +59,7 @@ export default function AirtimePayment({ show, setShow }: AirtimePaymentProps) {
                                 { id: 2, network: "9mobile"},
                                 { id: 3, network: "glo"},
                             ].map((item: { id: number, network: string } ) => (
-                                <button onClick={() => setData({ ...data, network:  item.network})} className={data.network === item.network ? "border-2 border-[#3D3066] rounded" : ""}>
+                                <button key={item.id} onClick={() => setData({ ...data, network:  item.network})} className={data.network === item.network ? "border-2 border-[#3D3066] rounded" : ""}>
                                     <Image src={`/images/airtime/${item.network}.png`} width={200} height={200} alt={item.network} />
                                 </button>
                             ))
