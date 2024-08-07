@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SubscriptionCard from "@/components/common/subscriptionCard";
-import ElectrictyBillmodal from "@/components/modals/electrictyBillmodal";
-import YourOrderModal from "@/components/modals/YourorderModal";
+import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
+import YourOrderModal from "@/components/modals/electricity/YourorderModal";
 import UserUtilityYourOrder from "@/components/modals/UtilityBillYourOrder";
 import YourWallet from "@/components/modals/Yourwallet";
 import TokenDetails from "@/components/modals/TokenDetails";
@@ -15,13 +15,13 @@ const Utility = () => {
     <div className="grid lg:grid-cols-3 sm:grid-cols-2 md:gap-[3%] gap-10 py-4">
       {show && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
-          {/* <ElectrictyBillmodal setShow={setShow} /> */}
+          <ElectricityBillModal setShow={setShow} />
           {/* <YourOrderModal setShow={setShow} /> */}
           {/* {<UserUtilityYourOrder setShow={setShow}/>} */}
           {/* <YourWallet setShow={setShow}/> */}
           {/* <TokenDetails setShow={setShow}/> */}
           {/* {<AlternatePayment setShow={setShow}/>} */}
-          {<AlternatePaymentMethod/>}
+          {/* {<AlternatePaymentMethod/>} */}
         </div>
       )}
       {cardsName.map((value, key) => {
