@@ -197,7 +197,13 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
               How Much Electricity Do You Want To Buy?
             </label>
             <div className="text-[#8c8b92] mt-2">
-              <Input type="number" name="amount" onChange={(e) => {formik.setFieldValue("amount", e.target.value); setAmount(e.target.value)}} placeholder="#1000" />
+              <Input 
+                type="number" 
+                name="amount" 
+                onChange={formik.handleChange} 
+                onBlur={(e) => setAmount(e.target.value)}
+                placeholder="#1000" 
+              />
             </div>
           </div>
 

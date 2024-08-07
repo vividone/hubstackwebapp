@@ -35,25 +35,29 @@ const Register = () => {
         
         <form className="pt-8" onSubmit={handleSubmit}>
             <div className="flex pb-4 flex-col gap-2 w-full md:text-[20px]">
-                <p className="mt-4">Fullname</p>
                 <div className="gap-4 grid grid-cols-2">
-                    <Input 
-                        labelname="First name"
-                        placeholder="Firstname"
-                        name="firstname"
-                        data-test="user-firstname"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.firstname && formik.errors.firstname}
-                    />
-                    <Input 
-                        placeholder="Lastname"
-                        name="lastname"
-                        data-test="user-lastname"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.lastname && formik.errors.lastname}
-                    />
+                    <div>
+                      <p className="mb-2">Firstname</p>
+                      <Input 
+                          placeholder="Firstname"
+                          name="firstname"
+                          data-test="username-firstname"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          error={formik.touched.firstname && formik.errors.firstname}
+                      />
+                    </div>
+                    <div>
+                      <p className="mb-2">Lastname</p>
+                      <Input 
+                          placeholder="Lastname"
+                          name="lastname"
+                          data-test="username-lastname"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          error={formik.touched.lastname && formik.errors.lastname}
+                      />
+                    </div>
                 </div>           
                 <p className="mt-4">Email Address</p>
                 <Input 
