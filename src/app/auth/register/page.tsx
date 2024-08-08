@@ -1,15 +1,12 @@
 'use client'
 import { FRONTEND_URL } from "@/utils/pages";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import Image from "next/image";
 import AuthSideImg from "@/components/authSideImg";
-import { Button } from "@/components/common/button";
 import Link from "@/components/custom/link";
 
 const Register = () => {
   const [userType, setUserType] = useState("");
-  const router = useRouter()
 
 
   return (
@@ -24,7 +21,8 @@ const Register = () => {
         <div className="flex flex-col gap-4 py-[40px] lg:w-[510px] w-full">
 
             {/* Agent selector */}
-            <button 
+            <Link
+                href={FRONTEND_URL.AGENT_REGISTER}
                 className={`flex justify-between items-start border border-[#3D3066] px-[5%] py-[3%] rounded-[15px] ${userType === "agent" ? "bg-[#507FFF]": "bg-[#FCFCFC]"}`}
                 onClick={() => setUserType("agent")}  
             >
@@ -33,11 +31,12 @@ const Register = () => {
                   <p className="xl:text-[26px]">I want to register as an agent</p>
                   </div>
                 <Image src={"/images/Ellipse.svg"} alt="ellipse" className="bg-white rounded-full" width={40} height={40} />
-            </button>
+            </Link>
 
 
             {/* Individual selector */}
-            <button 
+            <Link
+                href={FRONTEND_URL.INDIVIDUAL_REGISTER}
                 className={`flex justify-between items-start border border-[#3D3066] px-[5%] py-[3%] rounded-[15px] ${userType === "individual" ? "bg-[#507FFF]": "bg-[#FCFCFC]"}`}
                 onClick={() => setUserType("individual")} 
             >
@@ -46,21 +45,10 @@ const Register = () => {
                   <p className="xl:text-[26px]">I want to register as an Individual</p>
                 </div>
                 <Image src={"/images/Ellipse.svg"} alt="ellipse" className="bg-white rounded-full" width={40} height={40} />
-            </button>
+            </Link>
 
 
         </div>
-        
-        <div className="flex justify-center w-full">
-            <Button 
-                size={"long"}
-                variant="primary"
-                onClick={() => router.push(userType === "agent" ? FRONTEND_URL.AGENT_REGISTER : userType === "individual" ? FRONTEND_URL.INDIVIDUAL_REGISTER : FRONTEND_URL.REGISTER)}
-            >
-                CREATE ACCOUNT
-            </Button>
-        </div>
-
         
         {/* Already login */}
         <div className="flex w-full items-center mt-10 gap-2 justify-center">

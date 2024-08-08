@@ -57,7 +57,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
     if(isSuccess) {
       setShowVerify(!showVerify)
     }
-  }, [isSuccess])
+  }, [isSuccess, showVerify])
 
   return (
     <div className="relative h-screen w-[40vw] bg-white overflow-y-scroll z-[1000]">

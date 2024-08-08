@@ -41,7 +41,7 @@ export const useCreateWallet = ( ) => {
             await formik.validateForm();
             mutate(values, {
             onSuccess: (res) => {
-                setUserWallet(res.data.dva);
+                setUserWallet(res.data);
                 setHasWallet(true)
                 router.refresh()
                 
@@ -85,12 +85,11 @@ export const useGetSubAccounts = () => {
 
 export const useGetWallet = () => {
   const { getUserWallet } = useUrls();
-  const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
 
   const queryKey = ["Get user wallet"]; // Unique key for the query
 
   const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
-    const response = await axiosInstance.get(getUserWallet + "/" + userDetails._id);
+    const response = await axiosInstance.get(getUserWallet);
     const responseData = response.data;
     return responseData;
   }});

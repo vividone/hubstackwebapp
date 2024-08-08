@@ -29,11 +29,11 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
 
     const biller = billers?.Billers?.filter((item: any) => item.Name === serviceProvider.value)[0]
 
-    formik.setFieldValue("service", serviceProvider.value) //
-    formik.setFieldValue("biller", biller.Name) //
-    formik.setFieldValue("billerId", biller.Id) //
+    formik.setFieldValue("service", serviceProvider?.value) //
+    formik.setFieldValue("biller", biller?.Name) //
+    formik.setFieldValue("billerId", biller?.Id) //
     formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("paymentCode", biller.PayDirectProductId) //
+    formik.setFieldValue("paymentCode", biller?.PayDirectProductId) //
     formik.setFieldValue("category", "billpayment") //
     
     console.log(formik.values, formik.errors)
@@ -197,7 +197,13 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
               How Much Electricity Do You Want To Buy?
             </label>
             <div className="text-[#8c8b92] mt-2">
-              <Input type="number" name="amount" onChange={(e) => {formik.setFieldValue("amount", e.target.value); setAmount(e.target.value)}} placeholder="#1000" />
+              <Input 
+                type="number" 
+                name="amount" 
+                onChange={formik.handleChange} 
+                onBlur={(e) => setAmount(e.target.value)}
+                placeholder="#1000" 
+              />
             </div>
           </div>
 
