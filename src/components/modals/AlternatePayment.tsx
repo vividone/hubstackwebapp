@@ -3,7 +3,14 @@ import Image from "next/image";
 import ArrrowLeft from "@/assets/icons/ArrrowLeft";
 import { Button } from "../common/button";
 import CopyIcon from "@/assets/icons/CopyIcon";
+
 const AlternatePayment = ({ setShow }: any) => {
+  const paymentDetails = [
+    { label: "Account Number", value: "0209064859" },
+    { label: "Account Name", value: "Babalola Zainab" },
+    { label: "Bank Name", value: "Sterling Bank" },
+  ];
+
   return (
     <section className="flex flex-col bg-white w-[90vw] md:w-[45vw] text-black p-10 h-[100vh] overflow-y-scroll">
       <header className="flex justify-between items-center font-medium text-4xl mb-12">
@@ -24,47 +31,33 @@ const AlternatePayment = ({ setShow }: any) => {
       </header>
 
       <section className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-md p-4 md:p-8 font-OpenSans">
-        <div className="flex justify-between items-center my-2">
-          <div>
-            <span className="block font-light text-[14px]">Account Number</span>
-            <span className="font-semibold text-[20px]">0209064859</span>
+        {paymentDetails.map((detail, index) => (
+          <div className="flex justify-between items-center my-2" key={index}>
+            <div>
+              <span className="block font-light text-[14px]">{detail.label}</span>
+              <span className="font-semibold text-[20px]">{detail.value}</span>
+            </div>
+            <CopyIcon width={20.31} height={20.31} />
           </div>
-          <CopyIcon width={20.31} height={20.31} />
-        </div>
-        <div className="flex justify-between items-center my-2">
-          <div>
-            <span className="block font-light text-[14px]">Account Name</span>
-            <span className="font-semibold text-[20px]">Babalola Zainab</span>
-          </div>
-          <CopyIcon width={20.31} height={20.31} />
-        </div>
-        <div className="flex justify-between my-2">
-          <div>
-            <span className="block font-light text-[14px]">Bank Name</span>
-            <span className="font-semibold text-[20px]">Sterling Bank</span>
-          </div>
-          <CopyIcon width={20.31} height={20.31} />
-        </div>
+        ))}
       </section>
-      <section className="w-full pb-2 flex items-center justify-center text-center text-[16px] font-normal items-center mt-10 mb-1">
-        <p className=" w-[75%]">
-          Please click the below button after a successful transfer Your token
+      <section className="w-full pb-2 flex items-center justify-center text-center text-[16px] font-normal mt-10 mb-1">
+        <p className="w-[75%]">
+          Please click the below button after a successful transfer. Your token
           will be sent once we receive your payment.
         </p>
       </section>
       <section className="w-full">
-        <Button type="submit" size={"full"} className="text-[16px] mb-4  ">
+        <Button type="submit" size={"full"} className="text-[16px] mb-4">
           PROCEED WITH WALLET
         </Button>
-        {true && (
-          <Button
-            size={"full"}
-            variant="secondary"
-            className="text-[#3D3066] text-[16px]"
-          >
-            USE ALTERNATE PAMENT METHOD
-          </Button>
-        )}
+        <Button
+          size={"full"}
+          variant="secondary"
+          className="text-[#3D3066] text-[16px]"
+        >
+          USE ALTERNATE PAYMENT METHOD
+        </Button>
       </section>
     </section>
   );

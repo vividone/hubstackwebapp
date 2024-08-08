@@ -30,7 +30,7 @@ const AlternatePaymentMethod = () => {
             return (
               <div className="flex gap-2 items-center" key={key}>
                 <span className="flex justify-center items-center w-[90px] h-[74px] rounded-[7px] " style={{background:`${item.backgorund}`}}>
-                    <Image src={item.img} alt="" width={42} height={42}/>
+                    <Image src="#" alt="" width={42} height={42}/>
                 </span>
                 <span>Bank Account Transfer</span>
               </div>
