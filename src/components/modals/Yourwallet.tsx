@@ -32,7 +32,7 @@ const YourWallet = ({ setShow }: any) => {
             {visibility && (
               <NairaIconElectricBill width={26} height={26} className="pt-1" />
             )}
-            <span className="pb-1 bg-red">
+            <span className="pb-1">
               {visibility ? "2000.00" : "*****"}
             </span>
           </span>
