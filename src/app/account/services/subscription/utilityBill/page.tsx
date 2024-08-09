@@ -9,6 +9,7 @@ import TokenDetails from "@/components/modals/TokenDetails";
 import AlternatePayment from "@/components/modals/AlternatePayment";
 import AlternatePaymentMethod from "@/components/modals/AlternatePaymentMethod";
 import AccountDetails from "@/components/modals/wallet/AccountDetails";
+import CableTVServices from "@/components/modals/cableTv/services";
 const Utility = () => {
   const [show, setShow] = useState<any>(false);
   const cardsName = ["DSTV", "GOTV", "NETFLIX"];
@@ -16,7 +17,7 @@ const Utility = () => {
     <div className="grid lg:grid-cols-3 sm:grid-cols-2 md:gap-[3%] gap-10 py-4">
       {show && (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
-          <ElectricityBillModal setShow={setShow} />
+          {/* <ElectricityBillModal setShow={setShow} /> */}
           {/* <YourOrderModal setShow={setShow} /> */}
           {/* {<UserUtilityYourOrder setShow={setShow}/>} */}
           {/* <YourWallet setShow={setShow}/> */}
@@ -24,6 +25,7 @@ const Utility = () => {
           {/* {<AlternatePayment setShow={setShow}/>} */}
           {/* {<AlternatePaymentMethod/>} */}
           {/* <AccountDetails setShow={setShow} /> */}
+          <CableTVServices show={setShow} setShow={setShow}/>
         </div>
       )}
       {cardsName.map((value, key) => {

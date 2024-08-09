@@ -1,6 +1,6 @@
 import React from "react";
 
-const ArrrowLeft = ({ width, height }: any) => {
+const ArrrowLeft = ({ width=20, height=20 }: any) => {
   return (
     <svg
       width={width}

@@ -37,7 +37,7 @@ const Wallet = () => {
     <div className="">
       <div className="md:pr-[30px] px-[25px] ">
         {/*  */}
-        {!hasWallet || !userWallet? (
+        {false? (
           <>
             <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] mt-[60px] font-medium">
               Wallet

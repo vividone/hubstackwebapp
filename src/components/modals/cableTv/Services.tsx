@@ -1,88 +1,72 @@
 import React from "react";
 import ModalsLayout from "../modalsLayout";
 import Image from "next/image";
-const cableTVServices = ({ setShow, show }: any) => {
+import ArrrowLeft from "@/assets/icons/ArrrowLeft";
+const CableTVServices = ({ setShow, show }: any) => {
   const data = [
     {
-      Image: "images/cableTvImages/actTv.png",
+      Image: "/images/cableTvImages/actTv.png",
       title: "actTv",
       id: "1",
     },
     {
-      Image: "images/cableTvImages/BoxOffice.png",
+      Image: "/images/cableTvImages/BoxOffice.png",
       title: "Box Office",
       id: "2",
     },
     {
-      Image: "images/cableTvImages/DaarSat.png",
+      Image: "/images/cableTvImages/DaarSat.png",
       title: "DaarSat",
       id: "3",
     },
     {
-      Image: "images/cableTvImages/DSTV.png",
+      Image: "/images/cableTvImages/DSTV.png",
       title: "DSTV",
       id: "4",
     },
     {
-      Image: "images/cableTvImages/GOTV.png",
+      Image: "/images/cableTvImages/GOTV.png",
       title: "GOTV",
+      id: "5",
+    },
+    {
+      Image: "/images/cableTvImages/DaarSat.png",
+      title: "DaarSat",
+      id: "3",
+    },
+    {
+      Image: "/images/cableTvImages/DSTV.png",
+      title: "DSTV",
       id: "4",
     },
     {
-      Image: "images/cableTvImages/actTv.png",
-      title: "actTv",
-      id: "1",
+      Image: "/images/cableTvImages/GOTV.png",
+      title: "GOTV",
+      id: "5",
     },
     {
-      Image: "images/cableTvImages/actTv.png",
-      title: "actTv",
-      id: "1",
-    },
-    {
-      Image: "images/cableTvImages/actTv.png",
-      title: "actTv",
-      id: "1",
-    },
-    {
-      Image: "images/cableTvImages/actTv.png",
-      title: "actTv",
-      id: "1",
-    },
-    {
-      Image: "images/cableTvImages/actTv.png",
-      title: "actTv",
-      id: "1",
-    },
-    {
-      Image: "images/cableTvImages/actTv.png",
-      title: "actTv",
-      id: "1",
-    },
-    {
-        Image:"images/cableTvImages/actTv.png",
-        title:"actTv",
-        id:"1"
-      },{
-        Image:"images/cableTvImages/actTv.png",
-        title:"actTv",
-        id:"1"
-      },];
+        Image: "/images/cableTvImages/playTv.png",
+        title: "playTv",
+        id: "6",
+      }
+  ];
   return (
     <ModalsLayout header="Cable TV" setShow={setShow} show={show}>
-      <header className="font-normal text-[20px] font-OpenSans">Choose A Service Provider</header>
-      <main>
-        {
-            data.map((i,key)=>{
-                return(
-                    <div className="w-[122.57px] h-[119px] rounded-[2px]" key={key}>
-                        <Image src="" alt="" ></Image>
-                    </div>
-                )
-            })
-        }
+      <header className="font-normal text-[20px] font-OpenSans mt-12 ">
+        Choose A Service Provider
+        
+      </header>
+      <main className="flex gap-2 flex-wrap justify-between">
+        {data.map((items, key) => {
+          return (
+            <div className="w-[122.57px] h-[119px] rounded-[2px] cursor-pointer transform hover:scale(105)" key={key}>
+              <Image src={items.Image} alt="" width={122.57} height={119} />
+            </div>
+          );
+        })}
       </main>
     </ModalsLayout>
   );
 };
 
-export default cableTVServices;
+export default CableTVServices;
