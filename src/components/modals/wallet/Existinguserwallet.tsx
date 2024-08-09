@@ -6,7 +6,7 @@ import ShareIcon from "@/assets/icons/shareIcon";
 import AlternateWalletFunding from "../../modals/wallet/AlternateFunding";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { Input } from "../../common/inputs";
+import { Input, MoneyInput } from "../../common/inputs";
 import { useFundWallet, useVerifyFund } from "@/helpers/wallet";
 import ToastComponent from "../../common/toastComponent";
 import Confirmation from "../confirmation";
@@ -16,14 +16,16 @@ import ModalsLayout from "../modalsLayout";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import { formatAmount } from "@/helpers/amountFormatter";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
   refreshWallet: (amount: number) => void;
   wallet: any;
+  balance: number;
 }
 
-const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) => {
+const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, balance }) => {
   const {
     data: fundData,
     formik,
@@ -38,7 +40,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const [visibility, setVisibility] = useState(true);
   const [content, setContent] = useState("Microbiz MFB");
-  const [amount, setAmount] = useState("Microbiz MFB");
+  const [amount, setAmount] = useState<string>("0");
 
   // didnt find api endpoint for this so i just put dummy data
   const dataSets: any = {
@@ -57,7 +59,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
 
   const handleSubmit = async () => {
     if(flow === "Fund Wallet") {
-      formik.setFieldValue("amount", amount);
+      formik.setFieldValue("amount", (+amount*10).toString());
       formik.handleSubmit();
       setFlow("verify")
     }
@@ -106,11 +108,10 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
               >
                 Enter Amount
               </label>
-              <Input
-                leftIcon={() => <NairaIcon className="w-[18px]" />}
+              <MoneyInput
+                leftIcon={() => <NairaIcon className="w-[12px]" />}
                 name="amount"
                 onChange={(e) => setAmount(e.target.value)}
-                type="number"
                 placeholder="0.00"
               />
             </div>
@@ -131,7 +132,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
                     />
                   )}
                   <span className="text-[#111111] text-[32px] font-bold font-openSans">
-                    {visibility ? "2000.00" : "*****"}
+                    {visibility ? balance : "*****"}
                   </span>
                 </div>
               </div>
@@ -162,6 +163,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
               ]
               .map((item: {id: number, content: string}) => (
                 <Link
+                  key={item.id}
                   href="#"
                   title={item.content} aria-label={item.content}
                   onClick={() => setContent(item.content)}

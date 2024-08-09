@@ -6,7 +6,7 @@ import DollarBagIcon from "@/assets/icons/DollarBagIcon";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 interface CardData {
-  amount: string;
+  amount: number;
   type: string;
 }
 
@@ -46,7 +46,7 @@ const Card = ({ value }: CardProps) => {
       <div className="flex justify-between items-end h-full w-full">
         <div className="flex flex-col justify-center items-center h-[50%]">
           <span className="flex items-center font-bold  2xl:text-[32px] text-[24px] w-full font-sans">
-            {visibility ? <><NairaIcon className="w-[18px]" /> {formatAmount(amount)}</> : "****"}
+            {visibility ? <><NairaIcon className="w-[18px]" /> {formatAmount(amount.toString())}</> : "****"}
           </span>
           <span className="font-normal text-[18px] w-full font-sans">
             {type}

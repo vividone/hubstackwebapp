@@ -8,7 +8,6 @@ import YourWallet from "@/components/modals/Yourwallet";
 import TokenDetails from "@/components/modals/TokenDetails";
 import AlternatePayment from "@/components/modals/AlternatePayment";
 import AlternatePaymentMethod from "@/components/modals/AlternatePaymentMethod";
-import AccountDetails from "@/components/modals/wallet/AccountDetails";
 const Utility = () => {
   const [show, setShow] = useState<any>(false);
   const cardsName = ["DSTV", "GOTV", "NETFLIX"];
@@ -23,7 +22,6 @@ const Utility = () => {
           {/* <TokenDetails setShow={setShow}/> */}
           {/* {<AlternatePayment setShow={setShow}/>} */}
           {/* {<AlternatePaymentMethod/>} */}
-          {/* <AccountDetails setShow={setShow} /> */}
         </div>
       )}
       {cardsName.map((value, key) => {

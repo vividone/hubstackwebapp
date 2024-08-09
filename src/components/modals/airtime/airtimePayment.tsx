@@ -1,5 +1,5 @@
 'use client'
-import { Input } from "@/components/common/inputs";
+import { Input, MoneyInput } from "@/components/common/inputs";
 import ModalsLayout from "../modalsLayout";
 import { useState } from "react";
 import Image from "next/image";
@@ -41,13 +41,13 @@ export default function AirtimePayment({ show, setShow }: AirtimePaymentProps) {
                             Enter Airtime Amount
                         </label>
                         <div className="text-[#8c8b92] mt-2">
-                        <Input 
-                            type="number" 
+
+                        <MoneyInput  
                             name="amount" 
                             error={error?.amount}
                             onBlur={() => setData({ ...data, amount: +formatAmount(data.amount.toString())})} 
-                            leftIcon={() => <NairaIcon className="w-[18px]" />} 
-                            onChange={(e) => setData({ ...data, amount:  e.target.value})} placeholder="0.00" 
+                            leftIcon={() => <NairaIcon className="w-[12px]" />} 
+                            onChange={(e) => setData({ ...data, amount:  (+e.target.value * 10).toString()})} placeholder="0.00" 
                         />
                         </div>
                     </div>
