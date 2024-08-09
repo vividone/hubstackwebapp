@@ -15,5 +15,4 @@ export interface IServicesData {
     transactionStatus: string;
     transactionDetails: IElectricBill;
     user: string;
-    _id: string;
 } 

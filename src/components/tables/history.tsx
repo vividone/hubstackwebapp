@@ -3,11 +3,10 @@ import NairaIcon from "@/assets/icons/nairaIcon"
 import { useEffect, useState } from "react"
 import Pagination from "./pagination"
 import { dateConvert } from "@/helpers/dateConvert"
-import { HistoryType } from "@/interface/wallet"
 
-export function History({ history }: {history: HistoryType[]}) {
+export function History({ history }: any) {
     const [page, setPage] = useState(0)
-    const [reversedHistory, setReversedHistory] = useState<HistoryType[]>([])
+    const [reversedHistory, setReversedHistory] = useState<any>([])
 
     useEffect(() => {
         const reversedArray = []
@@ -21,7 +20,7 @@ export function History({ history }: {history: HistoryType[]}) {
 
     return (
         <div className="w-full py-2 overflow-x-auto">
-            <table className="table-auto text-left w-full min-w-[500px]">
+            <table className="table-auto text-left w-full min-w-[700px]">
                 <thead>
                     <tr className="bg-[#3D3066]/[0.1]">
                         <th className="p-[20px]">Date</th>
@@ -32,7 +31,7 @@ export function History({ history }: {history: HistoryType[]}) {
                 <tbody className="">
                     {
                     reversedHistory?.slice(page*6, (page*6) + 6).map((item: any) => (
-                        <tr key={item.id} className="">
+                        <tr key={item._id} className="">
                             <td className="p-[20px]">{dateConvert(item?.updatedAt)}</td>
                             <td className="p-[20px] flex items-center gap-1"><NairaIcon className="w-[12px]" />{item?.amount}</td>
                             <td className={`p-[20px] capitalize ${item.transactionStatus === "successful" ? "text-[#2EB62C]" : item.transactionStatus === "pending" ? "text-[#FFCC00]" : item.transactionStatus === "failed" ? "text-[#FF0E0E]" : ""}`}>{item?.transactionStatus}</td>

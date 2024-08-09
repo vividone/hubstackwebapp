@@ -3,25 +3,26 @@ import React, { useState, FormEvent, useEffect } from "react";
 import { Input, MoneyInput } from "../../common/inputs";
 import { Button } from "../../common/button";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
-import { useCompleteBillPayment, usePayElectricity } from "@/helpers/services";
+import { usePayElectricity } from "@/helpers/services";
 import ModalsLayout from "../modalsLayout";
 import { Dropdown } from "../../common/Dropdown";
 import { states } from "@/data/locationRegions";
 import ToastComponent from "../../common/toastComponent";
 import DetailsModal from "./detailsModal";
+<<<<<<< HEAD
 import CompletedBillModal from "./completedModal";
 import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIcon from "@/assets/icons/nairaIcon";
+=======
+>>>>>>> parent of 700ca96 (Merge branch 'Abel-feat' of https://github.com/vividone/hubstackwebapp into dahboard-branch)
 const Amount = {
   total: `1,100`,
 };
 
 const ElectricityBillModal = ({ show, setShow, billers }: any) => {
   const { data, formik, isError, isPending, isSuccess, error } = usePayElectricity();
-  const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess } = useCompleteBillPayment(data?._id || "")
   const [serviceProvider, setServiceProvider] = useState<any>()
   const [state, setState] = useState<any>()
-  const [amount, setAmount] = useState<any>()
   const [meterType, setMeterType] = useState<any>()
   const [flow, setFlow ] = useState("getTransactionRef")
 
@@ -51,26 +52,6 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
     formik.handleSubmit();
   };
 
-  const completePayment = () => {
-    
-    completedForm.setFieldValue("service", "DSTV Mobile") //serviceProvider.value
-    completedForm.setFieldValue("biller", "DSTV") //biller.Name
-    completedForm.setFieldValue("billerId", "480") //biller.Id
-    completedForm.setFieldValue("paymentMode", "wallet")
-    completedForm.setFieldValue("paymentCode", "10902") //biller.PayDirectProductId
-    completedForm.setFieldValue("category", "billpayment") //biller.CategoryId
-    completedForm.setFieldValue("amount", amount) //amount
-    completedForm.setFieldValue("customerId", data?.transactionDetails.customerId) //customerId
-    console.log(completedForm.errors)
-    completedForm.handleSubmit()
-  }
-
-  useEffect(() => {
-    if(completedSuccess) {
-      setFlow("completed")
-    }
-  }, [completedSuccess])
-  
   useEffect(() => {
     if(isSuccess) {
       setFlow("details")
@@ -87,8 +68,7 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
       />
 
       
-      { flow === "details" || flow === "Pay with Wallet" ? <DetailsModal data={data} flow={flow} setFlow={setFlow} completePayment={completePayment} /> : 
-       flow === "completed" ? <CompletedBillModal data={completedBill} flow={flow} setFlow={setFlow} /> :
+      { isSuccess ? <DetailsModal data={data} flow={flow} setFlow={setFlow} /> : 
 
       <main className="flex flex-col">         
 
@@ -204,6 +184,7 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
               How Much Electricity Do You Want To Buy?
             </label>
             <div className="text-[#8c8b92] mt-2">
+<<<<<<< HEAD
               <MoneyInput 
                 name="amount" 
                 leftIcon={() => <NairaIcon className="w-[14px]" />}
@@ -211,6 +192,9 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
                 onBlur={(e) => setAmount((+e.target.value).toString())}
                 placeholder="0" 
               />
+=======
+              <Input type="number" name="amount" onChange={formik.handleChange} placeholder="#1000" />
+>>>>>>> parent of 700ca96 (Merge branch 'Abel-feat' of https://github.com/vividone/hubstackwebapp into dahboard-branch)
             </div>
           </div>
 
@@ -221,7 +205,7 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
               </span>
               <span className="flex items-center font-normal">
                 <NairaIconElectricBill width={19.5} height={18.25} />
-                <p className="font-normal text-[20px]">100.00</p>
+                <p className="font-normal text-[20px]">100</p>
               </span>
             </div>
             <div className="flex gap-2 items-center justify-between font-bold text-[#111111] text-[16px] font-openSans">
@@ -230,7 +214,7 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
               </span>
               <span className="flex items-center font-normal">
                 <NairaIconElectricBill width={19.5} height={18.25} />
-                <p className="font-normal text-[20px]">{formatAmount((+amount + 100).toString())}</p>
+                <p className="font-normal text-[20px]">{Amount.total}</p>
               </span>
             </div>
           </div>
@@ -245,9 +229,18 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
               size={"full"}
               className="text-[20px] font-CabinetGrotesk mb-4"
             >
-              PAY NGN {formatAmount((+amount + 100).toString())}
+              PAY NGN {Amount.total}
             </Button>
-            
+            {false && (
+              <Button
+                size={"full"}
+                variant="secondary"
+                isLoading={isPending}
+                className="text-[20px] font-CabinetGrotesk font-bold text-[#3D3066]"
+              >
+                FUND WALLET
+              </Button>
+            )}
           </div>
         </form>
       </main>
