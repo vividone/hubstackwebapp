@@ -1,7 +1,7 @@
 import React from "react";
 import ModalsLayout from "../modalsLayout";
 import Image from "next/image";
-import ArrrowLeft from "@/assets/icons/ArrrowLeft";
+
 const CableTVServices = ({ setShow, show }: any) => {
   const data = [
     {

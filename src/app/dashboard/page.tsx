@@ -6,10 +6,11 @@ import { Button } from "@/components/common/button";
 import { useRouter } from "next/navigation";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { useGetWallet } from "@/helpers/wallet";
 
 const DashboardPage = () => {
   const router = useRouter();
-  const [hasWallet] = useLocalStorage<any>(TOKEN.HASWALLET);
+  const { userWallet } = useGetWallet();
 
   const individualCard = [
     {
@@ -17,7 +18,7 @@ const DashboardPage = () => {
       title: "Manage your wallet",
       subText:
         "Create a wallet, fund and start making transactions with your wallet.",
-      buttonText: `${hasWallet ? "Manage your wallet" : "Create a wallet"}`,
+      buttonText: `${userWallet ? "Manage your wallet" : "Create a wallet"}`,
       buttonHref: "/account/wallet",
       icon: <WalletIcon />,
     },
