@@ -9,6 +9,7 @@ import { History } from "@/components/tables/history";
 import { Loader } from "@/assets/common/loader";
 import Mywallet from "@/components/modals/wallet/Existinguserwallet";
 
+
 const Wallet = () => {
   const [showWallet, setShowWallet] = useState(false);
   const { userWallet, isLoading } = useGetWallet();

@@ -10,9 +10,12 @@ import { states } from "@/data/locationRegions";
 import ToastComponent from "../../common/toastComponent";
 import DetailsModal from "./detailsModal";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import CompletedBillModal from "./completedModal";
 import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIcon from "@/assets/icons/nairaIcon";
+=======
+>>>>>>> parent of 700ca96 (Merge branch 'Abel-feat' of https://github.com/vividone/hubstackwebapp into dahboard-branch)
 =======
 >>>>>>> parent of 700ca96 (Merge branch 'Abel-feat' of https://github.com/vividone/hubstackwebapp into dahboard-branch)
 const Amount = {
@@ -185,6 +188,7 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
             </label>
             <div className="text-[#8c8b92] mt-2">
 <<<<<<< HEAD
+<<<<<<< HEAD
               <MoneyInput 
                 name="amount" 
                 leftIcon={() => <NairaIcon className="w-[14px]" />}
@@ -192,6 +196,9 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
                 onBlur={(e) => setAmount((+e.target.value).toString())}
                 placeholder="0" 
               />
+=======
+              <Input type="number" name="amount" onChange={formik.handleChange} placeholder="#1000" />
+>>>>>>> parent of 700ca96 (Merge branch 'Abel-feat' of https://github.com/vividone/hubstackwebapp into dahboard-branch)
 =======
               <Input type="number" name="amount" onChange={formik.handleChange} placeholder="#1000" />
 >>>>>>> parent of 700ca96 (Merge branch 'Abel-feat' of https://github.com/vividone/hubstackwebapp into dahboard-branch)
