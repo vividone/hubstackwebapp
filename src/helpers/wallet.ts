@@ -106,12 +106,12 @@ export const useGetWallet = () => {
 export const useGetAccountBalance = () => {
     const { getWalletBalance } = useUrls();
   
+    const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
     const queryKey = ["Get wallet balance"]; // Unique key for the query
   
     const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
       const response = await axiosInstance.get(getWalletBalance);
       const responseData = response.data;
-      console.log(responseData)
       return responseData;
     }});
 
@@ -150,7 +150,7 @@ export const useGetAllBanks = () => {
 
 export const useFundWallet = ( ) => {
   const { fundWallet } = useUrls();
-  const [data, setData] = useState({ _id: 0, amount: 0 })
+  const [data, setData] = useState({ _id: 0, amount: 0, transactionReference: "" })
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Fund wallet"],
       mutationFn: (payload: Partial<any>) => {
@@ -162,7 +162,6 @@ export const useFundWallet = ( ) => {
           email: userDetails?.email,
           amount: "",
           paymentMode: "account transfer",
-          userId: userDetails?._id,
       } as any,
       validateOnBlur: false,
       validateOnChange: false,
@@ -191,20 +190,19 @@ export const useFundWallet = ( ) => {
 
 
 
-export const useVerifyFund = ( ) => {
+export const useVerifyFund = (trxRef: number) => {
   const [data, setData] = useState({ amount: 0 })
   const { verifyFunding } = useUrls();
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Verify Fund"],
       mutationFn: (payload: Partial<any>) => {
-          return axiosInstance.post(verifyFunding, payload)
+          return axiosInstance.post(verifyFunding+ "/" + trxRef, payload)
       },
   })    
   
   const formik = useFormik({
       initialValues: {
           transactionId: "",
-          userId: userDetails?._id,
       } as any,
       validateOnBlur: false,
       validateOnChange: false,

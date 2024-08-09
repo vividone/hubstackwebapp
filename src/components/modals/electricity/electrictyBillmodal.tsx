@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, FormEvent, useEffect } from "react";
-import { Input } from "../../common/inputs";
+import { Input, MoneyInput } from "../../common/inputs";
 import { Button } from "../../common/button";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import { useCompleteBillPayment, usePayElectricity } from "@/helpers/services";
@@ -11,6 +11,7 @@ import ToastComponent from "../../common/toastComponent";
 import DetailsModal from "./detailsModal";
 import CompletedBillModal from "./completedModal";
 import { formatAmount } from "@/helpers/amountFormatter";
+import NairaIcon from "@/assets/icons/nairaIcon";
 const Amount = {
   total: `1,100`,
 };
@@ -197,12 +198,12 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
               How Much Electricity Do You Want To Buy?
             </label>
             <div className="text-[#8c8b92] mt-2">
-              <Input 
-                type="number" 
+              <MoneyInput 
                 name="amount" 
+                leftIcon={() => <NairaIcon className="w-[14px]" />}
                 onChange={formik.handleChange} 
-                onBlur={(e) => setAmount(e.target.value)}
-                placeholder="#1000" 
+                onBlur={(e) => setAmount((+e.target.value).toString())}
+                placeholder="0" 
               />
             </div>
           </div>

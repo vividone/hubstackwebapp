@@ -1,11 +1,13 @@
 'use client'
-import { Input } from "@/components/common/inputs";
+import { Input, MoneyInput } from "@/components/common/inputs";
 import ModalsLayout from "../modalsLayout";
 import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/common/button";
 import AirtimeDetailsModal from "./airtimedetails";
 import CompletedAirtimeModal from "./airtimeCompleted";
+import NairaIcon from "@/assets/icons/nairaIcon";
+import { formatAmount } from "@/helpers/amountFormatter";
 
 type AirtimePaymentProps = {
     show: boolean;
@@ -17,6 +19,7 @@ type dataProps = {amount: string | number, phonenumber: string, network: string}
 export default function AirtimePayment({ show, setShow }: AirtimePaymentProps) {
     const [data, setData] = useState<dataProps>({ amount: 0, phonenumber: "", network: "" })
     const [flow, setFlow] = useState("Airtime")
+    const [error, setError] = useState<any>({})
 
     const handleNext = () => {
         setFlow("Your Order")
@@ -38,7 +41,14 @@ export default function AirtimePayment({ show, setShow }: AirtimePaymentProps) {
                             Enter Airtime Amount
                         </label>
                         <div className="text-[#8c8b92] mt-2">
-                        <Input type="number" name="amount" onChange={(e) => setData({ ...data, amount:  e.target.value})} placeholder="#1000" />
+
+                        <MoneyInput  
+                            name="amount" 
+                            error={error?.amount}
+                            onBlur={() => setData({ ...data, amount: +formatAmount(data.amount.toString())})} 
+                            leftIcon={() => <NairaIcon className="w-[12px]" />} 
+                            onChange={(e) => setData({ ...data, amount:  (+e.target.value * 10).toString()})} placeholder="0.00" 
+                        />
                         </div>
                     </div>
 
@@ -47,7 +57,7 @@ export default function AirtimePayment({ show, setShow }: AirtimePaymentProps) {
                             Enter Phone Number
                         </label>
                         <div className="text-[#8c8b92] mt-2">
-                        <Input type="number" name="amount" onChange={(e) => setData({ ...data, phonenumber:  e.target.value})} placeholder="#1000" />
+                        <Input type="number" name="amount" error={error?.phonenumber} onChange={(e) => setData({ ...data, phonenumber:  e.target.value})} placeholder="07000000000" />
                         </div>
                     </div>
 
@@ -64,6 +74,7 @@ export default function AirtimePayment({ show, setShow }: AirtimePaymentProps) {
                                 </button>
                             ))
                         }
+                        { error?.network ? <p className="mt-2 text-[12px] text-red-400">{error?.network}</p> : "" }
                     </div>
 
                     <p className="font-Inter text-[20px] font-normal mt-10">
