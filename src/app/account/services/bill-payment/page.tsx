@@ -66,14 +66,14 @@ const Billpayment = () => {
         <div className="flex mt-[50px] border-r border-[#E7E7E7]">
           <div className="grid 2xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-2 gap-[30px] pr-6 w-full">
             {data.map((value, index) => (
-              <button
+              <div
                 key={index}
                 className="bg-[#00D7F7] h-[180px] rounded-lg flex flex-col items-center justify-center text-center transform hover:scale-105 cursor-pointer"
                 onClick={() => {setActive(value.text); setShow(!show)}}
               >
-                <span className="p-[18px_16px] rounded-[30px] bg-[#3D30661A]">{value.Icon}</span>
+                <span className="p-[18px_18px] rounded-full bg-[#3D30661A]">{value.Icon}</span>
                 <span className="mt-4 text-[20px] font-semibold font-OpenSans text-[#000000]">{value.text}</span>
-              </button>
+              </div>
             ))}
           </div>
         </div>
