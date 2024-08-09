@@ -13,7 +13,7 @@ export function useUrls() {
 
   // wallet
   const createWalletUrl = `${BASE_URL}/wallet/create-wallet`
-  const getUserWallet = `${BASE_URL}/wallet`
+  const getUserWallet = `${BASE_URL}/wallet/accounts`
   const walletCheck = `${BASE_URL}/users/wallet-check`
   const getAllWallets = `${BASE_URL}/wallet/sub-accounts`
   const getWalletBalance = `${BASE_URL}/wallet/account-balance/`

@@ -35,25 +35,29 @@ const Register = () => {
         
         <form className="pt-8" onSubmit={handleSubmit}>
             <div className="flex pb-4 flex-col gap-2 w-full md:text-[20px]">
-                <p className="mt-4">Fullname</p>
                 <div className="gap-4 grid grid-cols-2">
-                    <Input 
-                        labelname="First name"
-                        placeholder="Firstname"
-                        name="firstname"
-                        data-test="user-firstname"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.errors.firstname}
-                    />
-                    <Input 
-                        placeholder="Lastname"
-                        name="lastname"
-                        data-test="user-lastname"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.errors.lastname}
-                    />
+                    <div>
+                      <p className="mb-2">Firstname</p>
+                      <Input 
+                          placeholder="Firstname"
+                          name="firstname"
+                          data-test="username-firstname"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          error={formik.touched.firstname && formik.errors.firstname}
+                      />
+                    </div>
+                    <div>
+                      <p className="mb-2">Lastname</p>
+                      <Input 
+                          placeholder="Lastname"
+                          name="lastname"
+                          data-test="username-lastname"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          error={formik.touched.lastname && formik.errors.lastname}
+                      />
+                    </div>
                 </div>           
                 <p className="mt-4">Email Address</p>
                 <Input 
@@ -62,7 +66,7 @@ const Register = () => {
                     data-test="user-email"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.email}
+                    error={formik.touched.email && formik.errors.email}
                 />
                 
                 <p className="mt-4">Phone Number</p>
@@ -72,7 +76,7 @@ const Register = () => {
                     data-test="user-phoneNumber"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.phonenumber}
+                    error={formik.touched.phonenumber && formik.errors.phonenumber}
                 />
                     
                 <p className="mt-4">Password</p>
@@ -82,7 +86,7 @@ const Register = () => {
                     data-test="user-password"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.errors.password}
+                    error={formik.touched.password && formik.errors.password}
                 />
                      <p className="mt-4">Referral Code</p>
                 <Input 
@@ -97,7 +101,7 @@ const Register = () => {
               
             
             <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
-                By continuing, you agree to our 
+                By clicking the &quot;Create Account&quot; button, you agree to our 
                 <a href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</a> 
             </p>
 

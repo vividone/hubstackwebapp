@@ -11,8 +11,8 @@ export const LoginSchemaPhone = Yup.object().shape({
 });
 
 export const SignupSchemaIndividual = Yup.object().shape({
-  firstname: Yup.string().required("Fullname is required"),
-  lastname: Yup.string().required("Fullname is required"),
+  firstname: Yup.string().required("First name is required"),
+  lastname: Yup.string().required("Last name is required"),
   referralCode: Yup.string().optional(),
   email: Yup.string().email()
     .required("Email is required")
@@ -22,16 +22,16 @@ export const SignupSchemaIndividual = Yup.object().shape({
   role: Yup.string().optional(),
   password: Yup.string()
     .required("Password is required")
-    .min(6, "Password must not be less 6 characters")
+    .min(6, "Password must not be less than 6 characters")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d).+$/, // not written by me yet
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d).+$/,
       "Password requires uppercase, lowercase, digit, and special character."
     )
 });
 
 export const SignupSchemaAgent = Yup.object().shape({
-  firstname: Yup.string().required("First Name is required"),
-  lastname: Yup.string().required("Last Name is required"),
+  firstname: Yup.string().required("First name is required"),
+  lastname: Yup.string().required("Last name is required"),
   email: Yup.string()
     .required("Email is required")
     .trim()
@@ -39,7 +39,8 @@ export const SignupSchemaAgent = Yup.object().shape({
     .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
   phonenumber: Yup.string().required("Phone number is required"),
   referralCode: Yup.string().optional(),
-  business_name: Yup.string().required("Business name is required"),
+  business_name: Yup.string().required("Business name is required")
+    .min(3, "Business name must not be less than 3 characters"),
   role: Yup.string().optional(),
   location: Yup.string().required("Location is required"),
   region: Yup.string().required("Region is required"),

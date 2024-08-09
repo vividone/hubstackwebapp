@@ -91,7 +91,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
     if (isSuccess) {
       setShowVerify(true);
     }
-  }, [isSuccess]);
+  }, [isSuccess, showVerify])
 
   return (
     <ModalsLayout header="Fund Wallet" show={true} setShow={setShow} isPadded={false}>
