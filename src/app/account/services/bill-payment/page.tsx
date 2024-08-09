@@ -74,6 +74,7 @@ const Billpayment = () => {
                 <span className="p-[18px_18px] rounded-full bg-[#3D30661A]">{value.Icon}</span>
                 <span className="mt-4 text-[20px] font-semibold font-OpenSans text-[#000000]">{value.text}</span>
               </div>
+              
             ))}
           </div>
         </div>
