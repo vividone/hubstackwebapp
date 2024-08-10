@@ -1,27 +1,18 @@
 import React from "react";
-import Image from "next/image";
 import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { Button } from "@/components/common/button";
-import ModalsLayout from "../modalsLayout";
 
 
-const CableTvPurchase = ({ setShow, show ,data}: any) => {
+const CableTvPurchase = ({ active, setFlow, data }: any) => {
   return (
-    <ModalsLayout header="Purchase Details" show={show} setShow={setShow}>
+    <div>
       <div className="flex flex-col p-4 md:p-8 bg-[#00D7F71A] border border-[#E7E6F2] rounded-md">
         <div className="mb-4 md:mb-6 flex flex-col md:flex-row md:justify-between gap-4 md:gap-8 items-center ">
           <div className="flex items-center gap-3 md:gap-5">
-            <div className="rounded-md w-[86px] h-[56px] bg-white">
-              <Image
-                src="/images/cableTvImages/actTV.png"
-                width={86}
-                height={56}
-                alt="TV logo"
-              />
-            </div>
+            
             <span className="font-semibold lg:text-[20px] sm:text[16px] font-OpenSans">
-              African Cable Television (ACTV) Subscription
+              {active?.Name}
             </span>
           </div>
         </div>
@@ -29,7 +20,7 @@ const CableTvPurchase = ({ setShow, show ,data}: any) => {
           <h2 className="font-normal text-[16px] font-OpenSans md:text-lg">
             Smartcard or Decoder Number
           </h2>
-          <p className="text-[16px] text-[#8C8B92]">09025923159</p>
+          <p className="text-[16px] text-[#8C8B92]">{data?.customerId}</p>
         </div>
 
         <div className="flex p-0 font-OpenSans gap-[20%]">
@@ -86,7 +77,7 @@ const CableTvPurchase = ({ setShow, show ,data}: any) => {
             <span className="block font-bold">TOTAL</span>
             <span className="flex items-center">
               <NairaIcon className="w-[12px]" />
-              {formatAmount((+data?.amount + 100).toString())}
+              {formatAmount((+data?.amount).toString())}
             </span>
           </div>
         </div>
@@ -96,9 +87,6 @@ const CableTvPurchase = ({ setShow, show ,data}: any) => {
             variant="primary"
             size="full"
             type="submit"
-            // onClick={() => {
-            //   setFlow("Your Wallet");
-            // }}
           >
             <span className="text-[16px]">SHARE RECEIPT</span>
           </Button>
@@ -112,7 +100,7 @@ const CableTvPurchase = ({ setShow, show ,data}: any) => {
           </Button>
         </div>
       </div>
-    </ModalsLayout>
+      </div>
   );
 };
 

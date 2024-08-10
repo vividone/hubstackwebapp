@@ -25,6 +25,7 @@ export function useUrls() {
   // categories
   const getBillPaymentsUrl = `${BASE_URL}/categories/billpayments`
   const getBillersByCategoryUrl = `${BASE_URL}/categories/billers`
+  const getServicessByBillerUrl = `${BASE_URL}/categories/billers/services/`
 
   // services payment
   const payBillUrl = `${BASE_URL}/transact`
@@ -55,6 +56,7 @@ export function useUrls() {
     getWalletHistory,
     getBillPaymentsUrl,
     getBillersByCategoryUrl,
+    getServicessByBillerUrl,
     payBillUrl
   };
 

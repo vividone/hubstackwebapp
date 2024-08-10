@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { usePayElectricity } from "@/helpers/services";
+import { useCompleteBillPayment, usePayBill } from "@/helpers/services";
 import ModalsLayout from "../modalsLayout";
 import ToastComponent from "../../common/toastComponent";
 import ElectricityBillForm from "./electricityBillForm";
@@ -9,7 +9,7 @@ import ElectricityBillToken from "./electricityBillToken";
 import ElectricityBillPayment from "./electricityBillPayment";
 
 const ElectricityBillModal = ({ show, setShow, billers }: any) => {
-  const { data, formik, isError, isPending, isSuccess, error } = usePayElectricity();
+  const { data, formik, isError, isPending, isSuccess, error } = usePayBill("electricity");
   const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess } = useCompleteBillPayment(data?._id || "")
   const [ formData, setFormData] = useState<any>()
   const [flow, setFlow ] = useState(0)

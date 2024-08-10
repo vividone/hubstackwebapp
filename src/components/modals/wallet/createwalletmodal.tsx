@@ -11,8 +11,9 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import React, { FormEvent, useEffect, useState } from "react";
 import ToastComponent from "@/components/common/toastComponent";
 import { useCreateWallet, useGetAllBanks } from "@/helpers/wallet";
+import ModalsLayout from "../modalsLayout";
 
-const WalletForm = ({ setShow }: any) => {
+const WalletForm = ({ setShow, show }: any) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const { formik, isPending, isSuccess, isError, error } = useCreateWallet();
   const [selectedBank, setSelectedBank] = useState<{
@@ -230,7 +231,7 @@ const WalletForm = ({ setShow }: any) => {
             : Object.values(formik.errors)?.join(", ")
         }
       />
-    </div>
+    </ModalsLayout>
   );
 };
 

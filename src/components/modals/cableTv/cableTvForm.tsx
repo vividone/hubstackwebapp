@@ -1,11 +1,14 @@
 "use client"
-import React, { FormEvent } from "react";
+import React, { FormEvent, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { Input, MoneyInput } from "@/components/common/inputs";
 import Link from "@/components/custom/link";
 import { FlowProps } from "../modalsLayout";
+import { usePayBill } from "@/helpers/services";
+import { useGetServicesByBillerId } from "@/helpers/categories";
+import { Dropdown } from "@/components/common/Dropdown";
 
 interface CableTvProps extends FlowProps {
   active: any;
@@ -13,11 +16,27 @@ interface CableTvProps extends FlowProps {
 }
 
 const CableTvForm: React.FC<CableTvProps> = ({ setFlow, active, data, setData }) => {
+  const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("cable");
+  const { services } = useGetServicesByBillerId("480") //active?.Id
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setFlow(2)
+    
+    formik.setFieldValue("service", "DSTV Mobile") //data?.serviceProvider?.value
+    formik.setFieldValue("biller", "DSTV") //active?.Name
+    formik.setFieldValue("billerId", "480") //active?.Id.toString()
+    formik.setFieldValue("paymentMode", "wallet")
+    formik.setFieldValue("paymentCode", "48001") //data?.serviceProvider?.PaymentCode
+    formik.setFieldValue("category", "billpayment") //
+
+    formik.handleSubmit()
   }
+
+  useEffect(() => {
+    if(isSuccess) {
+      setFlow(2)
+    }
+  }, [isSuccess])
 
   return (
       <div className="mt-4">
@@ -27,8 +46,8 @@ const CableTvForm: React.FC<CableTvProps> = ({ setFlow, active, data, setData })
               
               <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[10px_30px]">
                 <div className="flex  flex-wrap items-center gap-4">
-                  <Image src={active?.Image} alt={active?.title} width={80} height={80} />
-                  <p className="text-xl font-medium">{active?.title}</p>
+                <Image src={"/images/cableTvImages/" + active?.LogoUrl} alt={active?.Name} width={80} height={80} />
+                  <p className="text-xl font-medium">{active?.Name}</p>
                 </div>
               </div>
 
@@ -40,7 +59,11 @@ const CableTvForm: React.FC<CableTvProps> = ({ setFlow, active, data, setData })
                 <Input 
                     name="customerId" 
                     placeholder="0000000000" 
-                    onChange={(e) => setData({ ...data, customerId: e.target.value })}
+                    onChange={(e) => {
+                      setData({ ...data, customerId: e.target.value });
+                      formik.setFieldValue("customerId", e.target.value)
+                    }}
+
                 />
                 </div>
             </div>
@@ -51,11 +74,25 @@ const CableTvForm: React.FC<CableTvProps> = ({ setFlow, active, data, setData })
                 </label>
                 <div className="text-[#8c8b92] mt-2">
 
-                <Input  
-                    name="plan" 
-                    placeholder="" 
-                    onChange={(e) => setData({ ...data, plan: e.target.value })}
-                />
+                <Dropdown
+                    name="serviceProvider"
+                    value={data?.serviceProvider}
+                    onChange={(value) => {
+                      if (value) {
+                        const selectedOption = value as any;
+                        setData({...data, serviceProvider: selectedOption})
+                      } else {
+                      }
+                    }}
+                    options={services?.PaymentItems?.map((item: any) => ({
+                      label: item.Name,
+                      value: item.Name,
+                      fee: item.Amount/100,
+                      PaymentCode: item.PaymentCode,
+                      fixed: item.IsAmountFixed
+                    }))}
+                    className="items-start text-start justify-start rounded-[8px]"
+                  />
                 </div>
             </div>
 
@@ -66,9 +103,12 @@ const CableTvForm: React.FC<CableTvProps> = ({ setFlow, active, data, setData })
                 <div className="text-[#8c8b92] mt-2">
                 <MoneyInput  
                     name="amount" 
+                    type="number"
+                    value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : formik.values.amount}
+                    disabled={data?.serviceProvider?.fixed}
                     leftIcon={() => <NairaIcon className="w-[12px]" />} 
                     placeholder="0.00" 
-                    onChange={(e) => setData({ ...data, amount: e.target.value })}
+                    onChange={data?.serviceProvider?.fixed ? () => formik.setFieldValue("amount", +data?.serviceProvider?.fee): formik.handleChange}
                 />
                 </div>
               </div>
@@ -82,6 +122,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ setFlow, active, data, setData })
                   variant="primary" 
                   size="full"
                   type="submit"
+                  isLoading={isPending}
                 >
                   <span className="text-[16px]">REVIEW ORDER</span>
                 </Button>

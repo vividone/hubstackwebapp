@@ -11,13 +11,13 @@ import { IElectricBill, IServicesData } from "@/interface/services";
 import { useUrls } from "./useUrls";
 
 
-export const usePayElectricity = ( ) => {
+export const usePayBill = ( type: string ) => {
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
   const [data, setData] = useState<IServicesData>()
   const { payBillUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay Electricity"],
       mutationFn: (payload: Partial<IElectricBill>) => {
-          return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/electricity`, payload)
+          return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/${type}`, payload)
       },
   })    
   
@@ -29,7 +29,7 @@ export const usePayElectricity = ( ) => {
           paymentCode: "",
           paymentMode: "",
           customerId: "",
-          amount: "",
+          amount: 0,
           category: ""
       } as IElectricBill,
       validateOnBlur: false,
@@ -58,3 +58,52 @@ export const usePayElectricity = ( ) => {
       : typedError?.response?.data?.message || "";
   return { data, formik, isPending, isSuccess, isError, error: errorString };
 };
+
+
+export const useCompleteBillPayment = ( id: string ) => {
+    const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
+    const [data, setData] = useState<IServicesData>()
+    const { payBillUrl } = useUrls();
+    const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay Electricity"],
+        mutationFn: (payload: Partial<IElectricBill>) => {
+            return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/${id}`, payload)
+        },
+    })    
+    
+    const formik = useFormik({
+        initialValues: {
+            paymentCode: "", 
+            customerId: "", 
+            customerEmail: "",
+            customerMobile: "",
+            requestReference: "", 
+            amount: ""
+        } as any,
+        validateOnBlur: false,
+        validationSchema: electricBillValidationSchema,
+        validateOnChange: false,
+        onSubmit: async ({ ...values }) => {
+        try {
+            await formik.validateForm();
+            mutate(values, {
+            onSuccess: (res) => {
+              setData(res.data);
+            },
+            //   onError: (res: any) => {
+    
+            //   },
+            });
+            formik.handleReset;
+        } catch (error: any) {
+            throw new Error(error);
+        }
+        },
+    });
+    const typedError = error as IErrorResponseType;
+    const errorString = Array.isArray(typedError?.response?.data?.message)
+        ? typedError?.response?.data?.message[0]
+        : typedError?.response?.data?.message || "";
+    return { data, formik, isPending, isSuccess, isError, error: errorString };
+  };
+  
+  

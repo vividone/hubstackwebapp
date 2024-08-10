@@ -4,7 +4,7 @@ export interface IElectricBill{
     paymentCode: string,
     paymentMode: string,
     customerId: string,
-    amount: string,
+    amount: number,
     category: string
 }
 
@@ -15,4 +15,5 @@ export interface IServicesData {
     transactionStatus: string;
     transactionDetails: IElectricBill;
     user: string;
+    _id: string;
 } 

@@ -26,7 +26,7 @@ export const useGetBillPayments = () => {
   export const useGetBillersByCategoryId = (catId: string) => {
     const { getBillersByCategoryUrl } = useUrls();
   
-    const queryKey = ["Get billers by categoriyId"]; // Unique key for the query
+    const queryKey = [`Get billers by categoriyId ${catId}`]; // Unique key for the query
   
     const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
       const response = await axiosInstance.get(getBillersByCategoryUrl + "/" + catId);
@@ -42,4 +42,26 @@ export const useGetBillPayments = () => {
       isError,
       error
     };
+};
+
+
+export const useGetServicesByBillerId = (billerId: string) => {
+  const { getServicessByBillerUrl } = useUrls();
+
+  const queryKey = [`Get billers by categoriyId ${billerId}`]; // Unique key for the query
+
+  const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
+    const response = await axiosInstance.get(getServicessByBillerUrl + billerId);
+    const responseData = response.data;
+    return responseData;
+  }});
+
+  const services = data || {};
+
+  return {
+    services,
+    isLoading,
+    isError,
+    error
+  };
 };
