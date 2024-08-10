@@ -47,8 +47,8 @@ export const useLogin = () => {
         email: "",
         password: "",
       } as IAuthLogin,
-      validateOnBlur: true,
-      validateOnChange: true,
+      validateOnBlur: false,
+      validateOnChange: false,
       validationSchema: LoginSchema,
       onSubmit: async ({ ...values }) => {
         try {

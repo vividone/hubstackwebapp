@@ -303,7 +303,7 @@ export const MoneyInput: FC<Partial<InputProps>> = ({ ...props }) => {
     var value = input.value;
     value = value.split(".").join("")
 
-    if(value.length > 2) {
+    if(value.length > 1) {
       value = value.substring(0, value.length - 2) + "." + value.substring(value.length - 2, value.length)
     }
 

@@ -13,6 +13,7 @@ import { useGetBillersByCategoryId } from "@/helpers/categories";
 import { useEffect, useState } from "react";
 import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 import AirtimePayment from "@/components/modals/airtime/airtimePayment";
+import CableTVServices from "@/components/modals/cableTv/Services";
 
 const Billpayment = () => {
   const { billers, isLoading } = useGetBillersByCategoryId("1")
@@ -146,6 +147,9 @@ const Billpayment = () => {
           : 
           active === "Airtime" && show ?
           <AirtimePayment show={show} setShow={setShow} />
+          :
+          active === "Cable TV" && show ?
+          <CableTVServices billers={billersList}  show={show} setShow={setShow} />
           :""
         }
       </div>
