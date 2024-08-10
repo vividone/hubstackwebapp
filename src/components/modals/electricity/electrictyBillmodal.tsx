@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useCompleteBillPayment, usePayElectricity } from "@/helpers/services";
+import { usePayElectricity } from "@/helpers/services";
 import ModalsLayout from "../modalsLayout";
 import ToastComponent from "../../common/toastComponent";
 import ElectricityBillForm from "./electricityBillForm";
