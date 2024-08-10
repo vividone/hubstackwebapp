@@ -8,6 +8,7 @@ import AirtimeDetailsModal from "./airtimedetails";
 import CompletedAirtimeModal from "./airtimeCompleted";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
+import AirtimePayment from "./airtimePayments";
 
 type AirtimePaymentProps = {
     show: boolean;
@@ -16,24 +17,29 @@ type AirtimePaymentProps = {
 
 type dataProps = {amount: string | number, phonenumber: string, network: string}
 
-export default function AirtimePayment({ show, setShow }: AirtimePaymentProps) {
+export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     const [data, setData] = useState<dataProps>({ amount: 0, phonenumber: "", network: "" })
-    const [flow, setFlow] = useState("Airtime")
+    const [flow, setFlow] = useState(0)
     const [error, setError] = useState<any>({})
 
+    const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
+
     const handleNext = () => {
-        setFlow("Your Order")
+        setFlow(1)
     }
 
     return (
-        <ModalsLayout header={flow} show={show} setShow={setShow}>
+        <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show}>
 
             {
-                flow === "Your Order" || flow === "Your Wallet" ?
-                <AirtimeDetailsModal flow={flow} setFlow={setFlow} data={data} completePayment={() => setFlow("Purchase Details")} />
+                flow === 1 ?
+                <AirtimeDetailsModal setFlow={setFlow} data={data} />
                 :
-                flow === "Purchase Details" ?
-                <CompletedAirtimeModal flow={flow} setFlow={setFlow} data={data} />
+                flow === 2 ?
+                <AirtimePayment setFlow={setFlow} data={data} />
+                :
+                flow === 3 ?
+                <CompletedAirtimeModal setFlow={setFlow} data={data} />
                 :
                 <>
                     <div className="flex flex-col w-full mt-5">

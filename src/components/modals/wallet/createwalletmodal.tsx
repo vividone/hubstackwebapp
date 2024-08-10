@@ -39,7 +39,7 @@ const WalletForm = ({ show, setShow }: ModalsProp) => {
 
 
   return (
-    <ModalsLayout header="Create Wallet" setShow={setShow} show={show}>
+    <ModalsLayout flow={0} setFlow={() => {}} header="Create Wallet" setShow={setShow} show={show}>
       <form onSubmit={handleSubmit} className="flex flex-col w-full h-full">
         <div className="flex gap-2">
           <div className="flex flex-col flex-1">

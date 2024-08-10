@@ -18,7 +18,7 @@ export const useOutsideClick = (callback: any, value: any) => {
       document.removeEventListener('mouseup', handleClickOutside);
       document.removeEventListener('touchend', handleClickOutside);
     };
-  }, [callback]);
+  }, [callback, value]);
 
   return ref;
 };
