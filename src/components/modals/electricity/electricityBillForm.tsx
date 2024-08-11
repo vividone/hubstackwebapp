@@ -8,6 +8,7 @@ import { states } from "@/data/locationRegions";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import Link from "next/link";
 import CurrencyField from "@/components/common/currencyInput";
+import { Input } from "@/components/common/inputs";
 
 interface ElectricFlowProps extends FlowProps {
   setData: (aug0: any) => void;
@@ -70,38 +71,29 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
 
           <div className="flex flex-col w-full mt-5">
             <label
-              htmlFor="meterType"
+              htmlFor="meterNumber"
               className="font-normal text-xl font-openSans text-[#111111]"
             >
-              Meter Type
+              Meter Number
             </label>
             <div className="text-[#8c8b92] mt-2">
-            <Dropdown
-                name="meterType"
-                value={data?.meterType}
-                onChange={(value) => {
-                  if (value) {
-                    const selectedOption = value as any;
-                    setData({...data, meterType: selectedOption})
-                  } else {
-                    setData({...data, meterType: { label: "Prepaid", value: "Prepaid" }})
-                  }
-                }}
-                options={["Prepaid", "Postpaid"].map((item: string) => ({
-                  label: item,
-                  value: item,
-                }))}
-                className="items-start text-start justify-start rounded-lg"
+              <Input
+                type="text"
+                name="customerId"
+                onChange={formik.handleChange}
+                placeholder="123456789101112131415"
               />
             </div>
           </div>
+
+          
 
           <div className="flex flex-col w-full mt-5">
             <label
               htmlFor="amount"
               className="font-normal text-xl font-openSans text-[#111111]"
             >
-              How Much Electricity Do You Want To Buy?
+              Amount
             </label>
             <div className="text-[#8c8b92] mt-2">
               <CurrencyField 

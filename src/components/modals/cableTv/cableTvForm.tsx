@@ -43,7 +43,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
               <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[10px_30px]">
                 <div className="flex  flex-wrap items-center gap-4">
                 <Image src={"/images/cableTvImages/" + active?.LogoUrl} alt={active?.Name} width={80} height={80} />
-                  <p className="text-xl font-medium">{active?.Name}</p>
+                  <p className="text-xl font-semibold text-[#3D3066]">{active?.Name}</p>
                 </div>
               </div>
 

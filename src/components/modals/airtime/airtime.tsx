@@ -1,7 +1,7 @@
 'use client'
 import { Input } from "@/components/common/inputs";
 import ModalsLayout from "../modalsLayout";
-import { useEffect, useState } from "react";
+import { useState,useEffect} from "react";
 import Image from "next/image";
 import { Button } from "@/components/common/button";
 import AirtimeDetailsModal from "./airtimedetails";
@@ -25,7 +25,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-airtime");
     const [data, setData] = useState<dataProps>({ amount: 0, phonenumber: "", network: "" })
     const [flow, setFlow] = useState(0)
-
+    const [isPadded, setIsPadded] = useState(true);
     const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
 
     const handleNext = () => {
@@ -40,12 +40,16 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
 
         formik.handleSubmit()
     }
-
-    useEffect(() => {
-        if(isSuccess) {
-            setFlow(1)
+    const paddingHandler = () => {
+        if (flow == 2) {
+          setIsPadded(false);
+        } else {
+          setIsPadded(true);
         }
-    }, [isSuccess])
+      };
+      useEffect(() => {
+        paddingHandler();
+      }, [flow]);
 
     return (
         <>

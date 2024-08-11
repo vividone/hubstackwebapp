@@ -4,48 +4,47 @@ import Image from "next/image";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
+import { FlowProps } from "../modalsLayout";
+import Confirmation from "../confirmation";
 
-type FlowProps = {
-  setFlow: (aug0: number) => void;
-  data: any;
-};
-
-const AirtimePayment: React.FC<FlowProps> = ({ setFlow, data }) => {
+const DataPayment: React.FC<any> = ({
+  setFlow,
+  data,
+  pseudo,
+//   setIsPadded,
+}: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
   return (
     <div className="mt-4">
       <div className="w-full border-y border-[#E7E6F2] px-[40px]">
-        <CurrentBalance />
+      <CurrentBalance />
       </div>
-      <div className="px-[40px] mt-6">
-        <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px] ">
+
+      <div className="flex flex-col gap-1 px-[40px] mt-6">
+        <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
           <div className="flex  flex-wrap items-center gap-4">
             <Image
-              src={`/images/airtime/${data?.network || "mtn"}.png`}
-              alt={data?.network}
+              src={`/images/airtime/${data?.network}.png`}
+              alt={data?.name}
               width={80}
-              height={30}
+              height={80}
             />
-            <p className="text-xl font-semibold text-[#3D3066]">
-              {data?.phonenumber || "MTN"}
-            </p>
+            <p className="text-xl font-semibold text-[#3D3066]">{data?.name}</p>
           </div>
           <div className="py-4">
             <p>Mobile Number</p>
-            {/* <p className=" opacity-[0.7]">{pseudo?.mobileNumber}</p> */}
+            <p className=" opacity-[0.7]">{pseudo?.mobileNumber}</p>
           </div>
 
           <div className="flex gap-12">
             <div>
               <p>Data Plan</p>
-              {/* <p className="opacity-[0.7]">{pseudo?.DataPlan}</p> */}
+              <p className="opacity-[0.7]">{pseudo?.DataPlan}</p>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="mt-6 flex flex-col gap-1 px-[40px]">
         <p className="text-center mt-4">
           The amount of{" "}
           <span className="font-bold">
@@ -60,9 +59,11 @@ const AirtimePayment: React.FC<FlowProps> = ({ setFlow, data }) => {
             variant="primary"
             size="full"
             type="submit"
-            onClick={() => setFlow(2)}
+            onClick={() => {
+              return setFlow(4);
+            }}
           >
-            <span className="text-[16px]">PROCEED WITH WALLET</span>
+            <span className="text-[16px]">PAY WITH WALLET</span>
           </Button>
 
           <Button
@@ -78,4 +79,4 @@ const AirtimePayment: React.FC<FlowProps> = ({ setFlow, data }) => {
   );
 };
 
-export default AirtimePayment;
+export default DataPayment;
