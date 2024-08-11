@@ -14,9 +14,10 @@ interface ElectricFlowProps extends FlowProps {
   setData: (aug0: any) => void;
   billers: any;
   formik: any;
+  isPending: boolean;
 }
 
-const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formik, billers, setData }) => {
+const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formik, isPending, billers, setData }) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -97,7 +98,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
             </label>
             <div className="text-[#8c8b92] mt-2">
               <CurrencyField 
-                onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
+                onValueChange={(v: any) => {setData({ ...data, amount: v.floatValue }); formik.setFieldValue("amount", v.floatValue)}} 
                 value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount} disabled={data?.serviceProvider?.fixed} 
               />
             </div>
@@ -112,8 +113,9 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
               type="submit"
               size={"full"}
               className="text-[20px] font-CabinetGrotesk mb-4"
+              isLoading={isPending}
             >
-              PAY NGN {formatAmount((+data?.amount + 100).toString())}
+              PAY NGN {formatAmount(data?.amount)}
             </Button>
             
           </div>

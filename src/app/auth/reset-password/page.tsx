@@ -42,11 +42,11 @@ const ResetPassword = () => {
             <p className="-mb-2">New password</p>
             <PasswordVariantInput
                 placeholder="Enter password"
-                name="newPassword"
+                name="password"
                 data-test="user-password"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.errors.newPassword}
+                error={formik.errors.password}
             />
 
             <p className="mt-1 text-primary_dark text-s text-[#8C8B82] my-2">Your password must be at least 8 characters long and include 1 capital letter and 1 number</p>

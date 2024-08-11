@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/common/inputs";
-import { Dropdown } from "@/components/common/Dropdown";
 import { Button } from "@/components/common/button";
-import NairaIcon from "@/assets/icons/nairaIcon";
 import Link from "next/link";
-import { MoneyInput } from "@/components/common/inputs";
 import ToggleOnOutlinedIcon from "@mui/icons-material/ToggleOnOutlined";
 import ToggleOffOutlinedIcon from "@mui/icons-material/ToggleOffOutlined";
+import CurrencyField from "@/components/common/currencyInput";
 const DataForm = ({
   handleSubmit,
   setFlow,
@@ -61,26 +59,10 @@ const DataForm = ({
             Enter Data Amount
           </label>
           <div className="text-[#8c8b92] mt-2">
-            <MoneyInput
-              name="amount"
-              type="number"
-              value={
-                data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : ""
-                // : formik.values.amount"
-              }
-              disabled={data?.serviceProvider?.fixed}
-              leftIcon={() => <NairaIcon className="w-[12px]" />}
-              placeholder="0.00"
-              // onChange={
-              //   data?.serviceProvider?.fixed
-              //     ? () =>
-              //         formik.setFieldValue(
-              //           "amount",
-              //           +data?.serviceProvider?.fee
-              //         )
-              //     : formik.handleChange
-              // }
-            />
+          <CurrencyField
+                onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
+                value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount} disabled={data?.serviceProvider?.fixed} 
+              />
           </div>
           <div className="flex mt-4 items-center gap-2">
             {toggle ? (
