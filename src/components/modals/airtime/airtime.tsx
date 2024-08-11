@@ -11,6 +11,7 @@ import { formatAmount } from "@/helpers/amountFormatter";
 import AirtimePayment from "./airtimePayments";
 import { usePayBill } from "@/helpers/services";
 import ToastComponent from "@/components/common/toastComponent";
+import Link from "@/components/custom/link";
 
 type AirtimePaymentProps = {
     show: boolean;
@@ -112,10 +113,10 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         {/* { error?.network ? <p className="mt-2 text-[12px] text-red-400">{error?.network}</p> : "" } */}
                     </div>
 
-                    <p className="font-Inter text-[20px] font-normal mt-10">
-                        By continuing, you agree to our{" "}
-                        <span className="text-[#3D3066]">Terms and Conditions</span>
-                    </p>
+                    <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mt-10">
+                    By continuing, you agree to our 
+                    <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
+                </p>
                     <div className="w-full">
                         <Button
                         type="submit"

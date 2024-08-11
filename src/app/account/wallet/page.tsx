@@ -99,7 +99,7 @@ const Wallet = () => {
             )}
           </>
         ) : (
-          <div className="flex flex-1 flex-wrap relative h-full ">
+          <div className="flex flex-col flex-1 flex-wrap relative h-full ">
             <div className="md:w-[383px] w-full sm:pr-[30px] py-[60px] border border-transparent sm:border-r-[#E7E7E7]">
               <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[30px] font-medium">
                 Wallet
@@ -128,7 +128,7 @@ const Wallet = () => {
               </div>
             </div>
 
-            <div className="flex-1 md:p-[60px_30px] w-full">
+            <div className="flex-1 mt-[30px] w-full">
               <h2 className="font-medium 2xl:text-[25px] text-[20px] pb-[30px]">
                 Wallet History
               </h2>

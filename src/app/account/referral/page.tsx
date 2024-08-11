@@ -8,51 +8,53 @@ import { SearchInput } from "@/components/common/inputs";
 
 const ReferralPage = () => {
   return (
-    <div className="flex flex-col md:flex-row w-full">
-      <div className="w-full md:w-[45%] p-[30px] md:p-[60px_25px]">
-        <h2 className="text-[24px] md:text-[28px] 2xl:text-[36px] font-CabinetGrotesque font-medium">
-          Referral
-        </h2>
-        <div className="pt-[20px] md:mt-6">
-          <h3 className="font-bold text-[#111111] text-[18px] md:text-[22px] font-OpenSans">
-            Invite your friends & earn commissions on every transaction for
-            life!
-          </h3>
-          <p className="font-normal text-[14px] text-[#8C8B92] mt-[30px] md:mt-[30px]">
-            Get your friends and family onboard and earn rewards! Share your
-            code and get bonuses when they sign up. You&apos;ll also get a 6%
-            bonus on your first referral&apos;s transaction. Start sharing your
-            code now!
-          </p>
-          <div className="w-full mt-12">
-            <p className="mb-2">Your Unique Referral Code</p>
-            <div className="w-full h-[66px] flex items-center justify-between border border-gray-300 rounded-[7px] p-4">
-              <p className="font-normal text-[#8C8B92]">ZEEBEAUTY12RR</p>
-              <div className="p-2 cursor-pointer">
-                <CopyIcon width={20.31} height={20.31} />
+    <div className="flex flex-col md:flex-col w-full">
+      <div className="flex w-full md:w-[45%] p-[30px] md:p-[60px_25px] gap-10">
+        <div className="flex-1">
+          <h2 className="text-[24px] md:text-[28px] 2xl:text-[36px] font-CabinetGrotesque font-medium">
+            Referral
+          </h2>
+          <div className="pt-[20px] md:mt-6">
+            <h3 className="font-bold text-[#111111] text-[18px] md:text-[22px] font-OpenSans">
+              Invite your friends & earn commissions on every transaction for
+              life!
+            </h3>
+            <p className="font-normal text-[14px] text-[#8C8B92] mt-[30px] md:mt-[30px]">
+              Get your friends and family onboard and earn rewards! Share your
+              code and get bonuses when they sign up. You&apos;ll also get a 6%
+              bonus on your first referral&apos;s transaction. Start sharing
+              your code now!
+            </p>
+            <div className="w-full mt-12">
+              <p className="mb-2">Your Unique Referral Code</p>
+              <div className="w-full h-[66px] flex items-center justify-between border border-gray-300 rounded-[7px] p-4">
+                <p className="font-normal text-[#8C8B92]">ZEEBEAUTY12RR</p>
+                <div className="p-2 cursor-pointer">
+                  <CopyIcon width={20.31} height={20.31} />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="w-full flex flex-col  gap-4 mt-12">
-            <Button
-              size={"full"}
-              // className="text-[20px] font-bold font-CabinetGrotesk"
-            >
-              COPY
-            </Button>
-            <Button
-              size={"full"}
-              variant="secondary"
-              className="mt-2 "  //text-[20px] font-bold text-[#3D3066] font-CabinetGrotesk
-            >
-              SHARE WITH A FRIEND
-            </Button>
+            <div className="w-full flex flex-col  gap-4 mt-12">
+              <Button
+                size={"full"}
+                // className="text-[20px] font-bold font-CabinetGrotesk"
+              >
+                COPY
+              </Button>
+              <Button
+                size={"full"}
+                variant="secondary"
+                className="mt-2 " //text-[20px] font-bold text-[#3D3066] font-CabinetGrotesk
+              >
+                SHARE WITH A FRIEND
+              </Button>
+            </div>
           </div>
         </div>
+        <div className="hidden md:block md:mt-[60px] border-r border-[#E7E7E7]"></div>
       </div>
-      <div className="hidden md:block md:mt-[60px] border-r border-[#E7E7E7]"></div>
-      <div className="w-full md:w-[70%] md:mt-[82px] 2xl:mt-[93px]">
-        <div className="flex flex-col gap-[30px] p-[30px] md:p-[60px_25px]">
+      <div className="w-full md:w-[100%] md:mt-[30px] ">
+        <div className="flex flex-col gap-[30px] px-[30px] md:px-[25px]">
           <p className="text-[25px] font-medium">
             <span className="text-[#8C8B92] font-medium">Bronze Account </span>
             7% Per Transaction

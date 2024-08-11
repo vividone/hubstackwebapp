@@ -14,7 +14,9 @@ import { useEffect, useState } from "react";
 import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 import AirtimeModal from "@/components/modals/airtime/airtime";
 import CableTVServices from "@/components/modals/cableTv/Services";
-
+import Internet from "@/components/modals/internet/Internet";
+import Betting from "@/components/modals/betting/Betting";
+import Data from "@/components/modals/data/data";
 const Billpayment = () => {
   const { billers, isLoading } = useGetBillersByCategoryId("1")
   const [active, setActive] = useState("")
@@ -27,7 +29,7 @@ const Billpayment = () => {
   
   const data = [
     {
-      Icon: <AirtimeIcon />,
+      Icon:<AirtimeIcon/>,
       text: "Airtime",
       billerCategoryId: "4",
     },
@@ -59,8 +61,8 @@ const Billpayment = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row w-full">
-      <div className="w-full md:w-[48%] p-[30px] md:p-[60px_25px]">
+    <div className="flex flex-col md:flex-col w-full">
+      <div className="w-full md:w-[48%] p-[30px] md:px-[60px_25px]">
         <h2 className="text-[24px] md:text-[28px] 2xl:text-[36px] font-CabinetGrotesque font-medium">
           Bill Payments
         </h2>
@@ -79,8 +81,8 @@ const Billpayment = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-[50%] mt-[30px] md:mt-[50px]">
-        <div className="flex flex-col gap-[30px] p-[30px] md:p-[60px_25px]">
+      <div className="w-full md:w-[100%] mt-[30px]">
+        <div className="flex flex-col gap-[30px] px-[30px] ">
           <p className="mt-[20px] md:mt-[35px] text-[25px] font-medium">
             <span className="font-normal font-CabinetGrotesk text-25px">History</span>
           </p>
@@ -150,6 +152,15 @@ const Billpayment = () => {
           :
           active === "Cable TV" && show ?
           <CableTVServices billers={billersList}  show={show} setShow={setShow} />
+          :
+          active === "Data" && show ?
+          <Data billers={billersList}  show={show} setShow={setShow} />
+          :
+          active === "Internet" && show ?
+          <Internet billers={billersList}  show={show} setShow={setShow} />
+          :
+          active === "Betting" && show ?
+          <Betting billers={billersList}  show={show} setShow={setShow} />
           :""
         }
       </div>

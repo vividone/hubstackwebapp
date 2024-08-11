@@ -6,9 +6,9 @@ import CableTvDetails from "./detailsModal";
 import CableTvPayment from "./payment"
 import { useGetBillersByCategoryId } from "@/helpers/categories";
 import CableTvPurchase from "./Purchasedetails";
+import CustomIcons from "@/components/custom/customIcons";
 import { usePayBill } from "@/helpers/services";
 import ToastComponent from "@/components/common/toastComponent";
-
 type cableTvProviders = {
   LogoUrl: string;
   Name: string;
@@ -122,7 +122,7 @@ const CableTVServices = ({ setShow, show }: any) => {
       flow === 0 ?
       <main>
         <header className="font-normal text-[20px] font-OpenSans">Choose A Service Provider</header>
-        <div className="grid grid-cols-4 gap-5 py-5">
+        <div className="grid grid-cols-4 gap-5 py-5 ">
         {
           // isLoading ?
           // <>
@@ -134,7 +134,7 @@ const CableTVServices = ({ setShow, show }: any) => {
           // :
             providers?.map((item) => (
                 <button key={item.Id} onClick={() => {setActive(item); setFlow(1)}}>
-                  <Image src={"/images/cableTvImages/" + item.LogoUrl} alt={item.Name} width={122} height={120} />
+                  <CustomIcons src={"/images/cableTvImages/" + item.LogoUrl} alt={item.Name} />
                 </button>
               )
             )
