@@ -18,7 +18,7 @@ const Card = ({ value }: CardProps) => {
 
   return (
     <div
-      className="flex flex-col gap-6 min-h-[210px] w-[353px] text-[#111111] bg-[#00D7F7] rounded-[8px] p-[30px]"
+      className="flex flex-col gap-6 min-h-[210px] sm:w-[380px] w-full text-[#111111] rounded-[8px] p-[30px]"
     >
      
       <div className="flex justify-between items-start gap-4 h-full w-full">

@@ -62,21 +62,21 @@ const Billpayment = () => {
 
   return (
     <div className="flex flex-col md:flex-col w-full">
-      <div className="w-full md:w-[48%] p-[30px] md:px-[60px_25px]">
+      <div className="w-full p-[30px] md:px-[60px_25px]">
         <h2 className="text-[24px] md:text-[28px] 2xl:text-[36px] font-CabinetGrotesque font-medium">
           Bill Payments
         </h2>
-        <div className="flex mt-[50px] border-r border-[#E7E7E7]">
-          <div className="grid 2xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-2 gap-[30px] pr-6 w-full">
+        <div className="flex mt-[50px]">
+          <div className="flex flex-wrap gap-[30px] w-full">
             {data.map((value, index) => (
-              <div
+              <button
                 key={index}
-                className="bg-[#00D7F7] h-[180px] rounded-lg flex flex-col items-center justify-center text-center transform hover:scale-105 cursor-pointer"
+                className="bg-[#00D7F7] h-[180px] w-[200px] rounded-lg flex flex-col items-center justify-center text-center transform hover:scale-105 cursor-pointer"
                 onClick={() => {setActive(value.text); setShow(!show)}}
               >
                 <span className="p-[18px_18px] rounded-full bg-[#3D30661A]">{value.Icon}</span>
                 <span className="mt-4 text-[20px] font-semibold font-OpenSans text-[#000000]">{value.text}</span>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -86,28 +86,32 @@ const Billpayment = () => {
           <p className="mt-[20px] md:mt-[35px] text-[25px] font-medium">
             <span className="font-normal font-CabinetGrotesk text-25px">History</span>
           </p>
-          <div className="flex flex-wrap gap-[12px] items-center md:gap-[24px]">
+          <div className="flex flex-wrap gap-[12px] justify-between items-center md:gap-[24px] p-2 bg-slate-100">
             <SearchInput
               type="text"
               className="flex-grow border-none bg-white"
               placeholder="Search"
             />
-            <div className="flex items-center h-[45px] rounded-lg p-[12px] border border-[#89939F] bg-white">
-              <span className="text-[12px] text-[#292D32] font-medium font-CabinetGrotesk">
-                All History
-              </span>
-              <span className="ml-2 p-[4px] rounded bg-[#F5F8FC]">
-                <CaratDown />
-              </span>
+
+            <div className="flex gap-2 items-center">
+              <div className="flex items-center h-[45px] rounded-lg p-[12px] border border-[#89939F] bg-white">
+                <span className="text-[12px] text-[#292D32] font-medium font-CabinetGrotesk">
+                  All History
+                </span>
+                <span className="ml-2 p-[4px] rounded bg-[#F5F8FC]">
+                  <CaratDown />
+                </span>
+              </div>
+              <div className="flex items-center h-[45px] align-center gap-[5px] rounded-lg p-[12px] border border-[#89939F] bg-white">
+                <span className="ml-2">
+                  <SortIcon />
+                </span>
+                <span className="text-[12px] text-[#292D32] font-medium font-CabinetGrotesk">
+                  Latest
+                </span>
+              </div>
             </div>
-            <div className="flex items-center h-[45px] align-center gap-[5px] rounded-lg p-[12px] border border-[#89939F] bg-white">
-              <span className="ml-2">
-                <SortIcon />
-              </span>
-              <span className="text-[12px] text-[#292D32] font-medium font-CabinetGrotesk">
-                Latest
-              </span>
-            </div>
+
           </div>
           <div className="w-full py-4 overflow-x-auto">
             {false ? (

@@ -13,11 +13,15 @@ export const updateProfileSchema = Yup.object().shape({
 })
 
 export const updatePasswordSchema = Yup.object({
-    firstname: Yup.string().required("Firstname is required"),
-    lastname: Yup.string().required("Lastname is required"),
-    username: Yup.string().required("Username is required"),
-    password: Yup.string().required("Password is required"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Passwords must match")
+    oldPassword: Yup.string().required("Old password is required"),
+    newPassword: Yup.string().required("New password is required")
+        .required("Password is required")
+        .min(6, "Password must not be less than 6 characters")
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d).+$/,
+            "Password requires uppercase, lowercase, digit, and special character."
+          ),
+    confirmNewPassword: Yup.string()
+      .oneOf([Yup.ref("newPassword")], "Passwords must match")
       .required(""),
 })

@@ -11,6 +11,9 @@ import Mywallet from "@/components/modals/wallet/Existinguserwallet";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import ToastComponent from "@/components/common/toastComponent";
+import MenuIcon from "@/assets/icons/MenuIcon";
+import PlusIcon from "@/assets/icons/PlusIcon";
+import TransferIcon from "@/assets/icons/TransferIcon";
 
 
 const Wallet = () => {
@@ -58,7 +61,7 @@ const Wallet = () => {
         }
       />
         
-        {!hasWallet ? (
+        {!hasWallet && !userWallet ? (
           <>
             <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] mt-[60px] font-medium">
               Wallet
@@ -100,7 +103,7 @@ const Wallet = () => {
           </>
         ) : (
           <div className="flex flex-col flex-1 flex-wrap relative h-full ">
-            <div className="md:w-[383px] w-full sm:pr-[30px] py-[60px] border border-transparent sm:border-r-[#E7E7E7]">
+            <div className=" w-full py-[60px]">
               <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[30px] font-medium">
                 Wallet
               </h2>
@@ -110,22 +113,27 @@ const Wallet = () => {
                   <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={userWallet || wallet} balance={balance} />
                 </div>
               )}
-              <Card value={cardData} />
+              <div className="flex sm:flex-row flex-col sm:items-center pr-[3%] gap-6 justify-between bg-[#E6FBFF] rounded-[8px]">
+                <Card value={cardData} />
+                <div className="flex gap-12 p-4">
+                  <button className="flex flex-col gap-3 items-center" onClick={() => setShowWallet(true)}>
+                    <span className="flex items-center justify-center h-[60px] w-[60px] p-5 bg-[#000]/[0.1] rounded-full"
+                    >
+                    <PlusIcon />
+                    </span>
+                    <span className="uppercase font-semibold">Fund</span>
+                  </button>
 
-              <div className="flex flex-col gap-4 mt-12">
-                <Button size="full" onClick={() => setShowWallet(true)}>
-                  WALLET TOP UP
-                </Button>
-                <Button
-                  size="full"
-                  variant={"secondary"}
-                  onClick={() => {
-                    setShowWallet(true);
-                  }}
-                >
-                  ACCOUNT DETAILS
-                </Button>
+                  <button className="flex flex-col gap-3 items-center">
+                    <span className="flex items-center justify-center h-[60px] w-[60px] p-5 bg-[#000]/[0.1] rounded-full"
+                    >
+                    <TransferIcon />
+                    </span>
+                    <span className="uppercase font-semibold">Transfer</span>
+                  </button>
+                </div>
               </div>
+
             </div>
 
             <div className="flex-1 mt-[30px] w-full">

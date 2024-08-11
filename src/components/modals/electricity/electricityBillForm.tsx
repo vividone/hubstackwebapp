@@ -1,14 +1,13 @@
 "use client"
 import React, { FormEvent } from "react";
 import { Button } from "../../common/button";
-import NairaIcon from "@/assets/icons/nairaIcon";
-import { Input, MoneyInput } from "@/components/common/inputs";
 import { FlowProps } from "../modalsLayout";
 import { Dropdown } from "@/components/common/Dropdown";
 import { formatAmount } from "@/helpers/amountFormatter";
 import { states } from "@/data/locationRegions";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import Link from "next/link";
+import CurrencyField from "@/components/common/currencyInput";
 
 interface ElectricFlowProps extends FlowProps {
   setData: (aug0: any) => void;
@@ -67,52 +66,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
                 className="items-start text-start justify-start rounded-[8px]"
               />
             </div>
-          </div>
-
-          {/* <div className="flex flex-col w-full mt-5">
-            <label
-              htmlFor="meterNumber"
-              className="font-normal text-xl font-openSans text-[#111111]"
-            >
-              Meter Number
-            </label>
-            <div className="text-[#8c8b92] mt-2">
-              <Input
-                type="text"
-                name="customerId"
-                onChange={formik.handleChange}
-                placeholder="123456789101112131415"
-              />
-            </div>
-          </div> */}
-
-          {/* <div className="flex flex-col w-full mt-5">
-            <label
-              htmlFor="state"
-              className="font-normal text-xl font-openSans text-[#111111]"
-            >
-              State
-            </label>
-            <div className="text-[#8c8b92] mt-2">
-            <Dropdown
-                name="state"
-                value={data?.state}
-                onChange={(value) => {
-                  if (value) {
-                    const selectedOption = value as any;
-                    setData({...data, state: selectedOption})
-                  } else {
-                    setData({...data, state: { label: "Abia", value: "Abia" }})
-                  }
-                }}
-                options={states.map((item: string) => ({
-                  label: item,
-                  value: item,
-                }))}
-                className="items-start text-start justify-start rounded-lg"
-              />
-            </div>
-          </div> */}
+          </div>        
 
           <div className="flex flex-col w-full mt-5">
             <label
@@ -150,41 +104,17 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
               How Much Electricity Do You Want To Buy?
             </label>
             <div className="text-[#8c8b92] mt-2">
-              <MoneyInput 
-                name="amount" 
-                leftIcon={() => <NairaIcon className="w-[14px]" />}
-                onChange={formik.handleChange} 
-                onBlur={(e) => setData({...data, amount: (+e.target.value).toString()})}
-                placeholder="0" 
+              <CurrencyField 
+                onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
+                value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount} disabled={data?.serviceProvider?.fixed} 
               />
             </div>
           </div>
 
-          <div className="mt-5">
-            <div className="flex gap-2 items-center justify-between font-openSans">
-              <span className="font-bold text-[#111111] text-[16px]">
-                SERVICE CHARGE
-              </span>
-              <span className="flex items-center font-normal">
-                <NairaIconElectricBill width={19.5} height={18.25} />
-                <p className="font-normal text-[20px]">100.00</p>
-              </span>
-            </div>
-            <div className="flex gap-2 items-center justify-between font-bold text-[#111111] text-[16px] font-openSans">
-              <span className="font-bold text-[#111111] text-[16px]">
-                TOTAL
-              </span>
-              <span className="flex items-center font-normal">
-                <NairaIconElectricBill width={19.5} height={18.25} />
-                <p className="font-normal text-[20px]">{formatAmount((+data?.amount + 100).toString())}</p>
-              </span>
-            </div>
-          </div>
-
           <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mt-10">
-                    By continuing, you agree to our 
-                    <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
-                </p>
+              By continuing, you agree to our 
+              <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
+          </p>
           <div className="w-full">
             <Button
               type="submit"

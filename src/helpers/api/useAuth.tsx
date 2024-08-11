@@ -7,7 +7,6 @@ import {
     IAuthLogin,
     IAuthIndividualSignup,
     IAuthAgentSignup,
-    IAuthSuperAgentSignup,
     IVerifyLogin
   } from "@/interface/auth";
 import { IErrorResponseType } from "@/interface/common/error";
@@ -17,7 +16,6 @@ import {
     SetPasswordSchema,
     SignupSchemaAgent,
     SignupSchemaIndividual,
-    SignupSchemaSuperAgent,
     VerifyLoginSchema
   } from "@/schema/auth";
   import { HUBSTACKROLES } from "@/types/roles";
@@ -53,7 +51,7 @@ export const useLogin = () => {
       onSubmit: async ({ ...values }) => {
         try {
           await formik.validateForm();
-          mutate(values, {
+          mutate({ email: values.email.toLowerCase(), password: values.password }, {
             onSuccess: (res) => {
               setCookie(TOKEN.ACCESS, res.data.token.access_token);
               setHasWallet(res.data.hasWallet)
@@ -309,12 +307,11 @@ export const useResetPassword = (token: string | null) => {
     validateOnBlur: true,
     validateOnChange: true,
     validationSchema: SetPasswordSchema,
-    onSubmit: async ({ ...values }) => {
+    onSubmit: async ({ confirmNewPassword, ...values }) => {
       try {
         mutate(
           {
             newPassword: values.newPassword,
-            confirmNewPassword: values.confirmNewPassword
           },
           {
             onSuccess: () => {

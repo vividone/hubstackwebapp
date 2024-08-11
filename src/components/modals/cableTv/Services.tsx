@@ -29,7 +29,7 @@ const CableTVServices = ({ setShow, show }: any) => {
 
   useEffect(() => {
     if(isSuccess) {
-      setData({ ...data, transactionReference: payCable?.transactionReference })
+      // setData({ ...data, transactionReference: payCable?.transactionReference })
       setFlow(2)
     }
   }, [isSuccess])

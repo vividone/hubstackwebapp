@@ -1,5 +1,5 @@
 'use client'
-import { Input, MoneyInput } from "@/components/common/inputs";
+import { Input } from "@/components/common/inputs";
 import ModalsLayout from "../modalsLayout";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -12,6 +12,7 @@ import AirtimePayment from "./airtimePayments";
 import { usePayBill } from "@/helpers/services";
 import ToastComponent from "@/components/common/toastComponent";
 import Link from "@/components/custom/link";
+import CurrencyField from "@/components/common/currencyInput";
 
 type AirtimePaymentProps = {
     show: boolean;
@@ -80,10 +81,9 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         </label>
                         <div className="text-[#8c8b92] mt-2">
 
-                        <MoneyInput  
-                            onBlur={() => setData({ ...data, amount: +formatAmount(data.amount.toString())})} 
-                            leftIcon={() => <NairaIcon className="w-[12px]" />} 
-                            onChange={(e) => setData({ ...data, amount:  (+e.target.value * 10).toString()})} placeholder="0.00" 
+
+                        <CurrencyField 
+                            onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
                         />
                         </div>
                     </div>
