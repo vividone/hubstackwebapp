@@ -5,8 +5,17 @@ import CopyIcon from "@/assets/icons/CopyIcon";
 import CaratDown from "@/assets/icons/CaratDown";
 import { Button } from "@/components/common/button";
 import { SearchInput } from "@/components/common/inputs";
+import { TOKEN } from "@/utils/token";
+import { useEffect } from "react";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const ReferralPage = () => {
+  const [ userDetails, ] = useLocalStorage<string>(TOKEN.EMAIL);
+
+  useEffect(() => {
+    console.log(userDetails)
+  }, [userDetails])
+  
   return (
     <div className="flex flex-col md:flex-col w-full">
       <div className="flex w-full md:w-[45%] p-[30px] md:p-[60px_25px] gap-10">

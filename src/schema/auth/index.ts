@@ -88,8 +88,12 @@ export const ResetPasswordSchema = Yup.object().shape({
 });
 
 export const SetPasswordSchema = Yup.object().shape({
-  password: Yup.string().required(" New password is required ").trim(),
+  password: Yup.string().required(" New password is required ")
+  .matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d).+$/,
+    "Password requires uppercase, lowercase, digit, and special character."
+  ),
   confirmNewPassword: Yup.string()
-    .oneOf([Yup.ref("newPassword")], "Passwords must match")
+    .oneOf([Yup.ref("password")], "Passwords must match")
     .required(""),
 });
