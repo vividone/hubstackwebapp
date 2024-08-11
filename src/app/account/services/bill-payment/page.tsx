@@ -27,6 +27,7 @@ const Billpayment = () => {
   
   const data = [
     {
+      Icon: <AirtimeIcon />,
       text: "Airtime",
       billerCategoryId: "4",
     },

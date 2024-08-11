@@ -14,7 +14,7 @@ import { useState } from "react";
 export const useCreateWallet = ( ) => {
     const { createWalletUrl } = useUrls();
     const router = useRouter()
-    const [ , setUserWallet] = useLocalStorage(TOKEN.WALLET); // to persist
+    const [ wallet, setWallet] = useState({}); 
     const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
     const [ , setHasWallet] = useLocalStorage<any>(TOKEN.HASWALLET)
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Create wallet"],
@@ -41,10 +41,9 @@ export const useCreateWallet = ( ) => {
             await formik.validateForm();
             mutate(values, {
             onSuccess: (res) => {
-                setUserWallet(res.data);
+                setWallet(res.data);
                 setHasWallet(true)
                 router.refresh()
-                
             },
               onError: (res: any) => {
               },
@@ -59,7 +58,7 @@ export const useCreateWallet = ( ) => {
     const errorString = Array.isArray(typedError?.response?.data?.message)
         ? typedError?.response?.data?.message[0]
         : typedError?.response?.data?.message || "";
-    return { formik, isPending, isSuccess, isError, error: errorString };
+    return { wallet, formik, isPending, isSuccess, isError, error: errorString };
 };
 
 export const useGetSubAccounts = () => {

@@ -2,41 +2,37 @@
 import React, { FormEvent, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
-import NairaIcon from "@/assets/icons/nairaIcon";
-import { Input, MoneyInput } from "@/components/common/inputs";
+import { Input } from "@/components/common/inputs";
 import Link from "@/components/custom/link";
 import { FlowProps } from "../modalsLayout";
 import { usePayBill } from "@/helpers/services";
 import { useGetServicesByBillerId } from "@/helpers/categories";
 import { Dropdown } from "@/components/common/Dropdown";
+import CurrencyField from "@/components/common/currencyInput";
 
 interface CableTvProps extends FlowProps {
   active: any;
   setData: (aug0: any) => void;
+  formik: any;
+  isPending: boolean;
 }
 
-const CableTvForm: React.FC<CableTvProps> = ({ setFlow, active, data, setData }) => {
-  const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("cable");
-  const { services } = useGetServicesByBillerId("480") //active?.Id
+const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, setData }) => {
+  const { services } = useGetServicesByBillerId(active?.Id)
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     
-    formik.setFieldValue("service", "DSTV Mobile") //data?.serviceProvider?.value
-    formik.setFieldValue("biller", "DSTV") //active?.Name
-    formik.setFieldValue("billerId", "480") //active?.Id.toString()
+    formik.setFieldValue("service", data?.serviceProvider?.value)
+    formik.setFieldValue("biller", active?.Name)
+    formik.setFieldValue("billerId", active?.Id.toString())
     formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("paymentCode", "48001") //data?.serviceProvider?.PaymentCode
-    formik.setFieldValue("category", "billpayment") //
+    formik.setFieldValue("paymentCode", data?.serviceProvider?.PaymentCode) 
+    formik.setFieldValue("category", "billpayment") 
+    formik.setFieldValue("amount", data?.amount)
 
-    formik.handleSubmit()
+    console.log(formik.values)
   }
-
-  useEffect(() => {
-    if(isSuccess) {
-      setFlow(2)
-    }
-  }, [isSuccess])
 
   return (
       <div className="mt-4">
@@ -101,14 +97,10 @@ const CableTvForm: React.FC<CableTvProps> = ({ setFlow, active, data, setData })
                   Amount
                 </label>
                 <div className="text-[#8c8b92] mt-2">
-                <MoneyInput  
-                    name="amount" 
-                    type="number"
-                    value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : formik.values.amount}
-                    disabled={data?.serviceProvider?.fixed}
-                    leftIcon={() => <NairaIcon className="w-[12px]" />} 
-                    placeholder="0.00" 
-                    onChange={data?.serviceProvider?.fixed ? () => formik.setFieldValue("amount", +data?.serviceProvider?.fee): formik.handleChange}
+                
+                <CurrencyField 
+                  onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
+                  value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount} disabled={data?.serviceProvider?.fixed} 
                 />
                 </div>
               </div>

@@ -29,7 +29,7 @@ export const usePayBill = ( type: string ) => {
           paymentCode: "",
           paymentMode: "",
           customerId: "",
-          amount: 0,
+          amount: +"",
           category: ""
       } as IElectricBill,
       validateOnBlur: false,

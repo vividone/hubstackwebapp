@@ -1,7 +1,7 @@
 'use client'
 import { Input, MoneyInput } from "@/components/common/inputs";
 import ModalsLayout from "../modalsLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/common/button";
 import AirtimeDetailsModal from "./airtimedetails";
@@ -9,6 +9,8 @@ import CompletedAirtimeModal from "./airtimeCompleted";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import AirtimePayment from "./airtimePayments";
+import { usePayBill } from "@/helpers/services";
+import ToastComponent from "@/components/common/toastComponent";
 
 type AirtimePaymentProps = {
     show: boolean;
@@ -18,17 +20,46 @@ type AirtimePaymentProps = {
 type dataProps = {amount: string | number, phonenumber: string, network: string}
 
 export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
+    const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-airtime");
     const [data, setData] = useState<dataProps>({ amount: 0, phonenumber: "", network: "" })
     const [flow, setFlow] = useState(0)
-    const [error, setError] = useState<any>({})
 
     const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
 
     const handleNext = () => {
-        setFlow(1)
+        formik.setFieldValue("service", "Airtime") //data?.serviceProvider?.value
+        formik.setFieldValue("biller", data.network) //
+        formik.setFieldValue("billerId", "480") //active?.data.networkId
+        formik.setFieldValue("paymentMode", "wallet")
+        formik.setFieldValue("customerId", data.phonenumber) //
+        formik.setFieldValue("amount", 1000) //data.amount
+        formik.setFieldValue("paymentCode", "48001") //data?.serviceProvider?.PaymentCode
+        formik.setFieldValue("category", "billpayment") //
+
+        formik.handleSubmit()
     }
 
+    useEffect(() => {
+        if(isSuccess) {
+            setFlow(1)
+        }
+    }, [isSuccess])
+
     return (
+        <>
+          
+      <ToastComponent
+        isSuccess={isSuccess}
+        isError={isError}
+        msg={
+          isSuccess
+            ? "Successful"
+            : isError
+            ? "Airtime purchase error: " + error
+            : Object.values(formik.errors)?.join(", ")
+        }
+      />
+
         <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show}>
 
             {
@@ -49,8 +80,6 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         <div className="text-[#8c8b92] mt-2">
 
                         <MoneyInput  
-                            name="amount" 
-                            error={error?.amount}
                             onBlur={() => setData({ ...data, amount: +formatAmount(data.amount.toString())})} 
                             leftIcon={() => <NairaIcon className="w-[12px]" />} 
                             onChange={(e) => setData({ ...data, amount:  (+e.target.value * 10).toString()})} placeholder="0.00" 
@@ -63,7 +92,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                             Enter Phone Number
                         </label>
                         <div className="text-[#8c8b92] mt-2">
-                        <Input type="number" name="amount" error={error?.phonenumber} onChange={(e) => setData({ ...data, phonenumber:  e.target.value})} placeholder="07000000000" />
+                        <Input type="number" onChange={(e) => setData({ ...data, phonenumber:  e.target.value})} placeholder="07000000000" />
                         </div>
                     </div>
 
@@ -80,7 +109,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                                 </button>
                             ))
                         }
-                        { error?.network ? <p className="mt-2 text-[12px] text-red-400">{error?.network}</p> : "" }
+                        {/* { error?.network ? <p className="mt-2 text-[12px] text-red-400">{error?.network}</p> : "" } */}
                     </div>
 
                     <p className="font-Inter text-[20px] font-normal mt-10">
@@ -91,6 +120,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         <Button
                         type="submit"
                         size={"full"}
+                        isLoading={isPending}
                         className="text-[20px] font-CabinetGrotesk mb-4"
                         onClick={() => handleNext()}
                         >
@@ -101,5 +131,6 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                 </>
             }
         </ModalsLayout>
+        </>
     )
 }

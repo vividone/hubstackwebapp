@@ -110,7 +110,6 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
               </label>
               <MoneyInput
                 leftIcon={() => <NairaIcon className="w-[12px]" />}
-                name="amount"
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="0.00"
               />

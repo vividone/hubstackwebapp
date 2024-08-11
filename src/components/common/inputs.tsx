@@ -5,6 +5,10 @@ import { InputProps, TextareaProps } from "@/interface/common/input";
 import { ChangeEvent, FC, HTMLInputTypeAttribute, useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import SearchIcon from "@/assets/icons/SearchIcon";
+import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
+import { NumericFormat } from "react-number-format";
+
+
 export const Input: FC<Partial<InputProps>> = ({ ...props }) => {
   const [focus, setFocus] = useState(false);
   const { className, containerClassName, ...rest } = props;
@@ -285,9 +289,10 @@ export const SearchInput: any  = ({ ...props }) => {
   );
 };
 
-export const MoneyInput: FC<Partial<InputProps>> = ({ ...props }) => {
+export const MoneyInput: FC<Partial<InputProps>> = ({ onValueChange, ...props }: any) => {
   const [focus, setFocus] = useState(false);
   const { className, containerClassName, labelname, error, ...rest } = props;
+  const [value, setValue] = useState<string | number>("");
 
   // Track whether the input has content
   const hasContent = Boolean(rest.value);
@@ -299,16 +304,30 @@ export const MoneyInput: FC<Partial<InputProps>> = ({ ...props }) => {
     }
   };
 
-  const oneDot = (input: any) => {
-    var value = input.value;
-    value = value.split(".").join("")
+  const handleChange = (v: any) => {
+    // Set the value to value * 100 because it was divided on the field value prop
+    setValue(parseFloat(v.value) * 100);
+      onValueChange({ ...v, floatValue: v.floatValue / 100 });
+  };
 
-    if(value.length > 1) {
-      value = value.substring(0, value.length - 2) + "." + value.substring(value.length - 2, value.length)
+  const currencyFormatter = (formatted_value: any) => {
+    // Set to 0,00 when "" and divide by 100 to start by the cents when start typing
+    if (!Number(formatted_value)) return "0.00";
+    const br = { style: "currency", currency: "NGN" };
+    return new Intl.NumberFormat("pt-NG", br).format(formatted_value / 100);
+  };
+
+  const keyDown = (e: any) => {
+    //This if keep the cursor position on erase if the value is === 0
+    if (e.code === "Backspace" && !value) {
+      e.preventDefault();
     }
-
-    input.value = value
-  }
+    // This if sets the value to 0 and prevent the default for the cursor to keep when there's only cents
+    if (e.code === "Backspace" && +value < 1000) {
+      e.preventDefault();
+      setValue(0);
+    }
+  };
 
   return (
     <>
@@ -336,21 +355,24 @@ export const MoneyInput: FC<Partial<InputProps>> = ({ ...props }) => {
           {labelname}
         </div>
       )}
-      {(props.leftIcon || false) && !props.error && !focus && (
-        <props.leftIcon />
-      )}
-      {(props.activeLeftIcon || false) && !props.error && focus && (
-        <props.activeLeftIcon />
-      )}
+      
+      <NairaIconElectricBill width={20} />
       {props.error && props.errorIcon ? <props.errorIcon /> : <> </>}
-      <input
+      <NumericFormat
+        {...props}
         className={`!outline-none bg-transparent transition-all duration-300 ease-in-out w-full
               ${className ? className : ""}
               placeholder:text-s lg:placeholder:text-base placeholder:text-grey-700
               `}
-        {...rest}
-        placeholder={focus ? "" : props.placeholder}
-        onKeyUp={(e) => oneDot(e.target)}
+        value={Number(value) / 100}
+        format={currencyFormatter}
+        onValueChange={handleChange}
+        allowEmptyFormatting
+        decimalSeparator="."
+        thousandSeparator=","
+        prefix={"R$ "}
+        decimalScale={2}
+        onKeyDown={keyDown}
       />
       {props.rightIcon && !focus && <props.rightIcon />}
       {props.activeRightIcon && !focus && <props.activeRightIcon />}

@@ -3,23 +3,32 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
 import WalletForm from "@/components/modals/wallet/createwalletmodal";
-import { useGetAccountBalance, useGetWallet, useGetWalletHistory } from "@/helpers/wallet";
+import { useCreateWallet, useGetAccountBalance, useGetWallet, useGetWalletHistory } from "@/helpers/wallet";
 import Card from "@/components/common/card";
 import { History } from "@/components/tables/history";
 import { Loader } from "@/assets/common/loader";
 import Mywallet from "@/components/modals/wallet/Existinguserwallet";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
+import ToastComponent from "@/components/common/toastComponent";
 
 
 const Wallet = () => {
+  const { wallet, formik, isPending, isSuccess, isError, error } = useCreateWallet();
   const [showWallet, setShowWallet] = useState(false);
   const { userWallet, isLoading } = useGetWallet();
   const { walletBalance } = useGetAccountBalance();
-  const [balance, setBalance] = useState(0);
+  const [ balance, setBalance] = useState(0);
+  const [ hasWallet,] = useLocalStorage<boolean>(TOKEN.HASWALLET);
   const { history } = useGetWalletHistory();
   
   const refresh = (amount: number) => {
     setBalance(+balance + amount);
   };
+
+  useEffect(() => {
+    console.log(wallet, "ahhh")
+  }, [wallet])
 
   useEffect(() => {
     setBalance(walletBalance?.balance)
@@ -37,13 +46,25 @@ const Wallet = () => {
     <div className="">
       <div className="md:pr-[30px] px-[25px] ">
         
-        {!userWallet ? (
+      <ToastComponent
+        isSuccess={isSuccess}
+        isError={isError}
+        msg={
+          isSuccess
+            ? "Wallet creation is successful"
+            : isError
+            ? "Wallet creation error: " + error
+            : Object.values(formik.errors)?.join(", ")
+        }
+      />
+        
+        {!hasWallet ? (
           <>
             <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] mt-[60px] font-medium">
               Wallet
             </h2>
             {showWallet && (
-              <WalletForm show={showWallet} setShow={setShowWallet} />
+              <WalletForm show={showWallet} setShow={setShowWallet} formik={formik} isPending={isPending} />
             )}
 
             {isLoading ? (
@@ -86,7 +107,7 @@ const Wallet = () => {
               {/* modal */}
               {showWallet && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 ">
-                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={userWallet} balance={balance} />
+                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={userWallet || wallet} balance={balance} />
                 </div>
               )}
               <Card value={cardData} />

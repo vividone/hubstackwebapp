@@ -1,21 +1,16 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { TOKEN } from "@/utils/token";
-import { banks } from "@/data/bankCodes";
 import { Input } from "../../common/inputs";
 import { Button } from "../../common/button";
 import { Dropdown } from "../../common/Dropdown";
-import axiosInstance from "@/helpers/axiosConfig";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import React, { FormEvent, useEffect, useState } from "react";
-import ToastComponent from "@/components/common/toastComponent";
-import { useCreateWallet, useGetAllBanks } from "@/helpers/wallet";
+import React, { FormEvent, useState } from "react";
+import { useGetAllBanks } from "@/helpers/wallet";
 import ModalsLayout from "../modalsLayout";
 
-const WalletForm = ({ setShow, show }: any) => {
+const WalletForm = ({ setShow, show, formik, isPending }: any) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { formik, isPending, isSuccess, isError, error } = useCreateWallet();
   const [selectedBank, setSelectedBank] = useState<{
     label: string;
     value: string;
@@ -25,16 +20,8 @@ const WalletForm = ({ setShow, show }: any) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(formik.errors);
     formik.handleSubmit();
   };
-
-  useEffect(() => {
-    axiosInstance
-      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/wallet/banks`)
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
-  }, []);
 
 
   return (
@@ -220,17 +207,6 @@ const WalletForm = ({ setShow, show }: any) => {
           </Button>
         </div>
       </form>
-      <ToastComponent
-        isSuccess={isSuccess}
-        isError={isError}
-        msg={
-          isSuccess
-            ? "Wallet creation is successful"
-            : isError
-            ? "Wallet creation error: " + error
-            : Object.values(formik.errors)?.join(", ")
-        }
-      />
     </ModalsLayout>
   );
 };
