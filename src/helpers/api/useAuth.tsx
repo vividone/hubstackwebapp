@@ -294,16 +294,16 @@ export const useResetPassword = (token: string | null) => {
   const router = useRouter();
   const { resetPasswordUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["set password"],
-      mutationFn: (payload: Partial<{ newPassword: string, confirmNewPassword: string }>) => {
+      mutationFn: (payload: Partial<{ password: string, confirmNewPassword: string }>) => {
         return axiosInstance.post(resetPasswordUrl + "/" + token, payload)
       },
   })  
 
   const formik = useFormik({
     initialValues: {
-      newPassword: "", 
+      password: "", 
       confirmNewPassword: ""
-    } as { newPassword: string, confirmNewPassword: string },
+    } as { password: string, confirmNewPassword: string },
     validateOnBlur: true,
     validateOnChange: true,
     validationSchema: SetPasswordSchema,
@@ -311,7 +311,7 @@ export const useResetPassword = (token: string | null) => {
       try {
         mutate(
           {
-            newPassword: values.newPassword,
+            password: values.password,
           },
           {
             onSuccess: () => {
