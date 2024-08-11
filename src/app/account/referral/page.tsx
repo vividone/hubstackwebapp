@@ -10,12 +10,12 @@ import { useEffect } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 const ReferralPage = () => {
-  const [ userDetails, ] = useLocalStorage<string>(TOKEN.EMAIL);
+  const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
 
   useEffect(() => {
     console.log(userDetails)
   }, [userDetails])
-  
+
   return (
     <div className="flex flex-col md:flex-col w-full">
       <div className="flex w-full md:w-[45%] p-[30px] md:p-[60px_25px] gap-10">
@@ -37,7 +37,7 @@ const ReferralPage = () => {
             <div className="w-full mt-12">
               <p className="mb-2">Your Unique Referral Code</p>
               <div className="w-full h-[66px] flex items-center justify-between border border-gray-300 rounded-[7px] p-4">
-                <p className="font-normal text-[#8C8B92]">ZEEBEAUTY12RR</p>
+                <p className="font-normal text-[#8C8B92]">{userDetails?.referralCode}</p>
                 <div className="p-2 cursor-pointer">
                   <CopyIcon width={20.31} height={20.31} />
                 </div>
