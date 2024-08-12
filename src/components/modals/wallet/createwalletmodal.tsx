@@ -12,9 +12,8 @@ import React, { FormEvent, useEffect, useState } from "react";
 import ToastComponent from "@/components/common/toastComponent";
 import { useCreateWallet, useGetAllBanks } from "@/helpers/wallet";
 import ModalsLayout from "../modalsLayout";
-import { ModalsProp } from "@/interface/common/modals";
 
-const WalletForm = ({ show, setShow }: ModalsProp) => {
+const WalletForm = ({ setShow, show }: any) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const { formik, isPending, isSuccess, isError, error } = useCreateWallet();
   const [selectedBank, setSelectedBank] = useState<{
@@ -39,7 +38,7 @@ const WalletForm = ({ show, setShow }: ModalsProp) => {
 
 
   return (
-    <ModalsLayout header="Create Wallet" setShow={setShow} show={show}>
+    <ModalsLayout flow={0} setFlow={() => {}} header="Create Wallet" setShow={setShow} show={show}>
       <form onSubmit={handleSubmit} className="flex flex-col w-full h-full">
         <div className="flex gap-2">
           <div className="flex flex-col flex-1">
@@ -232,7 +231,7 @@ const WalletForm = ({ show, setShow }: ModalsProp) => {
             : Object.values(formik.errors)?.join(", ")
         }
       />
-      </ModalsLayout>
+    </ModalsLayout>
   );
 };
 

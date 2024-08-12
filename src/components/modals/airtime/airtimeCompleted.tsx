@@ -6,8 +6,7 @@ import { formatAmount } from "@/helpers/amountFormatter";
 import ClipBoard from "@/components/wallet/clipboard";
 
 type FlowProps = {
-  flow: string;
-  setFlow: (aug0: string) => void;
+  setFlow: (aug0: number) => void;
   data: any;
 }
 
@@ -62,7 +61,7 @@ const CompletedAirtimeModal: React.FC<FlowProps> = ({ setFlow, data }) => {
               size="full"
               type="submit"
               onClick={() => {
-                setFlow("Your Wallet")
+                setFlow(4)
               }}
             >
               <span className="text-[16px]">SHARE RECEIPT</span>

@@ -86,7 +86,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   }, [isSuccess])
 
   return (
-    <ModalsLayout header={flow} show={true} setShow={setShow} isPadded={false}>
+    <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow} isPadded={false}>
       <ToastComponent
         isSuccess={isSuccess}
         isError={isError}

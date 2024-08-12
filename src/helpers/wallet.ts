@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useUrls } from "./useUrls";
 import { TOKEN } from "@/utils/token";
-import { HistoryType, ICreateWalletUpdate } from "@/interface/wallet";
+import { ICreateWalletUpdate } from "@/interface/wallet";
 import { createWalletValidationSchema } from "@/schema/walletschema/validation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -241,7 +241,7 @@ export const useGetWalletHistory = () => {
     return responseData;
   }});
 
-  const history: HistoryType[] = data?.map((item: any) => ({ id: item._id, updatedAt: item.updatedAt, amount: item.amount, transactionStatus: item.transactionStatus })) || [];
+  const history = data || [];
 
   return {
     history,

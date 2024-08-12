@@ -1,11 +1,11 @@
 export interface IElectricBill{
-    biller?: string,
-    billerId?: string,
-    paymentCode?: string,
-    paymentMode?: string,
-    customerId?: string,
-    amount?: number,
-    category?: string
+    biller: string,
+    billerId: string,
+    paymentCode: string,
+    paymentMode: string,
+    customerId: string,
+    amount: number,
+    category: string
 }
 
 export interface IServicesData {

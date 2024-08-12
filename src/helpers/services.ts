@@ -11,13 +11,13 @@ import { IElectricBill, IServicesData } from "@/interface/services";
 import { useUrls } from "./useUrls";
 
 
-export const usePayElectricity = ( ) => {
+export const usePayBill = ( type: string ) => {
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
   const [data, setData] = useState<IServicesData>()
   const { payBillUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay Electricity"],
       mutationFn: (payload: Partial<IElectricBill>) => {
-          return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/electricity`, payload)
+          return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/${type}`, payload)
       },
   })    
   
@@ -60,27 +60,27 @@ export const usePayElectricity = ( ) => {
 };
 
 
-export const useCompleteBillPayment = (trxId: string) => {
+export const useCompleteBillPayment = ( id: string ) => {
     const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
     const [data, setData] = useState<IServicesData>()
     const { payBillUrl } = useUrls();
-    const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Complete payment"],
-        mutationFn: (payload: Partial<any>) => {
-            return axiosInstance.post(`${payBillUrl}/${trxId}/pay-bill/complete`, payload)
+    const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay Electricity"],
+        mutationFn: (payload: Partial<IElectricBill>) => {
+            return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/${id}`, payload)
         },
     })    
     
     const formik = useFormik({
-        initialValues: 
-        {
-            requestReference: "",
-            customerMobile: "",
-            paymentCode: "",
+        initialValues: {
+            paymentCode: "", 
+            customerId: "", 
             customerEmail: "",
-            customerId: "",
-            amount: 0,
+            customerMobile: "",
+            requestReference: "", 
+            amount: ""
         } as any,
         validateOnBlur: false,
+        validationSchema: electricBillValidationSchema,
         validateOnChange: false,
         onSubmit: async ({ ...values }) => {
         try {
@@ -105,3 +105,5 @@ export const useCompleteBillPayment = (trxId: string) => {
         : typedError?.response?.data?.message || "";
     return { data, formik, isPending, isSuccess, isError, error: errorString };
   };
+  
+  

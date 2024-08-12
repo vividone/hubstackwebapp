@@ -15,7 +15,6 @@ interface SelectOptions {
   readonly value: string | number;
   readonly label: string;
   readonly color?: string;
-  readonly bg?: string;
   readonly isFixed?: boolean;
   readonly isDisabled?: boolean;
 }

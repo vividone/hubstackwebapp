@@ -1,6 +1,6 @@
 import React from "react";
 
-const ArrrowLeft = ({ width, height }: any) => {
+const ArrrowLeft = ({ width=20, height=20 }: any) => {
   return (
     <svg
       width={width}
@@ -8,6 +8,7 @@ const ArrrowLeft = ({ width, height }: any) => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className="cursor-pointer"
     >
       <path
         fillRule="evenodd"

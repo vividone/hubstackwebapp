@@ -12,7 +12,8 @@ import BettingIcon from "@/assets/icons/BettingIcon";
 import { useGetBillersByCategoryId } from "@/helpers/categories";
 import { useEffect, useState } from "react";
 import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
-import AirtimePayment from "@/components/modals/airtime/airtimePayment";
+import AirtimeModal from "@/components/modals/airtime/airtime";
+import CableTVServices from "@/components/modals/cableTv/Services";
 
 const Billpayment = () => {
   const { billers, isLoading } = useGetBillersByCategoryId("1")
@@ -26,7 +27,6 @@ const Billpayment = () => {
   
   const data = [
     {
-      Icon: <AirtimeIcon />,
       text: "Airtime",
       billerCategoryId: "4",
     },
@@ -66,14 +66,14 @@ const Billpayment = () => {
         <div className="flex mt-[50px] border-r border-[#E7E7E7]">
           <div className="grid 2xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 grid-cols-2 gap-[30px] pr-6 w-full">
             {data.map((value, index) => (
-              <button
+              <div
                 key={index}
                 className="bg-[#00D7F7] h-[180px] rounded-lg flex flex-col items-center justify-center text-center transform hover:scale-105 cursor-pointer"
                 onClick={() => {setActive(value.text); setShow(!show)}}
               >
-                <span className="p-[18px_16px] rounded-[30px] bg-[#3D30661A]">{value.Icon}</span>
+                <span className="p-[18px_18px] rounded-full bg-[#3D30661A]">{value.Icon}</span>
                 <span className="mt-4 text-[20px] font-semibold font-OpenSans text-[#000000]">{value.text}</span>
-              </button>
+              </div>
             ))}
           </div>
         </div>
@@ -145,7 +145,10 @@ const Billpayment = () => {
           <ElectricityBillModal billers={billersList?.filter((item: any) => item.Id === 1)[0]} show={show} setShow={setShow} />
           : 
           active === "Airtime" && show ?
-          <AirtimePayment show={show} setShow={setShow} />
+          <AirtimeModal show={show} setShow={setShow} />
+          :
+          active === "Cable TV" && show ?
+          <CableTVServices billers={billersList}  show={show} setShow={setShow} />
           :""
         }
       </div>
