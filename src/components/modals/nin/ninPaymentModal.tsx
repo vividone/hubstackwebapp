@@ -65,7 +65,10 @@ const NinPaymentModal: React.FC<MywalletProps> = ({ slip, setShow }) => {
             <Input name="NIN" type="number" placeholder="123456789011" />
             <p className="font-bold mt-2">UNIT COST: 1</p>
 
-            <p className=" mt-16">By continuing, you agree to our <Link href={"/dashboard"} className="text-[#3D3066]">Terms and conditions</Link></p>
+            <p className="2xl:text-[20px] xl:text-[18px] text-[16px]">
+                    By continuing, you agree to our 
+                    <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
+                </p>
             <div className="mt-2 h-20">
                 <Button onClick={() => setIsSuccess(true)}>
                 <span className="text-[16px] uppercase">PROCEED TO BUY UNIT</span>

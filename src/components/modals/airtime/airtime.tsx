@@ -9,6 +9,8 @@ import CompletedAirtimeModal from "./airtimeCompleted";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import AirtimePayment from "./airtimePayments";
+import CustomIcons from "@/components/custom/customIcons";
+import Link from "next/link";
 
 type AirtimePaymentProps = {
     show: boolean;
@@ -76,17 +78,17 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                                 { id: 3, network: "glo"},
                             ].map((item: { id: number, network: string } ) => (
                                 <button key={item.id} onClick={() => setData({ ...data, network:  item.network})} className={data.network === item.network ? "border-2 border-[#3D3066] rounded" : ""}>
-                                    <Image src={`/images/airtime/${item.network}.png`} width={200} height={200} alt={item.network} />
+                                    <CustomIcons src={`/images/airtime/${item.network}.png`} alt={item.network} />
                                 </button>
                             ))
                         }
                         { error?.network ? <p className="mt-2 text-[12px] text-red-400">{error?.network}</p> : "" }
                     </div>
 
-                    <p className="font-Inter text-[20px] font-normal mt-10">
-                        By continuing, you agree to our{" "}
-                        <span className="text-[#3D3066]">Terms and Conditions</span>
-                    </p>
+                    <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mt-10">
+                    By continuing, you agree to our 
+                    <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
+                </p>
                     <div className="w-full">
                         <Button
                         type="submit"
