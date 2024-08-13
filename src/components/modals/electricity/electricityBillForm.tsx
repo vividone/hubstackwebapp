@@ -8,6 +8,7 @@ import { Dropdown } from "@/components/common/Dropdown";
 import { formatAmount } from "@/helpers/amountFormatter";
 import { states } from "@/data/locationRegions";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
+import Link from "next/link";
 
 interface ElectricFlowProps extends FlowProps {
   setData: (aug0: any) => void;
@@ -180,10 +181,10 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
             </div>
           </div>
 
-          <p className="font-Inter text-[20px] font-normal mt-10">
-            By continuing, you agree to our{" "}
-            <span className="text-[#3D3066]">Terms and Conditions</span>
-          </p>
+          <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mt-10">
+                    By continuing, you agree to our 
+                    <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
+                </p>
           <div className="w-full">
             <Button
               type="submit"

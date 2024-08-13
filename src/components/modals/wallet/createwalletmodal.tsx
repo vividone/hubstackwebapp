@@ -22,7 +22,6 @@ const WalletForm = ({ setShow, show }: any) => {
   }>();
   const { allBanks } = useGetAllBanks();
 
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     console.log(formik.errors);
@@ -36,9 +35,14 @@ const WalletForm = ({ setShow, show }: any) => {
       .catch((error) => console.log(error));
   }, []);
 
-
   return (
-    <ModalsLayout flow={0} setFlow={() => {}} header="Create Wallet" setShow={setShow} show={show}>
+    <ModalsLayout
+      flow={0}
+      setFlow={() => {}}
+      header="Create Wallet"
+      setShow={setShow}
+      show={show}
+    >
       <form onSubmit={handleSubmit} className="flex flex-col w-full h-full">
         <div className="flex gap-2">
           <div className="flex flex-col flex-1">
@@ -199,15 +203,16 @@ const WalletForm = ({ setShow, show }: any) => {
         </div>
 
         <div className="flex flex-col mt-5 w-full font-Inter text-[20px]">
-          <span className="pt-1">
-            By continuing, you agree to our{" "}
+          <p className="2xl:text-[20px] xl:text-[18px] text-[16px]">
+            By continuing, you agree to our
             <Link
-              href={""}
-              className="text-[#3D3066] font-medium "
+              href={"/terms-and-conditions"}
+              className="text-[#3D3066] font-bold"
             >
-              Terms and Conditions{" "}
+              {" "}
+              Terms and Conditions
             </Link>
-          </span>
+          </p>
         </div>
         <div className="flex justify-center mt-8 mb-8">
           <Button
