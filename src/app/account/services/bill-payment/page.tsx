@@ -14,8 +14,9 @@ import { useEffect, useState } from "react";
 import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 import AirtimeModal from "@/components/modals/airtime/airtime";
 import CableTVServices from "@/components/modals/cableTv/Services";
-
-
+import Internet from "@/components/modals/internet/Internet";
+import Betting from "@/components/modals/betting/Betting";
+import Data from "@/components/modals/data/data";
 const Billpayment = () => {
   const { billers, isLoading } = useGetBillersByCategoryId("1")
   const [active, setActive] = useState("")
@@ -151,6 +152,15 @@ const Billpayment = () => {
           :
           active === "Cable TV" && show ?
           <CableTVServices billers={billersList}  show={show} setShow={setShow} />
+          :
+          active === "Data" && show ?
+          <Data billers={billersList}  show={show} setShow={setShow} />
+          :
+          active === "Internet" && show ?
+          <Internet billers={billersList}  show={show} setShow={setShow} />
+          :
+          active === "Betting" && show ?
+          <Betting billers={billersList}  show={show} setShow={setShow} />
           :""
         }
       </div>

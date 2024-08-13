@@ -68,7 +68,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
             </div>
           </div>
 
-          <div className="flex flex-col w-full mt-5">
+          {/* <div className="flex flex-col w-full mt-5">
             <label
               htmlFor="meterNumber"
               className="font-normal text-xl font-openSans text-[#111111]"
@@ -83,9 +83,9 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
                 placeholder="123456789101112131415"
               />
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-col w-full mt-5">
+          {/* <div className="flex flex-col w-full mt-5">
             <label
               htmlFor="state"
               className="font-normal text-xl font-openSans text-[#111111]"
@@ -111,7 +111,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
                 className="items-start text-start justify-start rounded-lg"
               />
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-col w-full mt-5">
             <label
