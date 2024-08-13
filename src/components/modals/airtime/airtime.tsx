@@ -9,7 +9,7 @@ import CompletedAirtimeModal from "./airtimeCompleted";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import AirtimePayment from "./airtimePayments";
-
+import CustomIcons from "@/components/custom/customIcons";
 type AirtimePaymentProps = {
     show: boolean;
     setShow: (aug0: boolean) => void;
@@ -76,7 +76,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                                 { id: 3, network: "glo"},
                             ].map((item: { id: number, network: string } ) => (
                                 <button key={item.id} onClick={() => setData({ ...data, network:  item.network})} className={data.network === item.network ? "border-2 border-[#3D3066] rounded" : ""}>
-                                    <Image src={`/images/airtime/${item.network}.png`} width={200} height={200} alt={item.network} />
+                                    <CustomIcons src={`/images/airtime/${item.network}.png`} width={200} height={200} alt={item.network} />
                                 </button>
                             ))
                         }
