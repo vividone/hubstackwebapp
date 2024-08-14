@@ -30,7 +30,9 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
     formik.setFieldValue("paymentMode", "wallet")
     formik.setFieldValue("paymentCode", data?.serviceProvider?.PaymentCode) 
     formik.setFieldValue("category", "billpayment") 
-    formik.setFieldValue("amount", data?.amount)
+    formik.setFieldValue("amount",  data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount)
+
+    console.log(formik.errors)
 
     formik.handleSubmit()
   }
