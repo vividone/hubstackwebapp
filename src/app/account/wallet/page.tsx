@@ -3,23 +3,35 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/common/button";
 import Image from "next/image";
 import WalletForm from "@/components/modals/wallet/createwalletmodal";
-import { useGetAccountBalance, useGetWallet, useGetWalletHistory } from "@/helpers/wallet";
+import { useCreateWallet, useGetAccountBalance, useGetWallet, useGetWalletHistory } from "@/helpers/wallet";
 import Card from "@/components/common/card";
 import { History } from "@/components/tables/history";
 import { Loader } from "@/assets/common/loader";
 import Mywallet from "@/components/modals/wallet/Existinguserwallet";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
+import ToastComponent from "@/components/common/toastComponent";
+import MenuIcon from "@/assets/icons/MenuIcon";
+import PlusIcon from "@/assets/icons/PlusIcon";
+import TransferIcon from "@/assets/icons/TransferIcon";
 
 
 const Wallet = () => {
+  const { wallet, formik, isPending, isSuccess, isError, error } = useCreateWallet();
   const [showWallet, setShowWallet] = useState(false);
   const { userWallet, isLoading } = useGetWallet();
   const { walletBalance } = useGetAccountBalance();
-  const [balance, setBalance] = useState(0);
+  const [ balance, setBalance] = useState(0);
+  const [ hasWallet,] = useLocalStorage<boolean>(TOKEN.HASWALLET);
   const { history } = useGetWalletHistory();
   
   const refresh = (amount: number) => {
     setBalance(+balance + amount);
   };
+
+  useEffect(() => {
+    console.log(wallet, "ahhh")
+  }, [wallet])
 
   useEffect(() => {
     setBalance(walletBalance?.balance)
@@ -37,13 +49,25 @@ const Wallet = () => {
     <div className="">
       <div className="md:pr-[30px] px-[25px] ">
         
-        {!userWallet ? (
+      <ToastComponent
+        isSuccess={isSuccess}
+        isError={isError}
+        msg={
+          isSuccess
+            ? "Wallet creation is successful"
+            : isError
+            ? "Wallet creation error: " + error
+            : Object.values(formik.errors)?.join(", ")
+        }
+      />
+        
+        {!hasWallet && !userWallet ? (
           <>
             <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] mt-[60px] font-medium">
               Wallet
             </h2>
             {showWallet && (
-              <WalletForm show={showWallet} setShow={setShowWallet} />
+              <WalletForm show={showWallet} setShow={setShowWallet} formik={formik} isPending={isPending} />
             )}
 
             {isLoading ? (
@@ -79,32 +103,37 @@ const Wallet = () => {
           </>
         ) : (
           <div className="flex flex-col flex-1 flex-wrap relative h-full ">
-            <div className="md:w-[383px] w-full sm:pr-[30px] py-[60px] border border-transparent sm:border-r-[#E7E7E7]">
+            <div className=" w-full py-[60px]">
               <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[30px] font-medium">
                 Wallet
               </h2>
               {/* modal */}
               {showWallet && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 ">
-                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={userWallet} balance={balance} />
+                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={userWallet || wallet} balance={balance} />
                 </div>
               )}
-              <Card value={cardData} />
+              <div className="flex sm:flex-row flex-col sm:items-center pr-[3%] gap-6 justify-between bg-[#E6FBFF] rounded-[8px]">
+                <Card value={cardData} />
+                <div className="flex gap-12 p-4">
+                  <button className="flex flex-col gap-3 items-center" onClick={() => setShowWallet(true)}>
+                    <span className="flex items-center justify-center h-[60px] w-[60px] p-5 bg-[#000]/[0.1] rounded-full"
+                    >
+                    <PlusIcon />
+                    </span>
+                    <span className="uppercase font-semibold">Fund</span>
+                  </button>
 
-              <div className="flex flex-col gap-4 mt-12">
-                <Button size="full" onClick={() => setShowWallet(true)}>
-                  WALLET TOP UP
-                </Button>
-                <Button
-                  size="full"
-                  variant={"secondary"}
-                  onClick={() => {
-                    setShowWallet(true);
-                  }}
-                >
-                  ACCOUNT DETAILS
-                </Button>
+                  <button className="flex flex-col gap-3 items-center">
+                    <span className="flex items-center justify-center h-[60px] w-[60px] p-5 bg-[#000]/[0.1] rounded-full"
+                    >
+                    <TransferIcon />
+                    </span>
+                    <span className="uppercase font-semibold">Transfer</span>
+                  </button>
+                </div>
               </div>
+
             </div>
 
             <div className="flex-1 mt-[30px] w-full">

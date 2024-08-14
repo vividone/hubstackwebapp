@@ -1,5 +1,5 @@
 'use client'
-import { Input, MoneyInput } from "@/components/common/inputs";
+import { Input } from "@/components/common/inputs";
 import ModalsLayout from "../modalsLayout";
 import { useState,useEffect} from "react";
 import Image from "next/image";
@@ -9,8 +9,10 @@ import CompletedAirtimeModal from "./airtimeCompleted";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import AirtimePayment from "./airtimePayments";
-import CustomIcons from "@/components/custom/customIcons";
-import Link from "next/link";
+import { usePayBill } from "@/helpers/services";
+import ToastComponent from "@/components/common/toastComponent";
+import Link from "@/components/custom/link";
+import CurrencyField from "@/components/common/currencyInput";
 
 type AirtimePaymentProps = {
     show: boolean;
@@ -20,14 +22,23 @@ type AirtimePaymentProps = {
 type dataProps = {amount: string | number, phonenumber: string, network: string}
 
 export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
+    const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-airtime");
     const [data, setData] = useState<dataProps>({ amount: 0, phonenumber: "", network: "" })
     const [flow, setFlow] = useState(0)
-    const [error, setError] = useState<any>({})
     const [isPadded, setIsPadded] = useState(true);
     const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
 
     const handleNext = () => {
-        setFlow(1)
+        formik.setFieldValue("service", "Airtime") //data?.serviceProvider?.value
+        formik.setFieldValue("biller", data.network) //
+        formik.setFieldValue("billerId", "480") //active?.data.networkId
+        formik.setFieldValue("paymentMode", "wallet")
+        formik.setFieldValue("customerId", data.phonenumber) //
+        formik.setFieldValue("amount", 1000) //data.amount
+        formik.setFieldValue("paymentCode", "48001") //data?.serviceProvider?.PaymentCode
+        formik.setFieldValue("category", "billpayment") //
+
+        formik.handleSubmit()
     }
     const paddingHandler = () => {
         if (flow == 2) {
@@ -41,7 +52,21 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
       }, [flow]);
 
     return (
-        <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show} isPadded={isPadded}>
+        <>
+          
+      <ToastComponent
+        isSuccess={isSuccess}
+        isError={isError}
+        msg={
+          isSuccess
+            ? "Successful"
+            : isError
+            ? "Airtime purchase error: " + error
+            : Object.values(formik.errors)?.join(", ")
+        }
+      />
+
+        <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show}>
 
             {
                 flow === 1 ?
@@ -60,12 +85,9 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         </label>
                         <div className="text-[#8c8b92] mt-2">
 
-                        <MoneyInput  
-                            name="amount" 
-                            error={error?.amount}
-                            onBlur={() => setData({ ...data, amount: +formatAmount(data.amount.toString())})} 
-                            leftIcon={() => <NairaIcon className="w-[12px]" />} 
-                            onChange={(e) => setData({ ...data, amount:  (+e.target.value * 10).toString()})} placeholder="0.00" 
+
+                        <CurrencyField 
+                            onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
                         />
                         </div>
                     </div>
@@ -75,7 +97,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                             Enter Phone Number
                         </label>
                         <div className="text-[#8c8b92] mt-2">
-                        <Input type="number" name="amount" error={error?.phonenumber} onChange={(e) => setData({ ...data, phonenumber:  e.target.value})} placeholder="07000000000" />
+                        <Input type="number" onChange={(e) => setData({ ...data, phonenumber:  e.target.value})} placeholder="07000000000" />
                         </div>
                     </div>
 
@@ -88,11 +110,11 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                                 { id: 3, network: "glo"},
                             ].map((item: { id: number, network: string } ) => (
                                 <button key={item.id} onClick={() => setData({ ...data, network:  item.network})} className={data.network === item.network ? "border-2 border-[#3D3066] rounded" : ""}>
-                                    <CustomIcons src={`/images/airtime/${item.network}.png`} alt={item.network} />
+                                    <Image src={`/images/airtime/${item.network}.png`} width={200} height={200} alt={item.network} />
                                 </button>
                             ))
                         }
-                        { error?.network ? <p className="mt-2 text-[12px] text-red-400">{error?.network}</p> : "" }
+                        {/* { error?.network ? <p className="mt-2 text-[12px] text-red-400">{error?.network}</p> : "" } */}
                     </div>
 
                     <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mt-10">
@@ -103,6 +125,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         <Button
                         type="submit"
                         size={"full"}
+                        isLoading={isPending}
                         className="text-[20px] font-CabinetGrotesk mb-4"
                         onClick={() => handleNext()}
                         >
@@ -113,5 +136,6 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                 </>
             }
         </ModalsLayout>
+        </>
     )
 }

@@ -7,6 +7,7 @@ import { useUrls } from "./useUrls";
 import { TOKEN } from "@/utils/token";
 import { updatePasswordSchema, updateProfileSchema } from "@/schema/profile/updateProfile";
 import { IUpdateProfile, IUpdateProfilePassword } from "@/interface/profile";
+import { ResetPasswordSchema } from "@/schema/auth";
 
 // Update User Details
 export const useProfileUpdate = ( userId: string, type: string ) => {
@@ -55,32 +56,29 @@ export const useProfileUpdate = ( userId: string, type: string ) => {
 
 
 // Update User Details
-export const useProfilePasswordUpdate = ( userId: string, type: string ) => {
-    const { updateAgentProfileUrl, updateIndividualProfileUrl } = useUrls();
-    const [ userDetails, setUserDetails] = useLocalStorage<IUpdateProfilePassword>(TOKEN.EMAIL); // to persist
+export const useProfilePasswordUpdate = ( ) => {
+    const { updatePasswordUrl } = useUrls();
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Update profile password"],
         mutationFn: (payload: Partial<any>) => {
-            return axiosInstance.put((type === "Agent" ? updateAgentProfileUrl : updateIndividualProfileUrl)+ "/" + userId, payload)
+            return axiosInstance.put(updatePasswordUrl, payload)
         },
     })    
     
     const formik = useFormik({
         initialValues: {
-        firstname: userDetails?.firstname,
-        lastname: userDetails?.lastname,
-        username: userDetails?.username,
-        password: "",
-        confirmPassword: ""
+        oldPassword: "",
+        newPassword: "",
+        confirmNewPassword: ""
         } as IUpdateProfilePassword,
         validateOnBlur: false,
         validationSchema: updatePasswordSchema,
         validateOnChange: false,
-        onSubmit: async ({ confirmPassword, ...values }) => {
+        onSubmit: async ({ confirmNewPassword, ...values }) => {
         try {
             await formik.validateForm();
             mutate(values, {
             onSuccess: (res) => {
-                setUserDetails(res.data.user);
+
             },
             //   onError: (res: any) => {
     

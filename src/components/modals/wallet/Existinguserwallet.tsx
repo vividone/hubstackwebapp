@@ -1,22 +1,20 @@
 "use client";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../common/button";
 import Link from "next/link";
 import ShareIcon from "@/assets/icons/shareIcon";
 import AlternateWalletFunding from "../../modals/wallet/AlternateFunding";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { Input, MoneyInput } from "../../common/inputs";
 import { useFundWallet, useVerifyFund } from "@/helpers/wallet";
 import ToastComponent from "../../common/toastComponent";
 import Confirmation from "../confirmation";
 import ClipBoard from "../../wallet/clipboard";
-import NairaIcon from "@/assets/icons/nairaIcon";
 import ModalsLayout from "../modalsLayout";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import { formatAmount } from "@/helpers/amountFormatter";
+import CurrencyField from "@/components/common/currencyInput";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
@@ -59,7 +57,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
 
   const handleSubmit = async () => {
     if(flow === "Fund Wallet") {
-      formik.setFieldValue("amount", (+amount*10).toString());
+      formik.setFieldValue("amount", (+amount).toString());
       formik.handleSubmit();
       setFlow("verify")
     }
@@ -108,12 +106,10 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
               >
                 Enter Amount
               </label>
-              <MoneyInput
-                leftIcon={() => <NairaIcon className="w-[12px]" />}
-                name="amount"
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder="0.00"
-              />
+              
+              <CurrencyField 
+                  onValueChange={(v: any) => setAmount(v.floatValue)} 
+                />
             </div>
           ) :
           flow === "verify" ?

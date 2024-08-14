@@ -17,14 +17,16 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
   const flowHeaders: string[] = ["Electricity Bill", "Your Order", "Your Wallet", "Token Details"]
 
   const completePayment = () => {
-    completedForm.setValues({ 
-      paymentCode: data?.transactionDetails.paymentCode?.toString(), 
-      customerId: data?.transactionDetails.customerId?.toString(), 
-      customerEmail: "testJ@test.com",
-      customerMobile: "2349077746616",
-      requestReference: data?.transactionReference, 
-      amount: data?.amount
-    })
+    // completedForm.setValues({ 
+    //   paymentCode: data?.transactionDetails.paymentCode?.toString(), 
+    //   customerId: data?.transactionDetails.customerId?.toString(), 
+    //   customerEmail: "testJ@test.com",
+    //   customerMobile: "2349077746616",
+    //   requestReference: data?.transactionReference, 
+    //   amount: data?.amount
+    // })
+
+    completedForm.setValues(data?.transactionDetails)
     console.log(completedForm.errors)
     completedForm.handleSubmit()
   }
@@ -36,10 +38,10 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
   }, [completedSuccess])
   
   useEffect(() => {
-    if(isError) {
+    if(isSuccess) {
       setFlow(1)
     }
-  }, [isError])
+  }, [isSuccess])
 
   return (
     <>
@@ -53,13 +55,13 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
       
       { 
         flow === 0 ?
-          <ElectricityBillForm setFlow={setFlow} data={formData} formik={formik} billers={billers} setData={setFormData} />
+          <ElectricityBillForm setFlow={setFlow} data={formData} formik={formik} billers={billers} isPending={isPending} setData={setFormData} />
         :
         flow === 1 ? 
-        <ElectricityBillDetails data={formData} setFlow={setFlow}/> 
+        <ElectricityBillDetails data={{ ...formData, ...data }} setFlow={setFlow}/> 
         : 
         flow === 2 ? 
-        <ElectricityBillPayment data={formData} setFlow={setFlow}/> 
+        <ElectricityBillPayment data={{ ...formData, ...data }} completeAction={completePayment} setFlow={setFlow}/> 
         : 
         flow === 3 ? 
         <ElectricityBillToken data={completedBill} setFlow={setFlow} /> :
