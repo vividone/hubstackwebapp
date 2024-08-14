@@ -1,0 +1,71 @@
+"use client";
+import React, { useState } from "react";
+import Image from "next/image";
+import { Button } from "../../common/button";
+import { formatAmount } from "@/helpers/amountFormatter";
+import CurrentBalance from "../currentBalance";
+import { FlowProps } from "../modalsLayout";
+import Confirmation from "../confirmation";
+
+const DataPayment: React.FC<any> = ({ setFlow, data, pseudo }: any) => {
+  const [showAlternate, setShowAlternate] = useState(false);
+
+  return (
+    <div className="mt-4">
+      <CurrentBalance />
+
+      <div className="flex flex-col gap-1">
+        <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
+          <div className="flex  flex-wrap items-center gap-4">
+            <Image
+              src={`/images/airtime/${data?.network}.png`}
+              alt={data?.name}
+              width={80}
+              height={80}
+            />
+            <p className="text-xl font-semibold text-[#3D3066]">{data?.name}</p>
+          </div>
+          <div className="py-4">
+            <p>Mobile Number</p>
+            <p className=" opacity-[0.7]">{pseudo?.mobileNumber}</p>
+          </div>
+
+          <div className="flex gap-12">
+            <div>
+              <p>Data Plan</p>
+              <p className="opacity-[0.7]">{pseudo?.DataPlan}</p>
+            </div>
+          </div>
+        </div>
+
+        <p className="text-center mt-4">
+          The amount of{" "}
+          <span className="font-bold">NGN{formatAmount((+data?.amount + 100).toString())}</span> will
+          be debited from your wallet balance, proceed below to complete
+          transaction{" "}
+        </p>
+
+        <div className="flex flex-col gap-4">
+          <Button
+            variant="primary"
+            size="full"
+            type="submit"
+            onClick={() => setFlow(4)}
+          >
+            <span className="text-[16px]">PAY WITH WALLET</span>
+          </Button>
+
+          <Button
+            variant="secondary"
+            size="full"
+            onClick={() => setShowAlternate(!showAlternate)}
+          >
+            <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DataPayment;
