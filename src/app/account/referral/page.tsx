@@ -12,10 +12,6 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 const ReferralPage = () => {
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
 
-  useEffect(() => {
-    console.log(userDetails)
-  }, [userDetails])
-
   return (
     <div className="flex flex-col md:flex-col w-full">
       <div className="flex w-full md:w-[45%] p-[30px] md:p-[60px_25px] gap-10">

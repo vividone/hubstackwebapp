@@ -7,10 +7,10 @@ import CableTvPayment from "./payment"
 import { useGetBillersByCategoryId } from "@/helpers/categories";
 import CableTvPurchase from "./Purchasedetails";
 import CustomIcons from "@/components/custom/customIcons";
-import { usePayBill } from "@/helpers/services";
+import { useCompleteBillPayment, usePayBill } from "@/helpers/services";
 import ToastComponent from "@/components/common/toastComponent";
 type cableTvProviders = {
-  LogoUrl: string;
+  ShortName: string;
   Name: string;
   Id: string;
 }
@@ -21,11 +21,12 @@ const CableTVServices = ({ setShow, show }: any) => {
   const [data, setData] = useState<any>()
   const [active, setActive] = useState<cableTvProviders | null>()
   const { data: payCable, formik: cableForm, isError, isPending, isSuccess, error } = usePayBill("cable");
-  // const { billers, isLoading } = useGetBillersByCategoryId("2")
+  const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess } = useCompleteBillPayment(payCable?._id || "")
+  const { billers, isLoading } = useGetBillersByCategoryId("2")
 
   const flowHeaders: string[] = ["Cable TV", "Cable TV", "Your Order", "Your Wallet"]
 
-  // const providers: cableTvProviders[] = billers?.BillerList?.Category[0]?.Billers
+  const providers: cableTvProviders[] = billers?.BillerList?.Category[0]?.Billers
 
   useEffect(() => {
     if(isSuccess) {
@@ -33,80 +34,95 @@ const CableTVServices = ({ setShow, show }: any) => {
       setFlow(2)
     }
   }, [isSuccess])
+
   
-  const providers: cableTvProviders[] = [
-    {
-      LogoUrl: "ActTV.png",
-      Name: "actTv",
-      Id: "1",
-    },
-    {
-      LogoUrl: "BoxOffice.png",
-      Name: "Box Office",
-      Id: "2",
-    },
-    {
-      LogoUrl: "DaarSat.png",
-      Name: "DaarSat",
-      Id: "3",
-    },
-    {
-      LogoUrl: "DSTV.png",
-      Name: "DSTV",
-      Id: "4",
-    },
-    {
-      LogoUrl: "GOTV.png",
-      Name: "GOTV",
-      Id: "5",
-    },
-    {
-      LogoUrl: "InfinityTv.png",
-      Name: "Infinity TV",
-      Id: "6",
-    },
-    {
-      LogoUrl: "irokoTv.png",
-      Name: "Iroko Tv",
-      Id: "7",
-    },
-    {
-      LogoUrl: "kwese.png",
-      Name: "kwese",
-      Id: "8",
-    },
-    {
-      LogoUrl: "montageTv.png",
-      Name: "Montage TV",
-      Id: "9",
-    },
-    {
-      LogoUrl: "100NairaShop.png",
-      Name: "100 Naira Shop",
-      Id: "10",
-    },
-    {
-      LogoUrl: "playTv.png",
-      Name: "Play TV",
-      Id: "11",
-    },
-    {
-      LogoUrl: "BigXtv.png",
-      Name: "Big X TV",
-      Id: "12",
-    },
+  const completePayment = () => {
+    // completedForm.setValues({ 
+    //   paymentCode: payCable?.transactionDetails.paymentCode?.toString(), 
+    //   customerId: payCable?.transactionDetails.customerId?.toString(), 
+    //   customerEmail: "testJ@test.com",
+    //   customerMobile: "2349077746616",
+    //   requestReference: payCable?.transactionReference, 
+    //   amount: payCable?.amount
+    // })
+
+    completedForm.setValues(payCable?.transactionDetails)
+    completedForm.handleSubmit()
+  }
+  
+  // const providers: cableTvProviders[] = [
+  //   {
+  //     LogoUrl: "ActTV.png",
+  //     Name: "actTv",
+  //     Id: "1",
+  //   },
+  //   {
+  //     LogoUrl: "BoxOffice.png",
+  //     Name: "Box Office",
+  //     Id: "2",
+  //   },
+  //   {
+  //     LogoUrl: "DaarSat.png",
+  //     Name: "DaarSat",
+  //     Id: "3",
+  //   },
+  //   {
+  //     LogoUrl: "DSTV.png",
+  //     Name: "DSTV",
+  //     Id: "4",
+  //   },
+  //   {
+  //     LogoUrl: "GOTV.png",
+  //     Name: "GOTV",
+  //     Id: "5",
+  //   },
+  //   {
+  //     LogoUrl: "InfinityTv.png",
+  //     Name: "Infinity TV",
+  //     Id: "6",
+  //   },
+  //   {
+  //     LogoUrl: "irokoTv.png",
+  //     Name: "Iroko Tv",
+  //     Id: "7",
+  //   },
+  //   {
+  //     LogoUrl: "kwese.png",
+  //     Name: "kwese",
+  //     Id: "8",
+  //   },
+  //   {
+  //     LogoUrl: "montageTv.png",
+  //     Name: "Montage TV",
+  //     Id: "9",
+  //   },
+  //   {
+  //     LogoUrl: "100NairaShop.png",
+  //     Name: "100 Naira Shop",
+  //     Id: "10",
+  //   },
+  //   {
+  //     LogoUrl: "playTv.png",
+  //     Name: "Play TV",
+  //     Id: "11",
+  //   },
+  //   {
+  //     LogoUrl: "BigXtv.png",
+  //     Name: "Big X TV",
+  //     Id: "12",
+  //   },
     // {
     //   LogoUrl: "starTimesTv.png",
     //   Name: "StarTimes TV",
     //   Id: "13",
     // },
     
-    {
-      LogoUrl: "TrendTv.png",
-      Name: "Trend TV",
-      Id: "14",
-    }
-  ];
+  //   {
+  //     LogoUrl: "TrendTv.png",
+  //     Name: "Trend TV",
+  //     Id: "14",
+  //   }
+  // ];
   return (
     <>
     
@@ -135,7 +151,7 @@ const CableTVServices = ({ setShow, show }: any) => {
           // :
             providers?.map((item) => (
                 <button key={item.Id} onClick={() => {setActive(item); setFlow(1)}}>
-                  <CustomIcons src={"/images/cableTvImages/" + item.LogoUrl} alt={item.Name} />
+                  <CustomIcons src={"/images/cableTvImages/" + item.ShortName +".jpg"} alt={item.Name} />
                 </button>
               )
             )
@@ -147,10 +163,10 @@ const CableTVServices = ({ setShow, show }: any) => {
       <CableTvForm active={active} data={data} setData={setData} isPending={isPending} formik={cableForm} setFlow={setFlow} />
       :
       flow === 2 ?
-      <CableTvDetails active={active} data={data} setFlow={setFlow} />
+      <CableTvDetails active={active} data={{...data, ...payCable}} setFlow={setFlow} />
       :
       flow === 3 ?
-      <CableTvPayment data={active} setFlow={setFlow} />
+      <CableTvPayment active={active} data={{...data, ...payCable}} setFlow={setFlow} completeAction={completePayment} />
       :
       flow === 4 ?
       <CableTvPurchase active={active} data={data} setFlow={setFlow} />
