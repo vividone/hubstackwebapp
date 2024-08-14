@@ -26,7 +26,7 @@ const CableTVServices = ({ setShow, show }: any) => {
   
   const providers: cableTvProviders[] = [
     {
-      LogoUrl: "ActTV.png",
+      LogoUrl: "actTV.png",
       Name: "actTv",
       Id: "1",
     },
