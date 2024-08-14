@@ -2,14 +2,15 @@
 import { Button } from "@/components/common/button";
 import { PasswordVariantInput } from "@/components/common/inputs";
 import ToastComponent from "@/components/common/toastComponent";
-import { useResetPassword } from "@/helpers/api/useAuth";
+import { useProfilePasswordUpdate } from "@/helpers/profile";
 import { FormEvent } from "react";
 
 const PageSecurity = () => {
-  const { formik, isPending, isSuccess, isError, error } = useResetPassword("")
+  const { formik, isPending, isSuccess, isError, error } = useProfilePasswordUpdate()
   
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log(formik.errors)
     formik.handleSubmit()
   };
   
@@ -28,26 +29,37 @@ const PageSecurity = () => {
         </div>
         <div className="flex flex-col gap-[60px] items-center lg:w-[60%] w-full">
           <div className="w-full text-[#8c8b92] text-[20px] flex flex-col gap-3">
-            <label htmlFor="firstname">Enter New Password</label>
+            <label htmlFor="firstname">Old Password</label>
+            <PasswordVariantInput
+              placeholder="Password"
+              name="oldPassword"
+              data-test="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.oldPassword && formik.errors.oldPassword}
+            />
+          </div>
+          <div className="w-full text-[#8c8b92] text-[20px] flex flex-col gap-3">
+            <label htmlFor="firstname">New Password</label>
             <PasswordVariantInput
               placeholder="Password"
               name="newPassword"
               data-test="password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              error={formik.touched.newPassword && formik.errors.newPassword}
             />
-            <p className="text-[12px] text-red-500 text-center">{formik.errors.newPassword}</p>
           </div>
           <div className="w-full text-[#8c8b92] text-[20px] flex flex-col gap-3">
-            <label htmlFor="firstname">Re-enter New Password</label>
+            <label htmlFor="firstname">Confirm New Password</label>
             <PasswordVariantInput
               placeholder="Confirm password"
               name="confirmNewPassword"
               data-test="confirm-password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              error={formik.touched.confirmNewPassword && formik.errors.confirmNewPassword}
             />
-            <p className="text-[12px] text-red-500 text-center">{formik.errors.confirmNewPassword}</p>
           </div>
         </div>
       </div>

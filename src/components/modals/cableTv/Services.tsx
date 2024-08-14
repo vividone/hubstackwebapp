@@ -7,6 +7,8 @@ import CableTvPayment from "./payment"
 import { useGetBillersByCategoryId } from "@/helpers/categories";
 import CableTvPurchase from "./Purchasedetails";
 import CustomIcons from "@/components/custom/customIcons";
+import { usePayBill } from "@/helpers/services";
+import ToastComponent from "@/components/common/toastComponent";
 type cableTvProviders = {
   LogoUrl: string;
   Name: string;
@@ -18,11 +20,19 @@ const CableTVServices = ({ setShow, show }: any) => {
   const [flow, setFlow] = useState(0)
   const [data, setData] = useState<any>()
   const [active, setActive] = useState<cableTvProviders | null>()
+  const { data: payCable, formik: cableForm, isError, isPending, isSuccess, error } = usePayBill("cable");
   // const { billers, isLoading } = useGetBillersByCategoryId("2")
 
   const flowHeaders: string[] = ["Cable TV", "Cable TV", "Your Order", "Your Wallet"]
 
   // const providers: cableTvProviders[] = billers?.BillerList?.Category[0]?.Billers
+
+  useEffect(() => {
+    if(isSuccess) {
+      // setData({ ...data, transactionReference: payCable?.transactionReference })
+      setFlow(2)
+    }
+  }, [isSuccess])
   
   const providers: cableTvProviders[] = [
     {
@@ -98,6 +108,14 @@ const CableTVServices = ({ setShow, show }: any) => {
     }
   ];
   return (
+    <>
+    
+    <ToastComponent
+        isSuccess={isSuccess} 
+        isError={isError} 
+        msg={isSuccess ? "Successful" : isError ? "Error " + error : ""}
+      />
+
     <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show}>
       
       {
@@ -126,7 +144,7 @@ const CableTVServices = ({ setShow, show }: any) => {
       </main>
       :
       flow === 1 ?
-      <CableTvForm active={active} data={data} setData={setData} setFlow={setFlow} />
+      <CableTvForm active={active} data={data} setData={setData} isPending={isPending} formik={cableForm} setFlow={setFlow} />
       :
       flow === 2 ?
       <CableTvDetails active={active} data={data} setFlow={setFlow} />
@@ -142,6 +160,7 @@ const CableTVServices = ({ setShow, show }: any) => {
       }
 
     </ModalsLayout>
+    </>
   );
 };
 

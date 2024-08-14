@@ -33,6 +33,7 @@ export function useUrls() {
   // Update profile 
   const updateIndividualProfileUrl = `${BASE_URL}/users/update-profile`;
   const updateAgentProfileUrl = `${BASE_URL}/agent/update-profile`;
+  const updatePasswordUrl = `${BASE_URL}/auth/update-password`;
 
   return {
     loginUrl,
@@ -45,6 +46,7 @@ export function useUrls() {
     resendPasswordEmailUrl,
     updateIndividualProfileUrl,
     updateAgentProfileUrl,
+    updatePasswordUrl,
     createWalletUrl ,
     walletCheck,
     getUserWallet,

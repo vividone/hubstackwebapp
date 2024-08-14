@@ -7,8 +7,11 @@ import { formatAmount } from "@/helpers/amountFormatter";
 import { FlowProps } from "../modalsLayout";
 import CurrentBalance from "../currentBalance";
 
+interface CompletePayment extends FlowProps {
+  completeAction: () => void;
+}
 
-const ElectricityBillPayment: React.FC<FlowProps> = ({ setFlow, data }) => {
+const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeAction }) => {
   const [showAlternate, setShowAlternate] = useState(false)
   const [meterType, setMeterType] = useState<any>()
 
@@ -42,12 +45,8 @@ const ElectricityBillPayment: React.FC<FlowProps> = ({ setFlow, data }) => {
           </div>
           <div className="flex flex-col gap-4">
             <div className="">
-              <span className="block">Meter Name</span>
-              <span className="flex items-center opacity-[0.7]">Mariam</span>
-            </div>
-            <div className="">
-              <span className="block">Address</span>
-              <span className="flex items-center opacity-[0.7]">...</span>
+              <span className="block">Service</span>
+              <span className="flex items-center opacity-[0.7]">{data?.transactionDetails?.service}</span>
             </div>
           </div>
 
@@ -55,14 +54,14 @@ const ElectricityBillPayment: React.FC<FlowProps> = ({ setFlow, data }) => {
         
         <div className="mt-10 flex flex-col gap-1">
           
-        <p className="text-center">The amount of  NGN{formatAmount((+data?.amount + 100).toString())} will be debited from your wallet balance, proceed below to complete transaction </p>
+        <p className="text-center">The amount of  NGN{formatAmount(data?.amount)} will be debited from your wallet balance, proceed below to complete transaction </p>
         
           <div className="flex flex-col gap-4">
             <Button 
               variant="primary" 
               size="full"
               type="submit"
-              onClick={() => setFlow(3)}
+              onClick={() => completeAction()}
             >
               <span className="text-[16px]">PROCEED WITH WALLET</span>
             </Button>

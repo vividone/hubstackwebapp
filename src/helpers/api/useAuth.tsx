@@ -7,7 +7,6 @@ import {
     IAuthLogin,
     IAuthIndividualSignup,
     IAuthAgentSignup,
-    IAuthSuperAgentSignup,
     IVerifyLogin
   } from "@/interface/auth";
 import { IErrorResponseType } from "@/interface/common/error";
@@ -17,7 +16,6 @@ import {
     SetPasswordSchema,
     SignupSchemaAgent,
     SignupSchemaIndividual,
-    SignupSchemaSuperAgent,
     VerifyLoginSchema
   } from "@/schema/auth";
   import { HUBSTACKROLES } from "@/types/roles";
@@ -53,7 +51,7 @@ export const useLogin = () => {
       onSubmit: async ({ ...values }) => {
         try {
           await formik.validateForm();
-          mutate(values, {
+          mutate({ email: values.email.toLowerCase(), password: values.password }, {
             onSuccess: (res) => {
               setCookie(TOKEN.ACCESS, res.data.token.access_token);
               setHasWallet(res.data.hasWallet)
@@ -296,25 +294,24 @@ export const useResetPassword = (token: string | null) => {
   const router = useRouter();
   const { resetPasswordUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["set password"],
-      mutationFn: (payload: Partial<{ newPassword: string, confirmNewPassword: string }>) => {
+      mutationFn: (payload: Partial<{ password: string, confirmNewPassword: string }>) => {
         return axiosInstance.post(resetPasswordUrl + "/" + token, payload)
       },
   })  
 
   const formik = useFormik({
     initialValues: {
-      newPassword: "", 
+      password: "", 
       confirmNewPassword: ""
-    } as { newPassword: string, confirmNewPassword: string },
+    } as { password: string, confirmNewPassword: string },
     validateOnBlur: true,
     validateOnChange: true,
     validationSchema: SetPasswordSchema,
-    onSubmit: async ({ ...values }) => {
+    onSubmit: async ({ confirmNewPassword, ...values }) => {
       try {
         mutate(
           {
-            newPassword: values.newPassword,
-            confirmNewPassword: values.confirmNewPassword
+            password: values.password,
           },
           {
             onSuccess: () => {

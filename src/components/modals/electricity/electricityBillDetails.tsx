@@ -40,12 +40,8 @@ const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data }) => {
           </div>
           <div className="flex flex-col gap-4">
             <div className="">
-              <span className="block">Meter Name</span>
-              <span className="flex items-center opacity-[0.7]">Mariam</span>
-            </div>
-            <div className="">
-              <span className="block">Address</span>
-              <span className="flex items-center opacity-[0.7]">...</span>
+              <span className="block">Service Name</span>
+              <span className="flex items-center opacity-[0.7]">{data?.transactionDetails?.service}</span>
             </div>
           </div>
 
@@ -61,12 +57,12 @@ const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data }) => {
             
             <div className="flex justify-between items-center gap-5">
               <span className="block">Service Charge</span>
-              <span className="flex items-center"><NairaIcon className="w-[12px]" />100.00</span>
+              <span className="flex items-center"><NairaIcon className="w-[12px]" />0.00</span>
             </div>
             
             <div className="flex justify-between items-center gap-5 mb-6">
               <span className="block font-bold">Total</span>
-              <span className="flex items-center"><NairaIcon className="w-[12px]" />{formatAmount((+data?.amount + 100).toString())}</span>
+              <span className="flex items-center"><NairaIcon className="w-[12px]" />{formatAmount(data?.amount)}</span>
             </div>
 
           </div>

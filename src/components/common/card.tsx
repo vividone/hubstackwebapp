@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import DollarBagIcon from "@/assets/icons/DollarBagIcon";
-import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 interface CardData {
   amount: number;
@@ -20,7 +18,7 @@ const Card = ({ value }: CardProps) => {
 
   return (
     <div
-      className="flex flex-col gap-6 min-h-[210px] w-[353px] text-[#111111] bg-[#00D7F7] rounded-[8px] p-[30px]"
+      className="flex flex-col gap-6 min-h-[210px] sm:w-[380px] w-full text-[#111111] rounded-[8px] p-[30px]"
     >
      
       <div className="flex justify-between items-start gap-4 h-full w-full">
@@ -46,7 +44,7 @@ const Card = ({ value }: CardProps) => {
       <div className="flex justify-between items-end h-full w-full">
         <div className="flex flex-col justify-center items-center h-[50%]">
           <span className="flex items-center font-bold  2xl:text-[32px] text-[24px] w-full font-sans">
-            {visibility ? <><NairaIcon className="w-[18px]" /> {formatAmount(amount?.toString())}</> : "****"}
+            {visibility ? <>₦{formatAmount(amount?.toString())}</> : "****"}
           </span>
           <span className="font-normal text-[18px] w-full font-sans">
             {type}

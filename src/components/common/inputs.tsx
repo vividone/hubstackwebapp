@@ -5,6 +5,10 @@ import { InputProps, TextareaProps } from "@/interface/common/input";
 import { ChangeEvent, FC, HTMLInputTypeAttribute, useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import SearchIcon from "@/assets/icons/SearchIcon";
+import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
+import { NumericFormat } from "react-number-format";
+
+
 export const Input: FC<Partial<InputProps>> = ({ ...props }) => {
   const [focus, setFocus] = useState(false);
   const { className, containerClassName, ...rest } = props;
@@ -282,80 +286,5 @@ export const SearchInput: any  = ({ ...props }) => {
         placeholder={props.placeholder || 'Search...'} 
       />
     </div>
-  );
-};
-
-export const MoneyInput: FC<Partial<InputProps>> = ({ ...props }) => {
-  const [focus, setFocus] = useState(false);
-  const { className, containerClassName, labelname, error, ...rest } = props;
-
-  // Track whether the input has content
-  const hasContent = Boolean(rest.value);
-
-  // Handle onBlur to keep focus true if there's content
-  const handleBlur = () => {
-    if (!hasContent) {
-      setFocus(false);
-    }
-  };
-
-  const oneDot = (input: any) => {
-    var value = input.value;
-    value = value.split(".").join("")
-
-    if(value.length > 1) {
-      value = value.substring(0, value.length - 2) + "." + value.substring(value.length - 2, value.length)
-    }
-
-    input.value = value
-  }
-
-  return (
-    <>
-    <div
-      className={`flex items-center  relative  rounded-md xl:h-[66px] h-12  px-4 border transition-all ease-in duration-100 
-          ${
-            props.error
-              ? "border-maroon-200"
-              : focus
-              ? "bg-white border border-primary-500 "
-              : "bg-[#F9F9F9]  border-[#E7E6F2]"
-          }
-          placeholder:text-grey-700
-          ${containerClassName}
-          `}
-      onFocus={() => setFocus(true)}
-      onBlur={handleBlur}
-    >
-      {focus && (
-        <div
-          className={`absolute  transition-all duration-300 ease-in-out  top-0 p-1 -mt-3  text-xs bg-white font-normal max-w-[max-content] ${
-            error ? "text-maroon-200" : "text-primary-500"
-          }`}
-        >
-          {labelname}
-        </div>
-      )}
-      {(props.leftIcon || false) && !props.error && !focus && (
-        <props.leftIcon />
-      )}
-      {(props.activeLeftIcon || false) && !props.error && focus && (
-        <props.activeLeftIcon />
-      )}
-      {props.error && props.errorIcon ? <props.errorIcon /> : <> </>}
-      <input
-        className={`!outline-none bg-transparent transition-all duration-300 ease-in-out w-full
-              ${className ? className : ""}
-              placeholder:text-s lg:placeholder:text-base placeholder:text-grey-700
-              `}
-        {...rest}
-        placeholder={focus ? "" : props.placeholder}
-        onKeyUp={(e) => oneDot(e.target)}
-      />
-      {props.rightIcon && !focus && <props.rightIcon />}
-      {props.activeRightIcon && !focus && <props.activeRightIcon />}
-    </div>
-    <p className={`text-[12px] ${props.error ? "text-red-600" : "opacity-[0.7]"}`}>{props.error}</p>
-    </>
   );
 };

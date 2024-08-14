@@ -29,7 +29,7 @@ export const usePayBill = ( type: string ) => {
           paymentCode: "",
           paymentMode: "",
           customerId: "",
-          amount: 0,
+          amount: +"",
           category: ""
       } as IElectricBill,
       validateOnBlur: false,
@@ -66,7 +66,7 @@ export const useCompleteBillPayment = ( id: string ) => {
     const { payBillUrl } = useUrls();
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay Electricity"],
         mutationFn: (payload: Partial<IElectricBill>) => {
-            return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/${id}`, payload)
+            return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/complete`, payload)
         },
     })    
     

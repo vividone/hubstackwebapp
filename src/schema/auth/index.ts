@@ -37,10 +37,11 @@ export const SignupSchemaAgent = Yup.object().shape({
     .trim()
     .lowercase()
     .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
-  phonenumber: Yup.string().required("Phone number is required"),
+  phonenumber: Yup.string().required("Phone number is required")
+    .length(11, "Phone number should be 11 digits"),
   referralCode: Yup.string().optional(),
   business_name: Yup.string().required("Business name is required")
-    .min(3, "Business name must not be less than 3 characters"),
+    .min(3, "Business name must be more than 3 characters"),
   role: Yup.string().optional(),
   location: Yup.string().required("Location is required"),
   region: Yup.string().required("Region is required"),
@@ -87,7 +88,7 @@ export const ResetPasswordSchema = Yup.object().shape({
 });
 
 export const SetPasswordSchema = Yup.object().shape({
-  newPassword: Yup.string().required().trim(),
+  password: Yup.string().required(" New password is required ").trim(),
   confirmNewPassword: Yup.string()
     .oneOf([Yup.ref("newPassword")], "Passwords must match")
     .required(""),

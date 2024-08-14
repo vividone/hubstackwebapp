@@ -14,9 +14,7 @@ export interface IUpdateProfile {
 
   
 export interface IUpdateProfilePassword {
-    firstname: string;
-    lastname: string;
-    username: string;
-    password: string;
-    confirmPassword: string;
+    oldPassword: string;
+    newPassword: string;
+    confirmNewPassword?: string;
 }
