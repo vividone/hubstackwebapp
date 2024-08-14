@@ -7,10 +7,15 @@ import NairaIcon from "@/assets/icons/nairaIcon";
 import Link from "next/link";
 import { MoneyInput } from "@/components/common/inputs";
 import ToggleOnOutlinedIcon from "@mui/icons-material/ToggleOnOutlined";
-
-const DataForm = ({ handleSubmit, setFlow, active, data, setData ,setpseudoUpdate}: any) => {
-
-
+import ToggleOffOutlinedIcon from "@mui/icons-material/ToggleOffOutlined";
+const DataForm = ({
+  handleSubmit,
+  setFlow,
+  data,
+  setData,
+  setpseudoUpdate,
+}: any) => {
+  const [toggle, setToggle] = useState(true);
   return (
     <div>
       <h2 className="font-normal text-[20px] font-OpenSans">
@@ -77,7 +82,26 @@ const DataForm = ({ handleSubmit, setFlow, active, data, setData ,setpseudoUpdat
               // }
             />
           </div>
-          <div></div>
+          <div className="flex mt-4 items-center gap-2">
+            {toggle ? (
+              <div
+                onClick={() => {
+                  setToggle(false);
+                }}
+              >
+                <ToggleOnOutlinedIcon className="text-[#3D3066] text-[35px] cursor-pointer"/>
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  setToggle(true);
+                }}
+              >
+                <ToggleOffOutlinedIcon className="text-[#3D3066] text-[35px] cursor-pointer" />
+              </div>
+            )}
+            <p className="text-[18px] font-OpenSans">Save Beneficiary</p>
+          </div>
         </div>
 
         <div className="flex flex-col gap-2 mt-12">
@@ -96,15 +120,16 @@ const DataForm = ({ handleSubmit, setFlow, active, data, setData ,setpseudoUpdat
             size="full"
             type="submit"
             // isLoading={isPending}
-            
-            onClick={() => 
-            {
-              return(
+
+            onClick={() => {
+              return (
                 setFlow((prev: any) => prev + 1),
-                setpseudoUpdate({ DataPlan: "1000", mobileNumber: "09025923159" })
-              )
-            }
-            }
+                setpseudoUpdate({
+                  DataPlan: "1000",
+                  mobileNumber: "09025923159",
+                })
+              );
+            }}
           >
             <span className="text-[16px]">REVIEW ORDER</span>
           </Button>
