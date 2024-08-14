@@ -21,7 +21,7 @@ const CableTvPayment: React.FC<FlowProps> = ({ setFlow, data }) => {
           <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
             <div className="flex  flex-wrap items-center gap-4">
               <Image src={data?.Image} alt={data?.title} width={80} height={80} />
-              <p>{data?.title}</p>
+              <p className="text-xl font-semibold text-[#3D3066]">{data?.title}</p>
             </div>
           </div>
           
