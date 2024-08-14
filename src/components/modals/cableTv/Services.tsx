@@ -26,7 +26,7 @@ const CableTVServices = ({ setShow, show }: any) => {
   
   const providers: cableTvProviders[] = [
     {
-      LogoUrl: "actTv.png",
+      LogoUrl: "ActTV.png",
       Name: "actTv",
       Id: "1",
     },
@@ -85,11 +85,12 @@ const CableTVServices = ({ setShow, show }: any) => {
       Name: "Big X TV",
       Id: "12",
     },
-    {
-      LogoUrl: "starTimesTv.png",
-      Name: "StarTimes TV",
-      Id: "13",
-    },
+    // {
+    //   LogoUrl: "starTimesTv.png",
+    //   Name: "StarTimes TV",
+    //   Id: "13",
+    // },
+    
     {
       LogoUrl: "TrendTv.png",
       Name: "Trend TV",
