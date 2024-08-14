@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ModalsLayout from "../modalsLayout";
 import { Button } from "@/components/common/button";
 import Link from "@/components/custom/link";
@@ -18,7 +18,7 @@ const Data = ({ setShow, show }: any) => {
   const [error, setError] = useState<any>({});
   const [data, setData] = useState<dataProps>({ name: "", network: "" });
   const [pseudo, setpseudoUpdate] = useState("");
-
+  const [isPadded, setIsPadded] = useState(true);
   const flowHeaders: string[] = [
     "Data Bundle",
     "Data Bundle",
@@ -26,6 +26,16 @@ const Data = ({ setShow, show }: any) => {
     "Your Wallet",
     "Purchase Details",
   ];
+  const paddingHandler = () => {
+    if (flow == 3) {
+      setIsPadded(false);
+    } else {
+      setIsPadded(true);
+    }
+  };
+  useEffect(() => {
+    paddingHandler();
+  }, [flow]);
 
   return (
     <ModalsLayout
@@ -34,6 +44,7 @@ const Data = ({ setShow, show }: any) => {
       header={flowHeaders[flow]}
       setShow={setShow}
       show={show}
+      isPadded={isPadded}
     >
       {flow === 1 ? (
         <DataForm
@@ -48,12 +59,13 @@ const Data = ({ setShow, show }: any) => {
           data={data}
           setpseudoUpdate={setpseudoUpdate}
           pseudo={pseudo}
+          paddingHandler={paddingHandler}
         />
       ) : flow === 3 ? (
         <DataPayment setFlow={setFlow} data={data} pseudo={pseudo} />
       ) : flow === 4 ? (
         <PurchaseDetails setFlow={setFlow} data={data} pseudo={pseudo} />
-      ): (
+      ) : (
         <>
           <header className="font-normal text-[20px] font-OpenSans">
             Choose A Service Provider

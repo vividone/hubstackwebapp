@@ -7,14 +7,21 @@ import CurrentBalance from "../currentBalance";
 import { FlowProps } from "../modalsLayout";
 import Confirmation from "../confirmation";
 
-const DataPayment: React.FC<any> = ({ setFlow, data, pseudo }: any) => {
+const DataPayment: React.FC<any> = ({
+  setFlow,
+  data,
+  pseudo,
+//   setIsPadded,
+}: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
   return (
     <div className="mt-4">
+      <div className="w-full border-y border-[#E7E6F2] px-[40px]">
       <CurrentBalance />
+      </div>
 
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 px-[40px] mt-6">
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
           <div className="flex  flex-wrap items-center gap-4">
             <Image
@@ -40,8 +47,10 @@ const DataPayment: React.FC<any> = ({ setFlow, data, pseudo }: any) => {
 
         <p className="text-center mt-4">
           The amount of{" "}
-          <span className="font-bold">NGN{formatAmount((+data?.amount + 100).toString())}</span> will
-          be debited from your wallet balance, proceed below to complete
+          <span className="font-bold">
+            NGN{formatAmount((+data?.amount + 100).toString())}
+          </span>{" "}
+          will be debited from your wallet balance, proceed below to complete
           transaction{" "}
         </p>
 
@@ -50,7 +59,9 @@ const DataPayment: React.FC<any> = ({ setFlow, data, pseudo }: any) => {
             variant="primary"
             size="full"
             type="submit"
-            onClick={() => setFlow(4)}
+            onClick={() => {
+              return setFlow(4);
+            }}
           >
             <span className="text-[16px]">PAY WITH WALLET</span>
           </Button>

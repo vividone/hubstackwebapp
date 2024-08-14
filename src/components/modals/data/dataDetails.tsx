@@ -5,9 +5,9 @@ import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
 import { FlowProps } from "../modalsLayout";
 
-const DataDetails = ({ setFlow, data, pseudo }: any) => {
+const DataDetails = ({ setFlow, data, pseudo,  }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
-  console.log(pseudo[0]?.DataPlan)
+
   return (
     <div className="mt-4">
       <h2 className="font-normal text-[20px] font-OpenSans">
@@ -35,7 +35,6 @@ const DataDetails = ({ setFlow, data, pseudo }: any) => {
             <p>Data Plan</p>
             <p className="opacity-[0.7]">{pseudo?.DataPlan}</p>
           </div>
-          
         </div>
       </div>
 
@@ -71,7 +70,9 @@ const DataDetails = ({ setFlow, data, pseudo }: any) => {
             variant="primary"
             size="full"
             type="submit"
-            onClick={() => setFlow(3)}
+            onClick={() => {
+              return setFlow(3);
+            }}
           >
             <span className="text-[16px]">PAY WITH WALLET</span>
           </Button>
@@ -79,7 +80,9 @@ const DataDetails = ({ setFlow, data, pseudo }: any) => {
           <Button
             variant="secondary"
             size="full"
-            onClick={() => setShowAlternate(!showAlternate)}
+            onClick={() => {
+              return setShowAlternate(!showAlternate);
+            }}
           >
             <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
           </Button>

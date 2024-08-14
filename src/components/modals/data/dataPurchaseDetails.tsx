@@ -1,16 +1,17 @@
-import React,{useState} from "react";
+import React, { useEffect, useState } from "react";
 import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { Button } from "@/components/common/button";
 import ClipBoard from "@/components/wallet/clipboard";
 import Image from "next/image";
 
-const PurchaseDetails = ({ setFlow, data, pseudo }: any) => {
+const PurchaseDetails = ({ setFlow, data, pseudo, setIsPadded }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
-  console.log(data)
+  
+  console.log(data);
   return (
     <div className="mt-4">
-      <ClipBoard text={"1234-2341-1123-2878-9119"} label=""  />
+      <ClipBoard text={"1234-2341-1123-2878-9119"} label="" />
 
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px] mt-4">
         <div className="flex  flex-wrap items-center gap-4">
@@ -33,7 +34,6 @@ const PurchaseDetails = ({ setFlow, data, pseudo }: any) => {
             <p>Data Plan</p>
             <p className="opacity-[0.7]">{pseudo?.DataPlan}</p>
           </div>
-          
         </div>
       </div>
 
