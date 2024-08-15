@@ -51,7 +51,7 @@ export const useLogin = () => {
       onSubmit: async ({ ...values }) => {
         try {
           await formik.validateForm();
-          mutate({ email: values.email.toLowerCase(), password: values.password }, {
+          mutate({ email: values.email, password: values.password }, {
             onSuccess: (res) => {
               setCookie(TOKEN.ACCESS, res.data.token.access_token);
               setHasWallet(res.data.hasWallet)
@@ -305,7 +305,7 @@ export const useResetPassword = (token: string | null) => {
       confirmNewPassword: ""
     } as { password: string, confirmNewPassword: string },
     validateOnBlur: true,
-    validateOnChange: true,
+    validateOnChange: false,
     validationSchema: SetPasswordSchema,
     onSubmit: async ({ confirmNewPassword, ...values }) => {
       try {
@@ -320,6 +320,54 @@ export const useResetPassword = (token: string | null) => {
             //   onError: (res: any) => {
 
             //   },
+          }
+        );
+        formik.handleReset;
+      } catch (error: any) {
+        throw new Error(error);
+      }
+    },
+  });
+  const typedError = error as IErrorResponseType;
+  const errorString = Array.isArray(typedError?.response?.data?.message)
+    ? typedError?.response?.data?.message[0]
+    : typedError?.response?.data?.message || "";
+  return { formik, isPending, isSuccess, isError, error: errorString };
+};
+
+
+// verifyLogin
+export const useVerifyResetPassword = () => {
+  const router = useRouter();
+  const { verifyLoginUrl } = useUrls();
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["verify reset password account"],
+      mutationFn: (payload: Partial<IVerifyLogin>) => {
+        return axiosInstance.post(verifyLoginUrl, payload)
+      },
+  })  
+
+  const formik = useFormik({
+    initialValues: {
+      otp: "",
+      // email: "",
+    } as IVerifyLogin,
+    validateOnBlur: false,
+    validateOnChange: false,
+    validationSchema: VerifyLoginSchema,
+    onSubmit: async ({ ...values }) => {
+      try {
+        mutate(
+          {
+            otp: values.otp,
+            // email: values.email,
+          },
+          {
+            onSuccess: (res) => {
+              router.push(FRONTEND_URL.NEW_PASSWORD + "/?token=" + res.data.token);
+            },
+            // onError: (res: any) => {
+              
+            // },
           }
         );
         formik.handleReset;

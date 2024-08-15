@@ -9,6 +9,7 @@ import { usePayBill } from "@/helpers/services";
 import { useGetServicesByBillerId } from "@/helpers/categories";
 import { Dropdown } from "@/components/common/Dropdown";
 import CurrencyField from "@/components/common/currencyInput";
+import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 
 interface CableTvProps extends FlowProps {
   active: any;
@@ -29,9 +30,11 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
     formik.setFieldValue("paymentMode", "wallet")
     formik.setFieldValue("paymentCode", data?.serviceProvider?.PaymentCode) 
     formik.setFieldValue("category", "billpayment") 
-    formik.setFieldValue("amount", data?.amount)
+    formik.setFieldValue("amount",  data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount)
 
-    console.log(formik.values)
+    console.log(formik.errors)
+
+    formik.handleSubmit()
   }
 
   return (
@@ -42,7 +45,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
               
               <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[10px_30px]">
                 <div className="flex  flex-wrap items-center gap-4">
-                <Image src={"/images/cableTvImages/" + active?.LogoUrl} alt={active?.Name} width={80} height={80} />
+                <Image src={"/images/cableTvImages/" + active?.ShortName +".jpg"} alt={active?.Name} width={80} height={80} />
                   <p className="text-xl font-semibold text-[#3D3066]">{active?.Name}</p>
                 </div>
               </div>
@@ -97,11 +100,17 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
                   Amount
                 </label>
                 <div className="text-[#8c8b92] mt-2">
-                
+              
+                {
+                  data?.serviceProvider?.fixed ?  
+                  <p className="text-[32px] font-bold flex items-center"><NairaIconElectricBill width={32} />{data?.serviceProvider?.fee}.00</p>
+                :
                 <CurrencyField 
                   onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
-                  value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount} disabled={data?.serviceProvider?.fixed} 
+                  value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount} 
+                  disabled={data?.serviceProvider?.fixed} 
                 />
+                }
                 </div>
               </div>
 

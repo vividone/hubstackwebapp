@@ -115,7 +115,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
               className="text-[20px] font-CabinetGrotesk mb-4"
               isLoading={isPending}
             >
-              PAY NGN {formatAmount(data?.amount)}
+              REVIEW ORDER
             </Button>
             
           </div>

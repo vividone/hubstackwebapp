@@ -14,14 +14,16 @@ const PageSecurity = () => {
     formik.handleSubmit()
   };
   
-  <ToastComponent
-    isSuccess={isSuccess} 
-    isError={isError} 
-    msg={isSuccess ? "Update successful" : isError ? "Update error " + error : Object.values(formik.errors)?.join(", ")}
-  />
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-[60px] my-[60px] md:w-[90%]">
+      
+      <ToastComponent
+        isSuccess={isSuccess} 
+        isError={isError} 
+        msg={isSuccess ? "Update successful" : isError ? "Update error " + error : Object.values(formik.errors)?.join(", ")}
+      />
+
       <div className="flex justify-between flex-wrap gap-6">
         <div className="flex flex-col gap-2 lg:w-[35%]">
           <h2 className="font-medium text-lg">Password</h2>

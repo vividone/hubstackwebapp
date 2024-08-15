@@ -64,7 +64,7 @@ export const useCompleteBillPayment = ( id: string ) => {
     const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
     const [data, setData] = useState<IServicesData>()
     const { payBillUrl } = useUrls();
-    const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay Electricity"],
+    const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["complete pay bill"],
         mutationFn: (payload: Partial<IElectricBill>) => {
             return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/complete`, payload)
         },
@@ -80,7 +80,6 @@ export const useCompleteBillPayment = ( id: string ) => {
             amount: ""
         } as any,
         validateOnBlur: false,
-        validationSchema: electricBillValidationSchema,
         validateOnChange: false,
         onSubmit: async ({ ...values }) => {
         try {
