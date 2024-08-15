@@ -5,6 +5,7 @@ import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
 import { FlowProps } from "../modalsLayout";
+import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 
 
 interface CableTvProps extends FlowProps {
@@ -20,7 +21,7 @@ const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active }) => {
         
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
           <div className="flex  flex-wrap items-center gap-4">
-            <Image src={"/images/cableTvImages/" + active?.LogoUrl} alt={active?.Name} width={80} height={80} />
+            <Image src={"/images/cableTvImages/" + active?.ShortName +".jpg"} alt={active?.Name} width={80} height={80} />
             <p>{active?.Name}</p>
           </div>
 
@@ -36,7 +37,7 @@ const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active }) => {
             </div>
             <div>
               <p>Cable TV Plan</p>
-              <p className="opacity-[0.7]">{data?.plan}</p>
+              <p className="opacity-[0.7]">{data?.serviceProvider?.value}</p>
             </div>
           </div>
         </div>
@@ -47,17 +48,17 @@ const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active }) => {
 
             <div className="flex justify-between items-center gap-5">
               <span className="block ">Amount</span>
-              <span className="flex items-center"><NairaIcon className="w-[12px]" />{formatAmount(data?.amount)}</span>
+              <span className="flex items-center"><NairaIconElectricBill className="w-[12px]" />{formatAmount(data?.amount)}</span>
             </div>
             
             <div className="flex justify-between items-center gap-5">
               <span className="block">Service Charge</span>
-              <span className="flex items-center"><NairaIcon className="w-[12px]" />100.00</span>
+              <span className="flex items-center"><NairaIconElectricBill className="w-[12px]" />0.00</span>
             </div>
             
             <div className="flex justify-between items-center gap-5 mb-6">
               <span className="block font-bold">TOTAL</span>
-              <span className="flex items-center"><NairaIcon className="w-[12px]" />{formatAmount((+data?.amount + 100).toString())}</span>
+              <span className="flex items-center"><NairaIconElectricBill className="w-[12px]" />{formatAmount(data?.amount)}</span>
             </div>
 
           </div>
