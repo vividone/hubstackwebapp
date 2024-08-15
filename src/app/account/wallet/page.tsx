@@ -14,11 +14,13 @@ import ToastComponent from "@/components/common/toastComponent";
 import MenuIcon from "@/assets/icons/MenuIcon";
 import PlusIcon from "@/assets/icons/PlusIcon";
 import TransferIcon from "@/assets/icons/TransferIcon";
+import TransferFunds from "@/components/modals/wallet/TransferFunds";
 
 
 const Wallet = () => {
   const { wallet, formik, isPending, isSuccess, isError, error } = useCreateWallet();
   const [showWallet, setShowWallet] = useState(false);
+  const [transferFunds, setTransferFunds] = useState(false);
   const { userWallet, isLoading } = useGetWallet();
   const { walletBalance } = useGetAccountBalance();
   const [ balance, setBalance] = useState(0);
@@ -113,6 +115,9 @@ const Wallet = () => {
                   <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={userWallet || wallet} balance={balance} />
                 </div>
               )}
+              {transferFunds && (
+                <TransferFunds setShow={setTransferFunds} refreshWallet={refresh}  />
+              )}
               <div className="flex sm:flex-row flex-col sm:items-center pr-[3%] gap-6 justify-between bg-[#E6FBFF] rounded-[8px]">
                 <Card value={cardData} />
                 <div className="flex gap-12 p-4">
@@ -124,8 +129,8 @@ const Wallet = () => {
                     <span className="uppercase font-semibold">Fund</span>
                   </button>
 
-                  <button className="flex flex-col gap-3 items-center">
-                    <span className="flex items-center justify-center h-[60px] w-[60px] p-5 bg-[#000]/[0.1] rounded-full"
+                  <button className="flex flex-col gap-3 items-center" onClick={() => setTransferFunds(true)}>
+                    <span className="flex items-center justify-center h-[60px] w-[60px] p-[22px] bg-[#000]/[0.1] rounded-full"
                     >
                     <TransferIcon />
                     </span>
@@ -138,7 +143,7 @@ const Wallet = () => {
 
             <div className="flex-1 mt-[30px] w-full">
               <h2 className="font-medium 2xl:text-[25px] text-[20px] pb-[30px]">
-                Wallet History
+                Wallet Transactions
               </h2>
 
               <History history={history} />

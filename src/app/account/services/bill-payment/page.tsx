@@ -96,7 +96,7 @@ const Billpayment = () => {
             <div className="flex gap-2 items-center">
               <div className="flex items-center h-[45px] rounded-lg p-[12px] border border-[#89939F] bg-white">
                 <span className="text-[12px] text-[#292D32] font-medium font-CabinetGrotesk">
-                  All History
+                  Transactions History
                 </span>
                 <span className="ml-2 p-[4px] rounded bg-[#F5F8FC]">
                   <CaratDown />

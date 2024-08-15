@@ -154,7 +154,7 @@ const Profile = () => {
                 label: item,
                 value: item,
               }))}
-              className="items-start text-start justify-start rounded-lg border border-[#E7E6F2] w-[110px]"
+              className="items-start text-start justify-start rounded-lg w-[110px]"
             />
             <div className="flex-1">
               <Input

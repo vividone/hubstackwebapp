@@ -29,7 +29,7 @@ const CableTvPayment: React.FC<CableTvProps> = ({ setFlow, data, active, complet
             </div>
           </div>
           
-          <p className="text-center">The amount of  NGN{formatAmount(data?.amount)} will be debited from your wallet balance, proceed below to complete transaction </p>
+          <p className="text-center pb-4 pt-8">The amount of  NGN{formatAmount(data?.amount)} will be debited from your wallet balance, proceed below to complete transaction </p>
 
           <div className="flex flex-col gap-4">
             <Button 
