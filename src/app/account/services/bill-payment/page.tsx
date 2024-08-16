@@ -84,7 +84,7 @@ const Billpayment = () => {
       <div className="w-full md:w-[100%] mt-[30px]">
         <div className="flex flex-col gap-[30px] px-[30px] ">
           <p className="mt-[20px] md:mt-[35px] text-[25px] font-medium">
-            <span className="font-normal font-CabinetGrotesk text-25px">History</span>
+            <span className="font-normal font-CabinetGrotesk text-25px">Transactions</span>
           </p>
           <div className="flex flex-wrap gap-[12px] justify-between items-center md:gap-[24px] p-2 bg-slate-100">
             <SearchInput

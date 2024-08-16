@@ -21,10 +21,11 @@ const Wallet = () => {
   const { wallet, formik, isPending, isSuccess, isError, error } = useCreateWallet();
   const [showWallet, setShowWallet] = useState(false);
   const [transferFunds, setTransferFunds] = useState(false);
-  const { userWallet, isLoading } = useGetWallet();
+  const { userWallet: getWallet, isLoading } = useGetWallet();
+  const [ userWallet, setUserWallet ] = useState(getWallet);
   const { walletBalance } = useGetAccountBalance();
   const [ balance, setBalance] = useState(0);
-  const [ hasWallet,] = useLocalStorage<boolean>(TOKEN.HASWALLET);
+  const [ hasWallet, setHasWallet] = useLocalStorage<boolean>(TOKEN.HASWALLET);
   const { history } = useGetWalletHistory();
   
   const refresh = (amount: number) => {
@@ -32,8 +33,11 @@ const Wallet = () => {
   };
 
   useEffect(() => {
-    console.log(wallet, "ahhh")
-  }, [wallet])
+    if(isSuccess) {
+      setHasWallet(true)
+      setUserWallet(wallet)
+    }
+  }, [isSuccess])
 
   useEffect(() => {
     setBalance(walletBalance?.balance)
@@ -63,7 +67,7 @@ const Wallet = () => {
         }
       />
         
-        {!hasWallet && !userWallet ? (
+        {!hasWallet && (userWallet && userWallet.length === 0) ? (
           <>
             <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] mt-[60px] font-medium">
               Wallet
@@ -112,7 +116,7 @@ const Wallet = () => {
               {/* modal */}
               {showWallet && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 ">
-                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={userWallet || wallet} balance={balance} />
+                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={getWallet || wallet} balance={balance} />
                 </div>
               )}
               {transferFunds && (

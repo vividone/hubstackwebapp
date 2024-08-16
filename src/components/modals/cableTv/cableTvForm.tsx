@@ -32,8 +32,6 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
     formik.setFieldValue("category", "billpayment") 
     formik.setFieldValue("amount",  data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount)
 
-    console.log(formik.errors)
-
     formik.handleSubmit()
   }
 
@@ -57,6 +55,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
                 <div className="text-[#8c8b92] mt-2">
                 <Input 
                     name="customerId" 
+                    value={data?.customerId}
                     placeholder="0000000000" 
                     onChange={(e) => {
                       setData({ ...data, customerId: e.target.value });
@@ -125,7 +124,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
                   type="submit"
                   isLoading={isPending}
                 >
-                  <span className="text-[16px]">REVIEW ORDER</span>
+                  REVIEW ORDER
                 </Button>
               </div>
 

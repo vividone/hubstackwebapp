@@ -10,7 +10,7 @@ import ElectricityBillPayment from "./electricityBillPayment";
 
 const ElectricityBillModal = ({ show, setShow, billers }: any) => {
   const { data, formik, isError, isPending, isSuccess, error } = usePayBill("electricity");
-  const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess } = useCompleteBillPayment(data?._id || "")
+  const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess } = useCompleteBillPayment(data?._id || "", "Electricity")
   const [ formData, setFormData] = useState<any>()
   const [flow, setFlow ] = useState(0)
 
