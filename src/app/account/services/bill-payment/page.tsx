@@ -14,8 +14,8 @@ import { useEffect, useState } from "react";
 import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 import AirtimeModal from "@/components/modals/airtime/airtime";
 import CableTVServices from "@/components/modals/cableTv/Services";
-import Internet from "@/components/modals/internet/Internet";
-import Betting from "@/components/modals/betting/Betting";
+import Internet from "@/components/modals/internet/Services";
+import Betting from "@/components/modals/betting/services";
 import Data from "@/components/modals/data/data";
 const Billpayment = () => {
   const { billers, isLoading } = useGetBillersByCategoryId("1")
