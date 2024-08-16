@@ -17,7 +17,7 @@ export default function CurrentBalance() {
               <div>
                 <span className="block font-bold text-[#111111] text-[24px]">Current Balance</span>
                 <span className="block text-[#3D3066] text-[32px]  font-bold font-openSans">
-                  {visibility ? <div className="flex items-center"><NairaIconElectricBill width={32} />{formatAmount(walletBalance?.balance)}</div> : "****"}
+                  {visibility ? <div className="flex items-center"><NairaIconElectricBill width={32} />{formatAmount(walletBalance?.balance)}</div> : "********"}
                 </span>
               </div>
               <div>

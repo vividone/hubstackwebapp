@@ -60,13 +60,13 @@ export const usePayBill = ( type: string ) => {
 };
 
 
-export const useCompleteBillPayment = ( id: string ) => {
+export const useCompleteBillPayment:any = ( id: string, type: string ) => {
     const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
     const [data, setData] = useState<IServicesData>()
     const { payBillUrl } = useUrls();
-    const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["complete pay bill"],
+    const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: [`complete ${type} pay bill`],
         mutationFn: (payload: Partial<IElectricBill>) => {
-            return axiosInstance.post(`${payBillUrl}/${userDetails._id}/pay-bill/complete`, payload)
+            return axiosInstance.post(`${payBillUrl}/${id}/pay-bill/complete`, payload)
         },
     })    
     
@@ -74,8 +74,8 @@ export const useCompleteBillPayment = ( id: string ) => {
         initialValues: {
             paymentCode: "", 
             customerId: "", 
-            customerEmail: "",
-            customerMobile: "",
+            customerEmail: userDetails?.email,
+            customerMobile: userDetails?.phone_number || "07000000001",
             requestReference: "", 
             amount: ""
         } as any,

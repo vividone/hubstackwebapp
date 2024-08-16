@@ -15,6 +15,7 @@ import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import CurrencyField from "@/components/common/currencyInput";
+import CurrentBalance from "../currentBalance";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
@@ -114,35 +115,8 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
           ) :
           flow === "verify" ?
           (
-            <div className="flex justify-between items-center w-full border-y border-[#E7E6F2]  py-5 p-[30px_40px] ">
-              <div>
-                <span className="block font-bold text-[#111111] text-[22px]">
-                  Current Balance
-                </span>
-                <div className="flex items-center mt-2">
-                  {visibility && (
-                    <NairaIconElectricBill
-                      width={26}
-                      height={26}
-                      className="pt-1"
-                    />
-                  )}
-                  <span className="text-[#111111] text-[32px] font-bold font-openSans">
-                    {visibility ? balance : "*****"}
-                  </span>
-                </div>
-              </div>
-              <span className="cursor-pointer pr-2 self-start">
-                {visibility ? (
-                  <RemoveRedEyeOutlinedIcon
-                    onClick={() => setVisibility(false)}
-                  />
-                ) : (
-                  <VisibilityOffOutlinedIcon
-                    onClick={() => setVisibility(true)}
-                  />
-                )}
-              </span>
+            <div className="border-y border-[#E7E6F2] p-[30px_40px] ">
+              <CurrentBalance />                
             </div>
           )
           : ""

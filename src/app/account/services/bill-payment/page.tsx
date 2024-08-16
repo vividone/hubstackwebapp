@@ -14,8 +14,8 @@ import { useEffect, useState } from "react";
 import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 import AirtimeModal from "@/components/modals/airtime/airtime";
 import CableTVServices from "@/components/modals/cableTv/Services";
-import Internet from "@/components/modals/internet/Internet";
-import Betting from "@/components/modals/betting/Betting";
+import Internet from "@/components/modals/internet/Services";
+import Betting from "@/components/modals/betting/services";
 import Data from "@/components/modals/data/data";
 const Billpayment = () => {
   const { billers, isLoading } = useGetBillersByCategoryId("1")
@@ -84,7 +84,7 @@ const Billpayment = () => {
       <div className="w-full md:w-[100%] mt-[30px]">
         <div className="flex flex-col gap-[30px] px-[30px] ">
           <p className="mt-[20px] md:mt-[35px] text-[25px] font-medium">
-            <span className="font-normal font-CabinetGrotesk text-25px">History</span>
+            <span className="font-normal font-CabinetGrotesk text-25px">Transactions</span>
           </p>
           <div className="flex flex-wrap gap-[12px] justify-between items-center md:gap-[24px] p-2 bg-slate-100">
             <SearchInput
@@ -96,7 +96,7 @@ const Billpayment = () => {
             <div className="flex gap-2 items-center">
               <div className="flex items-center h-[45px] rounded-lg p-[12px] border border-[#89939F] bg-white">
                 <span className="text-[12px] text-[#292D32] font-medium font-CabinetGrotesk">
-                  All History
+                  Transactions History
                 </span>
                 <span className="ml-2 p-[4px] rounded bg-[#F5F8FC]">
                   <CaratDown />

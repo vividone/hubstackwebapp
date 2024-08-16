@@ -14,15 +14,18 @@ import ToastComponent from "@/components/common/toastComponent";
 import MenuIcon from "@/assets/icons/MenuIcon";
 import PlusIcon from "@/assets/icons/PlusIcon";
 import TransferIcon from "@/assets/icons/TransferIcon";
+import TransferFunds from "@/components/modals/wallet/TransferFunds";
 
 
 const Wallet = () => {
   const { wallet, formik, isPending, isSuccess, isError, error } = useCreateWallet();
   const [showWallet, setShowWallet] = useState(false);
-  const { userWallet, isLoading } = useGetWallet();
+  const [transferFunds, setTransferFunds] = useState(false);
+  const { userWallet: getWallet, isLoading } = useGetWallet();
+  const [ userWallet, setUserWallet ] = useState(getWallet);
   const { walletBalance } = useGetAccountBalance();
   const [ balance, setBalance] = useState(0);
-  const [ hasWallet,] = useLocalStorage<boolean>(TOKEN.HASWALLET);
+  const [ hasWallet, setHasWallet] = useLocalStorage<boolean>(TOKEN.HASWALLET);
   const { history } = useGetWalletHistory();
   
   const refresh = (amount: number) => {
@@ -30,8 +33,11 @@ const Wallet = () => {
   };
 
   useEffect(() => {
-    console.log(wallet, "ahhh")
-  }, [wallet])
+    if(isSuccess) {
+      setHasWallet(true)
+      setUserWallet(wallet)
+    }
+  }, [isSuccess])
 
   useEffect(() => {
     setBalance(walletBalance?.balance)
@@ -61,7 +67,7 @@ const Wallet = () => {
         }
       />
         
-        {!hasWallet && !userWallet ? (
+        {!hasWallet && (userWallet && userWallet.length === 0) ? (
           <>
             <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[50px] mt-[60px] font-medium">
               Wallet
@@ -110,8 +116,11 @@ const Wallet = () => {
               {/* modal */}
               {showWallet && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 ">
-                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={userWallet || wallet} balance={balance} />
+                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={getWallet || wallet} balance={balance} />
                 </div>
+              )}
+              {transferFunds && (
+                <TransferFunds setShow={setTransferFunds} refreshWallet={refresh}  />
               )}
               <div className="flex sm:flex-row flex-col sm:items-center pr-[3%] gap-6 justify-between bg-[#E6FBFF] rounded-[8px]">
                 <Card value={cardData} />
@@ -124,8 +133,8 @@ const Wallet = () => {
                     <span className="uppercase font-semibold">Fund</span>
                   </button>
 
-                  <button className="flex flex-col gap-3 items-center">
-                    <span className="flex items-center justify-center h-[60px] w-[60px] p-5 bg-[#000]/[0.1] rounded-full"
+                  <button className="flex flex-col gap-3 items-center" onClick={() => setTransferFunds(true)}>
+                    <span className="flex items-center justify-center h-[60px] w-[60px] p-[22px] bg-[#000]/[0.1] rounded-full"
                     >
                     <TransferIcon />
                     </span>
@@ -138,7 +147,7 @@ const Wallet = () => {
 
             <div className="flex-1 mt-[30px] w-full">
               <h2 className="font-medium 2xl:text-[25px] text-[20px] pb-[30px]">
-                Wallet History
+                Wallet Transactions
               </h2>
 
               <History history={history} />

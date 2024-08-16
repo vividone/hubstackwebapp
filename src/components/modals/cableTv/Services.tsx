@@ -24,7 +24,7 @@ const CableTVServices = ({ setShow, show }: any) => {
   const [active, setActive] = useState<cableTvProviders | null>()
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   const { data: payCable, formik: cableForm, isError, isPending, isSuccess, error } = usePayBill("cable");
-  const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess } = useCompleteBillPayment(payCable?._id || "")
+  const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(payCable?._id || "", "cable TV")
   const { billers, isLoading } = useGetBillersByCategoryId("2")
 
   const flowHeaders: string[] = ["Cable TV", "Cable TV", "Your Order", "Your Wallet"]
@@ -44,7 +44,7 @@ const CableTVServices = ({ setShow, show }: any) => {
       paymentCode: payCable?.transactionDetails.paymentCode?.toString(), 
       customerId: payCable?.transactionDetails.customerId?.toString(), 
       customerEmail: userDetails?.email,
-      customerMobile: userDetails?.phone_number,
+      customerMobile: userDetails?.phone_number || "09012345678",
       requestReference: payCable?.transactionReference, 
       amount: payCable?.amount
     })
@@ -131,7 +131,7 @@ const CableTVServices = ({ setShow, show }: any) => {
     <ToastComponent
         isSuccess={isSuccess} 
         isError={isError} 
-        msg={isSuccess || completedSuccess ? "Successful" : isError ? "Error " + error : Object.values(cableForm.errors).join(", ")}
+        msg={isSuccess || completedSuccess ? "Successful" : (isError || isCompletedError) ? "Error " + error : completedError}
       />
 
     <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show}>
