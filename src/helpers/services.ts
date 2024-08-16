@@ -60,7 +60,7 @@ export const usePayBill = ( type: string ) => {
 };
 
 
-export const useCompleteBillPayment = ( id: string, type: string ) => {
+export const useCompleteBillPayment:any = ( id: string, type: string ) => {
     const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
     const [data, setData] = useState<IServicesData>()
     const { payBillUrl } = useUrls();
