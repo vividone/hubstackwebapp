@@ -1,5 +1,5 @@
 "use client"
-import React, { FormEvent } from "react";
+import React, { FormEvent, useEffect } from "react";
 import { Button } from "../../common/button";
 import { FlowProps } from "../modalsLayout";
 import { Dropdown } from "@/components/common/Dropdown";
@@ -19,9 +19,8 @@ interface ElectricFlowProps extends FlowProps {
 
 const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formik, isPending, billers, setData }) => {
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
 
+  useEffect(() => {
     const biller = billers?.Billers?.filter((item: any) => item.Name === data?.serviceProvider.value)[0]
 
     formik.setFieldValue("service", data?.serviceProvider?.value) //
@@ -31,7 +30,10 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
     formik.setFieldValue("paymentCode", biller?.PayDirectProductId) //
     formik.setFieldValue("category", "billpayment") //
     
-    console.log(formik.values, formik.errors)
+  }, [data?.serviceProvider, billers])
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
 
     formik.handleSubmit();
   };
@@ -108,17 +110,15 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
               By continuing, you agree to our 
               <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
           </p>
-          <div className="w-full">
-            <Button
-              type="submit"
-              size={"full"}
-              className="text-[20px] font-CabinetGrotesk mb-4"
-              isLoading={isPending}
-            >
-              REVIEW ORDER
-            </Button>
+
+          <Button
+            type="submit"
+            size={"full"}
+            isLoading={isPending}
+          >
+            REVIEW ORDER
+          </Button>
             
-          </div>
         </form>
 
       </div>

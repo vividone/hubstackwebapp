@@ -21,8 +21,7 @@ interface CableTvProps extends FlowProps {
 const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, setData }) => {
   const { services } = useGetServicesByBillerId(active?.Id)
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
     
     formik.setFieldValue("service", data?.serviceProvider?.value)
     formik.setFieldValue("biller", active?.Name)
@@ -31,7 +30,12 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
     formik.setFieldValue("paymentCode", data?.serviceProvider?.PaymentCode) 
     formik.setFieldValue("category", "billpayment") 
     formik.setFieldValue("amount",  data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount)
+    
+  }, [data, active])
 
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
     formik.handleSubmit()
   }
 
