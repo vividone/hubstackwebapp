@@ -1,13 +1,11 @@
 "use client";
-import React, { FormEvent, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import { Input } from "@/components/common/inputs";
 import Link from "@/components/custom/link";
 import { FlowProps } from "../modalsLayout";
-import { usePayBill } from "@/helpers/api/useServicesces";
 import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
-import { Dropdown } from "@/components/common/Dropdown";
 import CurrencyField from "@/components/common/currencyInput";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 

@@ -5,7 +5,7 @@ import { Button } from "../../common/button";
 import { Input } from "@/components/common/inputs";
 import Link from "@/components/custom/link";
 import { FlowProps } from "../modalsLayout";
-import { usePayBill } from "@/helpers/api/useServicesces";
+import { usePayBill } from "@/helpers/api/useServices";
 import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { Dropdown } from "@/components/common/Dropdown";
 import CurrencyField from "@/components/common/currencyInput";

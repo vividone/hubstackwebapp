@@ -4,14 +4,10 @@ import Image from "next/image";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
-import { FlowProps } from "../modalsLayout";
-import Confirmation from "../confirmation";
 
 const DataPayment: React.FC<any> = ({
-  setFlow,
   data,
-  pseudo,
-//   setIsPadded,
+  completeAction
 }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
@@ -25,22 +21,22 @@ const DataPayment: React.FC<any> = ({
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
           <div className="flex  flex-wrap items-center gap-4">
             <Image
-              src={`/images/airtime/${data?.network}.png`}
-              alt={data?.name}
+              src={`/images/data/${data?.service.ShortName}.jpg`} 
+              alt={data?.service.Name}
               width={80}
               height={80}
             />
-            <p className="text-xl font-semibold text-[#3D3066]">{data?.name}</p>
+            <p className="text-xl font-semibold text-[#3D3066]">{data?.service.Name}</p>
           </div>
           <div className="py-4">
             <p>Mobile Number</p>
-            <p className=" opacity-[0.7]">{pseudo?.mobileNumber}</p>
+            <p className=" opacity-[0.7]">{data?.customerId}</p>
           </div>
 
           <div className="flex gap-12">
             <div>
               <p>Data Plan</p>
-              <p className="opacity-[0.7]">{pseudo?.DataPlan}</p>
+              <p className="opacity-[0.7]">{data?.service.Name}</p>
             </div>
           </div>
         </div>
@@ -48,7 +44,7 @@ const DataPayment: React.FC<any> = ({
         <p className="text-center mt-4">
           The amount of{" "}
           <span className="font-bold">
-            NGN{formatAmount((+data?.amount + 100).toString())}
+            NGN{formatAmount(data?.transaction.amount)}
           </span>{" "}
           will be debited from your wallet balance, proceed below to complete
           transaction{" "}
@@ -59,11 +55,9 @@ const DataPayment: React.FC<any> = ({
             variant="primary"
             size="full"
             type="submit"
-            onClick={() => {
-              return setFlow(4);
-            }}
+            onClick={() => completeAction()}
           >
-            <span className="text-[16px]">PAY WITH WALLET</span>
+            <span className="text-[16px]">PROCEED WITH WALLET</span>
           </Button>
 
           <Button

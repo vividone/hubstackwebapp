@@ -29,7 +29,7 @@ const CompletedAirtimeModal: React.FC<FlowProps> = ({ setFlow, data }) => {
             <h2 className="font-bold">Payment Summary</h2>
             <div className="flex flex-col gap-1 py-4">
 
-                <div className="flex justify-between items-center gap-5">
+                <div className="flex justify-between items-center gap-5 py-2">
                 <span className="block opacity-[0.5]">Transaction Reference</span>
                 <span className="flex items-center">{data?.transactionReference}</span>
                 </div>

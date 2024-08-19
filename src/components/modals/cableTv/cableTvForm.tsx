@@ -79,7 +79,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
                 <Dropdown
                     name="serviceProvider"
                     value={data?.serviceProvider}
-                    error={formik.touched.service && formik.errors.service}
+                    error={formik.errors.service && "Choose a data plan"}
                     onChange={(value) => {
                       if (value) {
                         const selectedOption = value as any;
