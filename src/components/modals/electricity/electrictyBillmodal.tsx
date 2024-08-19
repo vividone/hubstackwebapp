@@ -9,66 +9,91 @@ import ElectricityBillToken from "./electricityBillToken";
 import ElectricityBillPayment from "./electricityBillPayment";
 
 const ElectricityBillModal = ({ show, setShow, billers }: any) => {
-  const { data, formik, isError, isPending, isSuccess, error } = usePayBill("electricity");
-  const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess } = useCompleteBillPayment(data?._id || "", "Electricity")
-  const [ formData, setFormData] = useState<any>()
-  const [flow, setFlow ] = useState(0)
+  const { data, formik, isError, isPending, isSuccess, error } =
+    usePayBill("electricity");
+  const {
+    data: completedBill,
+    formik: completedForm,
+    isPending: completePending,
+    isSuccess: completedSuccess,
+  } = useCompleteBillPayment(data?._id || "", "Electricity");
+  const [formData, setFormData] = useState<any>();
+  const [flow, setFlow] = useState(0);
 
-  const flowHeaders: string[] = ["Electricity Bill", "Your Order", "Your Wallet", "Token Details"]
+  const flowHeaders: string[] = [
+    "Electricity Bill",
+    "Your Order",
+    "Your Wallet",
+    "Token Details",
+  ];
 
   const completePayment = () => {
-    // completedForm.setValues({ 
-    //   paymentCode: data?.transactionDetails.paymentCode?.toString(), 
-    //   customerId: data?.transactionDetails.customerId?.toString(), 
+    // completedForm.setValues({
+    //   paymentCode: data?.transactionDetails.paymentCode?.toString(),
+    //   customerId: data?.transactionDetails.customerId?.toString(),
     //   customerEmail: "testJ@test.com",
     //   customerMobile: "2349077746616",
-    //   requestReference: data?.transactionReference, 
+    //   requestReference: data?.transactionReference,
     //   amount: data?.amount
     // })
 
-    completedForm.setValues(data?.transactionDetails)
-    console.log(completedForm.errors)
-    completedForm.handleSubmit()
-  }
+    completedForm.setValues(data?.transactionDetails);
+    console.log(completedForm.errors);
+    completedForm.handleSubmit();
+  };
 
   useEffect(() => {
-    if(completedSuccess) {
-      setFlow(4)
+    if (completedSuccess) {
+      setFlow(4);
     }
-  }, [completedSuccess])
-  
+  }, [completedSuccess]);
+
   useEffect(() => {
-    if(isSuccess) {
-      setFlow(1)
+    if (isSuccess) {
+      setFlow(1);
     }
-  }, [isSuccess])
+  }, [isSuccess]);
 
   return (
     <>
-    
-    <ToastComponent
-        isSuccess={isSuccess} 
-        isError={isError} 
+      <ToastComponent
+        isSuccess={isSuccess}
+        isError={isError}
         msg={isSuccess ? "Successful" : isError ? "Error " + error : ""}
       />
-      <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show}>
-      
-      { 
-        flow === 0 ?
-          <ElectricityBillForm setFlow={setFlow} data={formData} formik={formik} billers={billers} isPending={isPending} setData={setFormData} />
-        :
-        flow === 1 ? 
-        <ElectricityBillDetails data={{ ...formData, ...data }} setFlow={setFlow}/> 
-        : 
-        flow === 2 ? 
-        <ElectricityBillPayment data={{ ...formData, ...data }} completeAction={completePayment} setFlow={setFlow}/> 
-        : 
-        flow === 3 ? 
-        <ElectricityBillToken data={completedBill} setFlow={setFlow} /> :
-        ""
-      }
-
-    </ModalsLayout>
+      <ModalsLayout
+        header={flowHeaders[flow]}
+        flow={flow}
+        setFlow={setFlow}
+        setShow={setShow}
+        show={show}
+      >
+        {flow === 0 ? (
+          <ElectricityBillForm
+            setFlow={setFlow}
+            data={formData}
+            formik={formik}
+            billers={billers}
+            isPending={isPending}
+            setData={setFormData}
+          />
+        ) : flow === 1 ? (
+          <ElectricityBillDetails
+            data={{ ...formData, ...data }}
+            setFlow={setFlow}
+          />
+        ) : flow === 2 ? (
+          <ElectricityBillPayment
+            data={{ ...formData, ...data }}
+            completeAction={completePayment}
+            setFlow={setFlow}
+          />
+        ) : flow === 3 ? (
+          <ElectricityBillToken data={completedBill} setFlow={setFlow} />
+        ) : (
+          ""
+        )}
+      </ModalsLayout>
     </>
   );
 };

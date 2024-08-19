@@ -38,6 +38,11 @@ const CableTVServices = ({ setShow, show }: any) => {
     }
   }, [isSuccess])
 
+  // useEffect(() => {
+  //   if(completedSuccess) {
+  //     setFlow(4)
+  //   }
+  // }, [completedSuccess])
   
   const completePayment = () => {
     completedForm.setValues({ 
@@ -50,6 +55,7 @@ const CableTVServices = ({ setShow, show }: any) => {
     })
     
     completedForm.handleSubmit()
+    // 
   }
   
   // const providers: cableTvProviders[] = [
@@ -168,10 +174,10 @@ const CableTVServices = ({ setShow, show }: any) => {
       <CableTvDetails active={active} data={{...data, ...payCable}} setFlow={setFlow} />
       :
       flow === 3 ?
-      <CableTvPayment active={active} data={{...data, ...payCable, isPending: completePending}} setFlow={setFlow} completeAction={completePayment} />
+      <CableTvPayment active={active} data={{...data, ...payCable, isPending: completePending}} setFlow={setFlow} completeAction={completePayment} isSuccess={completedSuccess}/>
       :
       flow === 4 ?
-      <CableTvPurchase active={active} data={data} setFlow={setFlow} />
+      <CableTvPurchase active={active} data={data} setFlow={setFlow}  />
       :
       ""
 
