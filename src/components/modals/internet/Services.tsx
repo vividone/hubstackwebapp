@@ -45,7 +45,7 @@ const InternetServices = ({ setShow, show }: any) => {
     "Your Wallet",
   ];
 
-  const providers: InterntProviders[] = billers?.BillerList?.Category[0]?.Billers
+  // const providers: InterntProviders[] = billers?.BillerList?.Category[0]?.Billers
 
   useEffect(() => {
     if (isSuccess) {
@@ -53,16 +53,6 @@ const InternetServices = ({ setShow, show }: any) => {
     }
   }, [isSuccess]);
 
-  const paddingHandler = () => {
-    if (flow == 3) {
-      setIsPadded(false);
-    } else {
-      setIsPadded(true);
-    }
-  };
-  useEffect(() => {
-    console.log(providers);
-  }, [providers]);
 
   const completePayment = () => {
     completedForm.setValues({
@@ -77,39 +67,39 @@ const InternetServices = ({ setShow, show }: any) => {
     completedForm.handleSubmit();
   };
 
-  // const providers = [
-  //   { LogoUrl: "ZukuFiber", Name: "Zuku Fiber", Id: 1 },
-  //   {
-  //     LogoUrl: "UYOLOCALGOVERNMENTCOLLECTIONS",
-  //     Name: "UYO LOCAL GOVERNMENT COLLECTIONS",
-  //     Id: 2,
-  //   },
-  //   {
-  //     LogoUrl: "TouchpointandDevices",
-  //     Name: "Touchpoint and Devices",
-  //     Id: 3,
-  //   },
-  //   { LogoUrl: "Swift4GSubscription", Name: "Swift 4G", Id: 4 },
-  //   { LogoUrl: "SmileBundle", Name: "Smile Bundle", Id: 5 },
-  //   { LogoUrl: "SmartSMSSolutions", Name: "Smart SMS Solutions", Id: 6 },
-  //   {
-  //     LogoUrl: "MultilinksInternete-PINVoucher",
-  //     Name: "Multilinks Internet e-PIN Voucher",
-  //     Id: 7,
-  //   },
-  //   { LogoUrl: "MTNfixedInternet", Name: "MTN fixed Internet", Id: 8 },
-  //   { LogoUrl: "mobitelpayment", Name: "mobitel payment", Id: 9 },
-  //   { LogoUrl: "jokatelswitch", Name: "jokatel switch", Id: 10 },
-  //   { LogoUrl: "ipNXsubscription", Name: "ipNX subscription", Id: 11 },
-  //   {
-  //     LogoUrl: "InternetSolutionNigeria",
-  //     Name: "Internet Solution Nigeria",
-  //     Id: 12,
-  //   },
-  //   { LogoUrl: "estream", Name: "estream", Id: 13 },
-  //   { LogoUrl: "ESBAdesigners", Name: "ESBA designers", Id: 14 },
-  //   { LogoUrl: "spectranet", Name: "spectranet", Id: 15 },
-  // ];
+  const providers = [
+    { LogoUrl: "ZukuFiber", Name: "Zuku Fiber", Id: 1 },
+    {
+      LogoUrl: "UYOLOCALGOVERNMENTCOLLECTIONS",
+      Name: "UYO LOCAL GOVERNMENT COLLECTIONS",
+      Id: 2,
+    },
+    {
+      LogoUrl: "TouchpointandDevices",
+      Name: "Touchpoint and Devices",
+      Id: 3,
+    },
+    { LogoUrl: "Swift4GSubscription", Name: "Swift 4G", Id: 4 },
+    { LogoUrl: "SmileBundle", Name: "Smile Bundle", Id: 5 },
+    { LogoUrl: "SmartSMSSolutions", Name: "Smart SMS Solutions", Id: 6 },
+    {
+      LogoUrl: "MultilinksInternete-PINVoucher",
+      Name: "Multilinks Internet e-PIN Voucher",
+      Id: 7,
+    },
+    { LogoUrl: "MTNfixedInternet", Name: "MTN fixed Internet", Id: 8 },
+    { LogoUrl: "mobitelpayment", Name: "mobitel payment", Id: 9 },
+    { LogoUrl: "jokatelswitch", Name: "jokatel switch", Id: 10 },
+    { LogoUrl: "ipNXsubscription", Name: "ipNX subscription", Id: 11 },
+    {
+      LogoUrl: "InternetSolutionNigeria",
+      Name: "Internet Solution Nigeria",
+      Id: 12,
+    },
+    { LogoUrl: "estream", Name: "estream", Id: 13 },
+    { LogoUrl: "ESBAdesigners", Name: "ESBA designers", Id: 14 },
+    { LogoUrl: "spectranet", Name: "spectranet", Id: 15 },
+  ];
 
   return (
     <>
