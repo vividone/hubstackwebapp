@@ -26,15 +26,13 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
     formik.setFieldValue("biller", biller?.Name)
     formik.setFieldValue("billerId", biller?.Id)
     formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("paymentCode", biller?.PayDirectProductId) 
+    formik.setFieldValue("paymentCode", "0488051528") 
     formik.setFieldValue("category", "billpayment") 
     
   }, [data?.serviceProvider, billers])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    formik.setFieldValue("service", data?.serviceProvider?.value)
-    formik.setFieldValue("amount",  data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount)
     formik.handleSubmit();
   };
 
@@ -61,6 +59,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
                   if (value) {
                     const selectedOption = value as any;
                     setData({...data, serviceProvider: selectedOption})
+                    formik.setFieldValue("service", selectedOption.value)
                   } else {
                   }
                 }}
@@ -106,7 +105,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
                   <p className="text-[32px] font-bold flex items-center"><NairaIconElectricBill width={32} />{data?.serviceProvider?.fee}.00</p>
                 :
                 <CurrencyField 
-                  onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
+                  onValueChange={(v: any) => { setData({ ...data, amount: v.floatValue }); formik.setFieldValue("amount", v.floatValue)}} 
                   error={formik.errors.amount}
                   value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount || formik.values.amount} 
                   disabled={data?.serviceProvider?.fixed} 

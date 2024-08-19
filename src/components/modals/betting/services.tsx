@@ -36,7 +36,7 @@ const BettingServices = ({ setShow, show }: any) => {
     isPending: completePending,
     isSuccess: completedSuccess,
   } = useCompleteBillPayment(payCable?._id || "");
-  const { billers, isLoading } = useGetBillersByCategoryId("2");
+  const { billers, isLoading } = useGetBillersByCategoryId("41");
   const [isPadded, setIsPadded] = useState(true);
 
   const flowHeaders: string[] = [
@@ -46,7 +46,7 @@ const BettingServices = ({ setShow, show }: any) => {
     "Your Wallet",
   ];
 
-  // const providers: cableTvProviders[] = billers?.BillerList?.Category[0]?.Billers
+  const providersList: BettingProviders[] = billers?.BillerList?.Category[0]?.Billers
 
   useEffect(() => {
     if (isSuccess) {
