@@ -13,29 +13,35 @@ import { usePayBill } from "@/helpers/services";
 import ToastComponent from "@/components/common/toastComponent";
 import Link from "@/components/custom/link";
 import CurrencyField from "@/components/common/currencyInput";
+import { useGetBillersByCategoryId } from "@/helpers/categories";
 
 type AirtimePaymentProps = {
     show: boolean;
     setShow: (aug0: boolean) => void;
 }
 
-type dataProps = {amount: string | number, phonenumber: string, network: string}
+type dataProps = {amount: string | number, customerId: string, service: any}
 
 export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
+    const { billers, isLoading } = useGetBillersByCategoryId("4")
     const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-airtime");
-    const [data, setData] = useState<dataProps>({ amount: 0, phonenumber: "", network: "" })
+    const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
     const [flow, setFlow] = useState(0)
     const [isPadded, setIsPadded] = useState(true);
     const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
 
+    
+    const names = ["Etisalat Recharge Top-Up", "Airtel Recharge Pins", "Glo QuickCharge", "MTN e-Charge Prepaid"]
+    const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
+
     const handleNext = () => {
-        formik.setFieldValue("service", "Airtime") //data?.serviceProvider?.value
-        formik.setFieldValue("biller", data.network) //
-        formik.setFieldValue("billerId", "480") //active?.data.networkId
+        formik.setFieldValue("service", data?.service.Name) //data?.serviceProvider?.value
+        formik.setFieldValue("biller", data?.service.Name.split(" ")[0]) //
+        formik.setFieldValue("billerId", data?.service.Id) //active?.data.networkId
         formik.setFieldValue("paymentMode", "wallet")
-        formik.setFieldValue("customerId", data.phonenumber) //
-        formik.setFieldValue("amount", 1000) //data.amount
-        formik.setFieldValue("paymentCode", "48001") //data?.serviceProvider?.PaymentCode
+        formik.setFieldValue("customerId", data.customerId) //
+        formik.setFieldValue("amount", data?.amount) //data.amount
+        formik.setFieldValue("paymentCode", data?.service.ProductCode) //data?.serviceProvider?.PaymentCode
         formik.setFieldValue("category", "billpayment") //
 
         formik.handleSubmit()
@@ -46,10 +52,14 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
         } else {
           setIsPadded(true);
         }
-      };
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         paddingHandler();
-      }, [flow]);
+    }, [flow]);
+    
+    useEffect(() => {
+    }, [billers]);
 
     return (
         <>
@@ -88,6 +98,8 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
 
                         <CurrencyField 
                             onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
+                            value={data?.amount}
+                            error={formik.errors.amount}
                         />
                         </div>
                     </div>
@@ -97,20 +109,20 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                             Enter Phone Number
                         </label>
                         <div className="text-[#8c8b92] mt-2">
-                        <Input type="number" onChange={(e) => setData({ ...data, phonenumber:  e.target.value})} placeholder="07000000000" />
+                        <Input 
+                            type="number" 
+                            onChange={(e) => setData({ ...data, customerId:  e.target.value})} 
+                            placeholder="07000000000" 
+                            error={formik.errors.customerId}
+                        />
                         </div>
                     </div>
 
                     <div className="grid grid-cols-4 gap-4 mt-4">
                         {
-                            [ 
-                                { id: 0, network: "mtn"},
-                                { id: 1, network: "airtel"},
-                                { id: 2, network: "9mobile"},
-                                { id: 3, network: "glo"},
-                            ].map((item: { id: number, network: string } ) => (
-                                <button key={item.id} onClick={() => setData({ ...data, network:  item.network})} className={data.network === item.network ? "border-2 border-[#3D3066] rounded" : ""}>
-                                    <Image src={`/images/airtime/${item.network}.png`} width={200} height={200} alt={item.network} />
+                            billersList?.map((item: { Id: number, LogoUrl: string, Name: string } ) => (
+                                <button key={item.Id} onClick={() => setData({ ...data, service:  item})} className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}>
+                                    <Image src={`/images/airtime/${item.LogoUrl}`} width={200} height={200} alt={item.Name} />
                                 </button>
                             ))
                         }
