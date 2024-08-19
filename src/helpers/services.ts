@@ -32,7 +32,7 @@ export const usePayBill = ( type: string ) => {
           amount: +"",
           category: ""
       } as IElectricBill,
-      validateOnBlur: false,
+      validateOnBlur: true,
       validationSchema: electricBillValidationSchema,
       validateOnChange: false,
       onSubmit: async ({ ...values }) => {

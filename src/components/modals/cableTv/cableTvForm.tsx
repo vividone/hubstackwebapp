@@ -5,7 +5,6 @@ import { Button } from "../../common/button";
 import { Input } from "@/components/common/inputs";
 import Link from "@/components/custom/link";
 import { FlowProps } from "../modalsLayout";
-import { usePayBill } from "@/helpers/services";
 import { useGetServicesByBillerId } from "@/helpers/categories";
 import { Dropdown } from "@/components/common/Dropdown";
 import CurrencyField from "@/components/common/currencyInput";
@@ -61,6 +60,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
                     name="customerId" 
                     value={data?.customerId}
                     placeholder="0000000000" 
+                    error={formik.touched.customerId && formik.errors.customerId}
                     onChange={(e) => {
                       setData({ ...data, customerId: e.target.value });
                       formik.setFieldValue("customerId", e.target.value)
@@ -79,6 +79,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
                 <Dropdown
                     name="serviceProvider"
                     value={data?.serviceProvider}
+                    error={formik.touched.service && formik.errors.service}
                     onChange={(value) => {
                       if (value) {
                         const selectedOption = value as any;
@@ -110,7 +111,8 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
                 :
                 <CurrencyField 
                   onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
-                  value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount} 
+                  error={formik.touched.amount && formik.errors.amount}
+                  value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount || formik.values.amount} 
                   disabled={data?.serviceProvider?.fixed} 
                 />
                 }
