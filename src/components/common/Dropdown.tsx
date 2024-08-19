@@ -1,7 +1,7 @@
 import ActiveArrowDownIcon from "@/assets/common/ActiveArrowDown";
 import ArrowDown from "@/assets/common/ArrowDown";
 import TickCircle from "@/assets/common/TickCircle";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select, {
   components,
   ControlProps,
@@ -68,6 +68,11 @@ type DropdownType = {
   value: any;
 } & Props<SelectOptions>;
 export const Dropdown = ({ error, ...props }: Partial<DropdownType>) => {
+
+  useEffect(() => {
+    console.log(error)
+  }, [error])
+
   const styles: StylesConfig<SelectOptions, false> = {
     control: (css) => ({
       ...css,
@@ -121,6 +126,7 @@ export const Dropdown = ({ error, ...props }: Partial<DropdownType>) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
+    <>
     <Select
       {...props}
       components={{
@@ -137,5 +143,7 @@ export const Dropdown = ({ error, ...props }: Partial<DropdownType>) => {
       options={props.options}
       styles={styles}
     />
+    <p className={`text-[12px] ${error ? "text-red-600" : "opacity-[0.7]"}`}>{error}</p>
+    </>
   );
 };
