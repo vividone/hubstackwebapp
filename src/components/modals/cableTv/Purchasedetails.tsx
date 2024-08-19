@@ -63,7 +63,7 @@ const CableTvPurchase = ({ active, setFlow, data }: any) => {
             <span className="block opacity-[0.5]">Service Charge</span>
             <span className="flex items-center">
               <NairaIcon className="w-[12px]" />
-              100.00
+              0.00
             </span>
           </div>
 
@@ -71,7 +71,7 @@ const CableTvPurchase = ({ active, setFlow, data }: any) => {
             <span className="block font-bold">TOTAL</span>
             <span className="flex items-center">
               <NairaIcon className="w-[12px]" />
-              {formatAmount((+data?.amount).toString())}
+              {formatAmount(data?.amount)}
             </span>
           </div>
         </div>
