@@ -16,25 +16,19 @@ const CableTvPurchase = ({ active, setFlow, data }: any) => {
             </span>
           </div>
         </div>
-        <div className="p-0 mb-4 mt-4">
-          <h2 className="font-normal text-[16px] font-OpenSans md:text-lg">
-            Smartcard or Decoder Number
-          </h2>
-          <p className="text-[16px] text-[#8C8B92]">{data?.customerId}</p>
+        <div className="py-4">
+          <p>Smartcard or Decoder Number</p>
+          <p className=" opacity-[0.7]">{data?.customerId}</p>
         </div>
 
-        <div className="flex p-0 font-OpenSans gap-[20%]">
+        <div className="flex gap-12">
           <div>
-            <h2 className="font-normal text-[16px] md:text-lg">Full Name</h2>
-            <p className="text-[16px] text-[#8C8B92]">
-              Babalola Zainab Opeyemi
-            </p>
+            <p>Full Name</p>
+            <p className="opacity-[0.7]">{data?.fullname}</p>
           </div>
           <div>
-            <h2 className="font-normal text-[16px] md:text-lg">
-              Cable TV Plan
-            </h2>
-            <p className="text-[16px] text-[#8C8B92]">ACTV</p>
+            <p>Cable TV Plan</p>
+            <p className="opacity-[0.7]">{data?.serviceProvider?.value}</p>
           </div>
         </div>
       </div>

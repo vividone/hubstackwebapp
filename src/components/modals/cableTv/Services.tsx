@@ -131,7 +131,7 @@ const CableTVServices = ({ setShow, show }: any) => {
     <ToastComponent
         isSuccess={isSuccess} 
         isError={isError} 
-        msg={isSuccess || completedSuccess ? "Successful" : (isError || isCompletedError) ? "Error " + error : completedError}
+        msg={isSuccess || completedSuccess ? "Successful" : (isError || isCompletedError) ? "Error " + error || completedError : ""}
       />
 
     <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show}>
