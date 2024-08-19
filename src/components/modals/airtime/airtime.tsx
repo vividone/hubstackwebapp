@@ -14,6 +14,7 @@ import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import BillsSkeleton from "@/components/common/billsSkeleton";
+import { completeBillPayment, initiateBillPayment } from "@/helpers/billPayment";
 
 type AirtimePaymentProps = {
     show: boolean;
@@ -35,33 +36,8 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     const names = ["Etisalat Recharge Top-Up", "Airtel Recharge Pins", "Glo QuickCharge", "MTN e-Charge Prepaid"]
     const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
 
-    const handleNext = () => {
-        formik.setFieldValue("service", data?.service.Name?.split(" ")[0] + " Recharge")
-        formik.setFieldValue("biller", data?.service.Name)
-        formik.setFieldValue("billerId", data?.service.Id?.toString())
-        formik.setFieldValue("paymentMode", "wallet")
-        formik.setFieldValue("customerId", data.customerId)
-        formik.setFieldValue("amount", data?.amount)
-        formik.setFieldValue("paymentCode", "0488051528")
-        formik.setFieldValue("category", "billpayment")
-
-        formik.handleSubmit()
-        console.log(formik.errors, formik.values)
-    }
-
     const completePayment = () => {
-        completedForm.setValues({ 
-            paymentCode: formData?.transaction?.transactionDetails.paymentCode?.toString(), 
-            customerId: formData?.transaction?.transactionDetails.customerId?.toString(), 
-            customerEmail: userDetails?.email,
-            customerMobile: userDetails?.phone_number || "09012345678",
-            requestReference: formData?.transaction?.transactionReference, 
-            amount: formData?.transaction?.amount
-        })
-
-        console.log(completedForm.errors)
-    
-        completedForm.handleSubmit()
+        completeBillPayment(formData, completedForm, userDetails)
     }
     
     useEffect(() => {
@@ -153,7 +129,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         size={"full"}
                         isLoading={isPending}
                         className="text-[20px] font-CabinetGrotesk mb-4"
-                        onClick={() => handleNext()}
+                        onClick={() => initiateBillPayment( formik, data )}
                         >
                         REVIEW ORDER
                         </Button>

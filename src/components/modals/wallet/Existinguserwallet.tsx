@@ -38,7 +38,6 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   const [content, setContent] = useState("Microbiz MFB");
   const [amount, setAmount] = useState<string>("0");
 
-  // didnt find api endpoint for this so i just put dummy data
   const dataSets: any = {
     "Microbiz MFB": {
       accountNumber: "1234567890",
