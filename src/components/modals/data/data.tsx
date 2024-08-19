@@ -70,11 +70,13 @@ const Data = ({ setShow, show }: any) => {
 
   return (
     <>
-      <ToastComponent
-        isSuccess={isSuccess} 
-        isError={isError} 
-        msg={isSuccess || completedSuccess ? "Successful" : (isError || isCompletedError) ? "Error " + error || completedError : ""}
+        
+    <ToastComponent
+        isSuccess={completedSuccess} 
+        isError={isError || isCompletedError} 
+        msg={completedSuccess ? "Successful" : isError || isCompletedError ? "Error " + error || completedError : ""}
       />
+
 
     <ModalsLayout
       flow={flow}
@@ -113,7 +115,15 @@ const Data = ({ setShow, show }: any) => {
               <div className="grid grid-cols-4 gap-4 mt-4">
                   {
                       billersList?.map((item: { Id: number, ShortName: string, Name: string } ) => (
-                          <button key={item.Id} onClick={() => {setData({ ...data, service:  item}); setFlow(1)}} className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}>
+                          <button 
+                            key={item.Id} 
+                            onClick={() => {
+                              setData({ ...data, service:  item}); 
+                              formik.setFieldValue("service", item.Name?.split(" ")[0] + "  ")
+                              setFlow(1)
+                            }} 
+                            className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}
+                          >
                               <Image src={`/images/data/${item.ShortName}.jpg`} width={200} height={200} alt={item.Name} />
                           </button>
                       ))

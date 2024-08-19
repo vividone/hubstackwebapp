@@ -14,7 +14,7 @@ import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import BillsSkeleton from "@/components/common/billsSkeleton";
-import { completeBillPayment, initiateBillPayment } from "@/helpers/billPayment";
+import { completeBillPayment } from "@/helpers/billPayment";
 
 type AirtimePaymentProps = {
     show: boolean;
@@ -39,6 +39,12 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     const completePayment = () => {
         completeBillPayment(formData, completedForm, userDetails)
     }
+
+    useEffect(() => {
+        formik.setFieldValue("paymentMode", "wallet")
+        formik.setFieldValue("paymentCode", "0488051528")
+        formik.setFieldValue("category", "billpayment")
+    }, [])
     
     useEffect(() => {
         if(isSuccess) {
@@ -55,17 +61,11 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     return (
         <>
           
-      <ToastComponent
-        isSuccess={isSuccess}
-        isError={isError}
-        msg={
-          isSuccess
-            ? "Successful"
-            : isError
-            ? "Airtime purchase error: " + error
-            : Object.values(formik.errors)?.join(", ")
-        }
-      />
+        <ToastComponent
+            isSuccess={completedSuccess} 
+            isError={isError || isCompletedError} 
+            msg={completedSuccess ? "Successful" : isError || isCompletedError ? "Error " + error || completedError : ""}
+        />
 
         <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show}>
 
@@ -88,7 +88,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
 
 
                         <CurrencyField 
-                            onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
+                            onValueChange={(v: any) => {setData({ ...data, amount: v.floatValue }); formik.setFieldValue("amount", v.floatValue)}} 
                             value={data?.amount}
                             error={formik.errors.amount}
                         />
@@ -102,7 +102,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         <div className="text-[#8c8b92] mt-2">
                         <Input 
                             type="number" 
-                            onChange={(e) => setData({ ...data, customerId:  e.target.value})} 
+                            onChange={(e) => {setData({ ...data, customerId:  e.target.value}); formik.setFieldValue("customerId", e.target.value)}} 
                             placeholder="07000000000" 
                             error={formik.errors.customerId && "Phone number is required"}
                         />
@@ -115,7 +115,16 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         <div className="grid grid-cols-4 gap-4 mt-4">
                             {
                                 billersList?.map((item: { Id: number, LogoUrl: string, Name: string } ) => (
-                                    <button key={item.Id} onClick={() => setData({ ...data, service:  item})} className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}>
+                                    <button 
+                                        key={item.Id} 
+                                        onClick={() => {
+                                            setData({ ...data, service:  item}); 
+                                            formik.setFieldValue("biller", item.Name)
+                                            formik.setFieldValue("service", item.Name?.split(" ")[0] + " Recharge")
+                                            formik.setFieldValue("billerId", item.Id?.toString())
+                                        }} 
+                                        className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}
+                                    >
                                         <Image src={`/images/airtime/${item.LogoUrl}`} width={200} height={200} alt={item.Name} />
                                     </button>
                                 ))
@@ -125,11 +134,11 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
 
                     <div className="w-full mt-6">
                         <Button
-                        type="submit"
-                        size={"full"}
-                        isLoading={isPending}
-                        className="text-[20px] font-CabinetGrotesk mb-4"
-                        onClick={() => initiateBillPayment( formik, data )}
+                            type="submit"
+                            size={"full"}
+                            isLoading={isPending}
+                            className="text-[20px] font-CabinetGrotesk mb-4"
+                            onClick={() => formik.handleSubmit()}
                         >
                         REVIEW ORDER
                         </Button>

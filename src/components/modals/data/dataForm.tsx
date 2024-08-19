@@ -23,6 +23,7 @@ const DataForm = ({
 
     formik.setFieldValue("biller", data?.service.Name)
     formik.setFieldValue("billerId", data?.service.Id.toString())
+    formik.setFieldValue("paymentCode", "0488051528")  //data?.serviceProvider?.PaymentCode
     formik.setFieldValue("paymentMode", "wallet")
     formik.setFieldValue("category", "billpayment") 
     
@@ -31,11 +32,6 @@ const DataForm = ({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    formik.setFieldValue("service", data?.serviceProvider?.value)
-    formik.setFieldValue("paymentCode", data?.serviceProvider?.PaymentCode) 
-    formik.setFieldValue("amount", data?.serviceProvider?.fee)
-
-    console.log(formik.errors)
     formik.handleSubmit()
   }
 
@@ -73,6 +69,7 @@ const DataForm = ({
               if (value) {
                 const selectedOption = value as any;
                 setData({...data, serviceProvider: selectedOption})
+                formik.setFieldValue("amount", selectedOption.fee)
               } else {
               }
             }}
