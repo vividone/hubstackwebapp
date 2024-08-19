@@ -6,14 +6,14 @@ import Image from "next/image";
 import { Button } from "@/components/common/button";
 import AirtimeDetailsModal from "./airtimedetails";
 import CompletedAirtimeModal from "./airtimeCompleted";
-import NairaIcon from "@/assets/icons/nairaIcon";
-import { formatAmount } from "@/helpers/amountFormatter";
 import AirtimePayment from "./airtimePayments";
-import { usePayBill } from "@/helpers/services";
+import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import ToastComponent from "@/components/common/toastComponent";
-import Link from "@/components/custom/link";
 import CurrencyField from "@/components/common/currencyInput";
-import { useGetBillersByCategoryId } from "@/helpers/categories";
+import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
+import BillsSkeleton from "@/components/common/billsSkeleton";
 
 type AirtimePaymentProps = {
     show: boolean;
@@ -25,9 +25,10 @@ type dataProps = {amount: string | number, customerId: string, service: any}
 export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     const { billers, isLoading } = useGetBillersByCategoryId("4")
     const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-airtime");
+    const { formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(formData?.transaction?._id || "", "airtime")
     const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
+    const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
     const [flow, setFlow] = useState(0)
-    const [isPadded, setIsPadded] = useState(true);
     const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
 
     
@@ -35,31 +36,45 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
 
     const handleNext = () => {
-        formik.setFieldValue("service", data?.service.Name) //data?.serviceProvider?.value
-        formik.setFieldValue("biller", data?.service.Name.split(" ")[0]) //
-        formik.setFieldValue("billerId", data?.service.Id) //active?.data.networkId
+        formik.setFieldValue("service", data?.service.Name?.split(" ")[0] + " Recharge")
+        formik.setFieldValue("biller", data?.service.Name)
+        formik.setFieldValue("billerId", data?.service.Id?.toString())
         formik.setFieldValue("paymentMode", "wallet")
-        formik.setFieldValue("customerId", data.customerId) //
-        formik.setFieldValue("amount", data?.amount) //data.amount
-        formik.setFieldValue("paymentCode", data?.service.ProductCode) //data?.serviceProvider?.PaymentCode
-        formik.setFieldValue("category", "billpayment") //
+        formik.setFieldValue("customerId", data.customerId)
+        formik.setFieldValue("amount", data?.amount)
+        formik.setFieldValue("paymentCode", "0488051528")
+        formik.setFieldValue("category", "billpayment")
 
         formik.handleSubmit()
+        console.log(formik.errors, formik.values)
     }
-    const paddingHandler = () => {
-        if (flow == 2) {
-          setIsPadded(false);
-        } else {
-          setIsPadded(true);
-        }
-    };
 
-    useEffect(() => {
-        paddingHandler();
-    }, [flow]);
+    const completePayment = () => {
+        completedForm.setValues({ 
+            paymentCode: formData?.transaction?.transactionDetails.paymentCode?.toString(), 
+            customerId: formData?.transaction?.transactionDetails.customerId?.toString(), 
+            customerEmail: userDetails?.email,
+            customerMobile: userDetails?.phone_number || "09012345678",
+            requestReference: formData?.transaction?.transactionReference, 
+            amount: formData?.transaction?.amount
+        })
+
+        console.log(completedForm.errors)
+    
+        completedForm.handleSubmit()
+    }
     
     useEffect(() => {
-    }, [billers]);
+        if(isSuccess) {
+          setFlow(1)
+        }
+    }, [isSuccess]);
+    
+    useEffect(() => {
+        if(completedSuccess) {
+          setFlow(3)
+        }
+    }, [completedSuccess]);
 
     return (
         <>
@@ -83,15 +98,15 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                 <AirtimeDetailsModal setFlow={setFlow} data={data} />
                 :
                 flow === 2 ?
-                <AirtimePayment setFlow={setFlow} data={data} />
+                <AirtimePayment setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}}  completeAction={completePayment} />
                 :
                 flow === 3 ?
-                <CompletedAirtimeModal setFlow={setFlow} data={data} />
+                <CompletedAirtimeModal setFlow={setFlow} data={{...data, ...formData?.transaction}} />
                 :
                 <>
                     <div className="flex flex-col w-full mt-5">
                         <label htmlFor="amount" className="font-normal text-xl font-openSans text-[#111111]">
-                            Enter Airtime Amount
+                            Amount
                         </label>
                         <div className="text-[#8c8b92] mt-2">
 
@@ -106,34 +121,33 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
 
                     <div className="flex flex-col w-full mt-5">
                         <label htmlFor="amount" className="font-normal text-xl font-openSans text-[#111111]">
-                            Enter Phone Number
+                            Phone Number
                         </label>
                         <div className="text-[#8c8b92] mt-2">
                         <Input 
                             type="number" 
                             onChange={(e) => setData({ ...data, customerId:  e.target.value})} 
                             placeholder="07000000000" 
-                            error={formik.errors.customerId}
+                            error={formik.errors.customerId && "Phone number is required"}
                         />
                         </div>
                     </div>
+                    {
+                        isLoading ?
+                            <BillsSkeleton list={4} height={120} />
+                        :
+                        <div className="grid grid-cols-4 gap-4 mt-4">
+                            {
+                                billersList?.map((item: { Id: number, LogoUrl: string, Name: string } ) => (
+                                    <button key={item.Id} onClick={() => setData({ ...data, service:  item})} className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}>
+                                        <Image src={`/images/airtime/${item.LogoUrl}`} width={200} height={200} alt={item.Name} />
+                                    </button>
+                                ))
+                            }
+                        </div>
+                    }
 
-                    <div className="grid grid-cols-4 gap-4 mt-4">
-                        {
-                            billersList?.map((item: { Id: number, LogoUrl: string, Name: string } ) => (
-                                <button key={item.Id} onClick={() => setData({ ...data, service:  item})} className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}>
-                                    <Image src={`/images/airtime/${item.LogoUrl}`} width={200} height={200} alt={item.Name} />
-                                </button>
-                            ))
-                        }
-                        {/* { error?.network ? <p className="mt-2 text-[12px] text-red-400">{error?.network}</p> : "" } */}
-                    </div>
-
-                    <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mt-10">
-                    By continuing, you agree to our 
-                    <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
-                </p>
-                    <div className="w-full">
+                    <div className="w-full mt-6">
                         <Button
                         type="submit"
                         size={"full"}

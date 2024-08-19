@@ -5,7 +5,7 @@ import { Button } from "../../common/button";
 import { Input } from "@/components/common/inputs";
 import Link from "@/components/custom/link";
 import { FlowProps } from "../modalsLayout";
-import { useGetServicesByBillerId } from "@/helpers/categories";
+import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { Dropdown } from "@/components/common/Dropdown";
 import CurrencyField from "@/components/common/currencyInput";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";

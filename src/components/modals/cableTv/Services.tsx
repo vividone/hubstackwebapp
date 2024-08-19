@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import ModalsLayout from "../modalsLayout";
-import Image from "next/image";
 import CableTvForm from "./cableTvForm";
 import CableTvDetails from "./detailsModal";
 import CableTvPayment from "./payment"
-import { useGetBillersByCategoryId } from "@/helpers/categories";
+import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import CableTvPurchase from "./Purchasedetails";
 import CustomIcons from "@/components/custom/customIcons";
-import { useCompleteBillPayment, usePayBill } from "@/helpers/services";
+import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import ToastComponent from "@/components/common/toastComponent";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
+import BillsSkeleton from "@/components/common/billsSkeleton";
+
 type cableTvProviders = {
   ShortName: string;
   Name: string;
@@ -141,24 +142,21 @@ const CableTVServices = ({ setShow, show }: any) => {
       flow === 0 ?
       <main>
         <header className="font-normal text-[20px] font-OpenSans">Choose A Service Provider</header>
-        <div className="grid grid-cols-4 gap-5 py-5 ">
         {
           isLoading ?
-          <>
-            <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
-            <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
-            <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
-            <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
-          </>
+            <BillsSkeleton list={4} height={120} />
           :
+        <div className="grid grid-cols-4 gap-5 py-5 ">
+            {
             providers?.map((item) => (
                 <button key={item.Id} onClick={() => {setActive(item); setFlow(1)}} title={item.Name}>
                   <CustomIcons src={"/images/cableTvImages/" + item.ShortName +".jpg"} alt={item.Name} />
                 </button>
               )
             )
-        }
+            }
         </div>
+        }
       </main>
       :
       flow === 1 ?

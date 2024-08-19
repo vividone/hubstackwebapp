@@ -6,7 +6,7 @@ import { Button } from "../../common/button";
 import { Dropdown } from "../../common/Dropdown";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import React, { FormEvent, useState } from "react";
-import { useGetAllBanks } from "@/helpers/wallet";
+import { useGetAllBanks } from "@/helpers/api/useWallet";
 import ModalsLayout from "../modalsLayout";
 
 const WalletForm = ({ setShow, show, formik, isPending }: any) => {

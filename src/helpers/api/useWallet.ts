@@ -1,9 +1,9 @@
 import { IErrorResponseType } from "@/interface/common/error";
 import { useFormik } from "formik";
-import axiosInstance from "./axiosConfig";
+import axiosInstance from "../axiosConfig";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { useUrls } from "./useUrls";
+import { useUrls } from "../useUrls";
 import { TOKEN } from "@/utils/token";
 import { ICreateWalletUpdate } from "@/interface/wallet";
 import { createWalletValidationSchema } from "@/schema/walletschema/validation";
@@ -61,27 +61,6 @@ export const useCreateWallet = ( ) => {
     return { wallet, formik, isPending, isSuccess, isError, error: errorString };
 };
 
-export const useGetSubAccounts = () => {
-  const { getAllWallets } = useUrls();
-
-  const queryKey = ["Get sub accounts"]; // Unique key for the query
-
-  const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
-    const response = await axiosInstance.get(getAllWallets);
-    const responseData = response.data;
-    console.log(responseData)
-    return responseData;
-  }});
-  
-  const allWallets = data || [];
-  return {
-    allWallets,
-    isLoading,
-    isError,
-    error
-  };
-};
-
 export const useGetWallet = () => {
   const { getUserWallet } = useUrls();
 
@@ -104,8 +83,6 @@ export const useGetWallet = () => {
 
 export const useGetAccountBalance = () => {
     const { getWalletBalance } = useUrls();
-  
-    const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
     const queryKey = ["Get wallet balance"]; // Unique key for the query
   
     const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {

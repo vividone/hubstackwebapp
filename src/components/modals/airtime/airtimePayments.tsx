@@ -8,38 +8,37 @@ import CurrentBalance from "../currentBalance";
 type FlowProps = {
   setFlow: (aug0: number) => void;
   data: any;
+  completeAction: () => void;
 };
 
-const AirtimePayment: React.FC<FlowProps> = ({ setFlow, data }) => {
+const AirtimePayment: React.FC<FlowProps> = ({ setFlow, data, completeAction }) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
   return (
     <div className="mt-4">
-      <div className="w-full border-y border-[#E7E6F2] px-[40px]">
         <CurrentBalance />
-      </div>
-      <div className="px-[40px] mt-6">
+      <div className="mt-6">
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px] ">
           <div className="flex  flex-wrap items-center gap-4">
             <Image
-              src={`/images/airtime/${data?.network || "mtn"}.png`}
+              src={`/images/airtime/${data?.service.LogoUrl}`}
               alt={data?.network}
               width={80}
               height={30}
             />
             <p className="text-xl font-semibold text-[#3D3066]">
-              {data?.phonenumber || "MTN"}
+              {data?.service.Name}
             </p>
           </div>
           <div className="py-4">
             <p>Mobile Number</p>
-            {/* <p className=" opacity-[0.7]">{pseudo?.mobileNumber}</p> */}
+              {data?.customerId}
           </div>
 
           <div className="flex gap-12">
             <div>
-              <p>Data Plan</p>
-              {/* <p className="opacity-[0.7]">{pseudo?.DataPlan}</p> */}
+              <p>Amount</p>
+              {data?.amount}
             </div>
           </div>
         </div>
@@ -49,7 +48,7 @@ const AirtimePayment: React.FC<FlowProps> = ({ setFlow, data }) => {
         <p className="text-center mt-4">
           The amount of{" "}
           <span className="font-bold">
-            NGN{formatAmount((+data?.amount + 100).toString())}
+            NGN{formatAmount(data?.amount)}
           </span>{" "}
           will be debited from your wallet balance, proceed below to complete
           transaction{" "}
@@ -60,7 +59,8 @@ const AirtimePayment: React.FC<FlowProps> = ({ setFlow, data }) => {
             variant="primary"
             size="full"
             type="submit"
-            onClick={() => setFlow(2)}
+            isLoading={data?.isPending}
+            onClick={() => completeAction()}
           >
             <span className="text-[16px]">PROCEED WITH WALLET</span>
           </Button>

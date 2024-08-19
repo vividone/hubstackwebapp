@@ -2,7 +2,7 @@
 import { Button } from "@/components/common/button";
 import { PasswordVariantInput } from "@/components/common/inputs";
 import ToastComponent from "@/components/common/toastComponent";
-import { useProfilePasswordUpdate } from "@/helpers/profile";
+import { useProfilePasswordUpdate } from "@/helpers/api/useProfile";
 import { FormEvent } from "react";
 
 const PageSecurity = () => {

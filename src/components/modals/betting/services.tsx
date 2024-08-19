@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ModalsLayout from "../modalsLayout";
-import Image from "next/image";
-import { useGetBillersByCategoryId } from "@/helpers/categories";
+import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import CustomIcons from "@/components/custom/customIcons";
-import { useCompleteBillPayment, usePayBill } from "@/helpers/services";
+import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import ToastComponent from "@/components/common/toastComponent";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";

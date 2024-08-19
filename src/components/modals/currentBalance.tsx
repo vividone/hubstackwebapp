@@ -3,7 +3,7 @@ import { useState } from "react"
 import { formatAmount } from "@/helpers/amountFormatter"
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import { useGetAccountBalance } from "@/helpers/wallet";
+import { useGetAccountBalance } from "@/helpers/api/useWallet";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 
 export default function CurrentBalance() {
