@@ -104,7 +104,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                             type="number" 
                             onChange={(e) => {setData({ ...data, customerId:  e.target.value}); formik.setFieldValue("customerId", e.target.value)}} 
                             placeholder="07000000000" 
-                            error={formik.errors.customerId}
+                            error={formik.errors.customerId && "Phone number " + formik.errors.customerId}
                         />
                         </div>
                     </div>

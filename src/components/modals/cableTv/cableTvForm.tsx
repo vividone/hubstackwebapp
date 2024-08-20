@@ -60,7 +60,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
                     name="customerId" 
                     value={data?.customerId}
                     placeholder="0000000000" 
-                    error={formik.touched.customerId && formik.errors.customerId}
+                    error={formik.errors.customerId && "Smartcard or Decoder number " + formik.errors.customerId}
                     onChange={(e) => {
                       setData({ ...data, customerId: e.target.value });
                       formik.setFieldValue("customerId", e.target.value)

@@ -86,7 +86,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
               <Input
                 type="text"
                 name="customerId"
-                error={formik.touched.customerId && formik.errors.customerId}
+                error={formik.errors.customerId && "Meter number " + formik.errors.customerId}
                 onChange={formik.handleChange}
                 placeholder=""
               />

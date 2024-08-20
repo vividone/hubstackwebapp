@@ -79,6 +79,7 @@ const BettingForm: React.FC<BettingProps> = ({
             <Input
               name="customerId"
               placeholder="0000000000"
+              error={formik.errors.customerId && "Bet ID " + formik.errors.customerId}
               onChange={(e) => {
                 setData({ ...data, customerId: e.target.value });
                 formik.setFieldValue("customerId", e.target.value);

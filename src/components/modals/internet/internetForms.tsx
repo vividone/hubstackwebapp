@@ -91,6 +91,7 @@ const InternetForm: React.FC<InternetProps> = ({
             <Input
               name="customerId"
               placeholder="Customer ID"
+              error={formik.errors.customerId && "Phone number " + formik.errors.customerId}
               onChange={(e) => {
                 setData({ ...data, customerId: e.target.value });
                 formik.setFieldValue("customerId", e.target.value);
