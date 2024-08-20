@@ -2,9 +2,10 @@ import React from "react";
 import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { Button } from "@/components/common/button";
-
+import Confirmation from "../confirmation";
 
 const CableTvPurchase = ({ active, setFlow, data }: any) => {
+  console.log(data)
   return (
     <div>
       <div className="flex flex-col p-4 md:p-8 bg-[#00D7F71A] border border-[#E7E6F2] rounded-md">

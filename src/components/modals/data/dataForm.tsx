@@ -43,7 +43,7 @@ const DataForm = ({
 
       <form onSubmit={handleSubmit} className="pb-5">
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[10px_30px]">
-          <div className="flex  flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             <Image
               src={`/images/data/${data?.service.ShortName}.jpg`}
               alt={data?.name}
@@ -102,6 +102,8 @@ const DataForm = ({
             />
           </div>
         </div>
+
+        {/* Data Amount Field */}
         <div className="flex flex-col w-full mt-5">
           <label
             htmlFor="amount"
@@ -112,28 +114,24 @@ const DataForm = ({
           <div className="text-[#8c8b92] mt-2">
           <p className="text-[32px] font-bold flex items-center"><NairaIconElectricBill width={32} />{data?.serviceProvider?.fee || 0}.00</p>
           </div>
+
+          {/* Save Beneficiary Toggle */}
           <div className="flex mt-4 items-center gap-2">
-            {toggle ? (
-              <div
-                onClick={() => {
-                  setToggle(false);
-                }}
-              >
-                <ToggleOnOutlinedIcon className="text-[#3D3066] text-[35px] cursor-pointer"/>
-              </div>
-            ) : (
-              <div
-                onClick={() => {
-                  setToggle(true);
-                }}
-              >
-                <ToggleOffOutlinedIcon className="text-[#3D3066] text-[35px] cursor-pointer" />
-              </div>
-            )}
+            <div
+              onClick={() => setToggle((prev) => !prev)}
+              className="cursor-pointer"
+            >
+              {toggle ? (
+                <ToggleOnOutlinedIcon className="text-[#3D3066] text-[35px]" />
+              ) : (
+                <ToggleOffOutlinedIcon className="text-[#3D3066] text-[35px]" />
+              )}
+            </div>
             <p className="text-[18px] font-OpenSans">Save Beneficiary</p>
           </div>
         </div>
 
+        {/* Terms and Conditions */}
         <div className="flex flex-col gap-2 mt-12">
           <Button
             variant="primary"
