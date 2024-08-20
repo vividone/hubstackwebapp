@@ -34,20 +34,13 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   const [showAlternate, setShowAlternate] = useState(false);
   const [flow, setFlow] = useState("Account Details");
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const [visibility, setVisibility] = useState(true);
   const [content, setContent] = useState("Microbiz MFB");
   const [amount, setAmount] = useState<string>("0");
 
   const dataSets: any = {
-    "Microbiz MFB": {
-      accountNumber: "1234567890",
-      bankName: "Microbiz MFB",
-    },
+    "Microbiz MFB": wallet?.filter((item: any) => item.provider === "Microbiz MFB")[0],
     "Wema Bank": wallet?.filter((item: any) => item.provider === "Flutterwave")[0],
-    "Paystack Titan": {
-      accountNumber: "1122334455",
-      bankName: "Paystack Titan",
-    },
+    "Paystack Titan": wallet?.filter((item: any) => item.provider === "Paystack Titan")[0],
   };
 
   const existingData = dataSets[content];
@@ -148,17 +141,24 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
         </nav>
         <div className="mt-4 p-[0_40px]">
           <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
-            <div className="flex flex-col gap-4">
-              <ClipBoard
-                label={"Account Number"}
-                text={existingData?.accountNumber}
-              />
-              <ClipBoard
-                label={"Account Name"}
-                text={userDetails?.firstname + " " + userDetails?.lastname}
-              />
-              <ClipBoard label={"Bank Name"} text={existingData?.bankName} />
-            </div>
+              {
+                !existingData ?
+                  <p>Sorry, you do not have an account with this provider yet. Please contact Support</p>
+                :
+
+                <div className="flex flex-col gap-4">
+                  <ClipBoard
+                    label={"Account Number"}
+                    text={existingData?.accountNumber}
+                  />
+                  <ClipBoard
+                    label={"Account Name"}
+                    text={userDetails?.firstname + " " + userDetails?.lastname}
+                  />
+                  <ClipBoard label={"Bank Name"} text={existingData?.bankName} />
+                </div>
+                
+              }
             
               <Link
                 href=""

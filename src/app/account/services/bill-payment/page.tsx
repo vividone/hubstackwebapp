@@ -18,7 +18,7 @@ import Internet from "@/components/modals/internet/Services";
 import Betting from "@/components/modals/betting/services";
 import Data from "@/components/modals/data/data";
 const Billpayment = () => {
-  const { billers, isLoading } = useGetBillersByCategoryId("1")
+  const { billers, isLoading } = useGetBillersByCategoryId("5")
   const [active, setActive] = useState("")
   const [show, setShow] = useState(false)
   const [billersList, setBillersList] = useState([])
@@ -35,7 +35,7 @@ const Billpayment = () => {
     },
     {
       Icon: <DataIcon />,
-      text: "Data",
+      text: "Data Bundle",
       billerCategoryId: "4",
     },
     {
