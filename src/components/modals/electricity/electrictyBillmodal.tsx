@@ -9,15 +9,26 @@ import ElectricityBillToken from "./electricityBillToken";
 import ElectricityBillPayment from "./electricityBillPayment";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
+import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 
-const ElectricityBillModal = ({ show, setShow, billers }: any) => {
+
+type Providers = {
+  ShortName: string;
+  Name: string;
+  Id: string;
+}
+
+const ElectricityBillModal = ({ show, setShow }: any) => {
   const { data, formik, isPending, isSuccess, isError, error } = usePayBill("electricity");
   const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(data?._id || "", "Electricity")
   const [ formData, setFormData] = useState<any>()
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   const [flow, setFlow ] = useState(0)
+  const { billers, isLoading } = useGetBillersByCategoryId("1")
 
   const flowHeaders: string[] = ["Electricity Bill", "Your Order", "Your Wallet", "Token Details"]
+  
+  const providers: Providers[] = billers?.BillerList?.Category[0]?.Billers
 
   const completePayment = () => {
     completedForm.setValues({ 
@@ -56,7 +67,7 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
       
       { 
         flow === 0 ?
-          <ElectricityBillForm setFlow={setFlow} data={formData} formik={formik} billers={billers} isPending={isPending} setData={setFormData} />
+          <ElectricityBillForm setFlow={setFlow} data={formData} formik={formik} billers={providers} isPending={isPending} setData={setFormData} />
         :
         flow === 1 ? 
         <ElectricityBillDetails data={{ ...formData, ...data }} setFlow={setFlow}/> 

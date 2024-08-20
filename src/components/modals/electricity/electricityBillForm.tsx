@@ -23,8 +23,6 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
   useEffect(() => {
     const biller = billers?.Billers?.filter((item: any) => item.Name === data?.serviceProvider.value)[0]
 
-    formik.setFieldValue("biller", biller?.Name)
-    formik.setFieldValue("billerId", biller?.Id)
     formik.setFieldValue("paymentMode", "wallet")
     formik.setFieldValue("paymentCode", "0488051528") 
     formik.setFieldValue("category", "billpayment") 
@@ -33,6 +31,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    console.log(formik.errors)
     formik.handleSubmit();
   };
 
@@ -59,13 +58,16 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
                   if (value) {
                     const selectedOption = value as any;
                     setData({...data, serviceProvider: selectedOption})
-                    formik.setFieldValue("service", selectedOption.value)
+                    formik.setFieldValue("service", "Electricity")
+                    formik.setFieldValue("biller", selectedOption.value)
+                    formik.setFieldValue("billerId", selectedOption.Id)
                   } else {
                   }
                 }}
-                options={billers?.Billers?.map((item: any) => ({
+                options={billers?.map((item: any) => ({
                   label: item.Name,
                   value: item.Name,
+                  Id: item.Id
                 }))}
                 className="items-start text-start justify-start rounded-[8px]"
               />

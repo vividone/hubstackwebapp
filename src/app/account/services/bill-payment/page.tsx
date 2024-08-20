@@ -18,14 +18,9 @@ import Internet from "@/components/modals/internet/Services";
 import Betting from "@/components/modals/betting/services";
 import Data from "@/components/modals/data/data";
 const Billpayment = () => {
-  const { billers, isLoading } = useGetBillersByCategoryId("5")
   const [active, setActive] = useState("")
   const [show, setShow] = useState(false)
-  const [billersList, setBillersList] = useState([])
 
-  useEffect(() => {
-    setBillersList(billers?.BillerList?.Category)
-  }, [isLoading, billers?.BillerList?.Category])
   
   const data = [
     {
@@ -149,22 +144,22 @@ const Billpayment = () => {
 
         {
           active === "Electricity" && show ?
-          <ElectricityBillModal billers={billersList?.filter((item: any) => item.Id === 1)[0]} show={show} setShow={setShow} />
+          <ElectricityBillModal show={show} setShow={setShow} />
           : 
           active === "Airtime" && show ?
           <AirtimeModal show={show} setShow={setShow} />
           :
           active === "Cable TV" && show ?
-          <CableTVServices billers={billersList}  show={show} setShow={setShow} />
+          <CableTVServices show={show} setShow={setShow} />
           :
           active === "Data" && show ?
-          <Data billers={billersList}  show={show} setShow={setShow} />
+          <Data show={show} setShow={setShow} />
           :
           active === "Internet" && show ?
-          <Internet billers={billersList}  show={show} setShow={setShow} />
+          <Internet show={show} setShow={setShow} />
           :
           active === "Betting" && show ?
-          <Betting billers={billersList}  show={show} setShow={setShow} />
+          <Betting show={show} setShow={setShow} />
           :""
         }
       </div>

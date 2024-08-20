@@ -3,7 +3,7 @@ export default function BillsSkeleton({ list, height }: { list: number, height: 
         <div className="grid grid-cols-4 gap-5 py-5 ">
             {
                 [...Array(list).keys()].map((item: number) => (
-                    <div key={item} className={`w-[120px] rounded bg-slate-200 h-[${height}px] animate-pulse`}></div>
+                    <div key={item} className={`rounded bg-slate-200 h-[${height}px] animate-pulse`}></div>
                 ))
             }
           </div>
