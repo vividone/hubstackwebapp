@@ -18,7 +18,8 @@ export const SignupSchemaIndividual = Yup.object().shape({
     .required("Email is required")
     .trim()
     .lowercase(),
-  phonenumber: Yup.string().required("Phone number is required"),
+  phonenumber: Yup.string().required("Phone number is required")
+    .length(11, "Phone number should be 11 digits"),
   role: Yup.string().optional(),
   password: Yup.string()
     .required("Password is required")
