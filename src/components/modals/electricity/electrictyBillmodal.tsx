@@ -73,7 +73,7 @@ const ElectricityBillModal = ({ show, setShow }: any) => {
         <ElectricityBillDetails data={{ ...formData, ...data }} setFlow={setFlow}/> 
         : 
         flow === 2 ? 
-        <ElectricityBillPayment data={{ ...formData, ...data }} completeAction={completePayment} setFlow={setFlow}/> 
+        <ElectricityBillPayment data={{ ...formData, ...data, isPending: completePending }} completeAction={completePayment} setFlow={setFlow}/> 
         : 
         flow === 3 ? 
         <ElectricityBillToken data={{ ...completedBill, ...data }} setFlow={setFlow} /> :

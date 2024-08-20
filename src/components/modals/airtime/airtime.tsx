@@ -77,7 +77,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                 <AirtimePayment setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}}  completeAction={completePayment} />
                 :
                 flow === 3 ?
-                <CompletedAirtimeModal setFlow={setFlow} data={{...data, ...formData?.transaction}} />
+                <CompletedAirtimeModal setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}} />
                 :
                 <>
                     <div className="flex flex-col w-full mt-5">
