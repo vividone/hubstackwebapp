@@ -37,10 +37,10 @@ const CableTvPurchase = ({ active, setFlow, data }: any) => {
         <h2 className="font-bold">Payment Summary</h2>
         <div className="flex flex-col gap-1">
           <div className="flex justify-between items-center gap-5">
-            <span className="block opacity-[0.5]">Data amount</span>
+            <span className="block opacity-[0.5]">Amount</span>
             <span className="flex items-center">
               <NairaIcon className="w-[12px]" />
-              {formatAmount(data?.amount|| "1000")}
+              {formatAmount(data?.amount)}
             </span>
           </div>
 

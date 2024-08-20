@@ -95,7 +95,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
 
           
 
-          <div className="flex flex-col w-full mt-5">
+          <div className="flex flex-col w-full my-5">
             <label
               htmlFor="amount"
               className="font-normal text-xl font-openSans text-[#111111]"
@@ -117,18 +117,15 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
             </div>
           </div>
 
-          <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mt-10">
-              By continuing, you agree to our 
-              <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
-          </p>
-
-          <Button
-            type="submit"
-            size={"full"}
-            isLoading={isPending}
-          >
-            REVIEW ORDER
-          </Button>
+          <div className="flex flex-col gap-2 mt-12">
+            <Button
+              type="submit"
+              size={"full"}
+              isLoading={isPending}
+            >
+              REVIEW ORDER
+            </Button>
+          </div>
             
         </form>
 

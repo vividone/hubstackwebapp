@@ -152,7 +152,7 @@ const Billpayment = () => {
           active === "Cable TV" && show ?
           <CableTVServices show={show} setShow={setShow} />
           :
-          active === "Data" && show ?
+          active === "Data Bundle" && show ?
           <Data show={show} setShow={setShow} />
           :
           active === "Internet" && show ?

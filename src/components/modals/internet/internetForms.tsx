@@ -159,16 +159,7 @@ const InternetForm: React.FC<InternetProps> = ({
         </div>
 
         <div className="flex flex-col gap-2 mt-12">
-          <p className="2xl:text-[20px] xl:text-[18px] text-[16px]">
-            By continuing, you agree to our
-            <Link
-              href={"/terms-and-conditions"}
-              className="text-[#3D3066] font-bold"
-            >
-              {" "}
-              Terms and Conditions
-            </Link>
-          </p>
+          
           <Button
             variant="primary"
             size="full"

@@ -132,7 +132,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         </div>
                     }
 
-                    <div className="w-full mt-6">
+                    <div className="w-full mt-12">
                         <Button
                             type="submit"
                             size={"full"}
