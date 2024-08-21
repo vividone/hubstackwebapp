@@ -8,23 +8,12 @@ import { FlowProps } from "../modalsLayout";
 interface CableTvProps extends FlowProps {
   active: any;
   completeAction: () => void;
-  isSuccess: boolean;
+  isSuccess?: boolean;
 }
 
-const CableTvPayment: React.FC<CableTvProps> = ({ setFlow, data, active, completeAction, isSuccess }) => {
+const CableTvPayment: React.FC<CableTvProps> = ({ data, active, completeAction}:any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (isSuccess) {
-  //       setFlow(4);
-  //       clearInterval(interval); 
-  //     }
-  //   }, 500); 
-  //   return () => clearInterval(interval); 
-  // }, [isSuccess]);
-  
 
   return (
     <div className="mt-4">
