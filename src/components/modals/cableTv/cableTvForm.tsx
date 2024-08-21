@@ -26,7 +26,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
     formik.setFieldValue("biller", active?.Name)
     formik.setFieldValue("billerId", active?.Id.toString())
     formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("paymentCode", data?.serviceProvider?.PaymentCode) 
+    formik.setFieldValue("paymentCode", "0488051528") 
     formik.setFieldValue("category", "billpayment") 
     formik.setFieldValue("amount",  data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount)
     
@@ -60,7 +60,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
                     name="customerId" 
                     value={data?.customerId}
                     placeholder="0000000000" 
-                    error={formik.touched.customerId && formik.errors.customerId}
+                    error={formik.errors.customerId && "Smartcard or Decoder number " + formik.errors.customerId}
                     onChange={(e) => {
                       setData({ ...data, customerId: e.target.value });
                       formik.setFieldValue("customerId", e.target.value)
@@ -120,10 +120,7 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
               </div>
 
               <div className="flex flex-col gap-2 mt-12">
-                <p className="2xl:text-[20px] xl:text-[18px] text-[16px]">
-                    By continuing, you agree to our 
-                    <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
-                </p>
+                
                 <Button 
                   variant="primary" 
                   size="full"

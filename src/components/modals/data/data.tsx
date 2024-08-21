@@ -106,7 +106,7 @@ const Data = ({ setShow, show }: any) => {
           data={{ ...data, ...formData }}
         />
       ) : flow === 3 ? (
-        <DataPayment setFlow={setFlow} data={{ ...data, ...formData }} completeAction={completePayment} />
+        <DataPayment setFlow={setFlow} data={{ ...data, ...formData, isPending: completePending }} completeAction={completePayment} />
       ) : flow === 4 ? (
         <CompletedDataModal setFlow={setFlow} data={{...data, ...formData?.transaction}} />
       ) : (

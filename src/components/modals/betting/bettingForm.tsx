@@ -79,6 +79,7 @@ const BettingForm: React.FC<BettingProps> = ({
             <Input
               name="customerId"
               placeholder="0000000000"
+              error={formik.errors.customerId && "Bet ID " + formik.errors.customerId}
               onChange={(e) => {
                 setData({ ...data, customerId: e.target.value });
                 formik.setFieldValue("customerId", e.target.value);
@@ -137,16 +138,7 @@ const BettingForm: React.FC<BettingProps> = ({
         </div>
 
         <div className="flex flex-col gap-2 mt-12">
-          <p className="2xl:text-[20px] xl:text-[18px] text-[16px]">
-            By continuing, you agree to our
-            <Link
-              href={"/terms-and-conditions"}
-              className="text-[#3D3066] font-bold"
-            >
-              {" "}
-              Terms and Conditions
-            </Link>
-          </p>
+          
           <Button
             variant="primary"
             size="full"

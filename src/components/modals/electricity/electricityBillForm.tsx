@@ -24,8 +24,6 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
   useEffect(() => {
     const biller = billers?.Billers?.filter((item: any) => item.Name === data?.serviceProvider.value)[0]
 
-    formik.setFieldValue("biller", biller?.Name)
-    formik.setFieldValue("billerId", biller?.Id)
     formik.setFieldValue("paymentMode", "wallet")
     formik.setFieldValue("paymentCode", "0488051528") 
     formik.setFieldValue("category", "billpayment") 
@@ -34,6 +32,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    console.log(formik.errors)
     formik.handleSubmit();
   };
 
@@ -60,13 +59,16 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
                   if (value) {
                     const selectedOption = value as any;
                     setData({...data, serviceProvider: selectedOption})
-                    formik.setFieldValue("service", selectedOption.value)
+                    formik.setFieldValue("service", "Electricity")
+                    formik.setFieldValue("biller", selectedOption.value)
+                    formik.setFieldValue("billerId", selectedOption.Id)
                   } else {
                   }
                 }}
-                options={billers?.Billers?.map((item: any) => ({
+                options={billers?.map((item: any) => ({
                   label: item.Name,
                   value: item.Name,
+                  Id: item.Id
                 }))}
                 className="items-start text-start justify-start rounded-[8px]"
               />
@@ -84,7 +86,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
               <Input
                 type="text"
                 name="customerId"
-                error={formik.touched.customerId && formik.errors.customerId}
+                error={formik.errors.customerId && "Meter number " + formik.errors.customerId}
                 onChange={formik.handleChange}
                 placeholder=""
               />
@@ -93,7 +95,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
 
           
 
-          <div className="flex flex-col w-full mt-5">
+          <div className="flex flex-col w-full my-5">
             <label
               htmlFor="amount"
               className="font-normal text-xl font-openSans text-[#111111]"
@@ -115,18 +117,15 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
             </div>
           </div>
 
-          <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mt-10">
-              By continuing, you agree to our 
-              <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
-          </p>
-
-          <Button
-            type="submit"
-            size={"full"}
-            isLoading={isPending}
-          >
-            REVIEW ORDER
-          </Button>
+          <div className="flex flex-col gap-2 mt-12">
+            <Button
+              type="submit"
+              size={"full"}
+              isLoading={isPending}
+            >
+              REVIEW ORDER
+            </Button>
+          </div>
             
         </form>
 

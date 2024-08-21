@@ -77,7 +77,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                 <AirtimePayment setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}}  completeAction={completePayment} />
                 :
                 flow === 3 ?
-                <CompletedAirtimeModal setFlow={setFlow} data={{...data, ...formData?.transaction}} />
+                <CompletedAirtimeModal setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}} />
                 :
                 <>
                     <div className="flex flex-col w-full mt-5">
@@ -104,7 +104,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                             type="number" 
                             onChange={(e) => {setData({ ...data, customerId:  e.target.value}); formik.setFieldValue("customerId", e.target.value)}} 
                             placeholder="07000000000" 
-                            error={formik.errors.customerId && "Phone number is required"}
+                            error={formik.errors.customerId && "Phone number " + formik.errors.customerId}
                         />
                         </div>
                     </div>
@@ -132,7 +132,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         </div>
                     }
 
-                    <div className="w-full mt-6">
+                    <div className="w-full mt-12">
                         <Button
                             type="submit"
                             size={"full"}

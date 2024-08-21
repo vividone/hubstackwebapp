@@ -28,7 +28,7 @@ const CableTVServices = ({ setShow, show }: any) => {
   const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(payCable?._id || "", "cable TV")
   const { billers, isLoading } = useGetBillersByCategoryId("2")
 
-  const flowHeaders: string[] = ["Cable TV", "Cable TV", "Your Order", "Your Wallet"]
+  const flowHeaders: string[] = ["Cable TV", "Cable TV", "Your Order", "Your Wallet", "Purchase Details"]
 
   const providers: cableTvProviders[] = billers?.BillerList?.Category[0]?.Billers
 
@@ -174,7 +174,7 @@ const CableTVServices = ({ setShow, show }: any) => {
       <CableTvPayment active={active} data={{...data, ...payCable, isPending: completePending}} setFlow={setFlow} completeAction={completePayment} />
       :
       flow === 4 ?
-      <CableTvPurchase active={active} data={data} setFlow={setFlow} />
+      <CableTvPurchase active={active} data={{...data, ...completedBill.transaction}} setFlow={setFlow} />
       :
       ""
 

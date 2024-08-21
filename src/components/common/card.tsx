@@ -29,22 +29,20 @@ const Card = ({ value }: CardProps) => {
 
       <div className="flex justify-between items-end h-full w-full">
         <div className="flex flex-col justify-center h-[50%]">
-          <div className="flex items-center">
-            <span className="font-bold 2xl:text-[32px] text-[24px] w-full font-sans">
-              {visibility ? <>₦{formatAmount(amount?.toString())}</> : "********"}
-            </span>
-            <button
-              className="ml-2 mb-2"
-              onClick={() => setVisibility(!visibility)}
-            >
-              {!visibility ? (
-                <RemoveRedEyeOutlinedIcon />
-              ) : (
-                <VisibilityOffOutlinedIcon />
-              )}
+          <p className="flex items-center gap-6 font-bold  2xl:text-[32px] text-[24px] w-full font-sans">
+            {visibility ? <>₦{formatAmount(amount?.toString())}</> : <span className="-mb-3">********</span> }
+            <button className="w-fit" onClick={() => setVisibility(!visibility)}>
+              {
+                !visibility ? 
+                  <RemoveRedEyeOutlinedIcon />
+                  :
+                  <VisibilityOffOutlinedIcon />
+              }
             </button>
-          </div>
-          <span className="font-normal text-[18px] w-full font-sans">{type}</span>
+          </p>
+          <span className="font-normal text-[18px] w-full font-sans">
+            {type}
+          </span>
         </div>
       </div>
     </div>

@@ -61,6 +61,7 @@ const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeActio
               variant="primary" 
               size="full"
               type="submit"
+              isLoading={data.isPending}
               onClick={() => completeAction()}
             >
               <span className="text-[16px]">PROCEED WITH WALLET</span>
