@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { menuList } from "@/utils/sidebarMenue";
@@ -10,6 +10,8 @@ import { useCookies } from "@/hooks/useCookies";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import Link from "../custom/link";
 import MenuIcon from "@/assets/icons/MenuIcon";
+import { useOutsideClick } from "@/helpers/useClickOutside";
+import Close from "@/assets/icons/close";
 
 const Dashboard = ({ open, setOpen }: any) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -35,10 +37,14 @@ const Dashboard = ({ open, setOpen }: any) => {
     router.push("/");
   };
 
+  const sidebarRef = useOutsideClick(setOpen, false)
+
   return (
-    <div className={`flex flex-col md:static fixed top-0 left-0 h-full text-[whitesmoke] bg-[#3D3066] h-screen sm:w-[35%] lg:w-[30%] xl:w-[20%] w-[300px] z-[1000] duration-700 ${open ? "translate-x-0" : "md:translate-x-0 translate-x-[-100%]" }`}>
+    <div ref={sidebarRef} className={`flex flex-col md:static fixed top-0 left-0 h-full text-[whitesmoke] bg-[#3D3066] h-screen sm:w-[35%] lg:w-[30%] xl:w-[20%] w-[300px] z-[1000] duration-700 ${open ? "translate-x-0" : "md:translate-x-0 translate-x-[-100%]" }`}>
       <div className="flex items-center pl-6 pt-6 h-[10%]">
-        <button className="p-2 md:hidden" onClick={() => setOpen(!open)}><MenuIcon /></button>
+        <button className="p-2 md:hidden" onClick={() => setOpen(!open)}>
+          <Close />
+        </button>
         <span>
           <Image
             src="/images/hubstackLogo.svg"
