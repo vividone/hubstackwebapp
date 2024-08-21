@@ -5,7 +5,7 @@ import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
 import { FlowProps } from "../modalsLayout";
 
-const DataDetails = ({ setFlow, data, pseudo,  }: any) => {
+const DataDetails = ({ setFlow, data, item  }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
   return (
@@ -17,23 +17,23 @@ const DataDetails = ({ setFlow, data, pseudo,  }: any) => {
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
         <div className="flex  flex-wrap items-center gap-4">
           <Image
-            src={`/images/airtime/${data.network}.png`}
-            alt={data?.name}
+            src={`/images/airtime/${data?.ShortName}.png`}
+            alt={data?.ShortName}
             width={80}
             height={80}
           />
-          <p className="text-xl font-semibold text-[#3D3066]">{data?.name}</p>
+          <p className="text-xl font-semibold text-[#3D3066]">{data?.ShortName}</p>
         </div>
 
         <div className="py-4">
           <p>Mobile Number</p>
-          <p className=" opacity-[0.7]">{pseudo?.mobileNumber}</p>
+          <p className=" opacity-[0.7]">{data?.phonenumber||"08059837001"}</p>
         </div>
 
         <div className="flex gap-12">
           <div>
             <p>Data Plan</p>
-            <p className="opacity-[0.7]">{pseudo?.DataPlan}</p>
+            <p className="opacity-[0.7]">{data?.DataPlan||50.00}</p>
           </div>
         </div>
       </div>

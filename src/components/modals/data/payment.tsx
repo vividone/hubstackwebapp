@@ -4,8 +4,7 @@ import Image from "next/image";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
-import { FlowProps } from "../modalsLayout";
-import Confirmation from "../confirmation";
+
 
 const DataPayment: React.FC<any> = ({
   setFlow,

@@ -8,6 +8,9 @@ import DataForm from "./dataForm";
 import DataDetails from "./dataDetails";
 import DataPayment from "./payment";
 import PurchaseDetails from "./dataPurchaseDetails";
+import { useGetBillersByCategoryId } from "@/helpers/categories";
+import { useCompleteBillPayment, usePayBill } from "@/helpers/services";
+
 type dataProps = {
   name: string;
   network: string;
@@ -15,10 +18,23 @@ type dataProps = {
 
 const Data = ({ setShow, show }: any) => {
   const [flow, setFlow] = useState(0);
-  const [error, setError] = useState<any>({});
+  const [errors, setError] = useState<any>({});
   const [data, setData] = useState<dataProps>({ name: "", network: "" });
   const [pseudo, setpseudoUpdate] = useState("");
   const [isPadded, setIsPadded] = useState(true);
+
+  const { billers, isLoading } = useGetBillersByCategoryId("4");
+  const providers = billers?.BillerList?.Category[0]?.Billers;
+  console.log(providers?.ShortName)
+  const {
+    data: payData,
+    formik: Dataform,
+    isError,
+    isPending,
+    isSuccess,
+    error,
+  } = usePayBill("buy-data");
+
   const flowHeaders: string[] = [
     "Data Bundle",
     "Data Bundle",
@@ -37,6 +53,12 @@ const Data = ({ setShow, show }: any) => {
     paddingHandler();
   }, [flow]);
 
+  useEffect(() => {
+    if (isSuccess) {
+      setFlow(2);
+    }
+  }, [isSuccess]);
+
   return (
     <ModalsLayout
       flow={flow}
@@ -50,15 +72,14 @@ const Data = ({ setShow, show }: any) => {
         <DataForm
           setFlow={setFlow}
           data={data}
-          setpseudoUpdate={setpseudoUpdate}
-          pseudo={pseudo}
+          formik={Dataform}
+          isPending={isPending}
         />
       ) : flow === 2 ? (
         <DataDetails
           setFlow={setFlow}
-          data={data}
-          setpseudoUpdate={setpseudoUpdate}
-          pseudo={pseudo}
+          item={data}
+          data={{ ...data, ...payData }}
           paddingHandler={paddingHandler}
         />
       ) : flow === 3 ? (
@@ -71,33 +92,39 @@ const Data = ({ setShow, show }: any) => {
             Choose A Service Provider
           </header>
           <div className="grid grid-cols-4 gap-4 mt-4">
-            {[
-              { id: 0, network: "mtn", name: "MTN" },
-              { id: 1, network: "airtel", name: "Airtel" },
-              { id: 2, network: "9mobile", name: "9mobile" },
-              { id: 3, network: "glo", name: "GLO" },
-            ].map((item: { id: number; network: string; name: string }) => (
-              <button
-                key={item.id}
-                onClick={() => {
-                  return (
-                    setFlow(1),
-                    setData({ ...data, network: item.network, name: item.name })
-                  );
-                }}
-                // className={"  hover:border-2 border-[#3D3066] rounded"}
-              >
-                <CustomIcons
-                  src={`/images/airtime/${item.network}.png`}
-                  alt={item.network}
-                />
-              </button>
+            {isLoading ? (
+                <>
+                  <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
+                  <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
+                  <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
+                  <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
+                </>
+              ) : (
+                providers?.map(
+              (item:any) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    return (
+                      setFlow(1),
+                      setData(item)
+                      
+                    );
+                  }}
+                  // className={"  hover:border-2 border-[#3D3066] rounded"}
+                >
+                  <CustomIcons
+                    src={`/images/airtime/${item?.ShortName }.png`}
+                    alt={item?.ShortName}
+                  />
+                </button>
+              )
             ))}
-            {error?.network ? (
-              <p className="mt-2 text-[12px] text-red-400">{error?.network}</p>
+            {/* {error?.network ? (
+              // <p className="mt-2 text-[12px] text-red-400">{error?.network}</p>
             ) : (
               ""
-            )}
+            )} */}
           </div>
         </>
       )}

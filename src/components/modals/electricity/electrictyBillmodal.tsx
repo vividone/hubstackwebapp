@@ -7,6 +7,7 @@ import ElectricityBillForm from "./electricityBillForm";
 import ElectricityBillDetails from "./electricityBillDetails";
 import ElectricityBillToken from "./electricityBillToken";
 import ElectricityBillPayment from "./electricityBillPayment";
+import CustomIcons from "@/components/custom/customIcons";
 
 const ElectricityBillModal = ({ show, setShow, billers }: any) => {
   const { data, formik, isError, isPending, isSuccess, error } =
@@ -19,7 +20,51 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
   } = useCompleteBillPayment(data?._id || "", "Electricity");
   const [formData, setFormData] = useState<any>();
   const [flow, setFlow] = useState(0);
-
+  const providers = [
+    {
+      LogoUrl: "AbujaElectricDistributionCompany",
+      Name: "Abuja Electric Distribution Company",
+      Id: 1,
+    },
+    {
+      LogoUrl: "beninElectricDistributionPLC",
+      Name: "Benin Electric",
+      Id: 2,
+    },
+    {
+      LogoUrl: "EkoElectricDistributionCompany",
+      Name: "Eko Electric Distribution Company",
+      Id: 3,
+    },
+    {
+      LogoUrl: "EnuguElectricityDistributionCompany",
+      Name: "Enugu Electric",
+      Id: 4,
+    },
+    { LogoUrl: "IBEDC", Name: "IBEDC", Id: 5 },
+    { LogoUrl: "IkejaElectric", Name: "Ikeja Electric", Id: 6 },
+    {
+      LogoUrl: "JosElectricityDistributionCompany",
+      Name: "Jos Electric Distribution Company",
+      Id: 7,
+    },
+    {
+      LogoUrl: "KadunaElectricityDistributionCompany",
+      Name: "Kaduna Electric Distribution Company",
+      Id: 8,
+    },
+    {
+      LogoUrl: "KanoElectricityDistributionCompany",
+      Name: "Kano Electric",
+      Id: 9,
+    },
+    {
+      LogoUrl: "PortHarcourtElectricityDistributionCompany",
+      Name: "Port Harcourt Electric",
+      Id: 10,
+    },
+    { LogoUrl: "YEDC", Name: "YEDC", Id: 11 },
+  ];
   const flowHeaders: string[] = [
     "Electricity Bill",
     "Your Order",
@@ -28,15 +73,6 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
   ];
 
   const completePayment = () => {
-    // completedForm.setValues({
-    //   paymentCode: data?.transactionDetails.paymentCode?.toString(),
-    //   customerId: data?.transactionDetails.customerId?.toString(),
-    //   customerEmail: "testJ@test.com",
-    //   customerMobile: "2349077746616",
-    //   requestReference: data?.transactionReference,
-    //   amount: data?.amount
-    // })
-
     completedForm.setValues(data?.transactionDetails);
     console.log(completedForm.errors);
     completedForm.handleSubmit();
@@ -69,6 +105,29 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
         show={show}
       >
         {flow === 0 ? (
+          <main>
+            <header className="font-normal text-[20px] font-OpenSans">
+              Choose A Service Provider
+            </header>
+            <div className="grid grid-cols-4 gap-5 py-5">
+              {providers?.map((item: any) => (
+                  <button
+                  key={item.Id}
+                  onClick={() => {
+                    // setActive(item);
+                    setFlow(1);
+                  }}
+                  title={item.Name}
+                >
+                  <CustomIcons
+                    src={"/images/electricity/" + item.LogoUrl+ ".png"}
+                    alt={item.Name}
+                  />
+                </button>
+              ))}
+            </div>
+          </main>
+        ) : flow === 1 ? (
           <ElectricityBillForm
             setFlow={setFlow}
             data={formData}
@@ -77,18 +136,18 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
             isPending={isPending}
             setData={setFormData}
           />
-        ) : flow === 1 ? (
+        ) : flow === 2 ? (
           <ElectricityBillDetails
             data={{ ...formData, ...data }}
             setFlow={setFlow}
           />
-        ) : flow === 2 ? (
+        ) : flow === 3 ? (
           <ElectricityBillPayment
             data={{ ...formData, ...data }}
             completeAction={completePayment}
             setFlow={setFlow}
           />
-        ) : flow === 3 ? (
+        ) : flow === 4 ? (
           <ElectricityBillToken data={completedBill} setFlow={setFlow} />
         ) : (
           ""
