@@ -15,9 +15,10 @@ interface ElectricFlowProps extends FlowProps {
   billers: any;
   formik: any;
   isPending: boolean;
+  active?:any;
 }
 
-const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formik, isPending, billers, setData }) => {
+const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formik, isPending, billers, setData,active }) => {
 
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
         >
           <div className="flex flex-col w-full mt-5">
             <label
-              htmlFor="meterNumber"
+              htmlFor="serviceProvider"
               className="font-normal text-xl font-openSans text-[#111111]"
             >
               Service Provider

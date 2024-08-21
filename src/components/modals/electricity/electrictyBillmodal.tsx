@@ -36,13 +36,13 @@ const ElectricityBillModal = ({ show, setShow, billers }: any) => {
     if(completedSuccess) {
       setFlow(3)
     }
-  }, [completedSuccess])
-  
+  }, [completedSuccess]);
+
   useEffect(() => {
-    if(isSuccess) {
-      setFlow(1)
+    if (isSuccess) {
+      setFlow(1);
     }
-  }, [isSuccess])
+  }, [isSuccess]);
 
   return (
     <>

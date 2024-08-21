@@ -68,6 +68,12 @@ const Data = ({ setShow, show }: any) => {
     paddingHandler();
   }, [flow]);
 
+  useEffect(() => {
+    if (isSuccess) {
+      setFlow(2);
+    }
+  }, [isSuccess]);
+
   return (
     <>
         
