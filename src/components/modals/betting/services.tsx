@@ -223,7 +223,7 @@ const BettingServices = ({ setShow, show }: any) => {
                   >
                     <CustomIcons
                       // src={"/images/betting/" + item.LogoUrl + ".png"}
-                      src={`/images/betting/${item.LogoUrl}`}
+                      src={`/images/Betting/${item.LogoUrl}`}
                       alt={item.Name}
                     />
                   </button>
