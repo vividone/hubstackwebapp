@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../common/button";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
-import { FlowProps } from "../modalsLayout";
 
-const DataDetails = ({ setFlow, data, item  }: any) => {
+const DataDetails = ({ setFlow, data }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
 
   return (
     <div className="mt-4">
@@ -17,23 +20,23 @@ const DataDetails = ({ setFlow, data, item  }: any) => {
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
         <div className="flex  flex-wrap items-center gap-4">
           <Image
-            src={`/images/airtime/${data?.ShortName}.png`}
-            alt={data?.ShortName}
+            src={`/images/data/${data?.service.ShortName}.jpg`} 
+            alt={data?.service.Name}
             width={80}
             height={80}
           />
-          <p className="text-xl font-semibold text-[#3D3066]">{data?.ShortName}</p>
+          <p className="text-xl font-semibold text-[#3D3066]">{data?.service.Name}</p>
         </div>
 
         <div className="py-4">
           <p>Mobile Number</p>
-          <p className=" opacity-[0.7]">{data?.phonenumber||"08059837001"}</p>
+          <p className=" opacity-[0.7]">{data?.customerId}</p>
         </div>
 
         <div className="flex gap-12">
           <div>
             <p>Data Plan</p>
-            <p className="opacity-[0.7]">{data?.DataPlan||50.00}</p>
+            <p className="opacity-[0.7]">{data?.service.Name}</p>
           </div>
         </div>
       </div>
@@ -44,7 +47,7 @@ const DataDetails = ({ setFlow, data, item  }: any) => {
             <span className="block ">Amount</span>
             <span className="flex items-center">
               <NairaIcon className="w-[12px]" />
-              {formatAmount(data?.amount)}
+              {formatAmount(data?.transaction.amount)}
             </span>
           </div>
 
@@ -52,7 +55,7 @@ const DataDetails = ({ setFlow, data, item  }: any) => {
             <span className="block">Service Charge</span>
             <span className="flex items-center">
               <NairaIcon className="w-[12px]" />
-              100.00
+              0.00
             </span>
           </div>
 
@@ -60,7 +63,7 @@ const DataDetails = ({ setFlow, data, item  }: any) => {
             <span className="block font-bold">TOTAL</span>
             <span className="flex items-center">
               <NairaIcon className="w-[12px]" />
-              {formatAmount((+data?.amount + 100).toString())}
+              {formatAmount(data?.transaction.amount)}
             </span>
           </div>
         </div>

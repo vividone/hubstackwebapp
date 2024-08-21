@@ -9,7 +9,7 @@ import InternetIcon from "@/assets/icons/InternetIcon";
 import CableTvIcon from "@/assets/icons/CableTvIcon";
 import ElectricityIcon from "@/assets/icons/ElectricityIcon";
 import BettingIcon from "@/assets/icons/BettingIcon";
-import { useGetBillersByCategoryId } from "@/helpers/categories";
+import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import { useEffect, useState } from "react";
 import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 import AirtimeModal from "@/components/modals/airtime/airtime";

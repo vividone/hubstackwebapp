@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { NumberFormatBase, NumericFormatProps } from "react-number-format";
 
+interface CurrencyProps extends  NumericFormatProps {
+  error?: string;
+}
 
-const CurrencyField = ({ onValueChange, ...props }: NumericFormatProps) => {
+const CurrencyField = ({ onValueChange, error, ...props }: CurrencyProps) => {
   const [value, setValue] = useState<string | number>("");
 
   const handleChange = (v: any, sourceInfo: any) => {
@@ -33,9 +36,10 @@ const CurrencyField = ({ onValueChange, ...props }: NumericFormatProps) => {
   };
 
   return (
+    <>
     <NumberFormatBase
       {...props}
-      value={Number(value) / 100}
+      value={Number(value) / 100 || value}
       format={currencyFormatter}
       onValueChange={handleChange}
       onKeyDown={keyDown}    
@@ -46,6 +50,8 @@ const CurrencyField = ({ onValueChange, ...props }: NumericFormatProps) => {
           : "bg-[#F9F9F9]  border-[#E7E6F2]"
       }`}
     /> 
+    <p className={`text-[12px] ${error ? "text-red-600" : "opacity-[0.7]"}`}>{error}</p>
+    </>
   );
 };
 

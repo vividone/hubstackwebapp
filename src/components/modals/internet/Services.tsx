@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ModalsLayout from "../modalsLayout";
-import Image from "next/image";
-import { useGetBillersByCategoryId } from "@/helpers/categories";
+import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import CustomIcons from "@/components/custom/customIcons";
-import { useCompleteBillPayment, usePayBill } from "@/helpers/services";
+import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import ToastComponent from "@/components/common/toastComponent";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
@@ -36,7 +35,7 @@ const InternetServices = ({ setShow, show }: any) => {
     isPending: completePending,
     isSuccess: completedSuccess,
   } = useCompleteBillPayment(payCable?._id || "");
-  const { billers, isLoading } = useGetBillersByCategoryId("2");
+  const { billers, isLoading } = useGetBillersByCategoryId("5");
   const [isPadded, setIsPadded] = useState(true);
 
   const flowHeaders: string[] = [
@@ -46,25 +45,14 @@ const InternetServices = ({ setShow, show }: any) => {
     "Your Wallet",
   ];
 
-  // const providers: cableTvProviders[] = billers?.BillerList?.Category[0]?.Billers
+  // const providers: InterntProviders[] = billers?.BillerList?.Category[0]?.Billers
 
   useEffect(() => {
     if (isSuccess) {
-      // setData({ ...data, transactionReference: payCable?.transactionReference })
       setFlow(2);
     }
   }, [isSuccess]);
 
-  const paddingHandler = () => {
-    if (flow == 3) {
-      setIsPadded(false);
-    } else {
-      setIsPadded(true);
-    }
-  };
-  useEffect(() => {
-    paddingHandler();
-  }, [flow]);
 
   const completePayment = () => {
     completedForm.setValues({
@@ -112,6 +100,7 @@ const InternetServices = ({ setShow, show }: any) => {
     { LogoUrl: "ESBAdesigners", Name: "ESBA designers", Id: 14 },
     { LogoUrl: "spectranet", Name: "spectranet", Id: 15 },
   ];
+
   return (
     <>
       <ToastComponent

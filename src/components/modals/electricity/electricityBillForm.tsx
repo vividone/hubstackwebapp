@@ -24,18 +24,16 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
   useEffect(() => {
     const biller = billers?.Billers?.filter((item: any) => item.Name === data?.serviceProvider.value)[0]
 
-    formik.setFieldValue("service", data?.serviceProvider?.value) //
-    formik.setFieldValue("biller", biller?.Name) //
-    formik.setFieldValue("billerId", biller?.Id) //
+    formik.setFieldValue("biller", biller?.Name)
+    formik.setFieldValue("billerId", biller?.Id)
     formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("paymentCode", biller?.PayDirectProductId) //
-    formik.setFieldValue("category", "billpayment") //
+    formik.setFieldValue("paymentCode", "0488051528") 
+    formik.setFieldValue("category", "billpayment") 
     
   }, [data?.serviceProvider, billers])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
     formik.handleSubmit();
   };
 
@@ -55,12 +53,14 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
             </label>
             <div className="text-[#8c8b92] mt-2">
               <Dropdown
-                name="serviceProvider"
+                name="service"
                 value={data?.serviceProvider}
+                error={formik.errors.service}
                 onChange={(value) => {
                   if (value) {
                     const selectedOption = value as any;
                     setData({...data, serviceProvider: selectedOption})
+                    formik.setFieldValue("service", selectedOption.value)
                   } else {
                   }
                 }}
@@ -83,9 +83,10 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
             <div className="text-[#8c8b92] mt-2">
               <Input
                 type="text"
-                name="meterNumber"
+                name="customerId"
+                error={formik.touched.customerId && formik.errors.customerId}
                 onChange={formik.handleChange}
-                placeholder="123456789101112131415"
+                placeholder=""
               />
             </div>
           </div>
@@ -100,10 +101,17 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
               Amount
             </label>
             <div className="text-[#8c8b92] mt-2">
-              <CurrencyField 
-                onValueChange={(v: any) => {setData({ ...data, amount: v.floatValue }); formik.setFieldValue("amount", v.floatValue)}} 
-                value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount} disabled={data?.serviceProvider?.fixed} 
-              />
+              {
+                  data?.serviceProvider?.fixed ?  
+                  <p className="text-[32px] font-bold flex items-center"><NairaIconElectricBill width={32} />{data?.serviceProvider?.fee}.00</p>
+                :
+                <CurrencyField 
+                  onValueChange={(v: any) => { setData({ ...data, amount: v.floatValue }); formik.setFieldValue("amount", v.floatValue)}} 
+                  error={formik.errors.amount}
+                  value={data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount || formik.values.amount} 
+                  disabled={data?.serviceProvider?.fixed} 
+                />
+                }
             </div>
           </div>
 

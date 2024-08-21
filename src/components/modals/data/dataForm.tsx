@@ -1,43 +1,39 @@
-import React, { useState, useEffect,FormEvent } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/common/inputs";
 import { Button } from "@/components/common/button";
-import Link from "next/link";
 import ToggleOnOutlinedIcon from "@mui/icons-material/ToggleOnOutlined";
 import ToggleOffOutlinedIcon from "@mui/icons-material/ToggleOffOutlined";
-import CurrencyField from "@/components/common/currencyInput";
-import { useGetServicesByBillerId } from "@/helpers/categories";
+import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
+import { Dropdown } from "@/components/common/Dropdown";
+import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
+
 
 const DataForm = ({
+  setFlow,
   data,
   setData,
   formik,
   isPending
 }: any) => {
   const [toggle, setToggle] = useState(true);
-  const { services } = useGetServicesByBillerId(data?.Id);
+  const { services } = useGetServicesByBillerId(data?.service.Id)
+
+  useEffect(() => {
+
+    formik.setFieldValue("biller", data?.service.Name)
+    formik.setFieldValue("billerId", data?.service.Id.toString())
+    formik.setFieldValue("paymentCode", "0488051528")  //data?.serviceProvider?.PaymentCode
+    formik.setFieldValue("paymentMode", "wallet")
+    formik.setFieldValue("category", "billpayment") 
+    
+  }, [data])
+
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     formik.handleSubmit()
   }
-  useEffect(() => {
-    // Setting form fields with Formik
-    formik.setFieldValue("service", data?.serviceProvider?.value);
-    formik.setFieldValue("biller", data?.Name);
-    formik.setFieldValue("billerId", data?.Id.toString());
-    formik.setFieldValue("paymentMode", "wallet");
-    formik.setFieldValue("paymentCode", data?.serviceProvider?.PaymentCode);
-    formik.setFieldValue("category", "billpayment");
-    formik.setFieldValue(
-      "amount",
-      data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount
-    );
-  }, [data]);
-
-  // const handleReviewOrderClick = () => {
-  //   setFlow((prev: any) => prev + 1);
-  // };
 
   return (
     <div>
@@ -49,33 +45,59 @@ const DataForm = ({
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[10px_30px]">
           <div className="flex flex-wrap items-center gap-4">
             <Image
-              src={`/images/airtime/${data.ShortName}.png`}
-              alt={data?.ShortName}
+              src={`/images/data/${data?.service.ShortName}.jpg`}
+              alt={data?.name}
               width={80}
               height={80}
             />
-            <p className="text-xl font-semibold text-[#3D3066]">
-              {data.ShortName}
-            </p>
+            <p className="text-xl font-semibold text-[#3D3066]">{data?.service.Name}</p>
           </div>
         </div>
 
-        {/* Mobile Number Field */}
+        <div className="flex flex-col w-full mt-5">
+          <label
+            htmlFor="products"
+            className="font-normal text-xl font-openSans text-[#111111]"
+          >
+            Products
+          </label>
+          <Dropdown
+            name="serviceProvider"
+            value={data?.serviceProvider}
+            error={formik.touched.service && formik.errors.service}
+            onChange={(value) => {
+              if (value) {
+                const selectedOption = value as any;
+                setData({...data, serviceProvider: selectedOption})
+                formik.setFieldValue("amount", selectedOption.fee)
+              } else {
+              }
+            }}
+            options={services?.PaymentItems?.map((item: any) => ({
+              label: item.Name,
+              value: item.Name,
+              fee: item.Amount/100,
+              PaymentCode: item.PaymentCode,
+            }))}
+            className="items-start text-start justify-start rounded-[8px]"
+          />
+        </div>
+
         <div className="flex flex-col w-full mt-5">
           <label
             htmlFor="amount"
             className="font-normal text-xl font-openSans text-[#111111]"
           >
-            Enter Mobile Number
+            Phone Number
           </label>
           <div className="text-[#8c8b92] mt-2">
             <Input
               name="customerId"
               placeholder="0000000000"
-              value={data?.customerId || ""}
+              error={formik.touched.customerId && formik.errors.customerId}
               onChange={(e) => {
                 setData({ ...data, customerId: e.target.value });
-                formik.setFieldValue("customerId", e.target.value); // Ensure Formik updates its value
+                formik.setFieldValue("customerId", e.target.value);
               }}
             />
           </div>
@@ -87,20 +109,10 @@ const DataForm = ({
             htmlFor="amount"
             className="font-normal text-xl font-openSans text-[#111111]"
           >
-            Enter Data Amount
+            Amount
           </label>
           <div className="text-[#8c8b92] mt-2">
-            <CurrencyField
-              onValueChange={(v: any) =>
-                setData({ ...data, amount: v.floatValue })
-              }
-              value={
-                data?.serviceProvider?.fixed
-                  ? data?.serviceProvider?.fee
-                  : data?.amount
-              }
-              disabled={data?.serviceProvider?.fixed}
-            />
+          <p className="text-[32px] font-bold flex items-center"><NairaIconElectricBill width={32} />{data?.serviceProvider?.fee || 0}.00</p>
           </div>
 
           {/* Save Beneficiary Toggle */}
@@ -121,22 +133,11 @@ const DataForm = ({
 
         {/* Terms and Conditions */}
         <div className="flex flex-col gap-2 mt-12">
-          <p className="2xl:text-[20px] xl:text-[18px] text-[16px]">
-            By continuing, you agree to our
-            <Link
-              href={"/terms-and-conditions"}
-              className="text-[#3D3066] font-bold"
-            >
-              {" "}
-              Terms and Conditions
-            </Link>
-          </p>
           <Button
             variant="primary"
             size="full"
             type="submit"
             isLoading={isPending}
-            // onClick={handleReviewOrderClick}
           >
             <span className="text-[16px]">REVIEW ORDER</span>
           </Button>

@@ -6,14 +6,11 @@ import ShareIcon from "@/assets/icons/shareIcon";
 import AlternateWalletFunding from "../../modals/wallet/AlternateFunding";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { useFundWallet, useVerifyFund } from "@/helpers/wallet";
+import { useFundWallet, useVerifyFund } from "@/helpers/api/useWallet";
 import ToastComponent from "../../common/toastComponent";
 import Confirmation from "../confirmation";
 import ClipBoard from "../../wallet/clipboard";
 import ModalsLayout from "../modalsLayout";
-import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import CurrencyField from "@/components/common/currencyInput";
 import CurrentBalance from "../currentBalance";
 
@@ -41,7 +38,6 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   const [content, setContent] = useState("Microbiz MFB");
   const [amount, setAmount] = useState<string>("0");
 
-  // didnt find api endpoint for this so i just put dummy data
   const dataSets: any = {
     "Microbiz MFB": {
       accountNumber: "1234567890",
