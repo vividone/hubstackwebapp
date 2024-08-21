@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ModalsLayout from "../modalsLayout";
-import Image from "next/image";
-import { useGetBillersByCategoryId } from "@/helpers/categories";
+import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import CustomIcons from "@/components/custom/customIcons";
-import { useCompleteBillPayment, usePayBill } from "@/helpers/services";
+import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import ToastComponent from "@/components/common/toastComponent";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
@@ -37,7 +36,7 @@ const BettingServices = ({ setShow, show }: any) => {
     isPending: completePending,
     isSuccess: completedSuccess,
   } = useCompleteBillPayment(payCable?._id || "");
-  const { billers, isLoading } = useGetBillersByCategoryId("2");
+  const { billers, isLoading } = useGetBillersByCategoryId("41");
   const [isPadded, setIsPadded] = useState(true);
 
   const flowHeaders: string[] = [
@@ -47,7 +46,7 @@ const BettingServices = ({ setShow, show }: any) => {
     "Your Wallet",
   ];
 
-  // const providers: cableTvProviders[] = billers?.BillerList?.Category[0]?.Billers
+  const providersList: BettingProviders[] = billers?.BillerList?.Category[0]?.Billers
 
   useEffect(() => {
     if (isSuccess) {

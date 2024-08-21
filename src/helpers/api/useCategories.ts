@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import axiosInstance from "./axiosConfig";
-import { useUrls } from "./useUrls";
+import axiosInstance from "../axiosConfig";
+import { useUrls } from "../useUrls";
 
 export const useGetBillPayments = () => {
     const { getBillPaymentsUrl } = useUrls();

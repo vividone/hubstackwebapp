@@ -3,13 +3,10 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { Button } from "../../common/button";
 import Link from "next/link";
 import AlternateWalletFunding from "../../modals/wallet/AlternateFunding";
-import { useFundWallet, useVerifyFund } from "@/helpers/wallet";
-import ToastComponent from "../../common/toastComponent";
+import { useFundWallet, useVerifyFund } from "@/helpers/api/useWallet";
 import Confirmation from "../confirmation";
 import ModalsLayout from "../modalsLayout";
 import CurrentBalance from "../currentBalance";
-import { Input } from "@/components/common/inputs";
-import CurrencyField from "@/components/common/currencyInput";
 import TransferToWallet from "./transfer/walletToWalletForm";
 import TransferToBank from "./transfer/walletToBankForm";
 
@@ -37,20 +34,7 @@ const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
   const flowHeaders = ["Transfer", "Transfer", "Transfer Details", "Transfer"]
 
   const handleSubmit = async (e: FormEvent) => {
-    // if(flow === 0) {
-    //   formik.setFieldValue("amount", (+amount).toString());
-    //   formik.handleSubmit();
-    //   setFlow(1)
-    // }
-    // else if(flow === 1) {
-    //   verify.setFieldValue("transactionId", fundData._id);
-    //   verify.handleSubmit();
-    //   refreshWallet(fundData.amount);
-    //   setFlow(0)
-    // }
-    // else {
-    //   setFlow(3)
-    // }
+    
   };
 
   const closeSuccess = () => {

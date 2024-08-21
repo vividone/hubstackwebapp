@@ -1,24 +1,55 @@
 import React, { useEffect } from "react";
 import ModalsLayout from "../modalsLayout";
-import { Button } from "@/components/common/button";
-import Link from "@/components/custom/link";
 import CustomIcons from "@/components/custom/customIcons";
 import { useState } from "react";
 import DataForm from "./dataForm";
 import DataDetails from "./dataDetails";
 import DataPayment from "./payment";
 import PurchaseDetails from "./dataPurchaseDetails";
+import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
+import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
+import { completeBillPayment } from "@/helpers/billPayment";
+import BillsSkeleton from "@/components/common/billsSkeleton";
+import Image from "next/image";
+import ToastComponent from "@/components/common/toastComponent";
+import CompletedDataModal from "./dataPurchaseDetails";
 type dataProps = {
-  name: string;
-  network: string;
+  amount: number;
+  customerId: string;
+  service: any;
 };
 
 const Data = ({ setShow, show }: any) => {
-  const [flow, setFlow] = useState(0);
-  const [error, setError] = useState<any>({});
-  const [data, setData] = useState<dataProps>({ name: "", network: "" });
+  const [flow, setFlow] = useState(0);    
+  const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
   const [pseudo, setpseudoUpdate] = useState("");
   const [isPadded, setIsPadded] = useState(true);
+  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
+  const { billers, isLoading } = useGetBillersByCategoryId("4")
+  const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-data");
+  const { formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(formData?.transaction?._id || "", "data")
+  
+  const names = ["Etisalat Recharge Top-Up", "Airtel Data Bundles", "GLO", "MTN Data Bundles", "NTEL Data Bundles"]
+  const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
+
+  const completePayment = () => {
+      completeBillPayment(formData, completedForm, userDetails)
+  }
+  
+  useEffect(() => {
+      if(isSuccess) {
+        setFlow(2)
+      }
+  }, [isSuccess]);
+  
+  useEffect(() => {
+      if(completedSuccess) {
+        setFlow(4)
+      }
+  }, [completedSuccess]);
+
   const flowHeaders: string[] = [
     "Data Bundle",
     "Data Bundle",
@@ -38,6 +69,15 @@ const Data = ({ setShow, show }: any) => {
   }, [flow]);
 
   return (
+    <>
+        
+    <ToastComponent
+        isSuccess={completedSuccess} 
+        isError={isError || isCompletedError} 
+        msg={completedSuccess ? "Successful" : isError || isCompletedError ? "Error " + error || completedError : ""}
+      />
+
+
     <ModalsLayout
       flow={flow}
       setFlow={setFlow}
@@ -50,58 +90,50 @@ const Data = ({ setShow, show }: any) => {
         <DataForm
           setFlow={setFlow}
           data={data}
-          setpseudoUpdate={setpseudoUpdate}
-          pseudo={pseudo}
+          setData={setData}
+          formik={formik}
+          isPending={isPending}
         />
       ) : flow === 2 ? (
         <DataDetails
           setFlow={setFlow}
-          data={data}
-          setpseudoUpdate={setpseudoUpdate}
-          pseudo={pseudo}
-          paddingHandler={paddingHandler}
+          data={{ ...data, ...formData }}
         />
       ) : flow === 3 ? (
-        <DataPayment setFlow={setFlow} data={data} pseudo={pseudo} />
+        <DataPayment setFlow={setFlow} data={{ ...data, ...formData }} completeAction={completePayment} />
       ) : flow === 4 ? (
-        <PurchaseDetails setFlow={setFlow} data={data} pseudo={pseudo} />
+        <CompletedDataModal setFlow={setFlow} data={{...data, ...formData?.transaction}} />
       ) : (
         <>
           <header className="font-normal text-[20px] font-OpenSans">
             Choose A Service Provider
           </header>
-          <div className="grid grid-cols-4 gap-4 mt-4">
-            {[
-              { id: 0, network: "mtn", name: "MTN" },
-              { id: 1, network: "airtel", name: "Airtel" },
-              { id: 2, network: "9mobile", name: "9mobile" },
-              { id: 3, network: "glo", name: "GLO" },
-            ].map((item: { id: number; network: string; name: string }) => (
-              <button
-                key={item.id}
-                onClick={() => {
-                  return (
-                    setFlow(1),
-                    setData({ ...data, network: item.network, name: item.name })
-                  );
-                }}
-                // className={"  hover:border-2 border-[#3D3066] rounded"}
-              >
-                <CustomIcons
-                  src={`/images/airtime/${item.network}.png`}
-                  alt={item.network}
-                />
-              </button>
-            ))}
-            {error?.network ? (
-              <p className="mt-2 text-[12px] text-red-400">{error?.network}</p>
-            ) : (
-              ""
-            )}
-          </div>
+          {
+              isLoading ?
+                  <BillsSkeleton list={4} height={120} />
+              :
+              <div className="grid grid-cols-4 gap-4 mt-4">
+                  {
+                      billersList?.map((item: { Id: number, ShortName: string, Name: string } ) => (
+                          <button 
+                            key={item.Id} 
+                            onClick={() => {
+                              setData({ ...data, service:  item}); 
+                              formik.setFieldValue("service", item.Name?.split(" ")[0] + "  ")
+                              setFlow(1)
+                            }} 
+                            className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}
+                          >
+                              <Image src={`/images/data/${item.ShortName}.jpg`} width={200} height={200} alt={item.Name} />
+                          </button>
+                      ))
+                  }
+              </div>
+          }
         </>
       )}
     </ModalsLayout>
+    </>
   );
 };
 

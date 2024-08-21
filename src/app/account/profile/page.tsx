@@ -6,7 +6,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { Dropdown } from "@/components/common/Dropdown";
 import { countryCodes } from "@/data/countryCodes";
 import { FormEvent, useState } from "react";
-import { useProfileUpdate } from "@/helpers/profile";
+import { useProfileUpdate } from "@/helpers/api/useProfile";
 import ToastComponent from "@/components/common/toastComponent";
 
 

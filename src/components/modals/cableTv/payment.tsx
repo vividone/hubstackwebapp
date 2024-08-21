@@ -27,6 +27,21 @@ const CableTvPayment: React.FC<CableTvProps> = ({ setFlow, data, active, complet
               <Image src={"/images/cableTvImages/" + active?.ShortName +".jpg"} alt={active?.Name} width={80} height={80} />
               <p className="text-xl font-semibold text-[#3D3066]">{active?.Name}</p>
             </div>
+            <div className="py-4">
+              <p>Smartcard or Decoder Number</p>
+              <p className=" opacity-[0.7]">{data?.customerId}</p>
+            </div>
+
+            <div className="flex gap-12">
+              <div>
+                <p>Full Name</p>
+                <p className="opacity-[0.7]">{data?.fullname}</p>
+              </div>
+              <div>
+                <p>Cable TV Plan</p>
+                <p className="opacity-[0.7]">{data?.serviceProvider?.value}</p>
+              </div>
+            </div>
           </div>
           
           <p className="text-center pb-4 pt-8">The amount of  NGN{formatAmount(data?.amount)} will be debited from your wallet balance, proceed below to complete transaction </p>

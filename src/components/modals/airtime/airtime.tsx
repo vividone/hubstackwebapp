@@ -6,65 +6,66 @@ import Image from "next/image";
 import { Button } from "@/components/common/button";
 import AirtimeDetailsModal from "./airtimedetails";
 import CompletedAirtimeModal from "./airtimeCompleted";
-import NairaIcon from "@/assets/icons/nairaIcon";
-import { formatAmount } from "@/helpers/amountFormatter";
 import AirtimePayment from "./airtimePayments";
-import { usePayBill } from "@/helpers/services";
+import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import ToastComponent from "@/components/common/toastComponent";
-import Link from "@/components/custom/link";
 import CurrencyField from "@/components/common/currencyInput";
+import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
+import BillsSkeleton from "@/components/common/billsSkeleton";
+import { completeBillPayment } from "@/helpers/billPayment";
 
 type AirtimePaymentProps = {
     show: boolean;
     setShow: (aug0: boolean) => void;
 }
 
-type dataProps = {amount: string | number, phonenumber: string, network: string}
+type dataProps = {amount: string | number, customerId: string, service: any}
 
 export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
+    const { billers, isLoading } = useGetBillersByCategoryId("4")
     const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-airtime");
-    const [data, setData] = useState<dataProps>({ amount: 0, phonenumber: "", network: "" })
+    const { formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(formData?.transaction?._id || "", "airtime")
+    const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
+    const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
     const [flow, setFlow] = useState(0)
-    const [isPadded, setIsPadded] = useState(true);
     const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
 
-    const handleNext = () => {
-        formik.setFieldValue("service", "Airtime") //data?.serviceProvider?.value
-        formik.setFieldValue("biller", data.network) //
-        formik.setFieldValue("billerId", "480") //active?.data.networkId
-        formik.setFieldValue("paymentMode", "wallet")
-        formik.setFieldValue("customerId", data.phonenumber) //
-        formik.setFieldValue("amount", 1000) //data.amount
-        formik.setFieldValue("paymentCode", "48001") //data?.serviceProvider?.PaymentCode
-        formik.setFieldValue("category", "billpayment") //
+    
+    const names = ["Etisalat Recharge Top-Up", "Airtel Recharge Pins", "Glo QuickCharge", "MTN e-Charge Prepaid"]
+    const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
 
-        formik.handleSubmit()
+    const completePayment = () => {
+        completeBillPayment(formData, completedForm, userDetails)
     }
-    const paddingHandler = () => {
-        if (flow == 2) {
-          setIsPadded(false);
-        } else {
-          setIsPadded(true);
+
+    useEffect(() => {
+        formik.setFieldValue("paymentMode", "wallet")
+        formik.setFieldValue("paymentCode", "0488051528")
+        formik.setFieldValue("category", "billpayment")
+    }, [])
+    
+    useEffect(() => {
+        if(isSuccess) {
+          setFlow(1)
         }
-      };
-      useEffect(() => {
-        paddingHandler();
-      }, [flow]);
+    }, [isSuccess]);
+    
+    useEffect(() => {
+        if(completedSuccess) {
+          setFlow(3)
+        }
+    }, [completedSuccess]);
 
     return (
         <>
           
-      <ToastComponent
-        isSuccess={isSuccess}
-        isError={isError}
-        msg={
-          isSuccess
-            ? "Successful"
-            : isError
-            ? "Airtime purchase error: " + error
-            : Object.values(formik.errors)?.join(", ")
-        }
-      />
+        <ToastComponent
+            isSuccess={completedSuccess} 
+            isError={isError || isCompletedError} 
+            msg={completedSuccess ? "Successful" : isError || isCompletedError ? "Error " + error || completedError : ""}
+        />
 
         <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show}>
 
@@ -73,61 +74,71 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                 <AirtimeDetailsModal setFlow={setFlow} data={data} />
                 :
                 flow === 2 ?
-                <AirtimePayment setFlow={setFlow} data={data} />
+                <AirtimePayment setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}}  completeAction={completePayment} />
                 :
                 flow === 3 ?
-                <CompletedAirtimeModal setFlow={setFlow} data={data} />
+                <CompletedAirtimeModal setFlow={setFlow} data={{...data, ...formData?.transaction}} />
                 :
                 <>
                     <div className="flex flex-col w-full mt-5">
                         <label htmlFor="amount" className="font-normal text-xl font-openSans text-[#111111]">
-                            Enter Airtime Amount
+                            Amount
                         </label>
                         <div className="text-[#8c8b92] mt-2">
 
 
                         <CurrencyField 
-                            onValueChange={(v: any) => setData({ ...data, amount: v.floatValue })} 
+                            onValueChange={(v: any) => {setData({ ...data, amount: v.floatValue }); formik.setFieldValue("amount", v.floatValue)}} 
+                            value={data?.amount}
+                            error={formik.errors.amount}
                         />
                         </div>
                     </div>
 
                     <div className="flex flex-col w-full mt-5">
                         <label htmlFor="amount" className="font-normal text-xl font-openSans text-[#111111]">
-                            Enter Phone Number
+                            Phone Number
                         </label>
                         <div className="text-[#8c8b92] mt-2">
-                        <Input type="number" onChange={(e) => setData({ ...data, phonenumber:  e.target.value})} placeholder="07000000000" />
+                        <Input 
+                            type="number" 
+                            onChange={(e) => {setData({ ...data, customerId:  e.target.value}); formik.setFieldValue("customerId", e.target.value)}} 
+                            placeholder="07000000000" 
+                            error={formik.errors.customerId && "Phone number is required"}
+                        />
                         </div>
                     </div>
+                    {
+                        isLoading ?
+                            <BillsSkeleton list={4} height={120} />
+                        :
+                        <div className="grid grid-cols-4 gap-4 mt-4">
+                            {
+                                billersList?.map((item: { Id: number, LogoUrl: string, Name: string } ) => (
+                                    <button 
+                                        key={item.Id} 
+                                        onClick={() => {
+                                            setData({ ...data, service:  item}); 
+                                            formik.setFieldValue("biller", item.Name)
+                                            formik.setFieldValue("service", item.Name?.split(" ")[0] + " Recharge")
+                                            formik.setFieldValue("billerId", item.Id?.toString())
+                                        }} 
+                                        className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}
+                                    >
+                                        <Image src={`/images/airtime/${item.LogoUrl}`} width={200} height={200} alt={item.Name} />
+                                    </button>
+                                ))
+                            }
+                        </div>
+                    }
 
-                    <div className="grid grid-cols-4 gap-4 mt-4">
-                        {
-                            [ 
-                                { id: 0, network: "mtn"},
-                                { id: 1, network: "airtel"},
-                                { id: 2, network: "9mobile"},
-                                { id: 3, network: "glo"},
-                            ].map((item: { id: number, network: string } ) => (
-                                <button key={item.id} onClick={() => setData({ ...data, network:  item.network})} className={data.network === item.network ? "border-2 border-[#3D3066] rounded" : ""}>
-                                    <Image src={`/images/airtime/${item.network}.png`} width={200} height={200} alt={item.network} />
-                                </button>
-                            ))
-                        }
-                        {/* { error?.network ? <p className="mt-2 text-[12px] text-red-400">{error?.network}</p> : "" } */}
-                    </div>
-
-                    <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mt-10">
-                    By continuing, you agree to our 
-                    <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
-                </p>
-                    <div className="w-full">
+                    <div className="w-full mt-6">
                         <Button
-                        type="submit"
-                        size={"full"}
-                        isLoading={isPending}
-                        className="text-[20px] font-CabinetGrotesk mb-4"
-                        onClick={() => handleNext()}
+                            type="submit"
+                            size={"full"}
+                            isLoading={isPending}
+                            className="text-[20px] font-CabinetGrotesk mb-4"
+                            onClick={() => formik.handleSubmit()}
                         >
                         REVIEW ORDER
                         </Button>

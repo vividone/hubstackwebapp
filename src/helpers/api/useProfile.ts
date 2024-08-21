@@ -1,9 +1,9 @@
 import { IErrorResponseType } from "@/interface/common/error";
 import { useFormik } from "formik";
-import axiosInstance from "./axiosConfig";
+import axiosInstance from "../axiosConfig";
 import { useMutation } from "@tanstack/react-query";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { useUrls } from "./useUrls";
+import { useUrls } from "../useUrls";
 import { TOKEN } from "@/utils/token";
 import { updatePasswordSchema, updateProfileSchema } from "@/schema/profile/updateProfile";
 import { IUpdateProfile, IUpdateProfilePassword } from "@/interface/profile";
