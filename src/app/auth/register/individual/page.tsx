@@ -102,7 +102,7 @@ const Register = () => {
             
             <p className="2xl:text-[20px] xl:text-[18px] text-[16px] mb-12">
                 By clicking the &quot;Create Account&quot; button, you agree to our 
-                <a href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</a> 
+                <a href={"https://hubstack.app/terms-of-service"} className="text-[#3D3066] font-bold"> Terms and Conditions</a> 
             </p>
 
 

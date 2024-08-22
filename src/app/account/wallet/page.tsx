@@ -121,9 +121,13 @@ const Wallet = () => {
               {transferFunds && (
                 <TransferFunds setShow={setTransferFunds} refreshWallet={refresh}  />
               )}
-              <div className="flex sm:flex-row flex-col sm:items-center pr-[3%] gap-6 justify-between bg-[#E6FBFF] rounded-[8px]">
+              <div className="flex lg:flex-row flex-col pr-[3%] gap-6 justify-between bg-[#E6FBFF] rounded-[8px]">
                 <Card value={cardData} />
-                <div className="flex gap-12 p-4">
+                <div className="flex gap-12 p-4 items-center md:w-fit w-full justify-between">
+                  <div className="flex flex-col gap-1 pl-2">
+                    <p className="opacity-[0.6] text-sm">{getWallet?.filter((item: any) => item.provider === "Flutterwave")[0]?.bankName}</p>
+                    <h2 className="font-bold text-[32px]">{getWallet?.filter((item: any) => item.provider === "Flutterwave")[0]?.accountNumber}</h2>
+                  </div>
                   <button className="flex flex-col gap-3 items-center" onClick={() => setShowWallet(true)}>
                     <span className="flex items-center justify-center h-[60px] w-[60px] p-5 bg-[#000]/[0.1] rounded-full"
                     >
