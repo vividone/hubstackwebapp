@@ -193,13 +193,12 @@ const WalletForm = ({ setShow, show, formik, isPending }: any) => {
         <div className="flex flex-col mt-5 w-full font-Inter text-[20px]">
           <p className="2xl:text-[20px] xl:text-[18px] text-[16px]">
             By continuing, you agree to our
-            <Link
-              href={"/terms-and-conditions"}
+            <a href="https://hubstack.app/terms-of-service"
               className="text-[#3D3066] font-bold"
             >
               {" "}
               Terms and Conditions
-            </Link>
+            </a>
           </p>
         </div>
         <div className="flex justify-center mt-8 mb-8">
