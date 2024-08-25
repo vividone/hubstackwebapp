@@ -14,11 +14,14 @@ import ToastComponent from "@/components/common/toastComponent";
 import PlusIcon from "@/assets/icons/PlusIcon";
 import TransferIcon from "@/assets/icons/TransferIcon";
 import TransferFunds from "@/components/modals/wallet/TransferFunds";
+import WalletIcon from "@/assets/icons/WalletIcon";
+import MywalletDetails from "@/components/modals/wallet/walletDetails";
 
 
 const Wallet = () => {
   const { wallet, formik, isPending, isSuccess, isError, error } = useCreateWallet();
   const [showWallet, setShowWallet] = useState(false);
+  const [showWalletDetails, setShowWalletDetails] = useState(false);
   const [transferFunds, setTransferFunds] = useState(false);
   const { userWallet: getWallet, isLoading } = useGetWallet();
   const [ userWallet, setUserWallet ] = useState(getWallet);
@@ -112,22 +115,37 @@ const Wallet = () => {
               <h2 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-CabinetGrosteque mb-[30px] font-medium">
                 Wallet
               </h2>
+
+
               {/* modal */}
+
+              {showWalletDetails && (
+                <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 ">
+                  <MywalletDetails setShow={setShowWalletDetails} wallet={getWallet || wallet} />
+                </div>
+              )}
+              
               {showWallet && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 ">
                   <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={getWallet || wallet} balance={balance} />
                 </div>
               )}
+
               {transferFunds && (
                 <TransferFunds setShow={setTransferFunds} refreshWallet={refresh}  />
               )}
+
               <div className="flex lg:flex-row flex-col pr-[3%] gap-6 justify-between bg-[#E6FBFF] rounded-[8px]">
                 <Card value={cardData} />
-                <div className="flex gap-12 p-4 items-center md:w-fit w-full justify-between">
-                  <div className="flex flex-col gap-1 pl-2">
-                    <p className="opacity-[0.6] text-sm">{getWallet?.filter((item: any) => item.provider === "Flutterwave")[0]?.bankName}</p>
-                    <h2 className="font-bold text-[32px]">{getWallet?.filter((item: any) => item.provider === "Flutterwave")[0]?.accountNumber}</h2>
-                  </div>
+                <div className="flex gap-12 p-4 items-center md:w-fit w-full">
+                  
+                  <button className="flex flex-col gap-3 items-center" onClick={() => setShowWalletDetails(true)}>
+                    <span className="flex items-center justify-center h-[60px] w-[60px] p-5 bg-[#000]/[0.1] rounded-full"
+                    >
+                    <WalletIcon />
+                    </span>
+                    <span className="uppercase font-semibold">Account</span>
+                  </button>
                   <button className="flex flex-col gap-3 items-center" onClick={() => setShowWallet(true)}>
                     <span className="flex items-center justify-center h-[60px] w-[60px] p-5 bg-[#000]/[0.1] rounded-full"
                     >
