@@ -65,7 +65,7 @@ const Dashboard = ({ open, setOpen }: any) => {
                 href={item.href}
               >
                 <div className="flex gap-4">
-                  <span>{item.logo}</span>
+                  <span >{item.logo}</span>
                   <span>{item.name}</span>
                 </div>
                 {(item.subItems && userDetails?.role === "Agent") && (

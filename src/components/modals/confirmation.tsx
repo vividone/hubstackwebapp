@@ -49,7 +49,6 @@ export default function Confirmation ({ status, heading, text, subtext, setShow,
                             
                     </div>
                 </div>
-
             </div>
         </div>
     )

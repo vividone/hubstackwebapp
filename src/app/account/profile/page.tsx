@@ -20,6 +20,7 @@ const Profile = () => {
   const { formik, isPending, isSuccess, isError, error } = useProfileUpdate(userDetails?._id, userDetails?.role)
   const [ phoneCode, setPhoneCode ] = useState<Options>({ label: "+234", value: "+234" })
 
+  console.log(userDetails)
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -50,7 +51,7 @@ const Profile = () => {
       <div className="flex justify-between flex-wrap gap-6">
         <div className="flex flex-col gap-2 lg:w-[35%]">
           <h2 className="font-medium text-lg">Full Name</h2>
-          <p className="w-[70%] text-[#8C8B92]">Changes cannot be made to your name after account creation</p>
+          {/* <p className="w-[70%] text-[#8C8B92]">Changes cannot be made to your name after account creation</p> */}
         </div>
         <div className="grid md:grid-cols-2 gap-4 items-center lg:w-[60%] w-full w-full">
           <div className="w-full text-[#8c8b92] text-[20px] flex flex-col gap-3">
@@ -79,7 +80,7 @@ const Profile = () => {
       <div className="flex justify-between flex-wrap gap-6">
         <div className="flex flex-col gap-2 lg:w-[35%]">
           <h2 className="font-medium text-lg">Email Address</h2>
-          <p className="w-[95%] text-[#8C8B92]">All communications and activity notifications from your account will be sent to your email address</p>
+          {/* <p className="w-[95%] text-[#8C8B92]">All communications and activity notifications from your account will be sent to your email address</p> */}
         </div>
         <div className="lg:w-[60%] w-full text-[#8c8b92]">
           <Input
@@ -97,8 +98,8 @@ const Profile = () => {
         <>
           <div className="flex justify-between flex-wrap gap-6">
             <div className="flex flex-col gap-2 lg:w-[35%]">
-              <h2 className="font-medium text-lg">Business Username</h2>
-              <p className="w-[95%] text-[#8C8B92]">All communications and activity notifications from your account will be sent to your email address</p>
+              <h2 className="font-medium text-lg">Business Name</h2>
+              {/* <p className="w-[95%] text-[#8C8B92]">All communications and activity notifications from your account will be sent to your email address</p> */}
             </div>
             <div className="lg:w-[60%] w-full text-[#8c8b92]">
               <Input
@@ -115,7 +116,7 @@ const Profile = () => {
           <div className="flex justify-between flex-wrap gap-6">
             <div className="flex flex-col gap-2 lg:w-[35%]">
               <h2 className="font-medium text-lg">Super Agent Username</h2>
-              <p className="w-[95%] text-[#8C8B92]">All communications and activity notifications from your account will be sent to your email address</p>
+              {/* <p className="w-[95%] text-[#8C8B92]">All communications and activity notifications from your account will be sent to your email address</p> */}
             </div>
             <div className="lg:w-[60%] w-full text-[#8c8b92]">
               <Input
@@ -135,7 +136,7 @@ const Profile = () => {
       <div className="flex justify-between flex-wrap gap-6">
         <div className="flex flex-col gap-2 lg:w-[35%]">
           <h2 className="font-medium text-lg">Phone Number</h2>
-          <p className="w-[85%] text-[#8C8B92]">Your phone number can be used as a security measure to validate your actions on the account.</p>
+          {/* <p className="w-[85%] text-[#8C8B92]">Your phone number can be used as a security measure to validate your actions on the account.</p> */}
         </div>
         <div className="lg:w-[60%] w-full">
           <div className="w-full flex items-center ">
@@ -172,7 +173,7 @@ const Profile = () => {
       <div className="flex justify-between flex-wrap gap-6">
         <div className="flex flex-col gap-2 lg:w-[35%]">
           <h2 className="font-medium text-lg">Home Address</h2>
-          <p className="w-[70%] text-[#8C8B92]">Your home address can be changed as often as possible to keep your account up to date.</p>
+          {/* <p className="w-[70%] text-[#8C8B92]">Your home address can be changed as often as possible to keep your account up to date.</p> */}
         </div>
         <div className="lg:w-[60%] w-full">
           <Input

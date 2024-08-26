@@ -27,7 +27,7 @@ const PageSecurity = () => {
       <div className="flex justify-between flex-wrap gap-6">
         <div className="flex flex-col gap-2 lg:w-[35%]">
           <h2 className="font-medium text-lg">Password</h2>
-          <p className="w-[70%] text-[#8C8B92]">You can easily make changes to your password thereby improving your account security</p>
+          {/* <p className="w-[70%] text-[#8C8B92]">You can easily make changes to your password thereby improving your account security</p> */}
         </div>
         <div className="flex flex-col gap-[60px] items-center lg:w-[60%] w-full">
           <div className="w-full text-[#8c8b92] text-[20px] flex flex-col gap-3">

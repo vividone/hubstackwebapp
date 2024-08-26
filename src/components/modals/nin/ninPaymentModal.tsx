@@ -67,7 +67,7 @@ const NinPaymentModal: React.FC<MywalletProps> = ({ slip, setShow }) => {
 
             <p className="2xl:text-[20px] xl:text-[18px] text-[16px]">
                     By continuing, you agree to our 
-                    <Link href={"/terms-and-conditions"} className="text-[#3D3066] font-bold"> Terms and Conditions</Link> 
+                    <a href="https://hubstack.app/terms-of-service"  className="text-[#3D3066] font-bold"> Terms and Conditions</a> 
                 </p>
             <div className="mt-2 h-20">
                 <Button onClick={() => setIsSuccess(true)}>
