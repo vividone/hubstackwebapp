@@ -143,7 +143,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
           <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
               {
                 !existingData ?
-                  <p>Sorry, you do not have an account with this provider yet. Please contact Support</p>
+                  <p>Sorry, you do not have an account with this provider yet. Please contact support</p>
                 :
 
                 <div className="flex flex-col gap-4">

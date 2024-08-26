@@ -3,12 +3,10 @@ import React, { FormEvent, useEffect } from "react";
 import { Button } from "../../common/button";
 import { FlowProps } from "../modalsLayout";
 import { Dropdown } from "@/components/common/Dropdown";
-import { formatAmount } from "@/helpers/amountFormatter";
-import { states } from "@/data/locationRegions";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
-import Link from "next/link";
 import CurrencyField from "@/components/common/currencyInput";
 import { Input } from "@/components/common/inputs";
+import { LoaderIcon } from "react-hot-toast";
 
 interface ElectricFlowProps extends FlowProps {
   setData: (aug0: any) => void;
@@ -18,21 +16,19 @@ interface ElectricFlowProps extends FlowProps {
   active?:any;
 }
 
-const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formik, isPending, billers, setData,active }) => {
+const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPending, billers, setData }) => {
 
 
   useEffect(() => {
-    const biller = billers?.Billers?.filter((item: any) => item.Name === data?.serviceProvider.value)[0]
 
     formik.setFieldValue("paymentMode", "wallet")
     formik.setFieldValue("paymentCode", "0488051528") 
     formik.setFieldValue("category", "billpayment") 
     
-  }, [data?.serviceProvider, billers])
+  }, [])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(formik.errors)
     formik.handleSubmit();
   };
 
@@ -51,27 +47,32 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ setFlow, data, formi
               Service Provider
             </label>
             <div className="text-[#8c8b92] mt-2">
-              <Dropdown
-                name="service"
-                value={data?.serviceProvider}
-                error={formik.errors.service}
-                onChange={(value) => {
-                  if (value) {
-                    const selectedOption = value as any;
-                    setData({...data, serviceProvider: selectedOption})
-                    formik.setFieldValue("service", "Electricity")
-                    formik.setFieldValue("biller", selectedOption.value)
-                    formik.setFieldValue("billerId", selectedOption.Id)
-                  } else {
-                  }
-                }}
-                options={billers?.map((item: any) => ({
-                  label: item.Name,
-                  value: item.Name,
-                  Id: item.Id
-                }))}
-                className="items-start text-start justify-start rounded-[8px]"
-              />
+              {
+                billers ?
+                <Dropdown
+                  name="service"
+                  value={data?.serviceProvider}
+                  error={formik.errors.service}
+                  onChange={(value) => {
+                    if (value) {
+                      const selectedOption = value as any;
+                      setData({...data, serviceProvider: selectedOption})
+                      formik.setFieldValue("service", "Electricity")
+                      formik.setFieldValue("biller", selectedOption.value)
+                      formik.setFieldValue("billerId", selectedOption.Id)
+                    } else {
+                    }
+                  }}
+                  options={billers?.map((item: any) => ({
+                    label: item.Name,
+                    value: item.Name,
+                    Id: item.Id
+                  }))}
+                  className="items-start text-start justify-start rounded-[8px]"
+                />
+                :
+                <p className="flex justify-center py-4"><LoaderIcon /></p>
+              }
             </div>
           </div>        
 

@@ -28,7 +28,7 @@ export const useCreateWallet = ( ) => {
             firstname: userDetails?.firstname,
             lastname: userDetails?.lastname,
             email: userDetails?.email,
-            mobilenumber: "",
+            mobilenumber: userDetails?.phone_number,
             bvn: "",
             existingAccountNumber: "",
             existingBankName: "",

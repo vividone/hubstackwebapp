@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { TOKEN } from "@/utils/token";
 import { Input } from "../../common/inputs";
 import { Button } from "../../common/button";
@@ -90,10 +89,11 @@ const WalletForm = ({ setShow, show, formik, isPending }: any) => {
           <div>
             <Input
               name="mobilenumber"
-              type="text" // Changed to text to handle string
+              type="text"
               placeholder="08059837774"
               value={formik.values.mobilenumber}
               onChange={formik.handleChange}
+              error={formik.touched.mobilenumber && formik.errors.mobilenumber}
               onBlur={formik.handleBlur}
             />
           </div>
@@ -119,17 +119,16 @@ const WalletForm = ({ setShow, show, formik, isPending }: any) => {
               name="bvn"
               type="text"
               placeholder="Enter your 11 digit BVN"
+              value={formik.values.bvn}
               onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className={`${
-                formik.touched.bvn && formik.errors.bvn ? "border-red-500" : ""
-              }`}
+              error={formik.touched.bvn && formik.errors.bvn}
+              onBlur={formik.handleBlur}              
             />
           </div>
         </div>
         <div className="flex flex-col w-full">
           <label htmlFor="accountNumber" className="mt-5 font-openSans">
-            <p className="text-xl font-normal">Existing Account Number</p>
+            <p className="text-xl font-normal">Account Number</p>
             <p className="text-[14px]">
               Any of your bank Account number tied to your bvn
             </p>
@@ -140,6 +139,7 @@ const WalletForm = ({ setShow, show, formik, isPending }: any) => {
               type="text"
               placeholder="Enter your 10 digit NUBAN"
               onChange={formik.handleChange}
+              error={formik.touched.existingAccountNumber && formik.errors.existingAccountNumber}
               onBlur={formik.handleBlur}
             />
           </div>
@@ -157,12 +157,7 @@ const WalletForm = ({ setShow, show, formik, isPending }: any) => {
               placeholder="Enter your existing bank name"
               name="existingBankName"
               value={selectedBank || ""}
-              error={
-                formik.errors.existingBankName &&
-                formik.touched.existingBankName
-                  ? true
-                  : false
-              }
+              error={formik.touched.existingBankName && formik.errors.existingBankName}
               onChange={(value: any) => {
                 if (value) {
                   const selectedOption = value as {
@@ -190,17 +185,6 @@ const WalletForm = ({ setShow, show, formik, isPending }: any) => {
           </div>
         </div>
 
-        <div className="flex flex-col mt-5 w-full font-Inter text-[20px]">
-          <p className="2xl:text-[20px] xl:text-[18px] text-[16px]">
-            By continuing, you agree to our
-            <a href="https://hubstack.app/terms-of-service"
-              className="text-[#3D3066] font-bold"
-            >
-              {" "}
-              Terms and Conditions
-            </a>
-          </p>
-        </div>
         <div className="flex justify-center mt-8 mb-8">
           <Button
             type="submit"
