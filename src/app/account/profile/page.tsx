@@ -20,10 +20,9 @@ const Profile = () => {
   const { formik, isPending, isSuccess, isError, error } = useProfileUpdate(userDetails?._id, userDetails?.role)
   const [ phoneCode, setPhoneCode ] = useState<Options>({ label: "+234", value: "+234" })
 
-  console.log(userDetails)
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log(formik.errors)
     formik.handleSubmit()
   };
 
@@ -162,6 +161,8 @@ const Profile = () => {
                 placeholder="Phone number"
                 name="phone_number"
                 data-test="phone-number"
+                defaultValue={userDetails?.phone_number}
+                error={formik.touched.phone_number && formik.errors.phone_number}
                 onChange={(e) => formik.setFieldValue("phone_number", phoneCode?.value + e.target.value)}
                 onBlur={formik.handleBlur}
               />
