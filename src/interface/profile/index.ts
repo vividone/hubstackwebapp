@@ -3,7 +3,7 @@ export interface IUpdateProfile {
     firstname: string;
     lastname: string;
     username: string;
-    phonenumber?: string;
+    phone_number?: string;
     role?: string;
     business_name?: string;
     superagent_username: string;

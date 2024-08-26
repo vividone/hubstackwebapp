@@ -23,7 +23,7 @@ export const useProfileUpdate = ( userId: string, type: string ) => {
         initialValues: {
         firstname: userDetails?.firstname,
         lastname: userDetails?.lastname,
-        username: userDetails?.username,
+        username: userDetails?.firstname + " " + userDetails?.lastname,
         } as IUpdateProfile,
         validateOnBlur: false,
         validationSchema: updateProfileSchema,

@@ -12,10 +12,10 @@ const BillValidationSchema = Yup.object().shape({
 
 export const BillValidationwithPhoneSchema = BillValidationSchema.shape({
   customerId:Yup.string().required(" is required")
-  .length(10, " should be 10 digits"),
+  .length(11, " should be 11 digits"),
 })
 
 export const BillValidationwithMeterSchema = BillValidationSchema.shape({
   customerId:Yup.string().required(" is required")
-  .length(11, " should be 11 digits"),
+  .length(10, " should be 10 digits"),
 })
