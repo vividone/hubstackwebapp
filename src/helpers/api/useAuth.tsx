@@ -23,7 +23,7 @@ import {
 import { TOKEN } from "@/utils/token";
   import { useMutation } from "@tanstack/react-query";
   import { useFormik } from "formik";
-  import { useRouter } from "next/navigation";
+  import { redirect, useRouter } from "next/navigation";
 
 
 // login for agent and individual
@@ -171,7 +171,7 @@ export const useSignupAgent = () => {
             onSuccess: (res) => {
               setCookie(TOKEN.ACCESS, res.data.token.access_token);
               setUserDetails(res.data.data);
-              router.push(FRONTEND_URL.VERIFY_ACCOUNT);
+              redirect(FRONTEND_URL.VERIFY_ACCOUNT);
             },
             //   onError: (res: any) => {
   

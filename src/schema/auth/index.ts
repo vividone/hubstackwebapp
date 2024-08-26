@@ -64,7 +64,7 @@ export const SignupSchemaSuperAgent = Yup.object().shape({
     .trim()
     .lowercase()
     .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
-  phoneNumber: Yup.string().required("Phone number is required"),
+  phoneNumber: Yup.string().required("Phone number is required").length(11, "Phone number should be 11 digits"),
   companyName: Yup.string().required("Business name is required"),
   location: Yup.string().required("Location is required"),
   password: Yup.string()
