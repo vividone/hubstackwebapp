@@ -49,7 +49,7 @@ const InternetForm: React.FC<InternetProps> = ({
 
       <form onSubmit={() => {}} className="pb-5">
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[10px_30px]">
-          <div className="flex  flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             <Image
               src={"/images/internet/" + active?.LogoUrl + ".png"}
               alt={active?.Name}
@@ -67,7 +67,7 @@ const InternetForm: React.FC<InternetProps> = ({
             htmlFor="MobileNumber"
             className="font-normal text-xl font-openSans text-[#111111]"
           >
-            Enter Mobile Number
+            Mobile Number
           </label>
           <div className="text-[#8c8b92] mt-2">
             <Input
@@ -99,37 +99,6 @@ const InternetForm: React.FC<InternetProps> = ({
             />
           </div>
         </div>
-
-        {/* <div className="flex flex-col w-full mt-5">
-          <label
-            htmlFor="amount"
-            className="font-normal text-xl font-openSans text-[#111111]"
-          >
-           Internet Plan
-          </label>
-          <div className="text-[#8c8b92] mt-2">
-            <Dropdown
-              name="serviceProvider"
-              value={data?.serviceProvider}
-              onChange={(value) => {
-                if (value) {
-                  const selectedOption = value as any;
-                  setData({ ...data, serviceProvider: selectedOption });
-                } else {
-                }
-              }}
-              options={services?.PaymentItems?.map((item: any) => ({
-                label: item.Name,
-                value: item.Name,
-                fee: item.Amount / 100,
-                PaymentCode: item.PaymentCode,
-                fixed: item.IsAmountFixed,
-              }))}
-              className="items-start text-start justify-start rounded-[8px]"
-            />
-          </div>
-        </div> */}
-
         <div className="flex flex-col w-full mt-5">
           <label
             htmlFor="amount"

@@ -34,7 +34,6 @@ const RegisterAgent = () => {
 
   return (
     <div className="flex pb-10 slideshow lg:pb-0 lg:gap-x-4 xl:gap-x-8 w-full">
-
     <ToastComponent
       isSuccess={isSuccess} 
       isError={isError} 
