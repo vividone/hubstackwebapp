@@ -7,7 +7,7 @@ export default function TransferToBank({ form, setForm, formik, isPending, handl
         <div className="">
             <div className="flex flex-col w-full mt-5">
               <label htmlFor="amount" className="font-normal text-xl font-openSans text-[#111111]">
-                Enter Recipient Account Number
+                Recipient Account Number
               </label>
               <div className="text-[#8c8b92] mt-2">
               <Input 
@@ -23,7 +23,7 @@ export default function TransferToBank({ form, setForm, formik, isPending, handl
 
           <div className="flex flex-col w-full mt-5">
               <label htmlFor="amount" className="font-normal text-xl font-openSans text-[#111111]">
-                Enter Recipient Bank Name
+                Recipient Bank Name
               </label>
               <div className="text-[#8c8b92] mt-2">
               <Input 

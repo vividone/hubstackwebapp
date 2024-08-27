@@ -47,9 +47,8 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
 
   const handleSubmit = async () => {
     if(flow === "Fund Wallet") {
-      formik.setFieldValue("amount", (+amount).toString());
+      formik.setFieldValue("amount", amount);
       formik.handleSubmit();
-      setFlow("verify")
     }
     else if(flow === "verify") {
       verify.setFieldValue("transactionId", fundData._id);
@@ -94,12 +93,19 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
                 htmlFor="desiredAmount"
                 className="block text-[18px] mb-2 mt-8 font-normal"
               >
-                Enter Amount
+                Amount
               </label>
               
               <CurrencyField 
                   onValueChange={(v: any) => setAmount(v.floatValue)} 
                 />
+                
+              {
+                (formik.touched.amount && formik.errors.amount) ? 
+                <p className="text-[12px] text-red-500 my-1">{formik.errors.amount}</p>
+                :
+                ""
+              }
             </div>
           ) :
           flow === "verify" ?
