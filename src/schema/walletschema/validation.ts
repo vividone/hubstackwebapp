@@ -15,3 +15,9 @@ export const createWalletValidationSchema = Yup.object({
     .length(10, "Account number must be exactly 10 digits"),
   existingBankName: Yup.string().required("Bank name is required"),
 });
+
+export const fundWalletValidationSchema = Yup.object({
+  email: Yup.string().email("Invalid email address").required("Email is required"),
+  amount: Yup.string().required("Please input a valid amount").min(2, "Please input a valid amount"),
+  paymentMode: Yup.string().optional(),
+});

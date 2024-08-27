@@ -7,3 +7,9 @@ export interface ICreateWalletUpdate{
     existingAccountNumber: string,
     existingBankName: string,
 }
+
+export interface IFundWallet {
+    email: string,
+    amount: string,
+    paymentMode: string,
+}
