@@ -192,12 +192,12 @@ export const useSignupAgent = () => {
 
 
 // verifyLogin
-export const useVerifyLogin = () => {
+export const useVerifyLogin = (type: string) => {
   const router = useRouter();
-  const { verifyLoginUrl } = useUrls();
+  const { verifyOTPUrl, verifyEmailUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["verify account"],
       mutationFn: (payload: Partial<IVerifyLogin>) => {
-        return axiosInstance.post(verifyLoginUrl, payload)
+        return axiosInstance.post(type === "email" ? verifyEmailUrl : verifyOTPUrl, payload)
       },
   })  
 
@@ -237,6 +237,51 @@ export const useVerifyLogin = () => {
     : typedError?.response?.data?.message || "";
   return { formik, isPending, isSuccess, isError, error: errorString };
 };
+
+//Resend OTP
+export const useResendOTP = (email: string) => {
+  const { resendOTPUrl } = useUrls();
+
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["resend OTP"],
+    mutationFn: (payload: Partial<{email: string}>) => {
+      return axiosInstance.post(resendOTPUrl, payload)
+    },
+})  
+
+  const formik = useFormik({
+    initialValues: {
+      email,
+    } as { email: string },
+    validateOnBlur: true,
+    validateOnChange: false,
+    validationSchema: ResetPasswordSchema,
+    onSubmit: async () => {
+      try {
+        mutate(
+          {
+            email,
+          },
+          {
+            onSuccess: () => {
+            },
+            onError: (res: any) => {
+                          
+            },
+          }
+        );
+        formik.handleReset;
+      } catch (error: any) {
+        throw new Error(error);
+      }
+    },
+  });
+  const typedError = error as IErrorResponseType;
+  const errorString = Array.isArray(typedError?.response?.data?.message)
+    ? typedError?.response?.data?.message[0]
+    : typedError?.response?.data?.message || "";
+  return { formik, isPending, isSuccess, isError, error: errorString };
+
+}
 
 
 
@@ -339,10 +384,10 @@ export const useResetPassword = (token: string | null) => {
 // verifyLogin
 export const useVerifyResetPassword = () => {
   const router = useRouter();
-  const { verifyLoginUrl } = useUrls();
+  const { verifyOTPUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["verify reset password account"],
       mutationFn: (payload: Partial<IVerifyLogin>) => {
-        return axiosInstance.post(verifyLoginUrl, payload)
+        return axiosInstance.post(verifyOTPUrl, payload)
       },
   })  
 
