@@ -6,7 +6,7 @@ import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
 import { FlowProps } from "../modalsLayout";
 import Confirmation from "../confirmation";
-
+import AlternatePaymentMethod from "../AlternatePaymentMethod";
 const InternetPayment: React.FC<any> = ({
   setFlow,
   data,
@@ -14,9 +14,12 @@ const InternetPayment: React.FC<any> = ({
 }: //   setIsPadded,
 any) => {
   const [showAlternate, setShowAlternate] = useState(false);
+  const [showAlternatePayment, setShowAlternatePayment] = useState(false);
 
   return (
     <div className="mt-4">
+      {showAlternatePayment && <AlternatePaymentMethod />}
+
       <div className="w-full border-y border-[#E7E6F2] px-[40px]">
         <CurrentBalance />
       </div>
@@ -24,12 +27,7 @@ any) => {
       <div className="flex flex-col gap-1 px-[40px] mt-6">
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
           <div className="flex  flex-wrap items-center gap-4">
-            <Image
-              src={``}
-              alt={data?.name}
-              width={80}
-              height={80}
-            />
+            <Image src={``} alt={data?.name} width={80} height={80} />
             <p className="text-xl font-semibold text-[#3D3066]">{data?.name}</p>
           </div>
           <div className="py-4">

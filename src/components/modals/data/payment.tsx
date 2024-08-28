@@ -4,15 +4,16 @@ import Image from "next/image";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
-
+import AlternatePaymentMethod from "../AlternatePayment";
 const DataPayment: React.FC<any> = ({
   data,
   completeAction
 }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
-
+  const [showAlternatePayment, setShowAlternatePayment] = useState(false);
   return (
     <div className="mt-4">
+       {showAlternatePayment && <AlternatePaymentMethod />}
       <div className="w-full border-y border-[#E7E6F2] px-[40px]">
       <CurrentBalance />
       </div>

@@ -67,7 +67,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
             msg={completedSuccess ? "Successful" : isError || isCompletedError ? "Error " + error || completedError : ""}
         />
 
-        <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show}>
+        <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show} >
 
             {
                 flow === 1 ?

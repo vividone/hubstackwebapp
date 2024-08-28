@@ -8,7 +8,7 @@ export const createWalletValidationSchema = Yup.object({
     .matches(/^\d+$/, "Invalid phone number")
     .required("Phone number is required"),
   bvn: Yup.string()
-    .length(11, "Please input a vlid BVN")
+    .length(11, "Please input a valid BVN")
     .matches(/^\d+$/, "Please input a valid BVN")
     .required("BVN is required"),
   existingAccountNumber: Yup.string().required("Account number is required")

@@ -5,7 +5,7 @@ import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import { FlowProps } from "../modalsLayout";
 import CurrentBalance from "../currentBalance";
-
+import AlternatePaymentMethod from "../AlternatePaymentMethod";
 interface CompletePayment extends FlowProps {
   completeAction: () => void;
 }
@@ -13,11 +13,12 @@ interface CompletePayment extends FlowProps {
 const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeAction }) => {
   const [showAlternate, setShowAlternate] = useState(false)
   const [meterType, setMeterType] = useState<any>()
+  const [showAlternatePayment, setShowAlternatePayment] = useState(false);
 
 
   return (
       <div className="mt-4">
-
+         {showAlternatePayment && <AlternatePaymentMethod />}
         <CurrentBalance />
 
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
