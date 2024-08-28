@@ -16,7 +16,7 @@ export default function CurrentBalance() {
               <div>
                 <span className="block font-bold text-[#111111] text-[24px] mb-2">Current Balance</span>
                 <span className="block text-[#3D3066] text-[32px]  font-bold font-openSans">
-                  {visibility ? <div className="flex items-center">{currencyFormatter(walletBalance?.balance * 100)}</div> : "********"}
+                  {visibility ? <div className="flex items-center">{currencyFormatter(walletBalance?.balance)}</div> : "********"}
                 </span>
               </div>
               <div>

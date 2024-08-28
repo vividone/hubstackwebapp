@@ -48,7 +48,7 @@ export function History({ history, fields }: any) {
                                     <td key={i} className="p-[20px] cursor-pointer">{
                                         header === "Date" ? dateConvert(item?.updatedAt)
                                         :
-                                        header === "Amount" ? currencyFormatter(item?.amount*100)
+                                        header === "Amount" ? currencyFormatter(item?.amount)
                                         :
                                         header === "Status" ? <span  className={`capitalize ${item.transactionStatus === "successful" ? "text-[#2EB62C]" : item.transactionStatus === "pending" ? "text-[#FFCC00]" : item.transactionStatus === "failed" ? "text-[#FF0E0E]" : ""}`}>{item?.transactionStatus}</span>
                                         : 

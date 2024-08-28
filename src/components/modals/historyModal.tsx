@@ -66,7 +66,7 @@ export default function HistoryModal({ setShow, show, transaction }: HistoryModa
                 }
                 <div className="flex justify-between items-center">
                     <h4>Amount</h4>
-                    <p className="">{currencyFormatter(transaction.transactionDetails.amount * 100)}</p>
+                    <p className="">{currencyFormatter(transaction.transactionDetails.amount)}</p>
                 </div>
                 <div className="flex justify-between items-center">
                     <h4>Payment Mode</h4>
