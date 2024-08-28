@@ -9,8 +9,7 @@ import InternetIcon from "@/assets/icons/InternetIcon";
 import CableTvIcon from "@/assets/icons/CableTvIcon";
 import ElectricityIcon from "@/assets/icons/ElectricityIcon";
 import BettingIcon from "@/assets/icons/BettingIcon";
-import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 import AirtimeModal from "@/components/modals/airtime/airtime";
 import CableTVServices from "@/components/modals/cableTv/Services";
@@ -56,7 +55,7 @@ const Billpayment = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-col w-full">
+    <div className="flex flex-col md:flex-col w-full relative">
       <div className="w-full p-[30px] md:px-[60px_25px]">
         <h2 className="text-[24px] md:text-[28px] 2xl:text-[36px] font-CabinetGrotesque font-medium">
           Bill Payments

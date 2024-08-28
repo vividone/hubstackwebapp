@@ -25,17 +25,16 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   const {
     data: fundData,
     formik,
+    isSuccess: initializeSuccess,
     isPending,
-    isSuccess,
     isError,
     error,
   } = useFundWallet();
-  const { data, formik: verify, isSuccess: isSuccessVerify } = useVerifyFund(fundData?._id);
+  const { formik: verify, isSuccess, isError: isVerifyError, isPending: isVerifyPending, error: verifyError } = useVerifyFund(fundData?._id);
   const [showAlternate, setShowAlternate] = useState(false);
   const [flow, setFlow] = useState("Account Details");
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const [content, setContent] = useState("Microbiz MFB");
-  const [amount, setAmount] = useState<string>("0");
 
   const dataSets: any = {
     "Microbiz MFB": wallet?.filter((item: any) => item.provider === "Microbiz MFB")[0],
@@ -47,7 +46,6 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
 
   const handleSubmit = async () => {
     if(flow === "Fund Wallet") {
-      formik.setFieldValue("amount", amount);
       formik.handleSubmit();
     }
     else if(flow === "verify") {
@@ -67,10 +65,10 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (initializeSuccess) {
       setFlow("verify");
     }
-  }, [isSuccess])
+  }, [initializeSuccess])
 
   return (
     <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow} isPadded={false}>
@@ -79,9 +77,9 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
         isError={isError}
         msg={
           isSuccess
-            ? "Successful! Proceed to confirm payment"
-            : isError
-            ? error
+            ? "Successful!"
+            : isError || isVerifyError
+            ? error || verifyError
             : ""
         }
       />
@@ -97,7 +95,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
               </label>
               
               <CurrencyField 
-                  onValueChange={(v: any) => setAmount(v.floatValue)} 
+                  onValueChange={(v: any) => formik.setFieldValue("amount", v.floatValue)} 
                 />
                 
               {
@@ -180,7 +178,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
               variant="primary"
               size="long"
               type="submit"
-              isLoading={isPending}
+              isLoading={isPending || isVerifyPending}
               disabled={isPending}
               onClick={() => handleSubmit()}
               // className="mt-10"
@@ -212,13 +210,13 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
         : ""
       }
 
-      {isSuccessVerify && (
+      {isSuccess && (
         <Confirmation
           status={"success"}
           setShow={setShow}
           heading={"Fund Wallet"}
           text={"Transaction Successful"}
-          subtext={"Your wallet has been credited with #" + data.amount}
+          subtext={"Your wallet has been credited with #" + formik.values.amount}
           buttonProps={{ text: "THANK YOU", action: () => closeSuccess() }}
         />
       )}

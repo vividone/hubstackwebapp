@@ -6,16 +6,16 @@ const BillValidationSchema = Yup.object().shape({
   billerId: Yup.string().required("Required"),
   paymentCode: Yup.string().required("Required"),
   paymentMode: Yup.string().required("Required"),
-  amount: Yup.string().required("Amount is required").min(2, "Amount is too low"),
+  amount: Yup.string().required("Amount is required").min(2, "Please input valid amount"),
   category: Yup.string().required("Required")
 });
 
 export const BillValidationwithPhoneSchema = BillValidationSchema.shape({
-  customerId:Yup.string().required(" is required")
-  .length(11, " should be 11 digits"),
+  customerId:Yup.string().required("Please input valid ")
+  .length(11, "Please input valid "),
 })
 
 export const BillValidationwithMeterSchema = BillValidationSchema.shape({
-  customerId:Yup.string().required(" is required")
-  .length(10, " should be 10 digits"),
+  customerId:Yup.string().required("Please input valid ")
+  .length(10, "Please input valid "),
 })

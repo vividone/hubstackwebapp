@@ -7,10 +7,11 @@ import ToggleOffOutlinedIcon from "@mui/icons-material/ToggleOffOutlined";
 import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { Dropdown } from "@/components/common/Dropdown";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
+import { LoaderIcon } from "react-hot-toast";
+import { formatAmount } from "@/helpers/amountFormatter";
 
 
 const DataForm = ({
-  setFlow,
   data,
   setData,
   formik,
@@ -61,26 +62,31 @@ const DataForm = ({
           >
             Products
           </label>
-          <Dropdown
-            name="serviceProvider"
-            value={data?.serviceProvider}
-            error={formik.touched.service && formik.errors.service}
-            onChange={(value) => {
-              if (value) {
-                const selectedOption = value as any;
-                setData({...data, serviceProvider: selectedOption})
-                formik.setFieldValue("amount", selectedOption.fee)
-              } else {
-              }
-            }}
-            options={services?.PaymentItems?.map((item: any) => ({
-              label: item.Name,
-              value: item.Name,
-              fee: item.Amount/100,
-              PaymentCode: item.PaymentCode,
-            }))}
-            className="items-start text-start justify-start rounded-[8px]"
-          />
+          {
+            services?.PaymentItems ?
+            <Dropdown
+              name="serviceProvider"
+              value={data?.serviceProvider}
+              error={formik.touched.service && formik.errors.service}
+              onChange={(value) => {
+                if (value) {
+                  const selectedOption = value as any;
+                  setData({...data, serviceProvider: selectedOption})
+                  formik.setFieldValue("amount", selectedOption.fee)
+                } else {
+                }
+              }}
+              options={services?.PaymentItems?.map((item: any) => ({
+                label: item.Name,
+                value: item.Name,
+                fee: item.Amount/100,
+                PaymentCode: item.PaymentCode,
+              }))}
+              className="items-start text-start justify-start rounded-[8px]"
+            />
+          :
+            <p className="flex justify-center py-4"><LoaderIcon /></p>
+          }
         </div>
 
         <div className="flex flex-col w-full mt-5">
@@ -94,7 +100,7 @@ const DataForm = ({
             <Input
               name="customerId"
               placeholder="0000000000"
-              error={formik.errors.customerId && "Phone number " + formik.errors.customerId}
+              error={formik.errors.customerId && formik.errors.customerId + " phone number"}
               onChange={(e) => {
                 setData({ ...data, customerId: e.target.value });
                 formik.setFieldValue("customerId", e.target.value);
@@ -112,7 +118,7 @@ const DataForm = ({
             Amount
           </label>
           <div className="text-[#8c8b92] mt-2">
-          <p className="text-[32px] font-bold flex items-center"><NairaIconElectricBill width={32} />{data?.serviceProvider?.fee || 0}.00</p>
+          <p className="text-[32px] font-bold flex items-center"><NairaIconElectricBill width={32} />{formatAmount(data?.serviceProvider?.fee) || 0.00}</p>
           </div>
 
           {/* Save Beneficiary Toggle */}

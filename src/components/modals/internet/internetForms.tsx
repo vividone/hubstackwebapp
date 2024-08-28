@@ -77,28 +77,11 @@ const InternetForm: React.FC<InternetProps> = ({
                 setData({ ...data, customerId: e.target.value });
                 formik.setFieldValue("customerId", e.target.value);
               }}
+              error={formik.errors.customerId && formik.errors.customerId + " phone number"}
             />
           </div>
         </div>
-        <div className="flex flex-col w-full mt-5">
-          <label
-            htmlFor="customerID"
-            className="font-normal text-xl font-openSans text-[#111111]"
-          >
-            Customer ID
-          </label>
-          <div className="text-[#8c8b92] mt-2">
-            <Input
-              name="customerId"
-              placeholder="Customer ID"
-              error={formik.errors.customerId && "Phone number " + formik.errors.customerId}
-              onChange={(e) => {
-                setData({ ...data, customerId: e.target.value });
-                formik.setFieldValue("customerId", e.target.value);
-              }}
-            />
-          </div>
-        </div>
+
         <div className="flex flex-col w-full mt-5">
           <label
             htmlFor="amount"

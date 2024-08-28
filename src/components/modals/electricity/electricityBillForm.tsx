@@ -87,9 +87,10 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPend
               <Input
                 type="text"
                 name="customerId"
-                error={formik.errors.customerId && "Meter number " + formik.errors.customerId}
+                id="meterNumber"
+                error={formik.errors.customerId && formik.errors.customerId + " meter number" }
                 onChange={formik.handleChange}
-                placeholder=""
+                placeholder="Enter 11 digits meter number"
               />
             </div>
           </div>
@@ -106,7 +107,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPend
             <div className="text-[#8c8b92] mt-2">
               {
                   data?.serviceProvider?.fixed ?  
-                  <p className="text-[32px] font-bold flex items-center"><NairaIconElectricBill width={32} />{data?.serviceProvider?.fee}.00</p>
+                  <p className="text-[32px] text-black font-bold flex items-center"><NairaIconElectricBill width={32} />{data?.serviceProvider?.fee}.00</p>
                 :
                 <CurrencyField 
                   onValueChange={(v: any) => { setData({ ...data, amount: v.floatValue }); formik.setFieldValue("amount", v.floatValue)}} 
