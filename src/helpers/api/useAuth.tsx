@@ -5,9 +5,9 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import useSessionStorage from "@/hooks/useSessionStorage";
 import {
     IAuthLogin,
-    IAuthIndividualSignup,
     IAuthAgentSignup,
-    IVerifyLogin
+    IVerifyLogin,
+    IAuthSignupIndividual
   } from "@/interface/auth";
 import { IErrorResponseType } from "@/interface/common/error";
 import {
@@ -18,12 +18,11 @@ import {
     SignupSchemaIndividual,
     VerifyLoginSchema
   } from "@/schema/auth";
-  import { HUBSTACKROLES } from "@/types/roles";
   import { FRONTEND_URL } from "@/utils/pages";
 import { TOKEN } from "@/utils/token";
   import { useMutation } from "@tanstack/react-query";
   import { useFormik } from "formik";
-  import { redirect, useRouter } from "next/navigation";
+  import { useRouter } from "next/navigation";
 
 
 // login for agent and individual
@@ -82,114 +81,108 @@ export const useLogin = () => {
     return { formik, isPending, isSuccess, isError, error: errorString };
 };
 
+export const useSignupIndividual = () => {
+  const router = useRouter();
+  const { signupIndividualUrl } = useUrls();
+  const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
 
-    // signup for individual
-    export const useSignupIndividual = (type: string) => {
-      const router = useRouter();
-      const { signupIndividualUrl } = useUrls();
-      const { setCookie } = useCookies();
-      const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
-      const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up individual"],
-          mutationFn: (payload: Partial<IAuthIndividualSignup>) => {
-            return axiosInstance.post(signupIndividualUrl, payload)
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up individual"],
+    mutationFn: (payload: Partial<IAuthSignupIndividual>) => {
+      return axiosInstance.post(signupIndividualUrl, payload)
+    },
+  })  
+
+  const formik = useFormik({
+    initialValues: {
+      firstname: "",
+      lastname: "",
+      email: "",
+      phone_number: "",
+      role: "Agent",
+      password: "",
+      referralCode: "",
+    } as IAuthSignupIndividual,
+    validateOnBlur: true,
+    validateOnChange: false,
+    validationSchema: SignupSchemaIndividual,
+    onSubmit: async ({ ...values }) => {
+      try {
+        await formik.validateForm();
+        mutate(values, {
+          onSuccess: (res) => {
+            setUserDetails(res.data.data);
+            router.push(FRONTEND_URL.VERIFY_ACCOUNT);
           },
-      })    
-    
-      const formik = useFormik({
-        initialValues: {
-          firstname: "",
-          lastname: "",
-          email: "",
-          phonenumber: "",
-          role: type,
-          password: "",
-          referralCode:""
-        } as IAuthIndividualSignup,
-        validateOnBlur: true,
-        validateOnChange: false,
-        validationSchema: SignupSchemaIndividual,
-        onSubmit: async ({ ...values }) => {
-          try {
-            await formik.validateForm();
-            mutate(values, {
-              onSuccess: (res) => {
-                setCookie(TOKEN.ACCESS, res.data.token.access_token);
-                setUserDetails(res.data.data);
-                router.push(FRONTEND_URL.VERIFY_ACCOUNT);
-              },
-              onError: (res: any) => {
-  
-              },
-            });
-            formik.handleReset;
-          } catch (error: any) {
-            throw new Error(error);
-          }
-        },
-      });
-      const typedError = error as IErrorResponseType;
-      const errorString = Array.isArray(typedError?.response?.data?.message)
-        ? typedError?.response?.data?.message[0]
-        : typedError?.response?.data?.message || "";
-      return { formik, isPending, isSuccess, isError, error: errorString };
-};
-  
+          onError: (res: any) => {
 
-// Signup for agent
-export const useSignupAgent = () => {
-    const router = useRouter();
-    const { signupAgentUrl } = useUrls();
-    const { setCookie } = useCookies();
-    const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
-    const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up agent"],
-        mutationFn: (payload: Partial<IAuthAgentSignup>) => {
-          return axiosInstance.post(signupAgentUrl, payload)
-        },
-    })    
-  
-    const formik = useFormik({
-      initialValues: {
-        firstname: "",
-        lastname: "",
-        username:"",
-        email: "",
-        phonenumber: "",
-        business_name: "",
-        region: "",
-        location: "",
-        role: HUBSTACKROLES.AGENT,
-        password: "",
-        referralCode:""
-      } as IAuthAgentSignup,
-      validateOnBlur: true,
-      validateOnChange: false,
-      validationSchema: SignupSchemaAgent,
-      onSubmit: async ({ ...values }) => {
-        try {
-          await formik.validateForm();
-          mutate(values, {
-            onSuccess: (res) => {
-              setCookie(TOKEN.ACCESS, res.data.token.access_token);
-              setUserDetails(res.data.data);
-              redirect(FRONTEND_URL.VERIFY_ACCOUNT);
-            },
-            //   onError: (res: any) => {
-  
-            //   },
-          });
-          formik.handleReset;
-        } catch (error: any) {
-          throw new Error(error);
-        }
-      },
-    });
-    const typedError = error as IErrorResponseType;
-    const errorString = Array.isArray(typedError?.response?.data?.message)
-      ? typedError?.response?.data?.message[0]
-      : typedError?.response?.data?.message || "";
-    return { formik, isPending, isSuccess, isError, error: errorString };
+          },
+        });
+        formik.handleReset;
+      } catch (error: any) {
+        throw new Error(error);
+      }
+    },
+  });
+  const typedError = error as IErrorResponseType;
+  const errorString = Array.isArray(typedError?.response?.data?.message)
+    ? typedError?.response?.data?.message[0]
+    : typedError?.response?.data?.message || "";
+  return { formik, isPending, isSuccess, isError, error: errorString };
 }
+  
 
+export const useSignupAgent = () => {
+  const router = useRouter();
+  const { signupAgentUrl } = useUrls();
+  const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
+
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up agent"],
+    mutationFn: (payload: Partial<IAuthAgentSignup>) => {
+      return axiosInstance.post(signupAgentUrl, payload)
+    },
+  })  
+
+  const formik = useFormik({
+    initialValues: {
+      firstname: "",
+      lastname: "",
+      email: "",
+      phone_number: "",
+      role: "Agent",
+      password: "",
+      referralCode: "",
+      business_name: "",
+      location: "",
+      region: ""
+    } as IAuthAgentSignup,
+    validateOnBlur: true,
+    validateOnChange: false,
+    validationSchema: SignupSchemaAgent,
+    onSubmit: async ({ ...values }) => {
+      try {
+        await formik.validateForm();
+        mutate(values, {
+          onSuccess: (res) => {
+            setUserDetails(res.data.agentUser);
+            router.push(FRONTEND_URL.VERIFY_ACCOUNT);
+          },
+          onError: (res: any) => {
+
+          },
+        });
+        formik.handleReset;
+      } catch (error: any) {
+        throw new Error(error);
+      }
+    },
+  });
+  const typedError = error as IErrorResponseType;
+  const errorString = Array.isArray(typedError?.response?.data?.message)
+    ? typedError?.response?.data?.message[0]
+    : typedError?.response?.data?.message || "";
+  return { formik, isPending, isSuccess, isError, error: errorString };
+}
+  
 
 // verifyLogin
 export const useVerifyLogin = (type: string) => {
@@ -204,7 +197,6 @@ export const useVerifyLogin = (type: string) => {
   const formik = useFormik({
     initialValues: {
       otp: "",
-      // email: "",
     } as IVerifyLogin,
     validateOnBlur: false,
     validateOnChange: false,
@@ -213,12 +205,11 @@ export const useVerifyLogin = (type: string) => {
       try {
         mutate(
           {
-            otp: values.otp,
-            // email: values.email,
+            otp: values.otp
           },
           {
             onSuccess: () => {
-              router.push(FRONTEND_URL.DASHBOARD);
+              router.push(FRONTEND_URL.LOGIN);
             },
             // onError: (res: any) => {
               
@@ -282,8 +273,6 @@ export const useResendOTP = (email: string) => {
   return { formik, isPending, isSuccess, isError, error: errorString };
 
 }
-
-
 
 // Password reset
 export const useForgotPassword = () => {

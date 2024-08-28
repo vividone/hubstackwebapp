@@ -9,7 +9,7 @@ import { useSignupIndividual } from "@/helpers/api/useAuth";
 import ToastComponent from "@/components/common/toastComponent";
 
 const Register = () => {
-  const { formik, isPending, isSuccess, isError, error } = useSignupIndividual("Individual")
+  const { formik, isPending, isSuccess, isError, error } = useSignupIndividual()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -72,11 +72,11 @@ const Register = () => {
                 <p className="mt-4">Phone Number</p>
                 <Input 
                     placeholder="Phone number"
-                    name="phonenumber"
+                    name="phone_number"
                     data-test="user-phoneNumber"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.touched.phonenumber && formik.errors.phonenumber}
+                    error={formik.touched.phone_number && formik.errors.phone_number}
                 />
                     
                 <p className="mt-4">Password</p>

@@ -3,12 +3,12 @@ export interface IAuthLogin {
   password: string;
 }
 
-export interface IAuthIndividualSignup {
+export interface IAuthSignupIndividual {
   firstname: string;
   lastname: string;
   referralCode: string;
   email: string;
-  phonenumber: string;
+  phone_number: string;
   role?: string;
   password: string;
 }
@@ -17,7 +17,7 @@ export interface IAuthAgentSignup {
   firstname: string;
   lastname: string;
   email: string;
-  phonenumber: string;
+  phone_number: string;
   role?: string;
   business_name: string;
   location: string;
