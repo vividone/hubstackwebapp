@@ -85,11 +85,11 @@ const RegisterAgent = () => {
                 <p className="mt-4">Phone Number</p>
                 <Input 
                     placeholder="Phone number"
-                    name="phonenumber"
+                    name="phone_number"
                     data-test="username-phoneNumber"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    error={formik.touched.phonenumber && formik.errors.phonenumber}
+                    error={formik.touched.phone_number && formik.errors.phone_number}
                 />
                 
                 <p className="mt-4">Business Name</p>

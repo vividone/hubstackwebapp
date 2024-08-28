@@ -50,7 +50,7 @@ export default function AlternateWalletFunding({ setShow }: SetStateAction<any> 
                     />
 
                     <label htmlFor="desiredAmount" className="block text-[18px] mb-2 mt-8 font-normal">
-                        Enter Amount To Fund
+                        Amount To Fund
                     </label>
                     <Input name="desiredAmount" type="number" placeholder="#0.00" />
                     <div className="mt-16 h-20">

@@ -5,8 +5,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useUrls } from "../useUrls";
 import { TOKEN } from "@/utils/token";
-import { ICreateWalletUpdate } from "@/interface/wallet";
-import { createWalletValidationSchema } from "@/schema/walletschema/validation";
+import { ICreateWalletUpdate, IFundWallet } from "@/interface/wallet";
+import { createWalletValidationSchema, fundWalletValidationSchema } from "@/schema/walletschema/validation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -28,7 +28,7 @@ export const useCreateWallet = ( ) => {
             firstname: userDetails?.firstname,
             lastname: userDetails?.lastname,
             email: userDetails?.email,
-            mobilenumber: userDetails?.phone_number,
+            mobilenumber: "",
             bvn: "",
             existingAccountNumber: "",
             existingBankName: "",
@@ -129,7 +129,7 @@ export const useFundWallet = ( ) => {
   const [data, setData] = useState({ _id: 0, amount: 0, transactionReference: "" })
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Fund wallet"],
-      mutationFn: (payload: Partial<any>) => {
+      mutationFn: (payload: Partial<IFundWallet>) => {
           return axiosInstance.post(fundWallet, payload)
       },
   })    
@@ -138,9 +138,10 @@ export const useFundWallet = ( ) => {
           email: userDetails?.email,
           amount: "",
           paymentMode: "account transfer",
-      } as any,
+      } as IFundWallet,
       validateOnBlur: false,
       validateOnChange: false,
+      validationSchema: fundWalletValidationSchema,
       onSubmit: async ({...values }) => {
       try {
           await formik.validateForm();

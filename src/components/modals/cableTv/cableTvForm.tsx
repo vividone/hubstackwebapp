@@ -53,14 +53,14 @@ const CableTvForm: React.FC<CableTvProps> = ({ active, data, formik, isPending, 
 
               <div className="flex flex-col w-full mt-5">
                 <label htmlFor="amount" className="font-normal text-xl font-openSans text-[#111111]">
-                  Enter Smartcard or Decoder Number
+                  Decoder Number
                 </label>
                 <div className="text-[#8c8b92] mt-2">
                 <Input 
                     name="customerId" 
                     value={data?.customerId}
                     placeholder="0000000000" 
-                    error={formik.errors.customerId && "Smartcard or Decoder number " + formik.errors.customerId}
+                    error={formik.errors.customerId && formik.errors.customerId + " decoder number"}
                     onChange={(e) => {
                       setData({ ...data, customerId: e.target.value });
                       formik.setFieldValue("customerId", e.target.value)

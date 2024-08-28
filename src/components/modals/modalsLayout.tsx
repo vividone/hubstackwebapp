@@ -23,7 +23,7 @@ const ModalsLayout: React.FC<MyModalProps> = ({ header, show, flow, setFlow, set
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 flex items-center justify-end">
-      <div className={`relative h-screen md:w-[40vw] sm:w-[400px] w-full bg-white overflow-y-scroll z-[1000] duration-700 ${show ? "translate-x-0" : "translate-x-[100%]"}`}>
+      <div className={`relative h-screen xl:w-[40vw] md:w-[500px] w-full bg-white overflow-y-scroll z-[1000] duration-700 ${show ? "translate-x-0" : "translate-x-[100%]"}`}>
         
         <div className={`flex justify-between p-[30px_40px] pt-[55px] ${!isPadded ? "p-0" : ""}`}>
 

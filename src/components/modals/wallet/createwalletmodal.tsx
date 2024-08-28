@@ -130,7 +130,7 @@ const WalletForm = ({ setShow, show, formik, isPending }: any) => {
           <label htmlFor="accountNumber" className="mt-5 font-openSans">
             <p className="text-xl font-normal">Account Number</p>
             <p className="text-[14px]">
-              Any of your bank Account number tied to your bvn
+              An account number linked to your BVN
             </p>
           </label>
           <div>

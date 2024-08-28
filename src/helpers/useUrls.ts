@@ -6,10 +6,11 @@ export function useUrls() {
   const signupIndividualUrl = `${BASE_URL}/auth/register-individual`;
   const signupAgentUrl = `${BASE_URL}/auth/register-agent`;
   const logOutUrl = `${BASE_URL}/auth/logout`;
-  const verifyLoginUrl = `${BASE_URL}/auth/verify-otp`;
+  const verifyEmailUrl = `${BASE_URL}/auth/verify-email`;
+  const verifyOTPUrl = `${BASE_URL}/auth/verify-otp`;
   const resetPasswordUrl = `${BASE_URL}/auth/reset-password`;
   const forgotPasswordUrl = `${BASE_URL}/auth/forgot-password`;
-  const resendPasswordEmailUrl = `${BASE_URL}/auth/resend-email`;
+  const resendOTPUrl = `${BASE_URL}/auth/resend-otp`;
 
   // wallet
   const createWalletUrl = `${BASE_URL}/wallet/create-wallet`
@@ -40,10 +41,11 @@ export function useUrls() {
     signupIndividualUrl,
     signupAgentUrl,
     logOutUrl,
-    verifyLoginUrl,
+    verifyOTPUrl,
+    verifyEmailUrl,
     resetPasswordUrl,
     forgotPasswordUrl,
-    resendPasswordEmailUrl,
+    resendOTPUrl,
     updateIndividualProfileUrl,
     updateAgentProfileUrl,
     updatePasswordUrl,

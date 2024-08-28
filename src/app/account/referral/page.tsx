@@ -1,20 +1,23 @@
 "use client";
 import Image from "next/image";
 import SortIcon from "@/assets/icons/SortIcon";
-import CopyIcon from "@/assets/icons/CopyIcon";
 import CaratDown from "@/assets/icons/CaratDown";
 import { Button } from "@/components/common/button";
 import { SearchInput } from "@/components/common/inputs";
 import { TOKEN } from "@/utils/token";
-import { useEffect } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import ClipBoard from "@/components/wallet/clipboard";
 
 const ReferralPage = () => {
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
 
+  const copyText = () => {
+    navigator.clipboard.writeText(userDetails?.referralCode);
+  }
+
   return (
     <div className="flex flex-col md:flex-col w-full">
-      <div className="flex w-full md:w-[45%] p-[30px] md:p-[60px_25px] gap-10">
+      <div className="flex w-full 2xl:w-[45%] md:w-[500px] p-[30px] md:p-[60px_25px] gap-10">
         <div className="flex-1">
           <h2 className="text-[24px] md:text-[28px] 2xl:text-[36px] font-CabinetGrotesque font-medium">
             Referral
@@ -32,17 +35,14 @@ const ReferralPage = () => {
             </p>
             <div className="w-full mt-12">
               <p className="mb-2">Your Unique Referral Code</p>
-              <div className="w-full h-[66px] flex items-center justify-between border border-gray-300 rounded-[7px] p-4">
-                <p className="font-normal text-[#8C8B92]">{userDetails?.referralCode}</p>
-                <div className="p-2 cursor-pointer">
-                  <CopyIcon width={20.31} height={20.31} />
-                </div>
+              <div className="w-full h-[66px] border border-gray-300 rounded-[7px] p-4">
+                <ClipBoard text={userDetails?.referralCode} label="" />
               </div>
             </div>
             <div className="w-full flex flex-col  gap-4 mt-12">
               <Button
                 size={"full"}
-                // className="text-[20px] font-bold font-CabinetGrotesk"
+                onClick={() => copyText()}
               >
                 COPY
               </Button>
@@ -57,7 +57,7 @@ const ReferralPage = () => {
           </div>
         </div>
         <div className="hidden md:block md:mt-[60px] border-r border-[#E7E7E7]"></div>
-      </div>
+      {/* </div>
       <div className="w-full md:w-[100%] md:mt-[30px] ">
         <div className="flex flex-col gap-[30px] px-[30px] md:px-[25px]">
           <p className="text-[25px] font-medium">
@@ -119,7 +119,7 @@ const ReferralPage = () => {
               </div>
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

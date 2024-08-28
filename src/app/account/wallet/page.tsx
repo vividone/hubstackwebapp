@@ -38,6 +38,7 @@ const Wallet = () => {
     if(isSuccess) {
       setHasWallet(true)
       setUserWallet(wallet)
+      setShowWallet(false)
     }
   }, [isSuccess])
 
@@ -62,7 +63,7 @@ const Wallet = () => {
         isError={isError}
         msg={
           isSuccess
-            ? "Wallet creation is successful"
+            ? "Wallet created successfully"
             : isError
             ? "Wallet creation error: " + error
             : Object.values(formik.errors)?.join(", ")

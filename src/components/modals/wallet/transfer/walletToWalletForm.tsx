@@ -7,7 +7,7 @@ export default function TransferToWallet({ form, setForm, formik, isPending, han
         <div className="">
             <div className="flex flex-col w-full mt-5">
               <label htmlFor="amount" className="font-normal text-xl font-openSans text-[#111111]">
-                Enter Recipient Username
+                Recipient Username
               </label>
               <div className="text-[#8c8b92] mt-2">
               <Input 
