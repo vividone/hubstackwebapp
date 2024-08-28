@@ -3,6 +3,7 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import DollarBagIcon from "@/assets/icons/DollarBagIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
 interface CardData {
   amount: number;
@@ -30,7 +31,7 @@ const Card = ({ value }: CardProps) => {
       <div className="flex justify-between items-end h-full w-full">
         <div className="flex flex-col justify-center h-[50%]">
           <p className="flex items-center gap-6 font-bold  2xl:text-[32px] text-[24px] w-full font-sans">
-            {visibility ? <>₦{formatAmount(amount?.toString())}</> : <span className="-mb-3">********</span> }
+            {visibility ? <>{currencyFormatter(amount* 100)}</> : <span className="-mb-3">********</span> }
             <button className="w-fit" onClick={() => setVisibility(!visibility)}>
               {
                 !visibility ? 

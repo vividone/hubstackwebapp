@@ -6,9 +6,8 @@ import ToggleOnOutlinedIcon from "@mui/icons-material/ToggleOnOutlined";
 import ToggleOffOutlinedIcon from "@mui/icons-material/ToggleOffOutlined";
 import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { Dropdown } from "@/components/common/Dropdown";
-import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import { LoaderIcon } from "react-hot-toast";
-import { formatAmount } from "@/helpers/amountFormatter";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
 
 const DataForm = ({
@@ -117,8 +116,8 @@ const DataForm = ({
           >
             Amount
           </label>
-          <div className="text-[#8c8b92] mt-2">
-          <p className="text-[32px] font-bold flex items-center"><NairaIconElectricBill width={32} />{formatAmount(data?.serviceProvider?.fee) || 0.00}</p>
+          <div className="mt-2">
+            <p className="text-[32px] font-bold flex items-center">{currencyFormatter(data?.serviceProvider?.fee) || 0.00}</p>
           </div>
 
           {/* Save Beneficiary Toggle */}

@@ -172,7 +172,7 @@ const Wallet = () => {
                 Wallet Transactions
               </h2>
 
-              <History history={history} />
+              <History history={history} fields={["Date", "Amount", "Status"]}  />
             </div>
           </div>
         )}
