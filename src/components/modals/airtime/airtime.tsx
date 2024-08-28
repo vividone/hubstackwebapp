@@ -29,7 +29,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     const { formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(formData?.transaction?._id || "", "airtime")
     const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
     const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
-    const [flow, setFlow] = useState(0)
+    const [flow, setFlow] = useState(1)
     const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
 
     
@@ -67,7 +67,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
             msg={completedSuccess ? "Successful" : isError || isCompletedError ? "Error " + error || completedError : ""}
         />
 
-        <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show}>
+        <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show} >
 
             {
                 flow === 1 ?

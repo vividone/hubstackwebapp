@@ -5,7 +5,7 @@ import { Button } from "../../common/button";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
-
+import AlternatePaymentMethod from "../AlternatePaymentMethod";
 type FlowProps = {
   setFlow: (aug0: number) => void;
   data: any;
@@ -15,8 +15,8 @@ const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data }) => {
   const [showAlternate, setShowAlternate] = useState(false)
 
   return (
-      <div className="mt-4">
-
+      <div className="mt-4" >
+        {true && <AlternatePaymentMethod/>}
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
           <div className="flex  flex-wrap items-center gap-4">
             <Image src={`/images/airtime/${data?.service.LogoUrl}`} alt={data?.service.Name} width={80} height={30} />
