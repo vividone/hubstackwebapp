@@ -75,7 +75,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   }, [initializeSuccess])
 
   return (
-    <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow} isPadded={false}>
+    <>
       <ToastComponent
         isSuccess={isSuccess}
         isError={isError}
@@ -87,9 +87,11 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
             : ""
         }
       />
-      <div ref={alternateRef}>
+    <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow} isPadded={false}>
+      
+      {/* <div ref={alternateRef}>
         {showAlternate && <AlternatePaymentMethod amount={+formik.values.amount} setFlow={() => {}} />}
-      </div>
+      </div> */}
 
       <div onSubmit={handleSubmit} className="mt-6">
         <div className="">
@@ -212,7 +214,6 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
               USE ALTERNATE TOP-UP METHOD
             </span>
           </Button>
-          {showAlternate && <AlternateWalletFunding setShow={setShowAlternate} />}
         </div>
 
         : ""
@@ -232,6 +233,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
       
     
     </ModalsLayout>
+    </>
   );
 };
 

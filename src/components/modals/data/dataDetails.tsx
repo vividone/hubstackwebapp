@@ -93,9 +93,9 @@ const DataDetails = ({ setFlow, data }: any) => {
       </div>
 
       
-      <div ref={alternateRef}>
+      {/* <div ref={alternateRef}>
         {showAlternate && <AlternatePaymentMethod amount={data?.transaction.amount} setFlow={setFlow} />}
-      </div>
+      </div> */}
     </div>
   );
 };

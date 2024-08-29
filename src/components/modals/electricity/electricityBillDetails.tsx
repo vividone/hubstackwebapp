@@ -17,9 +17,9 @@ const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data }) => {
 
   return (
       <div className="mt-4">
-        <div ref={alternateRef}>
-          {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow} />}
-        </div>
+        {/* <div ref={alternateRef}>
+          {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={() => {}} />}
+        </div> */}
 
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
           <div className="flex justify-between flex-wrap items-center gap-4">

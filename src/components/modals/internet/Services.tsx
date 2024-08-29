@@ -28,7 +28,7 @@ const InternetServices = ({ setShow, show }: any) => {
     isPending,
     isSuccess,
     error,
-  } = usePayBill("cable");
+  } = usePayBill("internet");
   const {
     data: completedBill,
     formik: completedForm,

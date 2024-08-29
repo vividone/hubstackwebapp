@@ -17,7 +17,7 @@ const CableTvPayment: React.FC<CableTvProps> = ({ data, active, completeAction}:
 
   return (
     <div className="mt-4">
-       {showAlternatePayment && <AlternatePaymentMethod />}
+       {/* {showAlternatePayment && <AlternatePaymentMethod />} */}
       <CurrentBalance />
 
         <div className="flex flex-col gap-1">

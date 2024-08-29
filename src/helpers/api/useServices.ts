@@ -33,7 +33,7 @@ export const usePayBill = ( type: string ) => {
           category: ""
       } as IBillData,
       validateOnBlur: true,
-      validationSchema: type === "buy-airtime" || type === "buy-data" || type === "electricity" ? BillValidationwithPhoneSchema : BillValidationwithMeterSchema,
+      validationSchema: type === "buy-airtime" || type === "buy-data" || type === "electricity" || type === "internet" ? BillValidationwithPhoneSchema : BillValidationwithMeterSchema,
       validateOnChange: false,
       onSubmit: async ({ ...values }) => {
       try {

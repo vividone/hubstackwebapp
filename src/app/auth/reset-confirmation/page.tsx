@@ -38,6 +38,7 @@ const ResetConfirmation = () => {
 
         <div className="flex flex-col gap-4">
             <p className="mt-1 text-primary_dark text-s text-[#8C8B82] mb-6">We have sent a code to {user}. Please enter the code below to continue</p>
+            <p className="text-[#8C8B82] mt-2">Single-use code valid for 10 minutes</p>
 
             <form
               className="flex flex-col mt-8 w-full space-y-4"

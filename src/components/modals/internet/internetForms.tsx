@@ -1,11 +1,9 @@
 "use client";
-import React from "react";
+import React, { FormEvent, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import { Input } from "@/components/common/inputs";
-import Link from "@/components/custom/link";
 import { FlowProps } from "../modalsLayout";
-import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import CurrencyField from "@/components/common/currencyInput";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 
@@ -23,23 +21,21 @@ const InternetForm: React.FC<InternetProps> = ({
   isPending,
   setData,
 }) => {
-  const { services } = useGetServicesByBillerId(active?.Id);
 
-  //   const handleSubmit = (e: FormEvent) => {
-  //     e.preventDefault();
+  useEffect(() => {
+    formik.setFieldValue("service", data?.serviceProvider?.value || active?.Name)
+    formik.setFieldValue("biller", active?.Name)
+    formik.setFieldValue("billerId", active?.Id.toString())
+    formik.setFieldValue("paymentMode", "wallet")
+    formik.setFieldValue("paymentCode", "0488051528")
+    formik.setFieldValue("category", "billpayment")
+  }, [active, data])
 
-  //     formik.setFieldValue("service", data?.serviceProvider?.value)
-  //     formik.setFieldValue("biller", active?.Name)
-  //     formik.setFieldValue("billerId", active?.Id.toString())
-  //     formik.setFieldValue("paymentMode", "wallet")
-  //     formik.setFieldValue("paymentCode", data?.serviceProvider?.PaymentCode)
-  //     formik.setFieldValue("category", "billpayment")
-  //     formik.setFieldValue("amount",  data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount)
-
-  //     console.log(formik.errors)
-
-  //     formik.handleSubmit()
-  //   }
+    const handleSubmit = (e: FormEvent) => {
+      e.preventDefault();
+      console.log(formik.errors)
+      formik.handleSubmit()
+    }
 
   return (
     <div className="mt-4">
@@ -47,7 +43,7 @@ const InternetForm: React.FC<InternetProps> = ({
         Service Provider
       </h2>
 
-      <form onSubmit={() => {}} className="pb-5">
+      <form onSubmit={handleSubmit} className="pb-5">
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[10px_30px]">
           <div className="flex flex-wrap items-center gap-4">
             <Image
@@ -97,15 +93,18 @@ const InternetForm: React.FC<InternetProps> = ({
               </p>
             ) : (
               <CurrencyField
-                onValueChange={(v: any) =>
-                  setData({ ...data, amount: v.floatValue })
-                }
+                onValueChange={(v: any) => {
+                  setData({ ...data, amount: v.floatValue });
+                  formik.setFieldValue("amount", v.floatValue)
+                }}
                 value={
                   data?.serviceProvider?.fixed
                     ? data?.serviceProvider?.fee
                     : data?.amount
                 }
                 disabled={data?.serviceProvider?.fixed}
+                error={formik.touched.amount && formik.errors.amount}
+
               />
             )}
           </div>

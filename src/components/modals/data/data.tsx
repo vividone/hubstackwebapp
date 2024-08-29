@@ -124,7 +124,7 @@ const Data = ({ setShow, show }: any) => {
                             key={item.Id} 
                             onClick={() => {
                               setData({ ...data, service:  item}); 
-                              formik.setFieldValue("service", item.Name)
+                              formik.setFieldValue("service", item.Name?.split(" ")[0] + " Data")
                               setFlow(1)
                             }} 
                             className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}
