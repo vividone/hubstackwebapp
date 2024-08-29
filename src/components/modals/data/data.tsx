@@ -24,7 +24,6 @@ type dataProps = {
 const Data = ({ setShow, show }: any) => {
   const [flow, setFlow] = useState(0);    
   const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
-  const [pseudo, setpseudoUpdate] = useState("");
   const [isPadded, setIsPadded] = useState(true);
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   const { billers, isLoading } = useGetBillersByCategoryId("4")
@@ -125,7 +124,7 @@ const Data = ({ setShow, show }: any) => {
                             key={item.Id} 
                             onClick={() => {
                               setData({ ...data, service:  item}); 
-                              formik.setFieldValue("service", item.Name?.split(" ")[0] + "  ")
+                              formik.setFieldValue("service", item.Name)
                               setFlow(1)
                             }} 
                             className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}

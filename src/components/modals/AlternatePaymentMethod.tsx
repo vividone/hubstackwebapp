@@ -1,18 +1,22 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import { usePaystackPayment } from 'react-paystack';
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 
-const AlternatePaymentMethod = ({ amount, setFlow }: { amount: number, setFlow: (aug0: number) => void }) => {
+type AlternatePaymentProps = { amount: number, setFlow: (aug0: number) => void }
+
+const AlternatePaymentMethod = ({ amount, setFlow }: AlternatePaymentProps) => {
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   
   const paystackConfig = {
     reference: (new Date()).getTime().toString(),
     email: userDetails?.email,
     amount: amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-    publicKey: 'pk_test_793d56eb433552f817098b8f8a3a3de13916e4e9',
+    publicKey:  process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
   };
+  const initializePayment = usePaystackPayment(paystackConfig)
 
   const onSuccess = (reference: string) => {
     console.log(reference)
@@ -24,7 +28,7 @@ const AlternatePaymentMethod = ({ amount, setFlow }: { amount: number, setFlow: 
 
   const handlePayment = (type: string) => {
     if(type === "Paystack") {
-      usePaystackPayment(paystackConfig)({onSuccess, onClose})
+      initializePayment({onSuccess, onClose})
     }
   }
  
@@ -52,7 +56,7 @@ const AlternatePaymentMethod = ({ amount, setFlow }: { amount: number, setFlow: 
   ];
 
   return (
-    <section className="flex mt-auto  bg-[#E6FBFF] w-full absolute bottom-top top-0 left-0 z-[100] bg-[#00000080] h-[100%]">
+    <section className="flex mt-auto w-full absolute bottom-top top-0 left-0 z-[100] bg-[#00000080] h-[100%]">
       <div className="w-[100%] mt-auto bg-[#E6FBFF] p-10">
         <header className="text-[24px] font-medium py-5 md:text-[30px]">
           <h2>Alternate Payment Method</h2>

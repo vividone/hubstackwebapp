@@ -21,7 +21,7 @@ const DataForm = ({
 
   useEffect(() => {
 
-    formik.setFieldValue("biller", data?.service.Name)
+    formik.setFieldValue("biller", data?.service.Name?.split(" ")[0])
     formik.setFieldValue("billerId", data?.service.Id.toString())
     formik.setFieldValue("paymentCode", "0488051528")  //data?.serviceProvider?.PaymentCode
     formik.setFieldValue("paymentMode", "wallet")

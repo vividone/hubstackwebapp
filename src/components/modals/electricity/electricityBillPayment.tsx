@@ -1,11 +1,10 @@
 "use client"
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import { FlowProps } from "../modalsLayout";
 import CurrentBalance from "../currentBalance";
-import AlternatePaymentMethod from "../AlternatePaymentMethod";
 
 interface CompletePayment extends FlowProps {
   setFlow: (aug0: number) => void;
@@ -13,8 +12,6 @@ interface CompletePayment extends FlowProps {
 }
 
 const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeAction, setFlow }) => {
-  const [showAlternatePayment, setShowAlternatePayment] = useState(false);
-
 
   return (
     <>
@@ -51,15 +48,10 @@ const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeActio
               <span className="text-[16px]">PROCEED WITH WALLET</span>
             </Button>
           
-            <Button variant="secondary" size="full" onClick={() => setShowAlternatePayment(true)}>
-                <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
-            </Button>
           </div>
           </div>
 
       </div>
-      
-      {showAlternatePayment && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow} />}
       </>
   );
 };
