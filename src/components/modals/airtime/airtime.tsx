@@ -39,12 +39,6 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     const completePayment = () => {
         completeBillPayment(formData, completedForm, userDetails)
     }
-
-    useEffect(() => {
-        formik.setFieldValue("paymentMode", "wallet")
-        formik.setFieldValue("paymentCode", "0488051528")
-        formik.setFieldValue("category", "billpayment")
-    }, [])
     
     useEffect(() => {
         if(isSuccess) {
@@ -103,7 +97,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         <Input 
                             type="number" 
                             onChange={(e) => {setData({ ...data, customerId:  e.target.value}); formik.setFieldValue("customerId", e.target.value)}} 
-                            placeholder="07000000000" 
+                            placeholder="Enter your 11 digits phone number" 
                             error={formik.errors.customerId && formik.errors.customerId + " phone number"}
                         />
                         </div>
@@ -122,6 +116,9 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                                             formik.setFieldValue("biller", item.Name)
                                             formik.setFieldValue("service", item.Name?.split(" ")[0] + " Recharge")
                                             formik.setFieldValue("billerId", item.Id?.toString())
+                                            formik.setFieldValue("paymentMode", "wallet")
+                                            formik.setFieldValue("paymentCode", "0488051528")
+                                            formik.setFieldValue("category", "billpayment")
                                         }} 
                                         className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}
                                     >

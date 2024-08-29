@@ -22,15 +22,6 @@ const InternetForm: React.FC<InternetProps> = ({
   setData,
 }) => {
 
-  useEffect(() => {
-    formik.setFieldValue("service", data?.serviceProvider?.value || active?.Name)
-    formik.setFieldValue("biller", active?.Name)
-    formik.setFieldValue("billerId", active?.Id.toString())
-    formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("paymentCode", "0488051528")
-    formik.setFieldValue("category", "billpayment")
-  }, [active, data])
-
     const handleSubmit = (e: FormEvent) => {
       e.preventDefault();
       console.log(formik.errors)

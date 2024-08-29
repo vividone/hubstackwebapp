@@ -19,15 +19,6 @@ interface ElectricFlowProps extends FlowProps {
 
 const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPending, billers, setData }) => {
 
-
-  useEffect(() => {
-
-    formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("paymentCode", "0488051528") 
-    formik.setFieldValue("category", "billpayment") 
-    
-  }, [])
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     formik.handleSubmit();
@@ -61,6 +52,9 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPend
                       formik.setFieldValue("service", "Electricity")
                       formik.setFieldValue("biller", selectedOption.value)
                       formik.setFieldValue("billerId", selectedOption.Id)
+                      formik.setFieldValue("paymentMode", "wallet")
+                      formik.setFieldValue("paymentCode", "0488051528") 
+                      formik.setFieldValue("category", "billpayment") 
                     } else {
                     }
                   }}

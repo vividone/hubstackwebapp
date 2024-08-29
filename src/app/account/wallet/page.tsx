@@ -40,7 +40,7 @@ const Wallet = () => {
       setUserWallet(wallet)
       setShowWallet(false)
     }
-  }, [isSuccess])
+  }, [isSuccess, setHasWallet, wallet])
 
   useEffect(() => {
     setBalance(walletBalance?.balance)

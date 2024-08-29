@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/common/inputs";
 import { Button } from "@/components/common/button";
@@ -18,17 +18,6 @@ const DataForm = ({
 }: any) => {
   const [toggle, setToggle] = useState(true);
   const { services } = useGetServicesByBillerId(data?.service.Id)
-
-  useEffect(() => {
-
-    formik.setFieldValue("biller", data?.service.Name)
-    formik.setFieldValue("billerId", data?.service.Id.toString())
-    formik.setFieldValue("paymentCode", "0488051528")  //data?.serviceProvider?.PaymentCode
-    formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("category", "billpayment") 
-    
-  }, [data])
-
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
