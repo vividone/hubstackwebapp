@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import ModalsLayout from "../modalsLayout";
-import CustomIcons from "@/components/custom/customIcons";
 import { useState } from "react";
 import DataForm from "./dataForm";
 import DataDetails from "./dataDetails";
 import DataPayment from "./payment";
-import PurchaseDetails from "./dataPurchaseDetails";
 import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
@@ -15,6 +13,7 @@ import BillsSkeleton from "@/components/common/billsSkeleton";
 import Image from "next/image";
 import ToastComponent from "@/components/common/toastComponent";
 import CompletedDataModal from "./dataPurchaseDetails";
+
 type dataProps = {
   amount: number;
   customerId: string;
@@ -24,7 +23,6 @@ type dataProps = {
 const Data = ({ setShow, show }: any) => {
   const [flow, setFlow] = useState(0);    
   const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
-  const [pseudo, setpseudoUpdate] = useState("");
   const [isPadded, setIsPadded] = useState(true);
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   const { billers, isLoading } = useGetBillersByCategoryId("4")
@@ -57,16 +55,6 @@ const Data = ({ setShow, show }: any) => {
     "Your Wallet",
     "Purchase Details",
   ];
-  const paddingHandler = () => {
-    if (flow == 3) {
-      setIsPadded(false);
-    } else {
-      setIsPadded(true);
-    }
-  };
-  useEffect(() => {
-    paddingHandler();
-  }, [flow]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -125,7 +113,12 @@ const Data = ({ setShow, show }: any) => {
                             key={item.Id} 
                             onClick={() => {
                               setData({ ...data, service:  item}); 
-                              formik.setFieldValue("service", item.Name?.split(" ")[0] + "  ")
+                              formik.setFieldValue("service", item.Name?.split(" ")[0] + " Data")
+                              formik.setFieldValue("biller", item.Name)
+                              formik.setFieldValue("billerId", item.Id.toString())
+                              formik.setFieldValue("paymentCode", "0488051528")  //data?.serviceProvider?.PaymentCode
+                              formik.setFieldValue("paymentMode", "wallet")
+                              formik.setFieldValue("category", "billpayment") 
                               setFlow(1)
                             }} 
                             className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}

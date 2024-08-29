@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/common/button";
 import BuyUnitsModal from "@/components/modals/nin/buyUnitsModal";
 import DollarBagIcon from "@/assets/icons/DollarBagIcon";
-import { History } from "@/components/tables/history";
+// import { History } from "@/components/tables/history";
 
 
 const NinProducts = () => {
@@ -45,7 +45,7 @@ const NinProducts = () => {
         <div className="flex-1 md:p-[60px_30px]">
           <h2 className="font-medium 2xl:text-[25px] text-[20px] pb-[40px]">Units History</h2>
           
-          <History history={[]} />
+          {/* <History history={[]} /> */}
 
         </div>
     </div>

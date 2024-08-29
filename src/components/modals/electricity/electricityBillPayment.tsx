@@ -1,24 +1,21 @@
 "use client"
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import { FlowProps } from "../modalsLayout";
 import CurrentBalance from "../currentBalance";
-import AlternatePaymentMethod from "../AlternatePaymentMethod";
+
 interface CompletePayment extends FlowProps {
+  setFlow: (aug0: number) => void;
   completeAction: () => void;
 }
 
-const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeAction }) => {
-  const [showAlternate, setShowAlternate] = useState(false)
-  const [meterType, setMeterType] = useState<any>()
-  const [showAlternatePayment, setShowAlternatePayment] = useState(false);
-
+const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeAction, setFlow }) => {
 
   return (
+    <>
       <div className="mt-4">
-         {showAlternatePayment && <AlternatePaymentMethod />}
         <CurrentBalance />
 
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
@@ -51,14 +48,11 @@ const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeActio
               <span className="text-[16px]">PROCEED WITH WALLET</span>
             </Button>
           
-            <Button variant="secondary" size="full" onClick={() => setShowAlternate(!showAlternate)}>
-                <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
-            </Button>
           </div>
           </div>
 
       </div>
-      
+      </>
   );
 };
 

@@ -7,6 +7,7 @@ import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import CurrencyField from "@/components/common/currencyInput";
 import { Input } from "@/components/common/inputs";
 import { LoaderIcon } from "react-hot-toast";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
 interface ElectricFlowProps extends FlowProps {
   setData: (aug0: any) => void;
@@ -17,15 +18,6 @@ interface ElectricFlowProps extends FlowProps {
 }
 
 const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPending, billers, setData }) => {
-
-
-  useEffect(() => {
-
-    formik.setFieldValue("paymentMode", "wallet")
-    formik.setFieldValue("paymentCode", "0488051528") 
-    formik.setFieldValue("category", "billpayment") 
-    
-  }, [])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -60,6 +52,9 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPend
                       formik.setFieldValue("service", "Electricity")
                       formik.setFieldValue("biller", selectedOption.value)
                       formik.setFieldValue("billerId", selectedOption.Id)
+                      formik.setFieldValue("paymentMode", "wallet")
+                      formik.setFieldValue("paymentCode", "0488051528") 
+                      formik.setFieldValue("category", "billpayment") 
                     } else {
                     }
                   }}
@@ -107,7 +102,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPend
             <div className="text-[#8c8b92] mt-2">
               {
                   data?.serviceProvider?.fixed ?  
-                  <p className="text-[32px] text-black font-bold flex items-center"><NairaIconElectricBill width={32} />{data?.serviceProvider?.fee}.00</p>
+                  <p className="text-[32px] text-black font-bold flex items-center">{currencyFormatter(data?.serviceProvider?.fee)}</p>
                 :
                 <CurrencyField 
                   onValueChange={(v: any) => { setData({ ...data, amount: v.floatValue }); formik.setFieldValue("amount", v.floatValue)}} 

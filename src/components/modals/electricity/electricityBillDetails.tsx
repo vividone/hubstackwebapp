@@ -5,15 +5,21 @@ import { Button } from "../../common/button";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import { FlowProps } from "../modalsLayout";
+import AlternatePaymentMethod from "../AlternatePaymentMethod";
+import { useOutsideClick } from "@/helpers/useClickOutside";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
 
 const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data }) => {
   const [showAlternate, setShowAlternate] = useState(false)
-  const [meterType, setMeterType] = useState<any>()
 
+  const alternateRef = useOutsideClick(setShowAlternate, false)
 
   return (
       <div className="mt-4">
+        {/* <div ref={alternateRef}>
+          {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={() => {}} />}
+        </div> */}
 
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
           <div className="flex justify-between flex-wrap items-center gap-4">
@@ -34,7 +40,7 @@ const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data }) => {
           <div className="flex flex-col gap-1">
             <div className="flex justify-between items-center gap-5">
               <span className="block ">Electricity Amount</span>
-              <span className="flex items-center"><NairaIcon className="w-[12px]" />{formatAmount(data?.amount)}</span>
+              <span className="flex items-center">{currencyFormatter(data?.amount)}</span>
             </div>
             
             <div className="flex justify-between items-center gap-5">
@@ -44,7 +50,7 @@ const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data }) => {
             
             <div className="flex justify-between items-center gap-5 mb-6">
               <span className="block font-bold">Total</span>
-              <span className="flex items-center"><NairaIcon className="w-[12px]" />{formatAmount(data?.amount)}</span>
+              <span className="flex items-center">{currencyFormatter(data?.amount)}</span>
             </div>
 
           </div>

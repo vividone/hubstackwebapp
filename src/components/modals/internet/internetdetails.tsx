@@ -19,7 +19,7 @@ const InternetDetails: React.FC<InternetProps> = ({ setFlow, data, active }) => 
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
         <div className="flex  flex-wrap items-center gap-4">
           <Image
-            src={"/images/internet/" + active?.aLogoUrl + ".png"}
+            src={"/images/internet/" + active?.LogoUrl + ".png"}
             alt={active?.Name}
             width={80}
             height={80}

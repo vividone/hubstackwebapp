@@ -17,7 +17,7 @@ const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data }) => {
   
   return (
     <div className="mt-4">
-      {showAlternatePayment && <AlternatePaymentMethod />}
+      {/* {showAlternatePayment && <AlternatePaymentMethod />} */}
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
         <div className="flex  flex-wrap items-center gap-4">
           <Image

@@ -55,17 +55,6 @@ const BettingServices = ({ setShow, show }: any) => {
     }
   }, [isSuccess]);
 
-  const paddingHandler = () => {
-    if (flow == 3) {
-      setIsPadded(false);
-    } else {
-      setIsPadded(true);
-    }
-  };
-  useEffect(() => {
-    paddingHandler();
-  }, [flow]);
-
   const completePayment = () => {
     completedForm.setValues({
       paymentCode: payCable?.transactionDetails.paymentCode?.toString(),

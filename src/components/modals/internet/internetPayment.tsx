@@ -18,16 +18,15 @@ any) => {
 
   return (
     <div className="mt-4">
-      {showAlternatePayment && <AlternatePaymentMethod />}
+      {/* {showAlternatePayment && <AlternatePaymentMethod />} */}
 
-      <div className="w-full border-y border-[#E7E6F2] px-[40px]">
+      <div className="w-full border-y border-[#E7E6F2]">
         <CurrentBalance />
       </div>
 
-      <div className="flex flex-col gap-1 px-[40px] mt-6">
+      <div className="flex flex-col gap-1  mt-6">
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
           <div className="flex  flex-wrap items-center gap-4">
-            <Image src={``} alt={data?.name} width={80} height={80} />
             <p className="text-xl font-semibold text-[#3D3066]">{data?.name}</p>
           </div>
           <div className="py-4">

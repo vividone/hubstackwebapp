@@ -90,7 +90,7 @@ const WalletForm = ({ setShow, show, formik, isPending }: any) => {
             <Input
               name="mobilenumber"
               type="text"
-              placeholder="08059837774"
+              placeholder="Enter your 11 digits phone number"
               value={formik.values.mobilenumber}
               onChange={formik.handleChange}
               error={formik.touched.mobilenumber && formik.errors.mobilenumber}

@@ -3,7 +3,6 @@ import React, { FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import { Input } from "@/components/common/inputs";
-import Link from "@/components/custom/link";
 import { FlowProps } from "../modalsLayout";
 import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { Dropdown } from "@/components/common/Dropdown";
@@ -26,21 +25,18 @@ const CableTvForm: React.FC<CableTvProps> = ({
 }) => {
   const { services } = useGetServicesByBillerId(active?.Id);
 
-  useEffect(() => {
-    formik.setFieldValue("service", data?.serviceProvider?.value);
+  const setFormikValues = () => {
     formik.setFieldValue("biller", active?.Name);
     formik.setFieldValue("billerId", active?.Id.toString());
     formik.setFieldValue("paymentMode", "wallet");
     formik.setFieldValue("paymentCode", "0488051528");
     formik.setFieldValue("category", "billpayment");
-    formik.setFieldValue(
-      "amount",
-      data?.serviceProvider?.fixed ? data?.serviceProvider?.fee : data?.amount
-    );
-  }, [data, active]);
+   
+  }
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    console.log(formik.errors)
     formik.handleSubmit();
   };
  
@@ -76,7 +72,7 @@ const CableTvForm: React.FC<CableTvProps> = ({
             <Input
               name="customerId"
               value={data?.customerId}
-              placeholder="0000000000"
+              placeholder="Enter 10 digits decoder number"
               error={
                 formik.errors.customerId &&
                 formik.errors.customerId + " decoder number"
@@ -84,6 +80,7 @@ const CableTvForm: React.FC<CableTvProps> = ({
               onChange={(e) => {
                 setData({ ...data, customerId: e.target.value });
                 formik.setFieldValue("customerId", e.target.value);
+                setFormikValues()
               }}
             />
           </div>
@@ -104,6 +101,7 @@ const CableTvForm: React.FC<CableTvProps> = ({
               onChange={(value) => {
                 if (value) {
                   const selectedOption = value as any;
+                  formik.setFieldValue("service", selectedOption.value);
                   setData({ ...data, serviceProvider: selectedOption });
                 } else {
                 }
@@ -135,8 +133,9 @@ const CableTvForm: React.FC<CableTvProps> = ({
               </p>
             ) : (
               <CurrencyField
-                onValueChange={(v: any) =>
-                  setData({ ...data, amount: v.floatValue })
+                onValueChange={(v: any) => {
+                  setData({ ...data, amount: v.floatValue });
+                  formik.setFieldValue( "amount", v.floatValue); }
                 }
                 error={formik.touched.amount && formik.errors.amount}
                 value={

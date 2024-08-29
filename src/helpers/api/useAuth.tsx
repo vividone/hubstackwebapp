@@ -84,6 +84,7 @@ export const useLogin = () => {
 export const useSignupIndividual = () => {
   const router = useRouter();
   const { signupIndividualUrl } = useUrls();
+  const [, setUserToken] = useSessionStorage<string>(TOKEN.USER, "");
   const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
 
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up individual"],
@@ -98,7 +99,7 @@ export const useSignupIndividual = () => {
       lastname: "",
       email: "",
       phone_number: "",
-      role: "Agent",
+      role: "Individual",
       password: "",
       referralCode: "",
     } as IAuthSignupIndividual,
@@ -110,6 +111,7 @@ export const useSignupIndividual = () => {
         await formik.validateForm();
         mutate(values, {
           onSuccess: (res) => {
+            setUserToken(values.email);
             setUserDetails(res.data.data);
             router.push(FRONTEND_URL.VERIFY_ACCOUNT);
           },
@@ -134,6 +136,7 @@ export const useSignupIndividual = () => {
 export const useSignupAgent = () => {
   const router = useRouter();
   const { signupAgentUrl } = useUrls();
+  const [, setUserToken] = useSessionStorage<string>(TOKEN.USER, "");
   const [, setUserDetails] = useLocalStorage<string>(TOKEN.EMAIL); // to persist
 
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["sign up agent"],
@@ -163,6 +166,7 @@ export const useSignupAgent = () => {
         await formik.validateForm();
         mutate(values, {
           onSuccess: (res) => {
+            setUserToken(values.email);
             setUserDetails(res.data.agentUser);
             router.push(FRONTEND_URL.VERIFY_ACCOUNT);
           },

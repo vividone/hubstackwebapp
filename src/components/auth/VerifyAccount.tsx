@@ -40,17 +40,20 @@ const VerifyAccount = () => {
           value={verifyOtp}
           error={otpError}
         />
-        {isError && (
+        {
+        isError ? (
           <div className="flex items-center space-x-2">
             <ErrorIcon />
-            <p className="text-sm  text-maroon-200">{error || "Password reset error"}</p>
+            <p className="text-sm  text-maroon-400">{error || "Password reset error"}</p>
           </div>
-        )}
-        {resendOTPSuccess && (
+        )
+        : resendOTPSuccess ? (
           <div className="flex items-center space-x-2">
-            <p className="text-sm  text-maroon-200">{"Anew OTP has been sent to " + user}</p>
+            <p className="text-sm  text-green-400">{"A new OTP has been sent to " + user}</p>
           </div>
-        )}
+        )
+        : ""
+        }
         
         <p className="flex items-center justify-center text-center pt-8 gap-2 2xl:text-[20px] xl:text-[18px] text-[16px]">
             Didn&apos;t get code?

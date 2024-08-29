@@ -13,6 +13,8 @@ import ClipBoard from "../../wallet/clipboard";
 import ModalsLayout from "../modalsLayout";
 import CurrencyField from "@/components/common/currencyInput";
 import CurrentBalance from "../currentBalance";
+import AlternatePaymentMethod from "../AlternatePaymentMethod";
+import { useOutsideClick } from "@/helpers/useClickOutside";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
@@ -44,6 +46,8 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
 
   const existingData = dataSets[content];
 
+  const alternateRef = useOutsideClick(setShowAlternate, false)
+
   const handleSubmit = async () => {
     if(flow === "Fund Wallet") {
       formik.handleSubmit();
@@ -71,7 +75,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   }, [initializeSuccess])
 
   return (
-    <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow} isPadded={false}>
+    <>
       <ToastComponent
         isSuccess={isSuccess}
         isError={isError}
@@ -83,6 +87,12 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
             : ""
         }
       />
+    <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow} isPadded={false}>
+      
+      {/* <div ref={alternateRef}>
+        {showAlternate && <AlternatePaymentMethod amount={+formik.values.amount} setFlow={() => {}} />}
+      </div> */}
+
       <div onSubmit={handleSubmit} className="mt-6">
         <div className="">
           {flow === "Fund Wallet" ? (
@@ -204,13 +214,12 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
               USE ALTERNATE TOP-UP METHOD
             </span>
           </Button>
-          {showAlternate && <AlternateWalletFunding setShow={setShowAlternate} />}
         </div>
 
         : ""
       }
 
-      {isSuccess && (
+      {isSuccess || flow === "success" && (
         <Confirmation
           status={"success"}
           setShow={setShow}
@@ -220,7 +229,11 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
           buttonProps={{ text: "THANK YOU", action: () => closeSuccess() }}
         />
       )}
+
+      
+    
     </ModalsLayout>
+    </>
   );
 };
 
