@@ -6,19 +6,19 @@ import { formatAmount } from "@/helpers/amountFormatter";
 import { FlowProps } from "../modalsLayout";
 import CurrentBalance from "../currentBalance";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
+
 interface CompletePayment extends FlowProps {
+  setFlow: (aug0: number) => void;
   completeAction: () => void;
 }
 
-const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeAction }) => {
-  const [showAlternate, setShowAlternate] = useState(false)
-  const [meterType, setMeterType] = useState<any>()
+const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeAction, setFlow }) => {
   const [showAlternatePayment, setShowAlternatePayment] = useState(false);
 
 
   return (
+    <>
       <div className="mt-4">
-         {showAlternatePayment && <AlternatePaymentMethod />}
         <CurrentBalance />
 
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
@@ -51,7 +51,7 @@ const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeActio
               <span className="text-[16px]">PROCEED WITH WALLET</span>
             </Button>
           
-            <Button variant="secondary" size="full" onClick={() => setShowAlternate(!showAlternate)}>
+            <Button variant="secondary" size="full" onClick={() => setShowAlternatePayment(true)}>
                 <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
             </Button>
           </div>
@@ -59,6 +59,8 @@ const ElectricityBillPayment: React.FC<CompletePayment> = ({ data, completeActio
 
       </div>
       
+      {showAlternatePayment && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow} />}
+      </>
   );
 };
 

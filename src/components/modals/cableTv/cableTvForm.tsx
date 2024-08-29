@@ -3,7 +3,6 @@ import React, { FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import { Input } from "@/components/common/inputs";
-import Link from "@/components/custom/link";
 import { FlowProps } from "../modalsLayout";
 import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { Dropdown } from "@/components/common/Dropdown";
@@ -76,7 +75,7 @@ const CableTvForm: React.FC<CableTvProps> = ({
             <Input
               name="customerId"
               value={data?.customerId}
-              placeholder="0000000000"
+              placeholder="Enter 10 digits decoder number"
               error={
                 formik.errors.customerId &&
                 formik.errors.customerId + " decoder number"

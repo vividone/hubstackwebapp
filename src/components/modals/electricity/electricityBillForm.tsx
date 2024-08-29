@@ -7,6 +7,7 @@ import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import CurrencyField from "@/components/common/currencyInput";
 import { Input } from "@/components/common/inputs";
 import { LoaderIcon } from "react-hot-toast";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
 interface ElectricFlowProps extends FlowProps {
   setData: (aug0: any) => void;
@@ -107,7 +108,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPend
             <div className="text-[#8c8b92] mt-2">
               {
                   data?.serviceProvider?.fixed ?  
-                  <p className="text-[32px] text-black font-bold flex items-center"><NairaIconElectricBill width={32} />{data?.serviceProvider?.fee}.00</p>
+                  <p className="text-[32px] text-black font-bold flex items-center">{currencyFormatter(data?.serviceProvider?.fee)}</p>
                 :
                 <CurrencyField 
                   onValueChange={(v: any) => { setData({ ...data, amount: v.floatValue }); formik.setFieldValue("amount", v.floatValue)}} 

@@ -1,7 +1,35 @@
 import React from "react";
 import Image from "next/image";
+import { usePaystackPayment } from 'react-paystack';
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 
-const AlternatePaymentMethod = () => {
+const AlternatePaymentMethod = ({ amount, setFlow }: { amount: number, setFlow: (aug0: number) => void }) => {
+  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
+  
+  const paystackConfig = {
+    reference: (new Date()).getTime().toString(),
+    email: userDetails?.email,
+    amount: amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    publicKey: 'pk_test_793d56eb433552f817098b8f8a3a3de13916e4e9',
+  };
+
+  const onSuccess = (reference: string) => {
+    console.log(reference)
+    setFlow(3)
+  }
+  const onClose = (reference: string) => {
+    console.log(reference)
+  }
+
+  const handlePayment = (type: string) => {
+    if(type === "Paystack") {
+      usePaystackPayment(paystackConfig)({onSuccess, onClose})
+    }
+  }
+ 
+
+
   const data = [
     {
       img: "/images/Bank.png",
@@ -32,24 +60,20 @@ const AlternatePaymentMethod = () => {
         <main>
           <div className="flex flex-col gap-4 text-[16px] font-semibold font-OpenSans md:text-[20px]">
             {data.map((item, key) => (
-              <div
-                className="flex gap-4 items-center cursor-pointer transition-transform transform hover:scale-105"
-                key={key}
-              >
-                <div
-                  className="flex justify-center items-center w-[70px] h-[60px] rounded-[7px] md:w-[90px] md:h-[74px]"
-                  style={{ background: item.background }}
+                <button
+                  className="flex gap-4 w-full items-center cursor-pointer transition-transform transform hover:scale-105"
+                  key={key}
+                  onClick={() => handlePayment(item.title)}
                 >
                   <Image
                     src={item.img}
                     alt={item.alt}
-                    width={50}
-                    height={50}
-                    className="object-cover md:w-[40px] md:h-[40px]"
+                    width={80}
+                    height={80}
+                    className="object-cover rounded-[7px]"
                   />
-                </div>
-                <span>{item.title}</span>
-              </div>
+                  <span>{item.title}</span>
+                </button>
             ))}
           </div>
         </main>

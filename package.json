@@ -29,6 +29,7 @@
     "react-jwt": "^1.2.1",
     "react-number-format": "^5.4.0",
     "react-otp-input": "^3.1.1",
+    "react-paystack": "^6.0.0",
     "react-phone-number-input": "^3.4.3",
     "react-redux": "^9.1.2",
     "react-select": "^5.8.0",
