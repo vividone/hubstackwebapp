@@ -77,10 +77,10 @@ export default function AlternateWalletFunding({ setShow }: SetStateAction<any> 
                         className="items-start text-start justify-start rounded-lg border border-[#E7E6F2] "
                     />
 
-                    <div className="mt-16 h-20">
+                    {/* <div className="mt-16 h-20">
                         {
                             selectedMethod?.value === "Paystack" ?
-                            typeof window !== "undefined" ?
+                            // typeof window !== "undefined" ?
                             <PaystackButton {...componentProps} className="w-full">
                                 <Button size="full">
                                     <span className="text-[16px] uppercase">Pay with paystack</span>
@@ -92,7 +92,7 @@ export default function AlternateWalletFunding({ setShow }: SetStateAction<any> 
                             <span className="text-[16px] uppercase">Pay with flutterwave</span>
                             </Button>
                         }
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
