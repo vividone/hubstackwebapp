@@ -1,7 +1,7 @@
 import { IErrorResponseType } from "@/interface/common/error";
 import { useFormik } from "formik";
 import axiosInstance from "../axiosConfig";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useUrls } from "../useUrls";
 import { TOKEN } from "@/utils/token";
@@ -96,3 +96,24 @@ export const useProfilePasswordUpdate = ( ) => {
         : typedError?.response?.data?.message || "";
     return { formik, isPending, isSuccess, isError, error: errorString };
 };
+
+export const useGetUser = (id: string) => {
+    const { getUserUrl } = useUrls();
+  
+    const queryKey = ["Get user details"]; // Unique key for the query
+  
+    const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
+      const response = await axiosInstance.get(getUserUrl + "/" + id);
+      const responseData = response.data;
+      return responseData;
+    }});
+  
+    const user = data || [];
+  
+    return {
+      user,
+      isLoading,
+      isError,
+      error
+    };
+  };

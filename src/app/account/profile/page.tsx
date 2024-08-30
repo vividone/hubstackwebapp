@@ -6,7 +6,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { Dropdown } from "@/components/common/Dropdown";
 import { countryCodes } from "@/data/countryCodes";
 import { FormEvent, useState } from "react";
-import { useProfileUpdate } from "@/helpers/api/useProfile";
+import { useGetUser, useProfileUpdate } from "@/helpers/api/useProfile";
 import ToastComponent from "@/components/common/toastComponent";
 
 
@@ -18,6 +18,7 @@ type Options = {
 const Profile = () => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const { formik, isPending, isSuccess, isError, error } = useProfileUpdate(userDetails?._id, userDetails?.role)
+  const { user, isLoading } = useGetUser(userDetails?._id)
   const [ phoneCode, setPhoneCode ] = useState<Options>({ label: "+234", value: "+234" })
 
   const handleSubmit = async (e: FormEvent) => {

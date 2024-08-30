@@ -5,7 +5,10 @@ import { usePaystackPayment } from 'react-paystack';
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 
-type AlternatePaymentProps = { amount: number, setFlow: (aug0: number) => void }
+type AlternatePaymentProps = { 
+  amount: number; 
+  setFlow: (aug0: number) => void; 
+}
 
 const AlternatePaymentMethod = ({ amount, setFlow }: AlternatePaymentProps) => {
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
@@ -56,16 +59,16 @@ const AlternatePaymentMethod = ({ amount, setFlow }: AlternatePaymentProps) => {
   ];
 
   return (
-    <section className="flex mt-auto w-full absolute bottom-top top-0 left-0 z-[100] bg-[#00000080] h-[100%]">
-      <div className="w-[100%] mt-auto bg-[#E6FBFF] p-10">
-        <header className="text-[24px] font-medium py-5 md:text-[30px]">
+    <section className="flex mt-auto w-full absolute top-0 left-0 z-[100] bg-[#00000080] h-[100%]">
+      <div className="w-full mt-auto bg-[#E6FBFF] p-10 md:p-16">
+        <header className="text-[24px] font-medium py-5 md:text-[30px] text-center md:text-left">
           <h2>Alternate Payment Method</h2>
         </header>
         <main>
           <div className="flex flex-col gap-4 text-[16px] font-semibold font-OpenSans md:text-[20px]">
             {data.map((item, key) => (
                 <button
-                  className="flex gap-4 w-full items-center cursor-pointer transition-transform transform hover:scale-105"
+                  className="flex gap-4 w-full items-center cursor-pointer transition-transform transform hover:scale-105 rounded-lg shadow-lg p-4 md:p-6 bg-white"
                   key={key}
                   onClick={() => handlePayment(item.title)}
                 >
@@ -84,6 +87,6 @@ const AlternatePaymentMethod = ({ amount, setFlow }: AlternatePaymentProps) => {
       </div>
     </section>
   );
-};
+}
 
 export default AlternatePaymentMethod;

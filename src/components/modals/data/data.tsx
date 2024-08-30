@@ -13,7 +13,7 @@ import BillsSkeleton from "@/components/common/billsSkeleton";
 import Image from "next/image";
 import ToastComponent from "@/components/common/toastComponent";
 import CompletedDataModal from "./dataPurchaseDetails";
-
+import AlternatePaymentModal from "../AlternatePaymentModal";
 type dataProps = {
   amount: number;
   customerId: string;

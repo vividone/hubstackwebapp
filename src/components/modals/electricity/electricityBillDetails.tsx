@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import NairaIcon from "@/assets/icons/nairaIcon";
-import { formatAmount } from "@/helpers/amountFormatter";
 import { FlowProps } from "../modalsLayout";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { useOutsideClick } from "@/helpers/useClickOutside";

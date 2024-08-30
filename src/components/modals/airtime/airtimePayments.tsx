@@ -1,22 +1,30 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
-
+import AlternatePaymentMethod from "../AlternatePaymentMethod";
 type FlowProps = {
   setFlow: (aug0: number) => void;
   data: any;
   completeAction: () => void;
+  // AlternatePayment?: boolean;
+  // setAlternatePayment?: Dispatch<SetStateAction<boolean>>;
 };
 
-const AirtimePayment: React.FC<FlowProps> = ({ setFlow, data, completeAction }) => {
+const AirtimePayment: React.FC<FlowProps> = ({
+  setFlow,
+  data,
+  completeAction,
+  // setAlternatePayment,
+  // AlternatePayment,
+}) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
   return (
     <div className="mt-4">
-        <CurrentBalance />
+      <CurrentBalance />
       <div className="mt-6">
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px] ">
           <div className="flex  flex-wrap items-center gap-4">
@@ -32,7 +40,7 @@ const AirtimePayment: React.FC<FlowProps> = ({ setFlow, data, completeAction }) 
           </div>
           <div className="py-4">
             <p>Mobile Number</p>
-              {data?.customerId}
+            {data?.customerId}
           </div>
 
           <div className="flex gap-12">
@@ -44,12 +52,10 @@ const AirtimePayment: React.FC<FlowProps> = ({ setFlow, data, completeAction }) 
         </div>
       </div>
 
-      <div className="mt-6 flex flex-col gap-1 px-[40px]">
+       <div className="mt-6 flex flex-col gap-1 px-[40px]">
         <p className="text-center mt-4">
           The amount of{" "}
-          <span className="font-bold">
-            NGN{formatAmount(data?.amount)}
-          </span>{" "}
+          <span className="font-bold">NGN{formatAmount(data?.amount)}</span>{" "}
           will be debited from your wallet balance, proceed below to complete
           transaction{" "}
         </p>
@@ -68,12 +74,15 @@ const AirtimePayment: React.FC<FlowProps> = ({ setFlow, data, completeAction }) 
           <Button
             variant="secondary"
             size="full"
-            onClick={() => setShowAlternate(!showAlternate)}
+            onClick={() => {
+              setShowAlternate(!showAlternate);
+              // setAlternatePayment(true);
+            }}
           >
             <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
           </Button>
         </div>
-      </div>
+      </div> 
     </div>
   );
 };

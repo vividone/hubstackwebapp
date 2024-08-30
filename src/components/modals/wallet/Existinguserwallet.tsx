@@ -16,6 +16,7 @@ import CurrentBalance from "../currentBalance";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { useOutsideClick } from "@/helpers/useClickOutside";
 
+
 interface MywalletProps {
   setShow: (show: boolean) => void;
   refreshWallet: (amount: number) => void;
@@ -89,9 +90,9 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
       />
     <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow} isPadded={false}>
       
-      {/* <div ref={alternateRef}>
-        {showAlternate && <AlternatePaymentMethod amount={+formik.values.amount} setFlow={() => {}} />}
-      </div> */}
+      <div ref={alternateRef}>
+        {showAlternate && <AlternateWalletFunding setShow={setShowAlternate} />}
+      </div>
 
       <div onSubmit={handleSubmit} className="mt-6">
         <div className="">
