@@ -9,8 +9,8 @@ type FlowProps = {
   setFlow: (aug0: number) => void;
   data: any;
   completeAction: () => void;
-  AlternatePayment: boolean;
-  setAlternatePayment: Dispatch<SetStateAction<boolean>>;
+  AlternatePayment?: boolean;
+  setAlternatePayment?: Dispatch<SetStateAction<boolean>>;
 };
 
 const AirtimePayment: React.FC<FlowProps> = ({
@@ -76,7 +76,7 @@ const AirtimePayment: React.FC<FlowProps> = ({
             size="full"
             onClick={() => {
               setShowAlternate(!showAlternate);
-              setAlternatePayment(true);
+              // setAlternatePayment(true);
             }}
           >
             <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>

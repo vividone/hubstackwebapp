@@ -1,7 +1,7 @@
-"use client";
+'use client'
 import { Input } from "@/components/common/inputs";
 import ModalsLayout from "../modalsLayout";
-import { useState, useEffect } from "react";
+import { useState,useEffect} from "react";
 import Image from "next/image";
 import { Button } from "@/components/common/button";
 import AirtimeDetailsModal from "./airtimedetails";
@@ -15,59 +15,30 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import BillsSkeleton from "@/components/common/billsSkeleton";
 import { completeBillPayment } from "@/helpers/billPayment";
-import AlternatePaymentMethod from "../AlternatePaymentMethod";
-import AlternatePaymentModal from "../AlternatePaymentModal";
 
 type AirtimePaymentProps = {
-  show: boolean;
-  setShow: (aug0: boolean) => void;
-};
+    show: boolean;
+    setShow: (aug0: boolean) => void;
+}
 
-type dataProps = { amount: string | number; customerId: string; service: any };
+type dataProps = {amount: string | number, customerId: string, service: any}
 
 export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
-  const { billers, isLoading } = useGetBillersByCategoryId("4");
-  const {
-    data: formData,
-    formik,
-    isError,
-    isPending,
-    isSuccess,
-    error,
-  } = usePayBill("buy-airtime");
-  const {
-    formik: completedForm,
-    isPending: completePending,
-    isSuccess: completedSuccess,
-    isError: isCompletedError,
-    error: completedError,
-  } = useCompleteBillPayment(formData?.transaction?._id || "", "airtime");
-  const [data, setData] = useState<dataProps>({
-    amount: 0,
-    customerId: "",
-    service: {},
-  });
-  const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const [flow, setFlow] = useState(0);
-  const [AlternatePayment, setAlternatePayment] = useState<boolean>(false);
-  const flowHeaders: string[] = [
-    "Airtime",
-    "Your Order",
-    `${2.5 == flow ? "Alternate Payment" : "Your Wallet"}`,
-    "Purchase Details",
-  ];
+    const { billers, isLoading } = useGetBillersByCategoryId("4")
+    const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-airtime");
+    const { formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(formData?.transaction?._id || "", "airtime")
+    const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
+    const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
+    const [flow, setFlow] = useState(0)
+    const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
 
-  const names = [
-    "Etisalat Recharge Top-Up",
-    "Airtel Recharge Pins",
-    "Glo QuickCharge",
-    "MTN e-Charge Prepaid",
-  ];
-  const billersList = billers?.BillerList?.Category[0]?.Billers?.filter(
-    (item: any) => names.includes(item.Name)
-  );
+    
+    const names = ["Etisalat Recharge Top-Up", "Airtel Recharge Pins", "Glo QuickCharge", "MTN e-Charge Prepaid"]
+    const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
 
-
+    const completePayment = () => {
+        completeBillPayment(formData, completedForm, userDetails)
+    }
     
     useEffect(() => {
         if(isSuccess) {
@@ -80,102 +51,43 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
           setFlow(3)
         }
     }, [completedSuccess]);
-  const completePayment = () => {
-    completeBillPayment(formData, completedForm, userDetails);
-  };
 
-  useEffect(() => {
-    formik.setFieldValue("paymentMode", "wallet");
-    formik.setFieldValue("paymentCode", "0488051528");
-    formik.setFieldValue("category", "billpayment");
-  }, []);
+    return (
+        <>
+          
+        <ToastComponent
+            isSuccess={completedSuccess} 
+            isError={isError || isCompletedError} 
+            msg={completedSuccess ? "Successful" : isError || isCompletedError ? "Error " + error || completedError : ""}
+        />
 
-  useEffect(() => {
-    if (isSuccess) {
-      setFlow(1);
-    }
-  }, [isSuccess]);
+        <ModalsLayout header={flowHeaders[flow]} flow={flow} setFlow={setFlow} setShow={setShow} show={show} >
 
-  useEffect(() => {
-    if (completedSuccess) {
-      setFlow(3);
-    }
-  }, [completedSuccess]);
+            {
+                flow === 1 ?
+                <AirtimeDetailsModal setFlow={setFlow} data={data} />
+                :
+                flow === 2 ?
+                <AirtimePayment setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}}  completeAction={completePayment} />
+                :
+                flow === 3 ?
+                <CompletedAirtimeModal setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}} />
+                :
+                <>
+                    <div className="flex flex-col w-full mt-5">
+                        <label htmlFor="amount" className="font-normal text-xl font-openSans text-[#111111]">
+                            Amount
+                        </label>
+                        <div className="text-[#8c8b92] mt-2">
 
-  return (
-    <div className="relative">
-      <ToastComponent
-        isSuccess={completedSuccess}
-        isError={isError || isCompletedError}
-        msg={
-          completedSuccess
-            ? "Successful"
-            : isError || isCompletedError
-            ? "Error " + error || completedError
-            : ""
-        }
-      />
-      <ModalsLayout
-        header={flowHeaders[Math.floor(flow)]}
-        flow={flow}
-        setFlow={setFlow}
-        setShow={setShow}
-        show={show}
-        AlternatePayment={AlternatePayment}
-      >
-        {AlternatePayment && (
-          <AlternatePaymentMethod
-          amount={200}
-            setFlow={setFlow}
-            setAlternatePayment={setAlternatePayment}
-          />
-        )}
 
-        {flow === 1 ? (
-          <AirtimeDetailsModal setFlow={setFlow} data={data} />
-        ) : flow === 2 ? (
-          <AirtimePayment
-            AlternatePayment={AlternatePayment}
-            setAlternatePayment={setAlternatePayment}
-            setFlow={setFlow}
-            data={{
-              ...data,
-              ...formData?.transaction,
-              isPending: completePending,
-            }}
-            completeAction={completePayment}
-          />
-        ) : flow == 2.5 ? (
-          <AlternatePaymentModal setFlow={setFlow} />
-        ) : flow === 3 ? (
-          <CompletedAirtimeModal
-            setFlow={setFlow}
-            data={{
-              ...data,
-              ...formData?.transaction,
-              isPending: completePending,
-            }}
-          />
-        ) : (
-          <>
-            <div className="flex flex-col w-full mt-5">
-              <label
-                htmlFor="amount"
-                className="font-normal text-xl font-openSans text-[#111111]"
-              >
-                Amount
-              </label>
-              <div className="text-[#8c8b92] mt-2">
-                <CurrencyField
-                  onValueChange={(v: any) => {
-                    setData({ ...data, amount: v.floatValue });
-                    formik.setFieldValue("amount", v.floatValue);
-                  }}
-                  value={data?.amount}
-                  error={formik.errors.amount}
-                />
-              </div>
-            </div>
+                        <CurrencyField 
+                            onValueChange={(v: any) => {setData({ ...data, amount: v.floatValue }); formik.setFieldValue("amount", v.floatValue)}} 
+                            value={data?.amount}
+                            error={formik.errors.amount}
+                        />
+                        </div>
+                    </div>
 
                     <div className="flex flex-col w-full mt-5">
                         <label htmlFor="amount" className="font-normal text-xl font-openSans text-[#111111]">
@@ -216,77 +128,22 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                             }
                         </div>
                     }
-            <div className="flex flex-col w-full mt-5">
-              <label
-                htmlFor="amount"
-                className="font-normal text-xl font-openSans text-[#111111]"
-              >
-                Phone Number
-              </label>
-              <div className="text-[#8c8b92] mt-2">
-                <Input
-                  type="number"
-                  onChange={(e) => {
-                    setData({ ...data, customerId: e.target.value });
-                    formik.setFieldValue("customerId", e.target.value);
-                  }}
-                  placeholder="07000000000"
-                  error={
-                    formik.errors.customerId &&
-                    formik.errors.customerId + " phone number"
-                  }
-                />
-              </div>
-            </div>
-            {isLoading ? (
-              <BillsSkeleton list={4} height={120} />
-            ) : (
-              <div className="grid grid-cols-4 gap-4 mt-4">
-                {billersList?.map(
-                  (item: { Id: number; LogoUrl: string; Name: string }) => (
-                    <button
-                      key={item.Id}
-                      onClick={() => {
-                        setData({ ...data, service: item });
-                        formik.setFieldValue("biller", item.Name);
-                        formik.setFieldValue(
-                          "service",
-                          item.Name?.split(" ")[0] + " Recharge"
-                        );
-                        formik.setFieldValue("billerId", item.Id?.toString());
-                      }}
-                      className={
-                        data.service?.Name === item.Name
-                          ? "border-2 border-[#3D3066] rounded"
-                          : ""
-                      }
-                    >
-                      <Image
-                        src={`/images/airtime/${item.LogoUrl}`}
-                        width={200}
-                        height={200}
-                        alt={item.Name}
-                      />
-                    </button>
-                  )
-                )}
-              </div>
-            )}
 
-            <div className="w-full mt-12">
-              <Button
-                type="submit"
-                size={"full"}
-                isLoading={isPending}
-                className="text-[20px] font-CabinetGrotesk mb-4"
-                onClick={() => formik.handleSubmit()}
-              >
-                REVIEW ORDER
-              </Button>
-            </div>
-          </>
-        )}
-      </ModalsLayout>
-    </div>
-  );
+                    <div className="w-full mt-12">
+                        <Button
+                            type="submit"
+                            size={"full"}
+                            isLoading={isPending}
+                            className="text-[20px] font-CabinetGrotesk mb-4"
+                            onClick={() => formik.handleSubmit()}
+                        >
+                        REVIEW ORDER
+                        </Button>
+                        
+                    </div>
+                </>
+            }
+        </ModalsLayout>
+        </>
+    )
 }
