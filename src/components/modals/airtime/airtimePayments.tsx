@@ -9,16 +9,16 @@ type FlowProps = {
   setFlow: (aug0: number) => void;
   data: any;
   completeAction: () => void;
-  AlternatePayment?: boolean;
-  setAlternatePayment?: Dispatch<SetStateAction<boolean>>;
+  // AlternatePayment?: boolean;
+  // setAlternatePayment?: Dispatch<SetStateAction<boolean>>;
 };
 
 const AirtimePayment: React.FC<FlowProps> = ({
   setFlow,
   data,
   completeAction,
-  setAlternatePayment,
-  AlternatePayment,
+  // setAlternatePayment,
+  // AlternatePayment,
 }) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
