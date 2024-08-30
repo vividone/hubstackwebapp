@@ -1,7 +1,5 @@
 "use client"
-import React from "react";
 import Image from "next/image";
-import { usePaystackPayment } from 'react-paystack';
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 
@@ -11,39 +9,21 @@ type AlternatePaymentProps = {
   setAlternatePayment: (status: boolean) => void;
 }
 
-const AlternatePaymentMethod = ({ amount, setFlow, setAlternatePayment }: AlternatePaymentProps) => {
-  const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
+export default function AlternatePaymentMethod ({ amount, setFlow,setAlternatePayment }: AlternatePaymentProps) {
+  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   
-  const paystackConfig = {
-    reference: (new Date()).getTime().toString(),
+  const componentProps = {
     email: userDetails?.email,
     amount: amount * 100,
+    metadata: {
+      custom_fields: [],
+      name: userDetails?.firstname,
+      phone: userDetails?.phone_number,
+    },
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
-  };
-  
-  const initializePayment:any = usePaystackPayment(paystackConfig);
-
-  const onSuccess = (reference: any) => {
-    console.log(reference);
-    setFlow(3);
-  };
-
-  const onClose = () => {
-    console.log("Payment closed");
-  };
-
-  const handlePayment = (type: string) => {
-    if (type === "Paystack") {
-      initializePayment(onSuccess, onClose);
-    }
-    if (type === "Flutterwave") {
-
-    }
-    if (type === "Bank Account Transfer") {
-      setAlternatePayment(false);
-      setFlow(2.5); 
-    }
-  };
+    onSuccess: (ref: any) => console.log(ref),
+    onClose: () => {},
+  }
 
   const paymentOptions = [
     {
@@ -79,14 +59,10 @@ const AlternatePaymentMethod = ({ amount, setFlow, setAlternatePayment }: Altern
         <main>
           <div className="flex flex-col gap-4 text-[16px] font-semibold font-OpenSans md:text-[20px]">
             {paymentOptions.map((item, key) => (
-              <button
-                className="flex gap-4 w-full items-center cursor-pointer transition-transform transform hover:scale-105"
-                key={key}
-                onClick={() => handlePayment(item.title)}
-              >
-                <div
-                  className="flex justify-center items-center w-[70px] h-[60px] rounded-[7px] md:w-[90px] md:h-[74px]"
-                  style={{ background: item.background }}
+              item.title !== "Paystack" ?
+                <button
+                  className="flex gap-4 w-full items-center cursor-pointer transition-transform transform hover:scale-105"
+                  key={key}
                 >
                   <Image
                     src={item.img}
@@ -95,9 +71,20 @@ const AlternatePaymentMethod = ({ amount, setFlow, setAlternatePayment }: Altern
                     height={80}
                     className="object-cover rounded-[7px]"
                   />
-                </div>
-                <span>{item.title}</span>
-              </button>
+                  <span>{item.title}</span>
+                </button>
+                :
+                ""
+              // <PaystackButton key={key} {...componentProps} className="flex gap-4 h-[100px] w-full items-center cursor-pointer transition-transform transform hover:scale-105">
+              //   <Image
+              //       src={item.img}
+              //       alt={item.alt}
+              //       width={80}
+              //       height={80}
+              //       className="object-cover rounded-[7px]"
+              //     />
+              //    <span>Paystack</span> 
+              // </PaystackButton>
             ))}
           </div>
         </main>
@@ -105,5 +92,3 @@ const AlternatePaymentMethod = ({ amount, setFlow, setAlternatePayment }: Altern
     </section>
   );
 };
-
-export default AlternatePaymentMethod;
