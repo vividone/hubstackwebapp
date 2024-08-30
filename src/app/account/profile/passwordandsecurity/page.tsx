@@ -31,7 +31,7 @@ const PageSecurity = () => {
         </div>
         <div className="flex flex-col gap-[60px] items-center lg:w-[60%] w-full">
           <div className="w-full text-[#8c8b92] text-[20px] flex flex-col gap-3">
-            <label htmlFor="firstname">Old Password</label>
+            <label htmlFor="firstname">Current Password</label>
             <PasswordVariantInput
               placeholder="Password"
               name="oldPassword"

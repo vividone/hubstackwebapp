@@ -67,6 +67,19 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     (item: any) => names.includes(item.Name)
   );
 
+
+    
+    useEffect(() => {
+        if(isSuccess) {
+          setFlow(1)
+        }
+    }, [isSuccess]);
+    
+    useEffect(() => {
+        if(completedSuccess) {
+          setFlow(3)
+        }
+    }, [completedSuccess]);
   const completePayment = () => {
     completeBillPayment(formData, completedForm, userDetails);
   };
@@ -112,6 +125,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
       >
         {AlternatePayment && (
           <AlternatePaymentMethod
+          amount={200}
             setFlow={setFlow}
             setAlternatePayment={setAlternatePayment}
           />
@@ -163,6 +177,45 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
               </div>
             </div>
 
+                    <div className="flex flex-col w-full mt-5">
+                        <label htmlFor="amount" className="font-normal text-xl font-openSans text-[#111111]">
+                            Phone Number
+                        </label>
+                        <div className="text-[#8c8b92] mt-2">
+                        <Input 
+                            type="number" 
+                            onChange={(e) => {setData({ ...data, customerId:  e.target.value}); formik.setFieldValue("customerId", e.target.value)}} 
+                            placeholder="Enter your 11 digits phone number" 
+                            error={formik.errors.customerId && formik.errors.customerId + " phone number"}
+                        />
+                        </div>
+                    </div>
+                    {
+                        isLoading ?
+                            <BillsSkeleton list={4} height={120} />
+                        :
+                        <div className="grid grid-cols-4 gap-4 mt-4">
+                            {
+                                billersList?.map((item: { Id: number, LogoUrl: string, Name: string } ) => (
+                                    <button 
+                                        key={item.Id} 
+                                        onClick={() => {
+                                            setData({ ...data, service:  item}); 
+                                            formik.setFieldValue("biller", item.Name)
+                                            formik.setFieldValue("service", item.Name?.split(" ")[0] + " Recharge")
+                                            formik.setFieldValue("billerId", item.Id?.toString())
+                                            formik.setFieldValue("paymentMode", "wallet")
+                                            formik.setFieldValue("paymentCode", "0488051528")
+                                            formik.setFieldValue("category", "billpayment")
+                                        }} 
+                                        className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}
+                                    >
+                                        <Image src={`/images/airtime/${item.LogoUrl}`} width={200} height={200} alt={item.Name} />
+                                    </button>
+                                ))
+                            }
+                        </div>
+                    }
             <div className="flex flex-col w-full mt-5">
               <label
                 htmlFor="amount"

@@ -16,8 +16,11 @@ import CableTVServices from "@/components/modals/cableTv/Services";
 import Internet from "@/components/modals/internet/Services";
 import Betting from "@/components/modals/betting/services";
 import Data from "@/components/modals/data/data";
+import { useGetTransactionHistory } from "@/helpers/api/useTransact";
+import { History } from "@/components/tables/history";
 const Billpayment = () => {
   const [active, setActive] = useState("")
+  const { history } = useGetTransactionHistory("billpayment");
   const [show, setShow] = useState(false)
 
   
@@ -126,16 +129,23 @@ const Billpayment = () => {
                 </tbody>
               </table>
             ) : (
-              <div className="mt-[50px] flex flex-col gap-10 items-center">
-                <Image
-                  src="/images/notransactions.svg"
-                  height={167}
-                  width={167}
-                  alt=""
-                />
-                <p className="text-[32px] text-[#111111] font-medium font-cabinet-grostequeue">
-                  No transactions yet
-                </p>
+              <div>
+                {
+                  history.length > 0 ?
+                  <History history={history} fields={["Date", "Biller", "Amount", "Status"]} />
+                  :
+                  <div className="mt-[50px] flex flex-col gap-10 items-center">
+                    <Image
+                      src="/images/notransactions.svg"
+                      height={167}
+                      width={167}
+                      alt=""
+                    />
+                    <p className="text-[32px] text-[#111111] font-medium font-cabinet-grostequeue">
+                      No transactions yet
+                    </p>
+                  </div>
+                }
               </div>
             )}
           </div>

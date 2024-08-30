@@ -1,8 +1,51 @@
+"use client"
 import React from "react";
 import Image from "next/image";
-import ClipBoard from "../wallet/clipboard";
-const AlternatePaymentMethod = ({ setAlternatePayment, setFlow }: any) => {
-  const data = [
+import { usePaystackPayment } from 'react-paystack';
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
+
+type AlternatePaymentProps = { 
+  amount: number; 
+  setFlow: (step: number) => void;
+  setAlternatePayment: (status: boolean) => void;
+}
+
+const AlternatePaymentMethod = ({ amount, setFlow, setAlternatePayment }: AlternatePaymentProps) => {
+  const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
+  
+  const paystackConfig = {
+    reference: (new Date()).getTime().toString(),
+    email: userDetails?.email,
+    amount: amount * 100,
+    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
+  };
+  
+  const initializePayment:any = usePaystackPayment(paystackConfig);
+
+  const onSuccess = (reference: any) => {
+    console.log(reference);
+    setFlow(3);
+  };
+
+  const onClose = () => {
+    console.log("Payment closed");
+  };
+
+  const handlePayment = (type: string) => {
+    if (type === "Paystack") {
+      initializePayment(onSuccess, onClose);
+    }
+    if (type === "Flutterwave") {
+
+    }
+    if (type === "Bank Account Transfer") {
+      setAlternatePayment(false);
+      setFlow(2.5); 
+    }
+  };
+
+  const paymentOptions = [
     {
       img: "/images/Bank.png",
       title: "Bank Account Transfer",
@@ -35,14 +78,11 @@ const AlternatePaymentMethod = ({ setAlternatePayment, setFlow }: any) => {
         </header>
         <main>
           <div className="flex flex-col gap-4 text-[16px] font-semibold font-OpenSans md:text-[20px]">
-            {data.map((item, key) => (
-              <div
-                className="flex gap-4 items-center cursor-pointer transition-transform transform hover:scale-105"
+            {paymentOptions.map((item, key) => (
+              <button
+                className="flex gap-4 w-full items-center cursor-pointer transition-transform transform hover:scale-105"
                 key={key}
-                onClick={() => {
-                  setAlternatePayment(false);
-                  setFlow(2.5);
-                }}
+                onClick={() => handlePayment(item.title)}
               >
                 <div
                   className="flex justify-center items-center w-[70px] h-[60px] rounded-[7px] md:w-[90px] md:h-[74px]"
@@ -51,13 +91,13 @@ const AlternatePaymentMethod = ({ setAlternatePayment, setFlow }: any) => {
                   <Image
                     src={item.img}
                     alt={item.alt}
-                    width={50}
-                    height={50}
-                    className="object-cover md:w-[40px] md:h-[40px]"
+                    width={80}
+                    height={80}
+                    className="object-cover rounded-[7px]"
                   />
                 </div>
                 <span>{item.title}</span>
-              </div>
+              </button>
             ))}
           </div>
         </main>

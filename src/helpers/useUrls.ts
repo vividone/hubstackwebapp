@@ -36,6 +36,10 @@ export function useUrls() {
   const updateAgentProfileUrl = `${BASE_URL}/agent/update-profile`;
   const updatePasswordUrl = `${BASE_URL}/auth/update-password`;
 
+  //transactions
+  const getTransactionsHistory = `${BASE_URL}/transact/all`
+
+
   return {
     loginUrl,
     signupIndividualUrl,
@@ -61,7 +65,8 @@ export function useUrls() {
     getBillPaymentsUrl,
     getBillersByCategoryUrl,
     getServicessByBillerUrl,
-    payBillUrl
+    payBillUrl,
+    getTransactionsHistory,
   };
 
 }

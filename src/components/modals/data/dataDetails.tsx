@@ -3,13 +3,13 @@ import { Button } from "../../common/button";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
+import AlternatePaymentMethod from "../AlternatePaymentMethod";
+import { useOutsideClick } from "@/helpers/useClickOutside";
 
 const DataDetails = ({ setFlow, data }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
-  useEffect(() => {
-    console.log(data)
-  }, [data])
+  const alternateRef = useOutsideClick(setShowAlternate, false)
 
   return (
     <div className="mt-4">
@@ -91,6 +91,11 @@ const DataDetails = ({ setFlow, data }: any) => {
           </Button>
         </div>
       </div>
+
+      
+      {/* <div ref={alternateRef}>
+        {showAlternate && <AlternatePaymentMethod amount={data?.transaction.amount} setFlow={setFlow} />}
+      </div> */}
     </div>
   );
 };

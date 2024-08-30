@@ -40,7 +40,7 @@ const Wallet = () => {
       setUserWallet(wallet)
       setShowWallet(false)
     }
-  }, [isSuccess])
+  }, [isSuccess, setHasWallet, wallet])
 
   useEffect(() => {
     setBalance(walletBalance?.balance)
@@ -172,7 +172,7 @@ const Wallet = () => {
                 Wallet Transactions
               </h2>
 
-              <History history={history} />
+              <History history={history} fields={["Date", "Amount", "Status"]}  />
             </div>
           </div>
         )}

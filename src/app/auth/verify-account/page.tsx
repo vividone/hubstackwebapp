@@ -21,6 +21,7 @@ const VerifyAccountPage = () => {
           <div className="flex-col mb-4">
             <p className="mt-1 text-primary_dark text-s text-[#8C8B82]">Please enter the verification code sent to <span className="font-semibold">{user}</span> to verify your account
             </p>
+            <p className="text-[#8C8B82] mt-2">Single-use code valid for 10 minutes</p>
           </div>
           
           <div className="">

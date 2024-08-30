@@ -29,7 +29,7 @@ const InternetServices = ({ setShow, show }: any) => {
     isPending,
     isSuccess,
     error,
-  } = usePayBill("cable");
+  } = usePayBill("internet");
   const {
     data: completedBill,
     formik: completedForm,
@@ -144,6 +144,12 @@ const InternetServices = ({ setShow, show }: any) => {
                     key={item.Id}
                     onClick={() => {
                       setActive(item);
+                      cableForm.setFieldValue("service", item.Name)
+                      cableForm.setFieldValue("biller", item.Name)
+                      cableForm.setFieldValue("billerId", item.Id.toString())
+                      cableForm.setFieldValue("paymentMode", "wallet")
+                      cableForm.setFieldValue("paymentCode", "0488051528")
+                      cableForm.setFieldValue("category", "billpayment")
                       setFlow(1);
                     }}
                     title={item.Name}
