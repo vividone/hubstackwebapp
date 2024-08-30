@@ -1,5 +1,7 @@
 "use client"
+import React from "react";
 import Image from "next/image";
+import { usePaystackPayment } from 'react-paystack';
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 
@@ -8,21 +10,32 @@ type AlternatePaymentProps = {
   setFlow: (aug0: number) => void; 
 }
 
-export default function AlternatePaymentMethod({ amount, setFlow }: AlternatePaymentProps) {
-  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
+const AlternatePaymentMethod = ({ amount, setFlow }: AlternatePaymentProps) => {
+  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   
-  const componentProps = {
+  const paystackConfig = {
+    reference: (new Date()).getTime().toString(),
     email: userDetails?.email,
-    amount: amount * 100,
-    metadata: {
-      custom_fields: [],
-      name: userDetails?.firstname,
-      phone: userDetails?.phone_number,
-    },
-    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
-    onSuccess: (ref: any) => console.log(ref),
-    onClose: () => {},
+    amount: amount * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    publicKey:  process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
   };
+  const initializePayment = usePaystackPayment(paystackConfig)
+
+  const onSuccess = (reference: string) => {
+    console.log(reference)
+    setFlow(3)
+  }
+  const onClose = (reference: string) => {
+    console.log(reference)
+  }
+
+  const handlePayment = (type: string) => {
+    if(type === "Paystack") {
+      initializePayment({onSuccess, onClose})
+    }
+  }
+ 
+
 
   const data = [
     {
@@ -54,28 +67,20 @@ export default function AlternatePaymentMethod({ amount, setFlow }: AlternatePay
         <main>
           <div className="flex flex-col gap-4 text-[16px] font-semibold font-OpenSans md:text-[20px]">
             {data.map((item, key) => (
-              item.title !== "Paystack" ? (
                 <button
                   className="flex gap-4 w-full items-center cursor-pointer transition-transform transform hover:scale-105 rounded-lg shadow-lg p-4 md:p-6 bg-white"
                   key={key}
+                  onClick={() => handlePayment(item.title)}
                 >
-                  <div
-                    className="flex justify-center items-center w-[70px] h-[60px] rounded-[7px] md:w-[90px] md:h-[74px]"
-                    style={{ background: item.background }}
-                  >
-                    <Image
-                      src={item.img}
-                      alt={item.alt}
-                      width={80}
-                      height={80}
-                      className="object-cover rounded-[7px]"
-                    />
-                  </div>
-                  <span className="text-black">{item.title}</span>
+                  <Image
+                    src={item.img}
+                    alt={item.alt}
+                    width={80}
+                    height={80}
+                    className="object-cover rounded-[7px]"
+                  />
+                  <span>{item.title}</span>
                 </button>
-              ) : (
-                ""
-              )
             ))}
           </div>
         </main>
@@ -83,3 +88,5 @@ export default function AlternatePaymentMethod({ amount, setFlow }: AlternatePay
     </section>
   );
 }
+
+export default AlternatePaymentMethod;
