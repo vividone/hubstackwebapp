@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
-
-const AlternatePaymentMethod = () => {
+import ClipBoard from "../wallet/clipboard";
+const AlternatePaymentMethod = ({ setAlternatePayment, setFlow }: any) => {
   const data = [
     {
       img: "/images/Bank.png",
@@ -24,8 +24,12 @@ const AlternatePaymentMethod = () => {
   ];
 
   return (
-    <section className="flex mt-auto  bg-[#E6FBFF] w-full absolute bottom-top top-0 left-0 z-[100] bg-[#00000080] h-[100%]">
-      <div className="w-[100%] mt-auto bg-[#E6FBFF] p-10">
+    <section className="flex flex-col h-[100%] absolute inset-0 z-[500] justify-end">
+      <div
+        className="h-[100%] bg-[#00000080] cursor-pointer"
+        onClick={() => setAlternatePayment(false)}
+      ></div>
+      <div className="relative w-full bg-[#E6FBFF] p-10">
         <header className="text-[24px] font-medium py-5 md:text-[30px]">
           <h2>Alternate Payment Method</h2>
         </header>
@@ -35,6 +39,10 @@ const AlternatePaymentMethod = () => {
               <div
                 className="flex gap-4 items-center cursor-pointer transition-transform transform hover:scale-105"
                 key={key}
+                onClick={() => {
+                  setAlternatePayment(false);
+                  setFlow(2.5);
+                }}
               >
                 <div
                   className="flex justify-center items-center w-[70px] h-[60px] rounded-[7px] md:w-[90px] md:h-[74px]"

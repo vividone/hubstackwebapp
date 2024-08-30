@@ -42,12 +42,12 @@ const AlternatePayment = ({ setShow }: any) => {
         ))}
       </section>
       <section className="w-full pb-2 flex items-center justify-center text-center text-[16px] font-normal mt-10 mb-1">
+      </section>
+      <section className="w-full">
         <p className="w-[75%]">
           Please click the below button after a successful transfer. Your token
           will be sent once we receive your payment.
         </p>
-      </section>
-      <section className="w-full">
         <Button type="submit" size={"full"} className="text-[16px] mb-4">
           PROCEED WITH WALLET
         </Button>

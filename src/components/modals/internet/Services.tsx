@@ -10,6 +10,7 @@ import InternetForm from "./internetForms";
 import InternetPayment from "./internetPayment";
 import InternetPurchase from "./internetCompleted";
 import InternetDetails from "./internetdetails";
+import AlternatePaymentModal from "../AlternatePaymentModal";
 type InterntProviders = {
   ShortName: string;
   Name: string;

@@ -10,7 +10,7 @@ import ElectricityBillPayment from "./electricityBillPayment";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
-
+import AlternatePaymentModal from "../AlternatePaymentModal";
 
 type Providers = {
   ShortName: string;
