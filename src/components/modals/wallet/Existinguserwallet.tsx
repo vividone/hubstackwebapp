@@ -13,7 +13,6 @@ import ClipBoard from "../../wallet/clipboard";
 import ModalsLayout from "../modalsLayout";
 import CurrencyField from "@/components/common/currencyInput";
 import CurrentBalance from "../currentBalance";
-import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { useOutsideClick } from "@/helpers/useClickOutside";
 
 
@@ -91,7 +90,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
     <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow} isPadded={false}>
       
       <div ref={alternateRef}>
-        {showAlternate && <AlternateWalletFunding setShow={setShowAlternate} />}
+        {showAlternate && <AlternateWalletFunding setFlow={setFlow}  refreshWallet={refreshWallet} setShow={setShowAlternate} />}
       </div>
 
       <div onSubmit={handleSubmit} className="mt-6">
@@ -220,14 +219,15 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
         : ""
       }
 
-      {isSuccess || flow === "success" && (
+      {
+      (isSuccess || flow === "success") && (
         <Confirmation
           status={"success"}
           setShow={setShow}
           heading={"Fund Wallet"}
           text={"Transaction Successful"}
           subtext={"Your wallet has been credited with #" + formik.values.amount}
-          buttonProps={{ text: "THANK YOU", action: () => closeSuccess() }}
+          buttonProps={{ text: "CONTINUE", action: () => closeSuccess() }}
         />
       )}
 

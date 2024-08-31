@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import { Button } from "../../common/button";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Dropdown } from "../../common/Dropdown";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { PaystackButton } from "react-paystack";
@@ -13,10 +13,17 @@ type Options = {
     value: string
 }
 
-export default function AlternateWalletFunding({ setShow }: SetStateAction<any> ) {
+type AlternateFundingProps = {
+    setShow: SetStateAction<any>, 
+    setFlow: (aug0: string) => void,
+    refreshWallet: (aug0: number) => void
+} 
+
+export default function AlternateWalletFunding({ setShow, setFlow, refreshWallet }: AlternateFundingProps) {
     const [ selectedMethod, setSelectedMethod ] = useState<Options>()
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   const [amount, setAmount] = useState(0)
+  const [windowRef, setWindowRef] = useState(false)
 
     const componentProps = {
         email: userDetails?.email,
@@ -27,9 +34,19 @@ export default function AlternateWalletFunding({ setShow }: SetStateAction<any> 
           phone: userDetails?.phone_number,
         },
         publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
-        onSuccess: (ref: any) => console.log(ref),
+        onSuccess: (ref: any) => {
+            setFlow("success")
+            refreshWallet(amount)
+            console.log(ref)
+        },
         onClose: () => {},
     }
+
+    useEffect(() => {
+        if(typeof window !== "undefined") {
+            setWindowRef(true)
+        }
+    }, [])
     
 
     return (
@@ -80,13 +97,14 @@ export default function AlternateWalletFunding({ setShow }: SetStateAction<any> 
                     <div className="mt-16 h-20">
                         {
                             selectedMethod?.value === "Paystack" ?
-                            typeof window !== "undefined" ?
+                            !windowRef ?
+                            ""
+                            : 
                             <PaystackButton {...componentProps} className="w-full">
                                 <Button size="full">
                                     <span className="text-[16px] uppercase">Pay with paystack</span>
                                 </Button>
                             </PaystackButton>
-                            : ""
                             :
                             <Button>
                             <span className="text-[16px] uppercase">Pay with flutterwave</span>
