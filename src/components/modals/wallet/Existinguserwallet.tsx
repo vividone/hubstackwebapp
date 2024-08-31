@@ -14,6 +14,7 @@ import ModalsLayout from "../modalsLayout";
 import CurrencyField from "@/components/common/currencyInput";
 import CurrentBalance from "../currentBalance";
 import { useOutsideClick } from "@/helpers/useClickOutside";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
 
 interface MywalletProps {
@@ -37,6 +38,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   const [flow, setFlow] = useState("Account Details");
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const [content, setContent] = useState("Microbiz MFB");
+  const [amount, setAmount] = useState(0)
 
   const dataSets: any = {
     "Microbiz MFB": wallet?.filter((item: any) => item.provider === "Microbiz MFB")[0],
@@ -90,7 +92,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
     <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow} isPadded={false}>
       
       <div ref={alternateRef}>
-        {showAlternate && <AlternateWalletFunding setFlow={setFlow}  refreshWallet={refreshWallet} setShow={setShowAlternate} />}
+        {showAlternate && <AlternateWalletFunding amount={amount} setAmount={setAmount} setFlow={setFlow}  refreshWallet={refreshWallet} setShow={setShowAlternate} />}
       </div>
 
       <div onSubmit={handleSubmit} className="mt-6">
@@ -226,7 +228,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
           setShow={setShow}
           heading={"Fund Wallet"}
           text={"Transaction Successful"}
-          subtext={"Your wallet has been credited with #" + formik.values.amount}
+          subtext={"Your wallet has been credited with " + currencyFormatter(formik.values.amount || amount)}
           buttonProps={{ text: "CONTINUE", action: () => closeSuccess() }}
         />
       )}
