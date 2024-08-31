@@ -104,7 +104,7 @@ const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
             TRANSFER TO A BANK ACCOUNT INSTEAD
           </span>
         </Button>
-        {showAlternate && <AlternateWalletFunding setShow={setShowAlternate} />}
+        {showAlternate && <AlternateWalletFunding setShow={setShowAlternate} amount={+amount} setAmount={setAmount} setFlow={() => setFlow} refreshWallet={() => {}} />}
       </div>
 
       {isSuccessVerify && (

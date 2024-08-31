@@ -79,12 +79,10 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   return (
     <>
       <ToastComponent
-        isSuccess={isSuccess}
+        isSuccess={false}
         isError={isError}
         msg={
-          isSuccess
-            ? "Successful!"
-            : isError || isVerifyError
+           isError || isVerifyError
             ? error || verifyError
             : ""
         }

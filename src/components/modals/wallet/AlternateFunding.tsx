@@ -1,14 +1,12 @@
 "use client"
 import Image from "next/image";
-import { Button } from "../../common/button";
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useState } from "react";
 import { Dropdown } from "../../common/Dropdown";
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { PaystackButton } from "react-paystack";
-import { TOKEN } from "@/utils/token";
 import CurrencyField from "@/components/common/currencyInput";
-import PaystackPayment from "./paystackPayment";
 import FlutterwavePayment from "./flutterwavePayment";
+import dynamic from "next/dynamic";
+
+const PaystackPayment = dynamic(() => import("./paystackPayment"),  { ssr: false });
 
 type AlternateFundingProps = {
     amount: number;
@@ -20,7 +18,6 @@ type AlternateFundingProps = {
 
 export default function AlternateWalletFunding({ amount, setAmount, setShow, setFlow, refreshWallet }: AlternateFundingProps) {
     const [ selectedMethod, setSelectedMethod ] = useState<any>({value: "Paystack", label: "Paystack"})
-    const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
 
 
     
@@ -73,6 +70,7 @@ export default function AlternateWalletFunding({ amount, setAmount, setShow, set
                         {
                             selectedMethod?.value === "Paystack" ?
                             <PaystackPayment amount={amount} setFlow={setFlow} refreshWallet={refreshWallet} />
+                            
                             :
                             <FlutterwavePayment amount={amount} setFlow={setFlow} refreshWallet={refreshWallet} />
                         }

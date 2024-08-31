@@ -1,6 +1,7 @@
 import { Button } from "@/components/common/button";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
+import { useEffect } from "react";
 import { PaystackButton } from "react-paystack";
 
 type PaystackPaymentProps = {
@@ -29,13 +30,17 @@ export default function PaystackPayment({ amount, setFlow, refreshWallet }: Pays
         onClose: () => {},
     }
 
+    useEffect(() => {
+        console.log(window)
+    }, [])
+
     return (
         <div>
-            {/* <PaystackButton {...componentProps} className="w-full"> */}
+            <PaystackButton {...componentProps} className="w-full">
                 <Button size="full">
                     <span className="text-[16px] uppercase">Pay with paystack</span>
                 </Button>
-            {/* </PaystackButton> */}
+            </PaystackButton>
         </div>
     )
 }
