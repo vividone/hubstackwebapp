@@ -31,11 +31,11 @@ export default function PaystackPayment({ amount, setFlow, refreshWallet }: Pays
 
     return (
         <div>
-            <PaystackButton {...componentProps} className="w-full">
+            {/* <PaystackButton {...componentProps} className="w-full"> */}
                 <Button size="full">
                     <span className="text-[16px] uppercase">Pay with paystack</span>
                 </Button>
-            </PaystackButton>
+            {/* </PaystackButton> */}
         </div>
     )
 }
