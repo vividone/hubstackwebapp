@@ -94,9 +94,10 @@ export default function AlternateWalletFunding({ setShow, setFlow, refreshWallet
                         className="items-start text-start justify-start rounded-lg border border-[#E7E6F2] "
                     />
 
-                    <div className="mt-16 h-20">
+                    {/* <div className="mt-16 h-20">
                         {
                             selectedMethod?.value === "Paystack" ?
+                            // typeof window !== "undefined" ?
                             !windowRef ?
                             ""
                             : 
@@ -110,7 +111,7 @@ export default function AlternateWalletFunding({ setShow, setFlow, refreshWallet
                             <span className="text-[16px] uppercase">Pay with flutterwave</span>
                             </Button>
                         }
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
