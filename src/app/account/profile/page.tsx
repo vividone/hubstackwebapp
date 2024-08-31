@@ -17,7 +17,7 @@ type Options = {
 
 const Profile = () => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { formik, isPending, isSuccess, isError, error } = useProfileUpdate(userDetails?._id, userDetails?.role)
+  const { formik, isPending, isSuccess, isError, error } = useProfileUpdate(userDetails?.role)
   const { user, isLoading } = useGetUser(userDetails?._id)
   const [ phoneCode, setPhoneCode ] = useState<Options>({ label: "+234", value: "+234" })
 
@@ -105,26 +105,10 @@ const Profile = () => {
               <Input
                 placeholder="Business name"
                 name="business_name"
-                value={userDetails?.business_name}
+                defaultValue={user?.business_name || userDetails?.business_name}
                 data-test="business_name"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-between flex-wrap gap-6">
-            <div className="flex flex-col gap-2 lg:w-[35%]">
-              <h2 className="font-medium text-lg">Super Agent Username</h2>
-              {/* <p className="w-[95%] text-[#8C8B92]">All communications and activity notifications from your account will be sent to your email address</p> */}
-            </div>
-            <div className="lg:w-[60%] w-full text-[#8c8b92]">
-              <Input
-                placeholder="Super agent username"
-                name="superagent_username"
-                value={userDetails?.superagent_username}
-                data-test="superagent_username"
-                disabled={true}
               />
             </div>
           </div>
@@ -164,7 +148,7 @@ const Profile = () => {
                 data-test="phone-number"
                 defaultValue={userDetails?.phone_number}
                 error={formik.touched.phone_number && formik.errors.phone_number}
-                onChange={(e) => formik.setFieldValue("phone_number", phoneCode?.value + e.target.value)}
+                onChange={(e) => formik.setFieldValue("phone_number", e.target.value)}
                 onBlur={formik.handleBlur}
               />
             </div>
@@ -182,6 +166,7 @@ const Profile = () => {
             placeholder="Home Address"
             name="location"
             data-test="location"
+            defaultValue={user?.location || userDetails?.location}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
