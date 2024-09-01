@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
 import { FlowProps } from "../modalsLayout";
-import AlternatePaymentMethod from "../AlternatePaymentMethod";
 interface CableTvProps extends FlowProps {
   active: any;
   completeAction: () => void;
@@ -12,12 +11,9 @@ interface CableTvProps extends FlowProps {
 }
 
 const CableTvPayment: React.FC<CableTvProps> = ({ data, active, completeAction}:any) => {
-  const [showAlternate, setShowAlternate] = useState(false);
-  const [showAlternatePayment, setShowAlternatePayment] = useState(false);
 
   return (
     <div className="mt-4">
-       {/* {showAlternatePayment && <AlternatePaymentMethod />} */}
       <CurrentBalance />
 
         <div className="flex flex-col gap-1">
@@ -55,10 +51,6 @@ const CableTvPayment: React.FC<CableTvProps> = ({ data, active, completeAction}:
             onClick={()=>{completeAction();}} 
           >
             <span className="text-[16px]">PROCEED WITH WALLET</span>
-          </Button>
-
-          <Button variant="secondary" size="full" onClick={() => setShowAlternate(!showAlternate)}>
-            <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
           </Button>
         </div>
       </div>

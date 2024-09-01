@@ -1,11 +1,11 @@
 "use client"
 import React, { useState } from "react";
 import { Button } from "../../common/button";
-import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
 import { FlowProps } from "../modalsLayout";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
+import AlternatePaymentMethod from "../AlternatePaymentMethod";
 
 
 interface CableTvProps extends FlowProps {
@@ -18,6 +18,7 @@ const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active }) => {
   return (
       <div className="mt-4">
         <h2 className="font-normal text-[20px] font-OpenSans">Service Provider</h2>
+        {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} />}
         
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
           <div className="flex  flex-wrap items-center gap-4">

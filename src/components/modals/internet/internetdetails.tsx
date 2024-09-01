@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "../../common/button";
-import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
 import { FlowProps } from "../modalsLayout";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
+import AlternatePaymentMethod from "../AlternatePaymentMethod";
 
 interface InternetProps extends FlowProps {
   active: any;
@@ -17,6 +17,9 @@ const InternetDetails: React.FC<InternetProps> = ({ setFlow, data, active }) => 
   return (
     <div className="mt-4">
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
+
+        {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} />}
+
         <div className="flex  flex-wrap items-center gap-4">
           <Image
             src={"/images/internet/" + active?.LogoUrl + ".png"}

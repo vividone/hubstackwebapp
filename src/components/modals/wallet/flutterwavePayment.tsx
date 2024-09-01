@@ -7,7 +7,7 @@ import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 type FlutterwavePaymentProps = {
     amount: number;
     setFlow: (aug0: string) => void;
-    refreshWallet: (aug0: number) => void;
+    refreshWallet?: (aug0: number) => void;
 }
 
 export default function FlutterwavePayment({ amount, setFlow, refreshWallet }: FlutterwavePaymentProps) {
@@ -40,7 +40,7 @@ export default function FlutterwavePayment({ amount, setFlow, refreshWallet }: F
                 handleFlutterPayment({
                     callback: (response) => {
                     console.log(response);
-                    refreshWallet(amount)
+                    refreshWallet ? refreshWallet(amount): ""
                     setFlow("success")
                         closePaymentModal() // this will close the modal programmatically
                     },
