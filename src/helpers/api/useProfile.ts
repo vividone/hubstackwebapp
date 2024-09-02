@@ -10,12 +10,12 @@ import { IUpdateProfile, IUpdateProfilePassword } from "@/interface/profile";
 import { ResetPasswordSchema } from "@/schema/auth";
 
 // Update User Details
-export const useProfileUpdate = ( userId: string, type: string ) => {
+export const useProfileUpdate = ( type: string ) => {
     const { updateAgentProfileUrl, updateIndividualProfileUrl } = useUrls();
     const [ userDetails, setUserDetails] = useLocalStorage<IUpdateProfile>(TOKEN.EMAIL); // to persist
     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Update profile"],
         mutationFn: (payload: Partial<any>) => {
-            return axiosInstance.put((type === "Agent" ? updateAgentProfileUrl : updateIndividualProfileUrl)+ "/" + userId, payload)
+            return axiosInstance.put((type === "Agent" ? updateAgentProfileUrl : updateIndividualProfileUrl), payload)
         },
     })    
     

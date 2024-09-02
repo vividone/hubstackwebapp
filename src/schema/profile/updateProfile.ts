@@ -5,7 +5,7 @@ export const updateProfileSchema = Yup.object().shape({
     firstname: Yup.string().required("Fullname is required"),
     lastname: Yup.string().required("Fullname is required"),
     username: Yup.string().required("Username is required"),
-    phone_number: Yup.string().required("Phone number is required"),
+    phone_number: Yup.string().optional().length(11, "Please input a valid phone number"),
     superagent_username: Yup.string().optional(),
     business_name: Yup.string().optional(),
     role: Yup.string().optional(),

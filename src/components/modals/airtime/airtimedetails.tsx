@@ -2,22 +2,18 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
-import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
-type FlowProps = {
-  setFlow: (aug0: number) => void;
-  data: any;
-};
+import { FlowProps } from "../modalsLayout";
 
-const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data }) => {
-  const [showAlternate, setShowAlternate] = useState(false);
+
+const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data, completeAlternate }) => {
   const [showAlternatePayment, setShowAlternatePayment] = useState(false);
   
   return (
     <div className="mt-4">
-      {/* {showAlternatePayment && <AlternatePaymentMethod />} */}
+      {showAlternatePayment && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow} setShow={setShowAlternatePayment} complete={completeAlternate}/>}
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
         <div className="flex  flex-wrap items-center gap-4">
           <Image
@@ -70,7 +66,7 @@ const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data }) => {
           <Button
             variant="secondary"
             size="full"
-            onClick={() => setShowAlternate(!showAlternate)}
+            onClick={() => setShowAlternatePayment(!showAlternatePayment)}
           >
             <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
           </Button>

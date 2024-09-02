@@ -10,7 +10,6 @@ import ElectricityBillPayment from "./electricityBillPayment";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
-import AlternatePaymentModal from "../AlternatePaymentModal";
 
 type Providers = {
   ShortName: string;
@@ -24,7 +23,7 @@ const ElectricityBillModal = ({ show, setShow }: any) => {
   const [ formData, setFormData] = useState<any>()
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   const [flow, setFlow ] = useState(0)
-  const { billers, isLoading } = useGetBillersByCategoryId("1")
+  const { billers } = useGetBillersByCategoryId("1")
 
   const flowHeaders: string[] = ["Electricity Bill", "Your Order", "Your Wallet", "Token Details"]
   
@@ -37,7 +36,22 @@ const ElectricityBillModal = ({ show, setShow }: any) => {
       customerEmail: userDetails?.email,
       customerMobile: userDetails?.phone_number || "09012345678",
       requestReference: data?.transactionReference, 
-      amount: data?.amount
+      amount: data?.amount,
+    })
+
+    completedForm.handleSubmit()
+  }
+
+  const completeAlternate = (ref: any) => {
+    console.log(data)
+    completedForm.setValues({ 
+      paymentCode: "0488051528", 
+      customerId: data?.transactionDetails.customerId?.toString(), 
+      customerEmail: userDetails?.email,
+      customerMobile: userDetails?.phone_number || "09012345678",
+      requestReference: data?.transactionReference, 
+      transactionDetails: ref, 
+      amount: data?.amount,
     })
 
     completedForm.handleSubmit()
@@ -70,7 +84,7 @@ const ElectricityBillModal = ({ show, setShow }: any) => {
           <ElectricityBillForm setFlow={setFlow} data={formData} formik={formik} billers={providers} isPending={isPending} setData={setFormData} />
         :
         flow === 1 ? 
-        <ElectricityBillDetails data={{ ...formData, ...data }} setFlow={setFlow}/> 
+        <ElectricityBillDetails data={{ ...formData, ...data }} setFlow={setFlow} completeAlternate={completeAlternate}/> 
         : 
         flow === 2 ? 
         <ElectricityBillPayment data={{ ...formData, ...data, isPending: completePending }} completeAction={completePayment} setFlow={setFlow}/> 

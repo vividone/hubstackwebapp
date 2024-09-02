@@ -13,7 +13,7 @@ import BillsSkeleton from "@/components/common/billsSkeleton";
 import Image from "next/image";
 import ToastComponent from "@/components/common/toastComponent";
 import CompletedDataModal from "./dataPurchaseDetails";
-import AlternatePaymentModal from "../AlternatePaymentModal";
+
 type dataProps = {
   amount: number;
   customerId: string;
@@ -34,6 +34,20 @@ const Data = ({ setShow, show }: any) => {
 
   const completePayment = () => {
       completeBillPayment(formData, completedForm, userDetails)
+  }
+  
+  const completeAlternate = (ref: any) => {
+    completedForm.setValues({ 
+      paymentCode: "0488051528", 
+      customerId: formData?.transactionDetails.customerId?.toString(), 
+      customerEmail: userDetails?.email,
+      customerMobile: userDetails?.phone_number || "09012345678",
+      requestReference: formData?.transactionReference, 
+      transactionDetails: ref, 
+      amount: data?.amount,
+    })
+
+    completedForm.handleSubmit()
   }
   
   useEffect(() => {
@@ -92,6 +106,7 @@ const Data = ({ setShow, show }: any) => {
         <DataDetails
           setFlow={setFlow}
           data={{ ...data, ...formData }}
+          completeAlternate={completeAlternate}
         />
       ) : flow === 3 ? (
         <DataPayment setFlow={setFlow} data={{ ...data, ...formData, isPending: completePending }} completeAction={completePayment} />

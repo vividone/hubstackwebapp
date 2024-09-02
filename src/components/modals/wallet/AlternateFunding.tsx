@@ -1,37 +1,26 @@
 "use client"
 import Image from "next/image";
-import { Button } from "../../common/button";
 import { SetStateAction, useState } from "react";
 import { Dropdown } from "../../common/Dropdown";
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { PaystackButton } from "react-paystack";
-import { TOKEN } from "@/utils/token";
 import CurrencyField from "@/components/common/currencyInput";
+import FlutterwavePayment from "./flutterwavePayment";
+import dynamic from "next/dynamic";
 
-type Options = {
-    label: string,
-    value: string
-}
+const PaystackPayment = dynamic(() => import("./paystackPayment"),  { ssr: false });
 
-export default function AlternateWalletFunding({ setShow }: SetStateAction<any> ) {
-    const [ selectedMethod, setSelectedMethod ] = useState<Options>()
-  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
-  const [amount, setAmount] = useState(0)
+type AlternateFundingProps = {
+    amount: number;
+    setAmount: any;
+    setShow: SetStateAction<any>, 
+    setFlow: (aug0: string) => void,
+    refreshWallet: (aug0: number) => void
+} 
 
-    const componentProps = {
-        email: userDetails?.email,
-        amount: amount * 100,
-        metadata: {
-          custom_fields: [],
-          name: userDetails?.firstname,
-          phone: userDetails?.phone_number,
-        },
-        publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
-        onSuccess: (ref: any) => console.log(ref),
-        onClose: () => {},
-    }
+export default function AlternateWalletFunding({ amount, setAmount, setShow, setFlow, refreshWallet }: AlternateFundingProps) {
+    const [ selectedMethod, setSelectedMethod ] = useState<any>({value: "Paystack", label: "Paystack"})
+
+
     
-
     return (
         <div className="absolute h-full w-full top-0 right-0 bg-white overflow-y-scroll">
               <div className="flex justify-between p-[40px] pt-[55px]">
@@ -63,10 +52,10 @@ export default function AlternateWalletFunding({ setShow }: SetStateAction<any> 
                     <Dropdown
                         placeholder=""
                         name="payment option"
-                        value={selectedMethod || ""}
+                        value={selectedMethod}
                         onChange={(value) => {
                             if (value) {
-                            const selectedOption = value as Options;
+                            const selectedOption = value as any;
                             setSelectedMethod(selectedOption)
                             
                         }}}
@@ -77,22 +66,15 @@ export default function AlternateWalletFunding({ setShow }: SetStateAction<any> 
                         className="items-start text-start justify-start rounded-lg border border-[#E7E6F2] "
                     />
 
-                    {/* <div className="mt-16 h-20">
+                    <div className="mt-16 h-20">
                         {
                             selectedMethod?.value === "Paystack" ?
-                            // typeof window !== "undefined" ?
-                            <PaystackButton {...componentProps} className="w-full">
-                                <Button size="full">
-                                    <span className="text-[16px] uppercase">Pay with paystack</span>
-                                </Button>
-                            </PaystackButton>
-                            : ""
+                            <PaystackPayment amount={amount} setFlow={setFlow} refreshWallet={refreshWallet} />
+                            
                             :
-                            <Button>
-                            <span className="text-[16px] uppercase">Pay with flutterwave</span>
-                            </Button>
+                            <FlutterwavePayment amount={amount} setFlow={setFlow} refreshWallet={refreshWallet} />
                         }
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>
