@@ -11,14 +11,14 @@ interface InternetProps extends FlowProps {
   active: any;
 }
 
-const InternetDetails: React.FC<InternetProps> = ({ setFlow, data, active }) => {
+const InternetDetails: React.FC<InternetProps> = ({ setFlow, data, active, completeAlternate }) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
   return (
     <div className="mt-4">
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
 
-        {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} />}
+        {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} complete={completeAlternate} />}
 
         <div className="flex  flex-wrap items-center gap-4">
           <Image

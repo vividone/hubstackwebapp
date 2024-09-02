@@ -5,17 +5,15 @@ import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
-type FlowProps = {
-  setFlow: (aug0: number) => void;
-  data: any;
-};
+import { FlowProps } from "../modalsLayout";
 
-const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data }) => {
+
+const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data, completeAlternate }) => {
   const [showAlternatePayment, setShowAlternatePayment] = useState(false);
   
   return (
     <div className="mt-4">
-      {showAlternatePayment && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow} setShow={setShowAlternatePayment}/>}
+      {showAlternatePayment && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow} setShow={setShowAlternatePayment} complete={completeAlternate}/>}
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
         <div className="flex  flex-wrap items-center gap-4">
           <Image

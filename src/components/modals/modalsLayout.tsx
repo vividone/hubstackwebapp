@@ -16,7 +16,7 @@ interface MyModalProps {
 export interface FlowProps {
   setFlow: (aug0: number) => void;
   data: any;
-
+  completeAlternate?: any
 }
 
 const ModalsLayout: React.FC<MyModalProps> = ({ header, show, flow, setFlow, setShow, children, isPadded = true }) => {

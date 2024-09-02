@@ -5,7 +5,7 @@ import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
 
-const DataDetails = ({ setFlow, data }: any) => {
+const DataDetails = ({ setFlow, data, completeAlternate }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
   return (
@@ -90,7 +90,7 @@ const DataDetails = ({ setFlow, data }: any) => {
       </div>
 
       
-      {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} />}
+      {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} complete={completeAlternate} />}
     </div>
   );
 };

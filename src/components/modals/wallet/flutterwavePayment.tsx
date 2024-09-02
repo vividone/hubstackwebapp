@@ -8,9 +8,10 @@ type FlutterwavePaymentProps = {
     amount: number;
     setFlow: (aug0: string) => void;
     refreshWallet?: (aug0: number) => void;
+    complete?: any
 }
 
-export default function FlutterwavePayment({ amount, setFlow, refreshWallet }: FlutterwavePaymentProps) {
+export default function FlutterwavePayment({ amount, setFlow, refreshWallet, complete }: FlutterwavePaymentProps) {
     const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
 
     const config = {
@@ -39,9 +40,9 @@ export default function FlutterwavePayment({ amount, setFlow, refreshWallet }: F
                 onClick={() => {
                 handleFlutterPayment({
                     callback: (response) => {
-                    console.log(response);
-                    refreshWallet ? refreshWallet(amount): ""
-                    setFlow("success")
+                        complete(response);
+                        refreshWallet ? refreshWallet(amount): ""
+                        setFlow("success")
                         closePaymentModal() // this will close the modal programmatically
                     },
                     onClose: () => {},

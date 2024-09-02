@@ -67,6 +67,20 @@ const InternetServices = ({ setShow, show }: any) => {
 
     completedForm.handleSubmit();
   };
+  
+  const completeAlternate = (ref: any) => {
+    completedForm.setValues({ 
+      paymentCode: "0488051528", 
+      customerId: data?.transactionDetails.customerId?.toString(), 
+      customerEmail: userDetails?.email,
+      customerMobile: userDetails?.phone_number || "09012345678",
+      requestReference: data?.transactionReference, 
+      transactionDetails: ref, 
+      amount: data?.amount,
+    })
+
+    completedForm.handleSubmit()
+  }
 
   const providers = [
     { LogoUrl: "ZukuFiber", Name: "Zuku Fiber", Id: 1 },
@@ -176,6 +190,7 @@ const InternetServices = ({ setShow, show }: any) => {
           <InternetDetails
             active={active}
             data={{ ...data, ...payCable }}
+            completeAlternate={completeAlternate}
             setFlow={setFlow}
           />
         ) : flow === 3 ? (

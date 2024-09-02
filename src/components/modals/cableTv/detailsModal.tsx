@@ -12,13 +12,13 @@ interface CableTvProps extends FlowProps {
   active: any;
 }
 
-const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active }) => {
+const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active, completeAlternate }) => {
   const [showAlternate, setShowAlternate] = useState(false)
 
   return (
       <div className="mt-4">
         <h2 className="font-normal text-[20px] font-OpenSans">Service Provider</h2>
-        {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} />}
+        {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} complete={completeAlternate} />}
         
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
           <div className="flex  flex-wrap items-center gap-4">

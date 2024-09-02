@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import FlutterwavePayment from "./wallet/flutterwavePayment";
 import { currencyFormatter } from "@/helpers/currencyConvert";
 import { useOutsideClick } from "@/helpers/useClickOutside";
-import { useCompleteBillPayment } from "@/helpers/api/useServices";
 
 const PaystackPayment = dynamic(() => import("./wallet/paystackPayment"),  { ssr: false });
 
@@ -13,16 +12,11 @@ type AlternatePaymentProps = {
   amount: number; 
   setFlow: (aug0: number) => void; 
   setShow: (aug0: boolean) => void; 
+  complete?: any;
 }
 
-const AlternatePaymentMethod = ({ amount, setFlow, setShow }: AlternatePaymentProps) => {
+const AlternatePaymentMethod = ({ amount, setFlow, setShow, complete }: AlternatePaymentProps) => {
   const [payment, setPayment]   = useState("")
-
-  const handlePayment = (type: string) => {
-    if(type === "success") {
-      
-    }
-  }
  
   const alternateRef = useOutsideClick(setShow, false)
 
@@ -77,7 +71,7 @@ const AlternatePaymentMethod = ({ amount, setFlow, setShow }: AlternatePaymentPr
                 {currencyFormatter(amount)}
               </span>
             </div>
-            <PaystackPayment amount={amount} setFlow={handlePayment} />
+            <PaystackPayment amount={amount} setFlow={() => {}} complete={complete} />
           </div>
           :
           payment === "Flutterwave" ?
@@ -88,7 +82,7 @@ const AlternatePaymentMethod = ({ amount, setFlow, setShow }: AlternatePaymentPr
                 {currencyFormatter(amount)}
               </span>
             </div>          
-            <FlutterwavePayment amount={amount} setFlow={handlePayment} />
+            <FlutterwavePayment amount={amount} setFlow={() => {}} complete={complete} />
           </div>
           :
           <main>

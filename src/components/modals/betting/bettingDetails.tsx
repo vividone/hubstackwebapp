@@ -10,12 +10,12 @@ interface BettingProps extends FlowProps {
   active: any;
 }
 
-const BettingDetails: React.FC<BettingProps> = ({ setFlow, data, active }) => {
+const BettingDetails: React.FC<BettingProps> = ({ setFlow, data, active, completeAlternate }) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
   return (
     <div className="mt-4">
-      {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} />}
+      {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} complete={completeAlternate} />}
       
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
         <div className="flex  flex-wrap items-center gap-4">

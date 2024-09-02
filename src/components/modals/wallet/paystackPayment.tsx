@@ -8,9 +8,10 @@ type PaystackPaymentProps = {
     amount: number;
     setFlow: (aug0: string) => void;
     refreshWallet?: (aug0: number) => void;
+    complete?: any;
 }
 
-export default function PaystackPayment({ amount, setFlow, refreshWallet }: PaystackPaymentProps) {
+export default function PaystackPayment({ amount, setFlow, refreshWallet, complete }: PaystackPaymentProps) {
     const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
 
     const componentProps = {
@@ -25,7 +26,7 @@ export default function PaystackPayment({ amount, setFlow, refreshWallet }: Pays
         onSuccess: (ref: any) => {
             setFlow("success")
             refreshWallet ? refreshWallet(amount): ""
-            console.log(ref)
+            complete(ref)
         },
         onClose: () => {},
     }

@@ -8,12 +8,12 @@ import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { currencyFormatter } from "@/helpers/currencyConvert";
 
 
-const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data }) => {
+const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data, completeAlternate }) => {
   const [showAlternate, setShowAlternate] = useState(false)
 
   return (
       <div className="mt-4">
-          {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} />}
+          {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} complete={completeAlternate} />}
 
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
           <div className="flex justify-between flex-wrap items-center gap-4">
