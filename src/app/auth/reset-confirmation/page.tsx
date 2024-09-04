@@ -1,4 +1,5 @@
 'use client'
+import Countdown from "@/components/auth/countDown";
 import AuthSideImg from "@/components/authSideImg";
 import { OTPInput } from "@/components/common/OtpInput";
 import { Button } from "@/components/common/button";
@@ -16,6 +17,7 @@ const ResetConfirmation = () => {
   const { formik, isPending, isSuccess, isError, error } = useVerifyResetPassword();
   const [otpError, setOtpError] = useState(false);
   const [verifyOtp, setVerifyOtp] = useState("");
+  const [count, setCount] = useState(60);
 
   const handleChange = (otp: string) => {
     setVerifyOtp(otp)
@@ -38,7 +40,7 @@ const ResetConfirmation = () => {
 
         <div className="flex flex-col gap-4">
             <p className="mt-1 text-primary_dark text-s text-[#8C8B82] mb-6">We have sent a code to {user}. Please enter the code below to continue</p>
-            <p className="text-[#8C8B82] mt-2">Single-use code valid for 10 minutes</p>
+            <p className="text-[#8C8B82] mt-2">Single-use code valid for 20 minutes</p>
 
             <form
               className="flex flex-col mt-8 w-full space-y-4"
@@ -57,12 +59,13 @@ const ResetConfirmation = () => {
               </div>
             )}
           
-            <p className="-mb-2 text-[#8C8B82]">Didn&apos;t receive the code? Check spam folder or </p>
+            <p className="-mb-2 text-[#8C8B82]">Didn&apos;t receive the code? Check spam folder or Resend OTP in <Countdown count={count} setCount={setCount} /> seconds</p>
 
             <div className="flex flex-col gap-4 items-center justify-center mt-8">
                 <Button 
                     size={"long"}
                     variant="primary"
+                    disabled={count !== 0}
                 >
                     RESEND OTP
                 </Button>
