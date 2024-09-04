@@ -28,7 +28,7 @@ export const useProfileUpdate = ( type: string ) => {
         validateOnBlur: false,
         validationSchema: updateProfileSchema,
         validateOnChange: false,
-        onSubmit: async ({ confirmPassword, ...values }) => {
+        onSubmit: async ({ ...values }) => {
         try {
             await formik.validateForm();
             mutate(values, {
