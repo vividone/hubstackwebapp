@@ -5,6 +5,7 @@ import Pagination from "./pagination"
 import { dateConvert } from "@/helpers/dateConvert"
 import { currencyFormatter } from "@/helpers/currencyConvert"
 import HistoryModal from "../modals/historyModal"
+import { Button } from "../common/button"
 
 export function History({ history, fields }: any) {
     const [page, setPage] = useState(0)
@@ -34,9 +35,10 @@ export function History({ history, fields }: any) {
                     <tr className="bg-[#3D3066]/[0.1]">
                     {
                         fields.map((header: string, i:number) => (
-                            <th key={i} className="p-[20px]">{header}</th>
+                            <th key={i} className="p-[20px]">{header === "Biller" ? "Transaction" : header}</th>
                         ))
                     }
+                    <th>Action</th>
                     </tr>
                 </thead>
                 <tbody className="">
@@ -58,10 +60,10 @@ export function History({ history, fields }: any) {
                                     }</td>
                                 ))
                             }
+                            <td className=""><Button className="w-[90px] flex items-center border-gray-200" size="sm" variant="special" onClick={() => handleOpenModal(item)}>Details</Button></td>
                         </tr>
                     ))
                     }
-
                 </tbody>
             </table>
 

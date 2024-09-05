@@ -6,10 +6,9 @@ export interface IUpdateProfile {
     phone_number?: string;
     role?: string;
     business_name?: string;
-    superagent_username: string;
+    operation_address?: string;
+    CAC_number?: string;
     location?: string;
-    password?: string;
-    confirmPassword?: string;
 }
 
   

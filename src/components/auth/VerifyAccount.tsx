@@ -6,6 +6,7 @@ import { OTPInput } from "../common/OtpInput";
 import ConfirmationMessage from "./confirmation";
 import { TOKEN } from "@/utils/token";
 import useSessionStorage from "@/hooks/useSessionStorage";
+import Countdown from "./countDown";
 
 const VerifyAccount = () => {
   const [otpError, setOtpError] = useState(false);
@@ -13,6 +14,7 @@ const VerifyAccount = () => {
   const [ user, ] = useSessionStorage<string>(TOKEN.USER);
   const { formik: resendFormik, isSuccess: resendOTPSuccess } = useResendOTP(user || "");
   const { formik, isPending, isSuccess, isError, error } = useVerifyLogin("email");
+  const [count, setCount] = useState(60);
 
   const handleChange = (otp: string) => {
     setVerifyOtp(otp)
@@ -57,7 +59,11 @@ const VerifyAccount = () => {
         
         <p className="flex items-center justify-center text-center pt-8 gap-2 2xl:text-[20px] xl:text-[18px] text-[16px]">
             Didn&apos;t get code?
+            { 
+            count > 0 ? <span>Resend in <Countdown count={count} setCount={setCount} /> seconds</span>
+            :
             <button className="text-[#3D3066] font-medium" onClick={handleResendOTP}> RESEND</button> 
+            }
         </p>
 
         <div className="flex justify-center">
