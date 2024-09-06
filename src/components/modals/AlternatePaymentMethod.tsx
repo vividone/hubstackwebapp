@@ -22,12 +22,6 @@ const AlternatePaymentMethod = ({ amount, setFlow, setShow, complete }: Alternat
 
   const data = [
     {
-      img: "/images/Bank.png",
-      title: "Bank Account Transfer",
-      background: "#507FFF",
-      alt: "bank icon",
-    },
-    {
       img: "/images/paystack1.png",
       title: "Paystack",
       background: "#000000",
