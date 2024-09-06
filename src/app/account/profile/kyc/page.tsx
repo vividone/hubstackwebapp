@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { Input } from "@/components/common/inputs";
 import { Button } from "@/components/common/button";
 import { TOKEN } from "@/utils/token";
@@ -18,7 +18,7 @@ type Options = {
 
 const KycPage = () => {
   const [userDetails, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { formik, isPending, isSuccess, isError, error } = useProfileUpdate(userDetails?.role)
+  const { formik, isPending, isSuccess, isError, error } = useProfileUpdate(userDetails?.role || " ")
   const { user, isLoading } = useGetUser(userDetails?._id)
   const [ CAC, setCAC ] = useState<Options>({ label: "Yes", value: "Yes" })
 
@@ -27,8 +27,9 @@ const KycPage = () => {
     formik.handleSubmit()
   };
 
+  
   useEffect(() => {
-    if(isSuccess) {
+    if(isSuccess && typeof window !== "undefined") {
       setUserDetails({ ...userDetails, kyc: "Pending" })
     }
   }, [isSuccess, setUserDetails, userDetails])

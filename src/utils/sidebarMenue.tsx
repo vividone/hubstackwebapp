@@ -3,6 +3,11 @@ import DollarBagIcon from "@/assets/icons/DollarBagIcon";
 import AgentsIcon from "@/assets/icons/AgentsIcon";
 import ServiceIconDashboard from "@/assets/icons/ServiceIconDashboard";
 import ReferralIcon from "@/assets/icons/Referral";
+import BellIcon from "@/assets/icons/BellIcon";
+import AgentIcon from "@/assets/icons/AgentIcon";
+import LaptopIcon from "@/assets/icons/LaptopIcon";
+import CustomerIcons from "@/assets/icons/Customers";
+import Image from "next/image";
 
 export const menuList = [
   {
@@ -27,6 +32,57 @@ export const menuList = [
   {
     name: "Referral",
     logo: <ReferralIcon />,
+    href: "/account/referral",
+  },
+];
+
+export const AdminMenuList = [
+  {
+    name: "Dashboard",
+    logo: <GridViewOutlinedIcon sx={{ fontSize: 27 }} />,
+    href: "/dashboard",
+  },
+  {
+    name: "Agents ",
+    logo: <AgentIcon />,
+    href: "/account/agents",
+  },
+  {
+    name: "Customers",
+    logo: (
+      <Image alt="people" src={"/images/People.png"} height={20} width={20} />
+    ),
+    href: "/account/customers",
+  },
+  {
+    name: "Services",
+    logo: <ServiceIconDashboard />,
+    subItems: [
+      { Name: "NIN Services", href: "/account/services/nin-services" },
+      { Name: "Bill Payment", href: "/account/services/bill-payment" },
+    ],
+    href: "/account/services/bill-payment",
+  },
+  {
+    name: "Referrals",
+    logo: <ReferralIcon />,
+    href: "/account/referral",
+  },
+  {
+    name: "Platform ",
+    logo: (
+      <Image
+        alt="people"
+        src={"/images/Laptop Settings.png"}
+        height={20}
+        width={20}
+      />
+    ),
+    href: "/account/Platform",
+  },
+  {
+    name: "Notifications ",
+    logo: <BellIcon />,
     href: "/account/referral",
   },
 ];
