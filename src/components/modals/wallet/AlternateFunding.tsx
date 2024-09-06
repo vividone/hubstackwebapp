@@ -2,21 +2,21 @@
 import Image from "next/image";
 import { SetStateAction, useState } from "react";
 import { Dropdown } from "../../common/Dropdown";
-import CurrencyField from "@/components/common/currencyInput";
 import FlutterwavePayment from "./flutterwavePayment";
 import dynamic from "next/dynamic";
+import { currencyFormatter } from "@/helpers/currencyConvert";
+import { Input } from "@/components/common/inputs";
 
 const PaystackPayment = dynamic(() => import("./paystackPayment"),  { ssr: false });
 
 type AlternateFundingProps = {
     amount: number;
-    setAmount: any;
     setShow: SetStateAction<any>, 
     setFlow: (aug0: string) => void,
     refreshWallet: (aug0: number) => void
 } 
 
-export default function AlternateWalletFunding({ amount, setAmount, setShow, setFlow, refreshWallet }: AlternateFundingProps) {
+export default function AlternateWalletFunding({ amount, setShow, setFlow, refreshWallet }: AlternateFundingProps) {
     const [ selectedMethod, setSelectedMethod ] = useState<any>({value: "Paystack", label: "Paystack"})
 
 
@@ -42,8 +42,9 @@ export default function AlternateWalletFunding({ amount, setAmount, setShow, set
                     <label htmlFor="desiredAmount" className="block text-[18px] mb-2 mt-8 font-normal">
                         Amount To Fund
                     </label>
-                    <CurrencyField
-                        onValueChange={(v: any) => setAmount(v.floatValue)} 
+                    <Input
+                        value={currencyFormatter(amount)}
+                        disabled={true}
                     />
                     <label htmlFor="desiredAmount" className="block text-[18px] mt-6 mb-2 font-normal">
                         Payment Method
@@ -72,7 +73,7 @@ export default function AlternateWalletFunding({ amount, setAmount, setShow, set
                             <PaystackPayment amount={amount} setFlow={setFlow} refreshWallet={refreshWallet} />
                             
                             :
-                            <FlutterwavePayment amount={amount} setFlow={setFlow} refreshWallet={refreshWallet} />
+                            <FlutterwavePayment amount={amount} setFlow={setFlow} refreshWallet={refreshWallet} complete={() => {}} />
                         }
                     </div>
                 </div>
