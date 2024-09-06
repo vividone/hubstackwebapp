@@ -18,7 +18,7 @@ type Options = {
 
 const KycPage = () => {
   const [userDetails, setUserDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const { formik, isPending, isSuccess, isError, error } = useProfileUpdate(userDetails?.role)
+  const { formik, isPending, isSuccess, isError, error } = useProfileUpdate(userDetails?.role || " ")
   const { user, isLoading } = useGetUser(userDetails?._id)
   const [ CAC, setCAC ] = useState<Options>({ label: "Yes", value: "Yes" })
 

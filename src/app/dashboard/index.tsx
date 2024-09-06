@@ -74,7 +74,7 @@ const DashboardPage = () => {
 
   return (
     <div className="p-[50px_25px] overflow-x-hidden">
-      {userDetails.role === "Individual" ? (
+      {userDetails?.role !== "Admin"  ? (
         <>
           <h1 className="2xl:text-[36px] xl:text-[28px] text-[24px] font-medium">
             What would you like to do today ?
