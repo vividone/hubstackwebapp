@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { Input } from "@/components/common/inputs";
 import { Button } from "@/components/common/button";
 import { TOKEN } from "@/utils/token";
@@ -27,8 +27,9 @@ const KycPage = () => {
     formik.handleSubmit()
   };
 
+  
   useEffect(() => {
-    if(isSuccess) {
+    if(isSuccess && typeof window !== "undefined") {
       setUserDetails({ ...userDetails, kyc: "Pending" })
     }
   }, [isSuccess, setUserDetails, userDetails])

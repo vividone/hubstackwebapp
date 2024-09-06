@@ -16,7 +16,7 @@ type AlternateFundingProps = {
     refreshWallet: (aug0: number) => void
 } 
 
-export default function AlternateWalletFunding({ amount, setShow, setFlow, refreshWallet }: AlternateFundingProps) {
+export default function AlternateWalletFunding({ amount, setShow, setFlow, refreshWallet }: AlternateFundingProps | any) {
     const [ selectedMethod, setSelectedMethod ] = useState<any>({value: "Paystack", label: "Paystack"})
 
 
