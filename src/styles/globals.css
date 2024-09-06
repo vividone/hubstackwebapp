@@ -337,3 +337,26 @@ html {
     overflow: auto;
   }
   
+/* SCROLL BAR */
+
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 4px;
+  background: #3D3066;
+}
+
+
+::-webkit-scrollbar-track {
+  border-radius: 4px;
+  background: rgb(229, 231, 235);
+  width: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #584d7a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #584d7a;
+}
