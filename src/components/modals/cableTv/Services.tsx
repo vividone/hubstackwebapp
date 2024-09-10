@@ -60,17 +60,12 @@ const CableTVServices = ({ setShow, show }: any) => {
   
   const completeAlternate = (ref: any) => {
     completedForm.setValues({ 
-      paymentCode: "0488051528", 
-      customerId: payCable?.transactionDetails.customerId?.toString(), 
-      customerEmail: userDetails?.email,
-      customerMobile: userDetails?.phone_number || "09012345678",
-      requestReference: payCable?.transactionReference, 
       transactionDetails: ref, 
-      amount: payCable?.amount,
     })
 
     completedForm.handleSubmit()
   }
+
   
   // const providers: cableTvProviders[] = [
   //   {
@@ -182,7 +177,7 @@ const CableTVServices = ({ setShow, show }: any) => {
       <CableTvForm active={active} data={data} setData={setData} isPending={isPending} formik={cableForm} setFlow={setFlow} />
       :
       flow === 2 ?
-      <CableTvDetails active={active} data={{...data, ...payCable}} setFlow={setFlow} completeAlternate={completeAlternate}/>
+      <CableTvDetails active={active} data={{...data, ...payCable}} setFlow={setFlow} completedForm={completedForm} completeAlternate={completeAlternate}/>
       :
       flow === 3 ?
       <CableTvPayment active={active} data={{...data, ...payCable, isPending: completePending}} setFlow={setFlow} completeAction={completePayment} />

@@ -6,14 +6,28 @@ import Image from "next/image";
 import { FlowProps } from "../modalsLayout";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 
 
 interface CableTvProps extends FlowProps {
   active: any;
 }
 
-const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active, completeAlternate }) => {
+const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active, completeAlternate, completedForm }) => {
   const [showAlternate, setShowAlternate] = useState(false)
+  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
+
+  const fillForm = () => {
+    completedForm.setValues({ 
+      paymentCode: "0488051528", 
+      customerId: data?.transactionDetails.customerId?.toString(), 
+      customerEmail: userDetails?.email,
+      customerMobile: userDetails?.phone_number || "09012345678",
+      requestReference: data?.transactionReference, 
+      amount: data?.amount,
+    })
+  }
 
   return (
       <div className="mt-4">
@@ -74,7 +88,11 @@ const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active, complet
               <span className="text-[16px]">PAY WITH WALLET</span>
             </Button>
           
-            <Button variant="secondary" size="full" onClick={() => setShowAlternate(!showAlternate)}>
+            <Button variant="secondary" size="full" 
+              onClick={() => {
+                fillForm(); 
+                setShowAlternate(!showAlternate)
+              }}>
                 <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
             </Button>
           </div>

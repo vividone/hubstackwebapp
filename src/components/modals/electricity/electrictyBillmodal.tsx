@@ -42,32 +42,23 @@ const ElectricityBillModal = ({ show, setShow }: any) => {
     completedForm.handleSubmit()
   }
 
-  const completeAlternate = (ref: any) => {
-    console.log(data)
-    completedForm.setValues({ 
-      paymentCode: "0488051528", 
-      customerId: data?.transactionDetails.customerId?.toString(), 
-      customerEmail: userDetails?.email,
-      customerMobile: userDetails?.phone_number || "09012345678",
-      requestReference: data?.transactionReference, 
-      transactionDetails: ref, 
-      amount: data?.amount,
-    })
-
-    completedForm.handleSubmit()
-  }
 
   useEffect(() => {
     if(completedSuccess) {
       setFlow(3)
     }
-  }, [completedSuccess]);
-
-  useEffect(() => {
     if (isSuccess) {
       setFlow(1);
     }
-  }, [isSuccess]);
+  }, [completedSuccess, isSuccess]);
+
+  const completeAlternate = (ref: any) => {
+    completedForm.setValues({ 
+      transactionDetails: ref, 
+    })
+
+    completedForm.handleSubmit()
+  }
 
   return (
     <>
@@ -84,7 +75,7 @@ const ElectricityBillModal = ({ show, setShow }: any) => {
           <ElectricityBillForm setFlow={setFlow} data={formData} formik={formik} billers={providers} isPending={isPending} setData={setFormData} />
         :
         flow === 1 ? 
-        <ElectricityBillDetails data={{ ...formData, ...data }} setFlow={setFlow} completeAlternate={completeAlternate}/> 
+        <ElectricityBillDetails data={{ ...formData, ...data }} completedForm={completedForm} setFlow={setFlow} completeAlternate={completeAlternate}/> 
         : 
         flow === 2 ? 
         <ElectricityBillPayment data={{ ...formData, ...data, isPending: completePending }} completeAction={completePayment} setFlow={setFlow}/> 

@@ -35,21 +35,14 @@ const Data = ({ setShow, show }: any) => {
   const completePayment = () => {
       completeBillPayment(formData, completedForm, userDetails)
   }
-  
   const completeAlternate = (ref: any) => {
     completedForm.setValues({ 
-      paymentCode: "0488051528", 
-      customerId: formData?.transactionDetails.customerId?.toString(), 
-      customerEmail: userDetails?.email,
-      customerMobile: userDetails?.phone_number || "09012345678",
-      requestReference: formData?.transactionReference, 
       transactionDetails: ref, 
-      amount: data?.amount,
     })
 
     completedForm.handleSubmit()
   }
-  
+
   useEffect(() => {
       if(isSuccess) {
         setFlow(2)
@@ -106,6 +99,7 @@ const Data = ({ setShow, show }: any) => {
         <DataDetails
           setFlow={setFlow}
           data={{ ...data, ...formData }}
+          completedForm={completedForm}
           completeAlternate={completeAlternate}
         />
       ) : flow === 3 ? (
