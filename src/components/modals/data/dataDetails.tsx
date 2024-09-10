@@ -4,9 +4,23 @@ import NairaIcon from "@/assets/icons/nairaIcon";
 import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
+import { TOKEN } from "@/utils/token";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
-const DataDetails = ({ setFlow, data, completeAlternate }: any) => {
+const DataDetails = ({ setFlow, data, completeAlternate, completedForm }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
+  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
+
+  const fillForm = () => {
+    completedForm.setValues({ 
+      paymentCode: "0488051528", 
+      customerId: data?.transactionDetails.customerId?.toString(), 
+      customerEmail: userDetails?.email,
+      customerMobile: userDetails?.phone_number || "09012345678",
+      requestReference: data?.transactionReference, 
+      amount: data?.amount,
+    })
+  }
 
   return (
     <div className="mt-4">
@@ -79,9 +93,10 @@ const DataDetails = ({ setFlow, data, completeAlternate }: any) => {
 
           <Button
             variant="secondary"
-            size="full"
+            size="full" 
             onClick={() => {
-              return setShowAlternate(!showAlternate);
+              fillForm(); 
+              setShowAlternate(!showAlternate)
             }}
           >
             <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>

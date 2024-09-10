@@ -190,6 +190,7 @@ const InternetServices = ({ setShow, show }: any) => {
           <InternetDetails
             active={active}
             data={{ ...data, ...payCable }}
+            completedForm={completedForm} 
             completeAlternate={completeAlternate}
             setFlow={setFlow}
           />

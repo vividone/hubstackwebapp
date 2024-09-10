@@ -1,15 +1,29 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { FlowProps } from "../modalsLayout";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { currencyFormatter } from "@/helpers/currencyConvert";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 
 
-const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data, completeAlternate }) => {
+const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data, completeAlternate, completedForm }) => {
   const [showAlternate, setShowAlternate] = useState(false)
+  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
+
+  const fillForm = () => {
+    completedForm.setValues({ 
+      paymentCode: "0488051528", 
+      customerId: data?.transactionDetails.customerId?.toString(), 
+      customerEmail: userDetails?.email,
+      customerMobile: userDetails?.phone_number || "09012345678",
+      requestReference: data?.transactionReference, 
+      amount: data?.amount,
+    })
+  }
 
   return (
       <div className="mt-4">
@@ -59,7 +73,12 @@ const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data, completeAl
               <span className="text-[16px]">PAY WITH WALLET</span>
             </Button>
           
-            <Button variant="secondary" size="full" onClick={() => setShowAlternate(!showAlternate)}>
+            <Button variant="secondary" size="full" 
+              onClick={() => {
+                fillForm(); 
+                setShowAlternate(!showAlternate)
+              }}
+            >
                 <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
             </Button>
           </div>

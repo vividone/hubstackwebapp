@@ -31,10 +31,6 @@ export default function PaystackPayment({ amount, setFlow, refreshWallet, comple
         onClose: () => {},
     }
 
-    useEffect(() => {
-        console.log(window)
-    }, [])
-
     return (
         <div>
             <PaystackButton {...componentProps} className="w-full">

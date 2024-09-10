@@ -42,19 +42,13 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
         completeBillPayment(formData, completedForm, userDetails)
     }
     
-  const completeAlternate = (ref: any) => {
-    completedForm.setValues({ 
-      paymentCode: "0488051528", 
-      customerId: formData?.transactionDetails.customerId?.toString(), 
-      customerEmail: userDetails?.email,
-      customerMobile: userDetails?.phone_number || "09012345678",
-      requestReference: formData?.transactionReference, 
-      transactionDetails: ref, 
-      amount: formData?.amount,
-    })
-
-    completedForm.handleSubmit()
-  }
+    const completeAlternate = (ref: any) => {
+        completedForm.setValues({ 
+          transactionDetails: ref, 
+        })
+    
+        completedForm.handleSubmit()
+    }
     
     useEffect(() => {
         if(isSuccess) {
@@ -81,7 +75,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
 
             {
                 flow === 1 ?
-                <AirtimeDetailsModal setFlow={setFlow} data={data} completeAlternate={completeAlternate} />
+                <AirtimeDetailsModal setFlow={setFlow} data={data}  completedForm={completedForm} completeAlternate={completeAlternate} />
                 :
                 flow === 2 ?
                 <AirtimePayment setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}}  completeAction={completePayment} />

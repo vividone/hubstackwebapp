@@ -6,10 +6,24 @@ import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { FlowProps } from "../modalsLayout";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { TOKEN } from "@/utils/token";
 
 
-const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data, completeAlternate }) => {
+const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data, completeAlternate, completedForm }) => {
   const [showAlternatePayment, setShowAlternatePayment] = useState(false);
+  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
+
+  const fillForm = () => {
+    completedForm.setValues({ 
+      paymentCode: "0488051528", 
+      customerId: data?.transactionDetails.customerId?.toString(), 
+      customerEmail: userDetails?.email,
+      customerMobile: userDetails?.phone_number || "09012345678",
+      requestReference: data?.transactionReference, 
+      amount: data?.amount,
+    })
+  }
   
   return (
     <div className="mt-4">
@@ -66,7 +80,10 @@ const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data, completeAlter
           <Button
             variant="secondary"
             size="full"
-            onClick={() => setShowAlternatePayment(!showAlternatePayment)}
+            onClick={() => {
+              fillForm(); 
+              setShowAlternatePayment(!showAlternatePayment)
+            }}
           >
             <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
           </Button>

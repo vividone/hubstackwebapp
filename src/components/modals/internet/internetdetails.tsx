@@ -6,13 +6,27 @@ import Image from "next/image";
 import { FlowProps } from "../modalsLayout";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
+import { TOKEN } from "@/utils/token";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 interface InternetProps extends FlowProps {
   active: any;
 }
 
-const InternetDetails: React.FC<InternetProps> = ({ setFlow, data, active, completeAlternate }) => {
+const InternetDetails: React.FC<InternetProps> = ({ setFlow, data, active, completedForm, completeAlternate }) => {
   const [showAlternate, setShowAlternate] = useState(false);
+  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
+
+  const fillForm = () => {
+    completedForm.setValues({ 
+      paymentCode: "0488051528", 
+      customerId: data?.transactionDetails.customerId?.toString(), 
+      customerEmail: userDetails?.email,
+      customerMobile: userDetails?.phone_number || "09012345678",
+      requestReference: data?.transactionReference, 
+      amount: data?.amount,
+    })
+  }
 
   return (
     <div className="mt-4">
@@ -76,7 +90,10 @@ const InternetDetails: React.FC<InternetProps> = ({ setFlow, data, active, compl
           <Button
             variant="secondary"
             size="full"
-            onClick={() => setShowAlternate(!showAlternate)}
+            onClick={() => {
+              fillForm(); 
+              setShowAlternate(!showAlternate)
+            }}
           >
             <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
           </Button>
