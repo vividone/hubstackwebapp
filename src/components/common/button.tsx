@@ -24,6 +24,7 @@ export const Button = ({
   dataTest,
   variant = "primary",
   children,
+  icon = false,
   ...props
 }: Props) => {
   const sizes = {
@@ -58,12 +59,13 @@ export const Button = ({
   return (
     <button
       className={`flex first-letter:!uppercase gap-2 text-center whitespace-nowrap items-center justify-center transition-colors 
-      duration-300  ease-in-out cursor-pointer disabled:cursor-not-allowed px-6 py-4 font- outline-none
+      duration-300  ease-in-out cursor-pointer disabled:cursor-not-allowed px-6 py-4 font-outline-none align-center
        rounded-[6px] ${sizeClassName} ${colorClassName} ${className}`}
       disabled={isLoading || props.disabled}
       data-test={dataTest}
       {...props}
     >
+      {icon !== false && icon }
       {isLoading ? <Loader className="fill-white"/> : children}
     </button>
   )
