@@ -11,7 +11,7 @@ import ToastComponent from "@/components/common/toastComponent";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import BillsSkeleton from "@/components/common/billsSkeleton";
-import AlternatePaymentModal from "../AlternatePaymentModal";
+
 type cableTvProviders = {
   ShortName: string;
   Name: string;

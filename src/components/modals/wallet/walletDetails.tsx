@@ -16,10 +16,9 @@ interface MywalletProps {
 const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet }) => {
   const [flow, setFlow] = useState("Account Details");
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-  const [content, setContent] = useState("Microbiz MFB");
+  const [content, setContent] = useState("Wema Bank");
 
   const dataSets: any = {
-    "Microbiz MFB": wallet?.filter((item: any) => item.provider === "Microbiz MFB")[0],
     "Wema Bank": wallet?.filter((item: any) => item.provider === "Flutterwave")[0],
     "Paystack Titan": wallet?.filter((item: any) => item.provider === "Paystack Titan")[0],
   };
@@ -34,11 +33,10 @@ const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet }) => {
         </div>
 
         <nav className="mt-8 mb-8 p-[0_40px] ">
-          <div className="grid grid-cols-3 gap-12 border-b border-[#E7E7E7]">
+          <div className="grid grid-cols-2 gap-12 border-b border-[#E7E7E7]">
 
             {
               [
-                { id: 0, content: "Microbiz MFB" },
                 { id: 1, content: "Wema Bank" },
                 { id: 2, content: "Paystack Titan" },
               ]
