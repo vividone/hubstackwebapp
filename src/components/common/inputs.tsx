@@ -257,33 +257,34 @@ export const PhoneNumberInput: FC<Partial<InputProps>> = (props) => {
   );
 };
 
-export const SearchInput: any  = ({ ...props }) => {
+
+export const SearchInput: React.FC<any> = ({ ...props }) => {
   const [focus, setFocus] = useState(false);
-  const { className, containerClassName,size,...rest } = props;
+  const { className, containerClassName, size, ...rest } = props;
 
   return (
     <div
-      className={`flex items-center relative w-[340px] xl:h-[66px] h-[45px] gap-x-3 px-6 border rounded-2xl transition-all ease-in duration-100
+      className={`flex items-center relative w-full md:w-[340px] xl:h-[66px] h-[45px] gap-x-3 px-6 border rounded-2xl transition-all ease-in duration-100
         ${
           props.error
-            ? 'border-[#FFAFAF] shadow-glow'
+            ? "border-[#FFAFAF] shadow-glow"
             : focus
-            ? 'bg-white border border-primary-500'
-            : 'bg-[white] border-[#E7E6F2]'
+            ? "bg-white border border-primary-500"
+            : "bg-white border-[#E7E6F2]"
         }
         ${containerClassName}
       `}
       onFocus={() => setFocus(true)}
       onBlur={() => setFocus(false)}
     >
-      <SearchIcon/>
+      <SearchIcon />
       <input
         className={`!outline-none focus:bg-transparent transition-all duration-300 ease-in-out w-full
-          ${className ? className : ''}
+          ${className || ""}
           placeholder:text-s lg:placeholder:text-base placeholder:text-[#8C8B92]-400 text-[16px]
         `}
+        placeholder={props.placeholder || "Search..."}
         {...rest}
-        placeholder={props.placeholder || 'Search...'} 
       />
     </div>
   );
