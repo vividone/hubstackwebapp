@@ -15,8 +15,6 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import BillsSkeleton from "@/components/common/billsSkeleton";
 import { completeBillPayment } from "@/helpers/billPayment";
-import AlternatePaymentModal from "../AlternatePaymentModal";
-import AlternatePaymentMethod from "../AlternatePaymentMethod";
 
 type AirtimePaymentProps = {
     show: boolean;

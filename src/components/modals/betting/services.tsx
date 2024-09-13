@@ -10,7 +10,7 @@ import BettingForm from "./bettingForm";
 import BettingDetails from "./bettingDetails";
 import BettingPayment from "./bettingPayment";
 import BettingPurchase from "./bettingCompleted";
-import AlternatePaymentModal from "../AlternatePaymentModal";
+
 type BettingProviders = {
   ShortName: string;
   Name: string;
