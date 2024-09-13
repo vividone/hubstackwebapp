@@ -7,14 +7,14 @@ interface MyModalProps {
   header?: string;
   show?: boolean;
   flow?: number | any;
-  setFlow?: (aug0: number) => void | any;
-  setShow?: (show: boolean) => void | any;
+  setFlow?: any;
+  setShow?:any;
   children?: ReactNode | undefined;
   isPadded?: boolean;
 }
 
 export interface FlowProps {
-  setFlow?: (aug0: number) => void | any;
+  setFlow?: any;
   data?: any;
   completeAlternate?: any;
   completedForm?: any;
