@@ -1,5 +1,6 @@
+"use client";
 import { Button } from "@/components/common/button";
-import React from "react";
+import React, { useState } from "react";
 import PlusIcon from "@/assets/icons/PlusIcon";
 import SpreadIcon from "@/assets/icons/SpreadIcon";
 import AdminTable from "@/components/datavisulaization/table";
@@ -9,8 +10,11 @@ import { History } from "@/components/tables/history";
 import { SearchInput } from "@/components/common/inputs";
 import CaratDown from "@/assets/icons/CaratDown";
 import SortIcon from "@/assets/icons/SortIcon";
+import AdminModal from "@/components/modals/Admin/AdminModal";
 
 const Index = () => {
+  const [show, setShow] = useState(true);
+
   const pseudoData = [
     {
       title: "Total Agents ",
@@ -32,6 +36,7 @@ const Index = () => {
   return (
     <div className="p-4 md:p-[50px_25px] overflow-x-hidden font-CabinetGrotesk ">
       {/* Header Section */}
+      {show && <AdminModal show={show} setShow={setShow} />}
       <div className="flex flex-col md:flex-row w-full mb-6 items-center">
         <h2 className="text-[24px] md:text-[36px] font-medium mb-4 md:mb-0">
           Agents
@@ -43,6 +48,7 @@ const Index = () => {
           size="lg"
           variant="primary"
           className="ml-0 md:ml-auto w-full md:w-[322px]"
+          onClick={()=>setShow(true)}
         >
           Add New
         </Button>
