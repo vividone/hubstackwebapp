@@ -4,18 +4,18 @@ import Image from "next/image";
 import ArrrowLeft from "@/assets/icons/ArrrowLeft";
 
 interface MyModalProps {
-  header: string;
-  show: boolean;
-  flow: number;
-  setFlow: (aug0: number) => void;
-  setShow: (show: boolean) => void;
-  children: ReactNode | undefined;
-  isPadded?: boolean;  // Add the isPadded prop
+  header?: string;
+  show?: boolean;
+  flow?: number | any;
+  setFlow?: (aug0: number) => void | any;
+  setShow?: (show: boolean) => void | any;
+  children?: ReactNode | undefined;
+  isPadded?: boolean; 
 }
 
 export interface FlowProps {
-  setFlow: (aug0: number) => void;
-  data: any;
+  setFlow?: (aug0: number) => void | any;
+  data?: any;
   completeAlternate?: any
   completedForm?: any
 }
