@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import AdminModal from "@/components/modals/Admin/AdminModal";
 

@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/common/button";
 import React from "react";
 import PlusIcon from "@/assets/icons/PlusIcon";
