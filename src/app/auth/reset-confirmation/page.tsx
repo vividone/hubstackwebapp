@@ -3,18 +3,19 @@ import Countdown from "@/components/auth/countDown";
 import AuthSideImg from "@/components/authSideImg";
 import { OTPInput } from "@/components/common/OtpInput";
 import { Button } from "@/components/common/button";
-import { useVerifyResetPassword } from "@/helpers/api/useAuth";
+import { useResendOTP, useVerifyResetPassword } from "@/helpers/api/useAuth";
 import useSessionStorage from "@/hooks/useSessionStorage";
 import { FRONTEND_URL } from "@/utils/pages";
 import { TOKEN } from "@/utils/token";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { ErrorIcon } from "react-hot-toast";
 
 const ResetConfirmation = () => {
   const router = useRouter();
   const [ user, ] = useSessionStorage<string>(TOKEN.USER);
   const { formik, isPending, isSuccess, isError, error } = useVerifyResetPassword();
+  const { formik: resendFormik, isSuccess: resendOTPSuccess } = useResendOTP(user || "");
   const [otpError, setOtpError] = useState(false);
   const [verifyOtp, setVerifyOtp] = useState("");
   const [count, setCount] = useState(60);
@@ -27,6 +28,13 @@ const ResetConfirmation = () => {
       formik.handleSubmit();
     }
   };
+  
+  const handleResendOTP = (e: FormEvent) => {
+    e.preventDefault()
+    resendFormik.handleSubmit()
+    setCount(60)
+  }
+  
 
   return (
     <div className="flex pb-10 slideshow lg:pb-0 lg:gap-x-4 xl:gap-x-8 w-full">
@@ -52,12 +60,21 @@ const ResetConfirmation = () => {
               error={otpError}
             />
 
-            {isError && (
+            {
+            isError ? (
               <div className="flex items-center space-x-2">
                 <ErrorIcon />
-                <p className="text-sm  text-maroon-200">{error || "Password reset error"}</p>
+                <p className="text-sm  text-maroon-400">{error || "Password reset error"}</p>
               </div>
-            )}
+            )
+            : resendOTPSuccess ? (
+              <div className="flex items-center space-x-2">
+                <p className="text-sm  text-green-400">{"A new OTP has been sent to " + user}</p>
+              </div>
+            )
+            : ""
+            }
+        
           
             <p className="-mb-2 text-[#8C8B82]">Didn&apos;t receive the code? Check spam folder or Resend OTP in <Countdown count={count} setCount={setCount} /> seconds</p>
 
@@ -66,6 +83,7 @@ const ResetConfirmation = () => {
                     size={"long"}
                     variant="primary"
                     disabled={count !== 0}
+                    onClick={handleResendOTP}
                 >
                     RESEND OTP
                 </Button>
