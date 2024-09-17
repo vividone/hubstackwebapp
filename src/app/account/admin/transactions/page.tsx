@@ -13,25 +13,24 @@ import SortIcon from "@/assets/icons/SortIcon";
 const Index = () => {
   const pseudoData = [
     {
-      title: "Total Agents ",
+      title: "Total Transactions",
       content: "278,000",
     },
     {
-      title: "Verified ",
+      title: "Successful",
       content: "260,960",
     },
     {
-      title: "Unverified",
+      title: "Cancelled",
       content: "278,000",
     },
     {
-      title: "Suspended",
+      title: "Pending",
       content: "278,000",
     },
   ];
   return (
     <div className="p-4 md:p-[50px_25px] overflow-x-hidden font-CabinetGrotesk ">
-        
       {/* Header Section */}
       <div className="flex flex-col md:flex-row w-full mb-6 items-center">
         <h2 className="text-[24px] md:text-[36px] font-medium mb-4 md:mb-0">
