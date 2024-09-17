@@ -72,7 +72,7 @@ export const AdminMenuList = [
   {
     name: "Referrals",
     logo: <ReferralIcon />,
-    href: "/account/referral",
+    href: "/account/admin/referrals",
   },
   {
     name: "Platform ",

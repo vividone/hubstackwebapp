@@ -9,19 +9,22 @@ import { History } from "@/components/tables/history";
 import { SearchInput } from "@/components/common/inputs";
 import CaratDown from "@/assets/icons/CaratDown";
 import SortIcon from "@/assets/icons/SortIcon";
-
+import AdminModal from "@/components/modals/Admin/AdminModal";
+// import React from "react";
 const Index = () => {
+  const [show, setShow] = React.useState(false);
+
   const pseudoData = [
     {
-      title: "Total Agents ",
+      title: "Total Customers",
       content: "278,000",
     },
     {
-      title: "Verified ",
+      title: "Active",
       content: "260,960",
     },
     {
-      title: "Unverified",
+      title: "Inactive",
       content: "278,000",
     },
     {
@@ -32,6 +35,7 @@ const Index = () => {
   return (
     <div className="p-4 md:p-[50px_25px] overflow-x-hidden font-CabinetGrotesk ">
       {/* Header Section */}
+      {show && <AdminModal show={show} setShow={setShow} />}
       <div className="flex flex-col md:flex-row w-full mb-6 items-center">
         <h2 className="text-[24px] md:text-[36px] font-medium mb-4 md:mb-0">
           Customers
