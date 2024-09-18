@@ -1,40 +1,49 @@
 'use client'
 import { Button } from "@/components/common/button";
 import NinPaymentModal from "@/components/modals/nin/ninPaymentModal";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 import Image from "next/image";
 import { useState } from "react";
 
+export interface NINCard {
+  id: number,
+  title: string,
+  subText: string,
+  amount: number,
+  icon: string
+}
+
 const NinProductsPage = () => {
   const [show, setShow] = useState(false)
-  const [active, setActive] = useState("")
+  const [active, setActive] = useState<NINCard>()
 
-  const individualCard = [
+  const individualCard: NINCard[] = [
     {
       id: 0,
       title: "NIN Basic Slip",
       subText: "Get the NIMC Long Slip",
-      units: "1 Unit",
+      amount: 100,
       icon: "/basic-slip.png"
     },
     {
       id: 1,
       title: "NIN Regular Slip",
       subText: "Get the NIMC Standard  Slip",
-      units: "1 Unit",
+      amount: 100,
       icon: "/regular-slip.png"
     },
     {
       id: 2,
       title: "NIN Improved Slip",
       subText: "Get the NIMC Premium  Slip",
-      units: "2 Units",
+      amount: 200,
       icon: "/improved-slip.png"
     },
     {
       id: 3,
       title: "NIN Premium Slip",
       subText: "Get the NIMC Premium  Slip",
-      units: "2 Units",
+      amount: 200,
       icon: "/premium-slip.png"
     }
   ]
@@ -58,11 +67,11 @@ const NinProductsPage = () => {
                 <p className="font-semibold">{item.title}</p>
                 <p className="text-[#8C8B92] my-2">{item.subText}</p>
               </div>
-              <h2 className="font-bold text-2xl">{item.units}</h2>
+              <h2 className="font-bold text-2xl">{currencyFormatter(item.amount)}</h2>
               <Button 
                   size={"full"}
                   variant="secondary"
-                  onClick={() => { setActive(item.title); setShow(true) }}
+                  onClick={() => { setActive(item); setShow(true) }}
                   className="border-2 !bg-[#00D7F7]"
               >
                   ORDER
