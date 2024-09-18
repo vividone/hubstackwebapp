@@ -19,9 +19,6 @@ const RootLayout = ({ children }: RootLayoutProps) => {
           <li className={`pr-[3%] text-lg border-b-2 border-transparent transition duration-100 ease-in-out hover:border-[#3D3066] hover:text-[#3D3066] ${pathname === "/account/services/nin-services" ? "text-[#3D3066] font-bold border-b-[#3D3066]" : "font-normal"}`}>
             <Link href="/account/services/nin-services">NIN Products</Link>
           </li>
-          <li className={`pr-[3%] text-lg border-b-2 border-transparent transition duration-100 ease-in-out hover:border-[#3D3066] hover:text-[#3D3066] ${pathname === "/account/services/nin-services/unit" ? "text-[#3D3066] font-bold border-b-[#3D3066]" : "font-normal"}`}>
-            <Link href="/account/services/nin-services/unit">Unit</Link>
-          </li>
           <li className={`pr-[3%] text-lg border-b-2 border-transparent transition duration-100 ease-in-out hover:border-[#3D3066] hover:text-[#3D3066] ${pathname === "/account/services/nin-services/history" ? "text-[#3D3066] font-bold border-b-[#3D3066]" : "font-normal"}`}>
             <Link href="/account/services/nin-services/history">History</Link>
           </li>
