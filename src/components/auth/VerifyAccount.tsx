@@ -28,6 +28,7 @@ const VerifyAccount = () => {
   const handleResendOTP = (e: FormEvent) => {
     e.preventDefault()
     resendFormik.handleSubmit()
+    setCount(60)
   }
   
   return (

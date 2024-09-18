@@ -13,7 +13,7 @@ import SortIcon from "@/assets/icons/SortIcon";
 import AdminModal from "@/components/modals/Admin/AdminModal";
 
 const Index = () => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const pseudoData = [
     {
