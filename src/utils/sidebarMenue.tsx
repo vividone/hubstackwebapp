@@ -1,12 +1,9 @@
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import DollarBagIcon from "@/assets/icons/DollarBagIcon";
-import AgentsIcon from "@/assets/icons/AgentsIcon";
 import ServiceIconDashboard from "@/assets/icons/ServiceIconDashboard";
 import ReferralIcon from "@/assets/icons/Referral";
 import BellIcon from "@/assets/icons/BellIcon";
 import AgentIcon from "@/assets/icons/AgentIcon";
-import LaptopIcon from "@/assets/icons/LaptopIcon";
-import CustomerIcons from "@/assets/icons/Customers";
 import Image from "next/image";
 import TransactionIcon from "@/assets/icons/TransactionIcon";
 
