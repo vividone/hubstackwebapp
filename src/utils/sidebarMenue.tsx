@@ -43,14 +43,14 @@ export const AdminMenuList = [
   {
     name: "Agents ",
     logo: <AgentIcon />,
-    href: "/account/admin/agent",
+    href: "/admin/agent",
   },
   {
     name: "Customers",
     logo: (
       <Image alt="people" src={"/images/People.png"} height={20} width={20} />
     ),
-    href: "/account/admin/customer",
+    href: "/admin/customer",
   },
   {
     name: "Services",
@@ -59,17 +59,17 @@ export const AdminMenuList = [
       { Name: "NIN Services", href: "/account/services/nin-services" },
       { Name: "Bill Payment", href: "/account/services/bill-payment" },
     ],
-    href: "/account/services/bill-payment",
+    href: "/services/bill-payment",
   },
   {
     name: "Transactions",
     logo: <TransactionIcon />,
-    href: "/account/admin/transactions",
+    href: "/admin/transactions",
   },
   {
     name: "Referrals",
     logo: <ReferralIcon />,
-    href: "/account/admin/referrals",
+    href: "/admin/referrals",
   },
   {
     name: "Platform ",
@@ -81,11 +81,11 @@ export const AdminMenuList = [
         width={20}
       />
     ),
-    href: "/account/admin/Platform",
+    href: "/admin/Platform",
   },
   {
     name: "Notifications ",
     logo: <BellIcon />,
-    href: "/account/admin/notification",
+    href: "/admin/notification",
   },
 ];
