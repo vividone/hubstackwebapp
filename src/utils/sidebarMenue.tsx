@@ -89,6 +89,6 @@ export const AdminMenuList = [
   {
     name: "Notifications ",
     logo: <BellIcon />,
-    href: "/account/referral",
+    href: "/account/admin/notification",
   },
 ];

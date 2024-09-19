@@ -279,7 +279,7 @@ export const SearchInput: React.FC<any> = ({ ...props }) => {
     >
       <SearchIcon />
       <input
-        className={`!outline-none focus:bg-transparent transition-all duration-300 ease-in-out w-full
+        className={`!outline-none focus:bg-transparent transition-all duration-300 ease-in-out w-[100%]
           ${className || ""}
           placeholder:text-s lg:placeholder:text-base placeholder:text-[#8C8B92]-400 text-[16px]
         `}

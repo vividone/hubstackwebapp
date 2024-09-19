@@ -1,14 +1,9 @@
-import { Button } from "@/components/common/button";
 import React from "react";
-import PlusIcon from "@/assets/icons/PlusIcon";
+import SortIcon from "@/assets/icons/SortIcon";
+import CaratDown from "@/assets/icons/CaratDown";
 import SpreadIcon from "@/assets/icons/SpreadIcon";
-import AdminTable from "@/components/datavisulaization/table";
-import Pagination from "@/components/tables/pagination";
-import HistoryModal from "@/components/modals/historyModal";
 import { History } from "@/components/tables/history";
 import { SearchInput } from "@/components/common/inputs";
-import CaratDown from "@/assets/icons/CaratDown";
-import SortIcon from "@/assets/icons/SortIcon";
 
 const Index = () => {
   const pseudoData = [

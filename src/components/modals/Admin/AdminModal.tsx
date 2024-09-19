@@ -8,7 +8,6 @@ const AdminModal = ({ show, setShow }: any) => {
   const [currModal, setCurrmodal] = useState<string>("");
 
   const toggleCollapse = (title: string) => {
-    // Toggle the clicked modal
     setCurrmodal((prev) => (prev === title ? "" : title));
   };
 
