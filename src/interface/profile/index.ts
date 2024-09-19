@@ -9,6 +9,7 @@ export interface IUpdateProfile {
     operation_address?: string;
     CAC_number?: string;
     location?: string;
+    avatar?: string;
 }
 
   
