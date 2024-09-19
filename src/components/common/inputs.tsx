@@ -7,7 +7,8 @@ import PhoneInput from "react-phone-number-input";
 import SearchIcon from "@/assets/icons/SearchIcon";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import { NumericFormat } from "react-number-format";
-
+import { AddIcons,SubtractIcons } from "@/assets/icons/MathIcons";
+import Check from "@/assets/icons/checkBox";
 
 export const Input: FC<Partial<InputProps>> = ({ ...props }) => {
   const [focus, setFocus] = useState(false);
@@ -279,13 +280,69 @@ export const SearchInput: React.FC<any> = ({ ...props }) => {
     >
       <SearchIcon />
       <input
-        className={`!outline-none focus:bg-transparent transition-all duration-300 ease-in-out w-full
+        className={`!outline-none focus:bg-transparent transition-all duration-300 ease-in-out w-[100%]
           ${className || ""}
           placeholder:text-s lg:placeholder:text-base placeholder:text-[#8C8B92]-400 text-[16px]
         `}
         placeholder={props.placeholder || "Search..."}
         {...rest}
       />
+    </div>
+  );
+};
+
+/* RangeValue Component */
+export const RangeValue: React.FC = () => {
+  const [range, setRange] = useState<number>(10);
+
+  const increase = (): void => {
+    setRange((prev) => prev + 1);
+  };
+  const decrease = (): void => {
+    setRange((prev) => (prev > 0 ? prev - 1 : 0)); // Prevent negative values
+  };
+
+  return (
+    <div className="flex h-[40px] md:h-[48px] items-center">
+      <div
+        onClick={increase}
+        className="cursor-pointer w-[40px] md:w-[48px] h-[40px] md:h-[48px] border border-[#DBDBDB] rounded-tl-[10px] rounded-bl-[10px] p-2 flex items-center justify-center"
+      >
+        <AddIcons />
+      </div>
+      <input
+        type="number"
+        value={range}
+        className="w-[50px] md:w-[60px] h-[40px] md:h-[48px] border-t border-b border-[#DBDBDB] text-center outline-none"
+        readOnly
+      />
+      <div
+        onClick={decrease}
+        className="cursor-pointer w-[40px] md:w-[48px] h-[40px] md:h-[48px] border border-[#DBDBDB] rounded-tr-[10px] rounded-br-[10px] p-2 flex items-center justify-center"
+      >
+        <SubtractIcons />
+      </div>
+    </div>
+  );
+};
+
+
+/* Checkbox Component */
+export const Checkbox = () => {
+  const [checked, setChecked] = useState(false);
+
+  const toggleCheckbox = () => {
+    setChecked((prev) => !prev);
+  };
+
+  return (
+    <div
+      onClick={toggleCheckbox}
+      className={`cursor-pointer h-[28px] md:h-[33px] w-[28px] md:w-[33px] border-[2.5px] border-[#3D3066] rounded flex items-center justify-center 
+         ${checked ? "bg-white" : "bg-transparent"}`}
+      aria-label="checkbox"
+    >
+      {checked && <Check />} 
     </div>
   );
 };
