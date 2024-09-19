@@ -7,7 +7,6 @@ import { useUrls } from "../useUrls";
 import { TOKEN } from "@/utils/token";
 import { updatePasswordSchema, updateProfileSchema } from "@/schema/profile/updateProfile";
 import { IUpdateProfile, IUpdateProfilePassword } from "@/interface/profile";
-import { ResetPasswordSchema } from "@/schema/auth";
 
 // Update User Details
 export const useProfileUpdate = ( type: string ) => {

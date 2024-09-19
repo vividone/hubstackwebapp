@@ -8,6 +8,8 @@ import { countryCodes } from "@/data/countryCodes";
 import { FormEvent, useState } from "react";
 import { useGetUser, useProfileUpdate } from "@/helpers/api/useProfile";
 import ToastComponent from "@/components/common/toastComponent";
+import ChangeAvatarModal from "@/components/modals/changeAvatar";
+import Image from "next/image";
 
 
 type Options = {
@@ -20,6 +22,7 @@ const Profile = () => {
   const { formik, isPending, isSuccess, isError, error } = useProfileUpdate(userDetails?.role)
   const { user, isLoading } = useGetUser(userDetails?._id)
   const [ phoneCode, setPhoneCode ] = useState<Options>({ label: "+234", value: "+234" })
+  const [changeAvatar, setChangeAvatar] = useState(false)
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -28,6 +31,12 @@ const Profile = () => {
   };
 
   return (
+    <>
+
+    {
+        changeAvatar ? <ChangeAvatarModal setShow={setChangeAvatar} show={changeAvatar} initialAvatar={formik.values.avatar} selectAvatar={(avatar => formik.setFieldValue("avatar", avatar))} /> : ""
+      }
+
     <form onSubmit={handleSubmit} className="flex flex-col gap-[60px] my-[60px] md:w-[90%]">
       
     <ToastComponent
@@ -39,11 +48,19 @@ const Profile = () => {
       <div className="flex justify-between flex-wrap gap-6">
         <h2 className="font-medium text-lg">Profile Photo</h2>
         <div className="flex gap-4 lg:w-[60%] w-full items-center">
-          <p className="bg-[#E7E6F2] text-[#507FFF] text-[40px] w-[88px] h-[88px] flex justify-center items-center rounded-full uppercase">{userDetails?.firstname.charAt(0)}{userDetails?.lastname.charAt(0)}</p>
+          {
+            userDetails?.avatar || formik.values.avatar ?
+            <p tabIndex={1} className={`pb-2 flex justify-center cursor-pointer rounded-[20px]`} onClick={() => setChangeAvatar(true)}>
+                <Image src={`/avatars/${formik.values.avatar || userDetails?.avatar}.svg`} alt="profilePic" width={88} height={88} />
+            </p>
+            :
+            <p tabIndex={1} className="bg-[#E7E6F2] text-[#507FFF] text-[40px] w-[88px] h-[88px] flex justify-center items-center  cursor-pointer rounded-full uppercase" onClick={() => setChangeAvatar(true)}>
+              {userDetails?.firstname.charAt(0)}{userDetails?.lastname.charAt(0)}
+            </p>
+          }
           <div className="flex flex-col gap-2">
             <p>We accept files in PNG or JPG format </p>
-            <label htmlFor="profilePic" className="text-[#3D3066] font-semibold cursor-pointer">CHANGE PHOTO</label>
-            <input type="file" name="profilePicture" id="profilePic" className="hidden" />
+            <p tabIndex={1} className="text-[#3D3066] font-semibold cursor-pointer" onClick={() => setChangeAvatar(!changeAvatar)}>CHANGE PHOTO</p>
           </div>
         </div>
       </div>
@@ -190,6 +207,7 @@ const Profile = () => {
       </div>
 
     </form>
+    </>
   );
 };
 
