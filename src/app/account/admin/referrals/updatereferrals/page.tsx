@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import AdminModal from "@/components/modals/Admin/AdminModal";
 import { AddIcons, SubtractIcons } from "@/assets/icons/MathIcons";
 import { Button } from "@/components/common/button";
-import Check from "@/assets/icons/checkBox";
+import { RangeValue,Checkbox } from "@/components/common/inputs";
 import ArrowDown from "@/assets/icons/arrowDown";
 
 const Index = () => {
@@ -143,57 +143,3 @@ const Index = () => {
 
 export default Index;
 
-/* RangeValue Component */
-export const RangeValue = () => {
-  const [range, setRange] = useState<number>(10);
-
-  const increase = (): void => {
-    setRange((prev) => prev + 1);
-  };
-  const decrease = (): void => {
-    setRange((prev) => (prev > 0 ? prev - 1 : 0)); // Prevent negative values
-  };
-
-  return (
-    <div className="flex h-[40px] md:h-[48px] items-center">
-      <div
-        onClick={increase}
-        className="cursor-pointer w-[40px] md:w-[48px] h-[40px] md:h-[48px] border border-[#DBDBDB] rounded-tl-[10px] rounded-bl-[10px] p-2 flex items-center justify-center"
-      >
-        <AddIcons />
-      </div>
-      <input
-        type="number"
-        value={range}
-        className="w-[50px] md:w-[60px] h-[40px] md:h-[48px] border-t border-b border-[#DBDBDB] text-center outline-none"
-        readOnly
-      />
-      <div
-        onClick={decrease}
-        className="cursor-pointer w-[40px] md:w-[48px] h-[40px] md:h-[48px] border border-[#DBDBDB] rounded-tr-[10px] rounded-br-[10px] p-2 flex items-center justify-center"
-      >
-        <SubtractIcons />
-      </div>
-    </div>
-  );
-};
-
-/* Checkbox Component */
-export const Checkbox = () => {
-  const [checked, setChecked] = useState(false);
-
-  const toggleCheckbox = () => {
-    setChecked((prev) => !prev);
-  };
-
-  return (
-    <div
-      onClick={toggleCheckbox}
-      className={`cursor-pointer h-[28px] md:h-[33px] w-[28px] md:w-[33px] border-[2.5px] border-[#3D3066] rounded flex items-center justify-center 
-         ${checked ? "bg-white" : "bg-transparent"}`}
-      aria-label="checkbox"
-    >
-      {checked && <Check />} {/* Conditionally render the Check icon */}
-    </div>
-  );
-};
