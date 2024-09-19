@@ -1,12 +1,9 @@
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import DollarBagIcon from "@/assets/icons/DollarBagIcon";
-import AgentsIcon from "@/assets/icons/AgentsIcon";
 import ServiceIconDashboard from "@/assets/icons/ServiceIconDashboard";
 import ReferralIcon from "@/assets/icons/Referral";
 import BellIcon from "@/assets/icons/BellIcon";
 import AgentIcon from "@/assets/icons/AgentIcon";
-import LaptopIcon from "@/assets/icons/LaptopIcon";
-import CustomerIcons from "@/assets/icons/Customers";
 import Image from "next/image";
 import TransactionIcon from "@/assets/icons/TransactionIcon";
 
@@ -46,14 +43,14 @@ export const AdminMenuList = [
   {
     name: "Agents ",
     logo: <AgentIcon />,
-    href: "/account/admin/agent",
+    href: "/admin/agent",
   },
   {
     name: "Customers",
     logo: (
       <Image alt="people" src={"/images/People.png"} height={20} width={20} />
     ),
-    href: "/account/admin/customer",
+    href: "/admin/customer",
   },
   {
     name: "Services",
@@ -62,17 +59,17 @@ export const AdminMenuList = [
       { Name: "NIN Services", href: "/account/services/nin-services" },
       { Name: "Bill Payment", href: "/account/services/bill-payment" },
     ],
-    href: "/account/services/bill-payment",
+    href: "/services/bill-payment",
   },
   {
     name: "Transactions",
     logo: <TransactionIcon />,
-    href: "/account/admin/transactions",
+    href: "/admin/transactions",
   },
   {
     name: "Referrals",
     logo: <ReferralIcon />,
-    href: "/account/admin/referrals",
+    href: "/admin/referrals",
   },
   {
     name: "Platform ",
@@ -84,11 +81,11 @@ export const AdminMenuList = [
         width={20}
       />
     ),
-    href: "/account/admin/Platform",
+    href: "/admin/Platform",
   },
   {
     name: "Notifications ",
     logo: <BellIcon />,
-    href: "/account/referral",
+    href: "/admin/notification",
   },
 ];

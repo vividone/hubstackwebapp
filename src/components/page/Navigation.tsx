@@ -40,8 +40,8 @@ const Navigation = ({ open, setOpen }: any) => {
         </div>
         <div className="flex items-center gap-2 md:gap-1.5">
           <Image
-            className="w-8 h-8 md:w-10 md:h-10 rounded-full object-cover cursor-pointer"
-            src={fakeUserData.profilePicture}
+            className="w-8 h-8 bg-[#65C9FF] md:w-10 md:h-10 rounded-full object-cover cursor-pointer"
+            src={userDetails?.avatar ? `/avatars/${userDetails?.avatar}.svg` : "/avatars/M4.svg"}
             alt="profile-picture"
             width={40}
             height={40}
