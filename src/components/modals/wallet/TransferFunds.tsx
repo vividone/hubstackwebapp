@@ -24,7 +24,7 @@ const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
     isError,
     error,
   } = useFundWallet();
-  const { data, formik: verify, isSuccess: isSuccessVerify } = useVerifyFund(fundData?._id);
+  const { data, formik: verify, isSuccess: isSuccessVerify } = useVerifyFund();
   const [showAlternate, setShowAlternate] = useState(false);
   const [flow, setFlow] = useState(0);
   const [form, setForm] = useState<any>({});
