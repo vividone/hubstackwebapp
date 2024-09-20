@@ -23,9 +23,9 @@ const Dashboard = ({ open, setOpen }: any) => {
     router.push("/");
   };
 
-  const sidebarRef = useOutsideClick(setOpen, false);
+  // const sidebarRef = useOutsideClick(setOpen, false);
   const currMenue = userDetails?.role !== "Admin" ? menuList : AdminMenuList;
-  // const currMenue = AdminMenuList
+  const currMenue = AdminMenuList
   
   return (
     <div
