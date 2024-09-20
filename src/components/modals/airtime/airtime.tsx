@@ -33,8 +33,9 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
 
     
-    const names = ["Etisalat Recharge Top-Up", "Airtel Recharge Pins", "Glo QuickCharge", "MTN e-Charge Prepaid"]
-    const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
+    const names = ["Etisalat Recharge Top-Up", "Airtel Recharge Pins", "Glo QuickCharge", "MTN e-Charge Prepaid", "9mobile Postpaid Payments(New)"]
+    const prodNames = ["9mobile Postpaid Payments(New)", "Airtel Postpaid  Payments", "GLO Topup"]
+    const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> prodNames.includes(item.Name));
 
     const completePayment = () => {
         completeBillPayment(formData, completedForm, userDetails)
@@ -116,7 +117,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         :
                         <div className="grid grid-cols-4 gap-4 mt-4">
                             {
-                                billersList?.map((item: { Id: number, LogoUrl: string, Name: string } ) => (
+                                billersList?.map((item: { Id: number, LogoUrl: string, ShortName: string, Name: string } ) => (
                                     <button 
                                         key={item.Id} 
                                         onClick={() => {
@@ -130,7 +131,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                                         }} 
                                         className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}
                                     >
-                                        <Image src={`/images/airtime/${item.LogoUrl}`} width={200} height={200} alt={item.Name} />
+                                        <Image src={`/images/airtime/${item.ShortName}.jpg`} width={200} height={200} alt={item.Name} />
                                     </button>
                                 ))
                             }
