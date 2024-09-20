@@ -4,7 +4,7 @@ import React, { ButtonHTMLAttributes, SVGProps, ReactNode } from "react";
 export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: // This ones here are from the design
-  "primary" | "secondary" | "special" | "terminus";
+  "primary" | "secondary" | "special" | "terminus" | "danger";
   size?: "sm" | "md" | "lg" | "long" | "content" | "full"; // the last 'full' is for default fields so it takes all the space
   isLoading?: boolean;
   color?: "primary" | "secondary" | "special" | "terminus";
@@ -52,6 +52,7 @@ export const Button = ({
  `,
     terminus: `bg-[#FFFCFB] hover:bg-[#FFE5D5] border border-[#FFE5D5] hover:text-[#F65555] active:bg-[#FFE5D5] 
     text-[#F65555] `,
+    danger: `text-[#DC3545] bg-[#DC354533] hover:bg-[#DC354535]`,
   };
   const sizeClassName = sizes[size];
   const colorClassName = colors[variant];
@@ -65,8 +66,8 @@ export const Button = ({
       data-test={dataTest}
       {...props}
     >
-      {icon !== false && icon }
-      {isLoading ? <Loader className="fill-white"/> : children}
+      {icon !== false && icon}
+      {isLoading ? <Loader className="fill-white" /> : children}
     </button>
-  )
+  );
 };

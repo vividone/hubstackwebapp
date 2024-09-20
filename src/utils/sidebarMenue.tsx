@@ -81,7 +81,7 @@ export const AdminMenuList = [
         width={20}
       />
     ),
-    href: "/admin/Platform",
+    href: "/admin/platform",
   },
   {
     name: "Notifications ",
