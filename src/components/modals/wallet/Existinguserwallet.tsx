@@ -24,16 +24,13 @@ interface MywalletProps {
   balance: number;
 }
 
-const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, balance }) => {
+const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) => {
   const {
     data: fundData,
     formik,
-    isSuccess: initializeSuccess,
-    isPending,
-    isError,
     error,
   } = useFundWallet();
-  const { formik: verify, isSuccess, isError: isVerifyError, isPending: isVerifyPending, error: verifyError } = useVerifyFund(fundData?._id);
+  const { formik: verify, isSuccess, isError, isPending, error: verifyError } = useVerifyFund();
   const [showAlternate, setShowAlternate] = useState(false);
   const [flow, setFlow] = useState("Account Details");
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
@@ -50,13 +47,11 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
 
   const handleSubmit = async () => {
     if(flow === "Fund Wallet") {
-      formik.handleSubmit();
+      setFlow("verify");
     }
     else if(flow === "verify") {
-      verify.setFieldValue("transactionId", fundData._id);
       verify.handleSubmit();
       refreshWallet(fundData.amount);
-      setFlow("")
     }
     else {
       setFlow("Fund Wallet")
@@ -66,8 +61,6 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   const verifyAlternate = () => {
     verify.setFieldValue("transactionId", fundData._id);
     verify.handleSubmit();
-    refreshWallet(fundData.amount);
-    setFlow("")
   }
 
   const closeSuccess = () => {
@@ -76,10 +69,10 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
   };
 
   useEffect(() => {
-    if (initializeSuccess) {
-      setFlow("verify");
+    if (isSuccess) {
+      setFlow("");
     }
-  }, [initializeSuccess])
+  }, [isSuccess])
 
   return (
     <>
@@ -87,7 +80,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
         isSuccess={false}
         isError={isError}
         msg={
-           isError || isVerifyError
+           isError
             ? error || verifyError
             : ""
         }
@@ -192,7 +185,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, bal
               variant="primary"
               size="long"
               type="submit"
-              isLoading={isPending || isVerifyPending}
+              isLoading={isPending}
               disabled={isPending}
               onClick={() => handleSubmit()}
               // className="mt-10"

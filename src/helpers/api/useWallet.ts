@@ -167,20 +167,19 @@ export const useFundWallet = ( ) => {
 
 
 
-export const useVerifyFund = (trxRef: number) => {
+export const useVerifyFund = () => {
   const [data, setData] = useState({ amount: 0 })
   const { verifyFunding } = useUrls();
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Verify Fund"],
       mutationFn: (payload: Partial<any>) => {
-          return axiosInstance.post(verifyFunding+ "/" + trxRef, payload)
+          return axiosInstance.post(verifyFunding)
       },
   })    
   
   const formik = useFormik({
       initialValues: {
-          transactionId: "",
-      } as any,
+      },
       validateOnBlur: false,
       validateOnChange: false,
       onSubmit: async ({...values }) => {
@@ -212,7 +211,7 @@ export const useGetWalletHistory = () => {
 
   const queryKey = ["Get all wallet history"]; // Unique key for the query
 
-  const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
+  const { data, isLoading, isError, isSuccess, error } = useQuery({ queryKey, queryFn: async () => {
     const response = await axiosInstance.get(getWalletHistory);
     const responseData = response.data;
     return responseData;
@@ -223,6 +222,7 @@ export const useGetWalletHistory = () => {
   return {
     history,
     isLoading,
+    isSuccess,
     isError,
     error
   };
