@@ -34,13 +34,13 @@ const Index = () => {
           <p className="font-[700]">Platform name</p>
           <p className="font-[400]">Input platform name</p>
         </div>
-        <div className="flex w-full md:w-[70%] justify-between">
+        <div className="flex w-full md:w-[70%] justify-between items-center">
           <div className="flex-[1.2] ">
             <Input placeholder="HUBSTACK" disabled={true} />
           </div>
           <div className="flex-[1] flex">
             <div className="w-[50%] ml-auto">
-              <Edit className="w-[31.66px] h-[31.66px] m-auto" />
+              <Edit className="w-[31.66px] h-[31.66px] m-auto cursor-pointer" />
             </div>
           </div>
         </div>
