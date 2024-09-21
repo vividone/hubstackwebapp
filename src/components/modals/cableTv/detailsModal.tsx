@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
 
 interface CableTvProps extends FlowProps {
@@ -17,6 +18,10 @@ interface CableTvProps extends FlowProps {
 const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active, completeAlternate, completedForm }) => {
   const [showAlternate, setShowAlternate] = useState(false)
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
 
   const fillForm = () => {
     completedForm.setValues({ 
@@ -63,17 +68,17 @@ const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active, complet
 
             <div className="flex justify-between items-center gap-5">
               <span className="block ">Amount</span>
-              <span className="flex items-center"><NairaIconElectricBill className="w-[12px]" />{formatAmount(data?.amount)}</span>
+              <span className="flex items-center">{currencyFormatter(data?.amount)}</span>
             </div>
             
             <div className="flex justify-between items-center gap-5">
               <span className="block">Service Charge</span>
-              <span className="flex items-center"><NairaIconElectricBill className="w-[12px]" />0.00</span>
+              <span className="flex items-center">{currencyFormatter(data?.serviceProvider?.ItemFee)}</span>
             </div>
             
             <div className="flex justify-between items-center gap-5 mb-6">
               <span className="block font-bold">TOTAL</span>
-              <span className="flex items-center"><NairaIconElectricBill className="w-[12px]" />{formatAmount(data?.amount)}</span>
+              <span className="flex items-center">{currencyFormatter(data?.amount + data?.serviceProvider?.ItemFee)}</span>
             </div>
 
           </div>

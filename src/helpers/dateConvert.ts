@@ -5,3 +5,11 @@ export const dateConvert = (date: string) => {
 
     return convertedDate;
 }
+
+export const timeConvert = (date: string) => {
+    const splittedTime = date.split("T")[1].split(":")
+
+    const convertedTime = splittedTime[0] + ":" + splittedTime[1]
+
+    return convertedTime;
+}
