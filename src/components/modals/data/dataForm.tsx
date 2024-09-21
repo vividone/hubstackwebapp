@@ -21,6 +21,7 @@ const DataForm = ({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    console.log(formik.errors)
     formik.handleSubmit()
   }
 
@@ -61,6 +62,7 @@ const DataForm = ({
                   const selectedOption = value as any;
                   setData({...data, serviceProvider: selectedOption})
                   formik.setFieldValue("amount", selectedOption.fee)
+                  formik.setFieldValue("paymentCode", selectedOption.paymentCode)
                 } else {
                 }
               }}
@@ -68,7 +70,7 @@ const DataForm = ({
                 label: item.Name,
                 value: item.Name,
                 fee: item.Amount/100,
-                PaymentCode: item.PaymentCode,
+                paymentCode: item.PaymentCode,
               }))}
               className="items-start text-start justify-start rounded-[8px]"
             />
