@@ -59,8 +59,8 @@ const Profile = () => {
             </p>
           }
           <div className="flex flex-col gap-2">
-            <p>We accept files in PNG or JPG format </p>
-            <p tabIndex={1} className="text-[#3D3066] font-semibold cursor-pointer" onClick={() => setChangeAvatar(!changeAvatar)}>CHANGE PHOTO</p>
+            <p>Profile Avatar </p>
+            <p tabIndex={1} className="text-[#3D3066] font-semibold cursor-pointer" onClick={() => setChangeAvatar(!changeAvatar)}>CHOOSE AVATAR</p>
           </div>
         </div>
       </div>

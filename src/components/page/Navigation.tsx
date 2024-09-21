@@ -5,6 +5,7 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import MenuIcon from "@/assets/icons/MenuIcon";
+import Link from "../custom/link";
 
 const Navigation = ({ open, setOpen }: any) => {
   const [showNotification, setShowNotification] = useState(true);
@@ -38,7 +39,7 @@ const Navigation = ({ open, setOpen }: any) => {
             <span className="absolute top-1 right-2 border-2 border-white w-2.5 h-2.5 bg-red-500 rounded-full"></span>
           )}
         </div>
-        <div className="flex items-center gap-2 md:gap-1.5">
+        <Link href="/account/profile" className="flex items-center gap-2 md:gap-1.5">
           <Image
             className="w-8 h-8 bg-[#65C9FF] md:w-10 md:h-10 rounded-full object-cover cursor-pointer"
             src={userDetails?.avatar ? `/avatars/${userDetails?.avatar}.svg` : "/avatars/M4.svg"}
@@ -46,11 +47,7 @@ const Navigation = ({ open, setOpen }: any) => {
             width={40}
             height={40}
           />
-          <KeyboardArrowDownRoundedIcon
-            className="cursor-pointer"
-            sx={{ color: "#637381" }}
-          />
-        </div>
+        </Link>
       </div>
     </div>
   );
