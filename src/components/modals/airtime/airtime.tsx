@@ -117,7 +117,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         :
                         <div className="grid grid-cols-4 gap-4 mt-4">
                             {
-                                billersList?.map((item: { Id: number, LogoUrl: string, ShortName: string, Name: string } ) => (
+                                billersList?.map((item: { Id: number, LogoUrl: string, ShortName: string, Name: string, PaymentCode: string } ) => (
                                     <button 
                                         key={item.Id} 
                                         onClick={() => {
@@ -126,7 +126,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                                             formik.setFieldValue("service", item.Name?.split(" ")[0] + " Recharge")
                                             formik.setFieldValue("billerId", item.Id?.toString())
                                             formik.setFieldValue("paymentMode", "wallet")
-                                            formik.setFieldValue("paymentCode", "0488051528")
+                                            formik.setFieldValue("paymentCode", item.PaymentCode)
                                             formik.setFieldValue("category", "billpayment")
                                         }} 
                                         className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}

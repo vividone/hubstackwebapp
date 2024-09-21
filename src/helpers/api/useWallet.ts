@@ -139,8 +139,8 @@ export const useFundWallet = ( ) => {
           amount: "",
           paymentMode: "account transfer",
       } as IFundWallet,
-      validateOnBlur: false,
-      validateOnChange: false,
+      validateOnBlur: true,
+      validateOnChange: true,
       validationSchema: fundWalletValidationSchema,
       onSubmit: async ({...values }) => {
       try {

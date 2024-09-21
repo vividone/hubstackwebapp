@@ -1,20 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
-import { FlowProps } from "../modalsLayout";
-import Confirmation from "../confirmation";
-import AlternatePaymentMethod from "../AlternatePaymentMethod";
+
 const InternetPayment: React.FC<any> = ({
   setFlow,
   data,
-  pseudo,
 }: //   setIsPadded,
 any) => {
   const [showAlternate, setShowAlternate] = useState(false);
-  const [showAlternatePayment, setShowAlternatePayment] = useState(false);
 
   return (
     <div className="mt-4">

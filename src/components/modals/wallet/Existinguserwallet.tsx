@@ -31,9 +31,8 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
   const {
     data: fundData,
     formik,
-    error,
   } = useFundWallet();
-  const { formik: verify, isSuccess, isError, isPending, error: verifyError } = useVerifyFund();
+  const { formik: verify, isSuccess, isError, isPending } = useVerifyFund();
   const [showAlternate, setShowAlternate] = useState(false);
   const [flow, setFlow] = useState(0);
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
@@ -53,7 +52,12 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
 
   const handleSubmit = async () => {
     if(flow === 1) {
-      setFlow(2);
+      if(+formik.values.amount > 90) {
+        setFlow(2);
+      }
+      else {
+        formik.setErrors({ amount: "Input a valid amount" })
+      }
     }
     else if(flow === 2) {
       verify.handleSubmit();
@@ -97,7 +101,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
           <div className="flex justify-center flex-col gap-4 h-fit bg-white border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
             <div className="flex justify-between py-6">
               <h1 className="text-[20px] font-bold flex items-center gap-2"> <LoaderIcon />Payment Processing</h1>
-              <Close />
+              <button onClick={() => setStatus("")} ><Close/></button>
             </div>
             <p>We will confirm your payment and update your account shortly!</p>
             <p>Thanks</p>
@@ -124,7 +128,6 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
             <Dropdown
               name="serviceProvider"
               value={{label: content, value: content}}
-              error={formik.errors.amount && "Choose a wallet to fund"}
               onChange={(value) => {
                 if (value) {
                   const selectedOption = value as any;
