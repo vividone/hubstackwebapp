@@ -14,13 +14,13 @@ const NewNotification = ({ show, setShow }: any) => {
       setShow={setShow}
     >
       <div className="w-full p-2 ">
-        <h3 className="font-[500] text-[20px] md:text-[24px] lg:text-[30px] mb-4">
+        <h3 className="font-[500] text-[24px] md:text-[20px] lg:text-[30px] mb-4">
           Notification Type
         </h3>
 
         <div className="mb-6">
-          <div className="flex justify-between items-center p-4 border border-[#E7E6F2] rounded-md">
-            <span className="text-[20px] md:text-[22px] lg:text-[24px] cursor-pointer rounded-[16px]">
+          <div className="flex justify-between items-center p-4 border border-[#E7E6F2] rounded-md cursor-pointer">
+            <span className="text-[22px] md:text-[20px] lg:text-[24px]  rounded-[16px]">
               Choose a notification type
             </span>
             <ArrowDown />
@@ -28,7 +28,7 @@ const NewNotification = ({ show, setShow }: any) => {
         </div>
 
         <div className="mb-6">
-          <h3 className="text-[20px] md:text-[24px] lg:text-[30px] font-medium mb-4">
+          <h3 className="text-[24px] md:text-[20px] lg:text-[30px] font-medium mb-4">
             Write your message
           </h3>
           <textarea
@@ -39,7 +39,7 @@ const NewNotification = ({ show, setShow }: any) => {
 
         <div className="mb-6">
           <div className="bg-[#F2F2F2] p-4 mb-4">
-            <h3 className="text-[20px] md:text-[24px] lg:text-[30px] font-medium">
+            <h3 className="text-[24px] md:text-[20px] lg:text-[30px] font-medium">
               Send to:
             </h3>
           </div>
@@ -47,7 +47,7 @@ const NewNotification = ({ show, setShow }: any) => {
             <input type="radio" id="agents" name="sendTo" className="mr-2" />
             <label
               htmlFor="agents"
-              className="text-[18px] md:text-[20px] lg:text-[24px]"
+              className="text-[20px] md:text-[18px] lg:text-[24px]"
             >
               Agents
             </label>
@@ -56,7 +56,7 @@ const NewNotification = ({ show, setShow }: any) => {
             <input type="radio" id="customers" name="sendTo" className="mr-2" />
             <label
               htmlFor="customers"
-              className="text-[18px] md:text-[20px] lg:text-[24px]"
+              className="text-[20px] md:text-[18px] lg:text-[24px]"
             >
               Customers
             </label>
@@ -66,11 +66,11 @@ const NewNotification = ({ show, setShow }: any) => {
         {/* Activity Status Section */}
         <div className="mb-6">
           <div className="bg-[#F2F2F2] p-4 mb-6">
-            <h3 className="text-[20px] md:text-[24px] lg:text-[30px] font-medium">
+            <h3 className="text-[24px] md:text-[20px] lg:text-[30px] font-medium">
               Based on:
             </h3>
           </div>
-          <span className="text-[24px] md:text-[26px] lg:text-[32px] font-medium ">
+          <span className="text-[26px] md:text-[24px] lg:text-[32px] font-medium ">
             Activity Status
           </span>
           <div className="flex items-center mb-2 mt-6">
@@ -82,7 +82,7 @@ const NewNotification = ({ show, setShow }: any) => {
             />
             <label
               htmlFor="active"
-              className="text-[18px] md:text-[20px] lg:text-[24px]"
+              className="text-[20px] md:text-[18px] lg:text-[24px]"
             >
               Active
             </label>
@@ -96,7 +96,7 @@ const NewNotification = ({ show, setShow }: any) => {
             />
             <label
               htmlFor="inactive"
-              className="text-[18px] md:text-[20px] lg:text-[24px]"
+              className="text-[20px] md:text-[18px] lg:text-[24px]"
             >
               Inactive
             </label>
@@ -110,7 +110,7 @@ const NewNotification = ({ show, setShow }: any) => {
             />
             <label
               htmlFor="suspended"
-              className="text-[18px] md:text-[20px] lg:text-[24px]"
+              className="text-[20px] md:text-[18px] lg:text-[24px]"
             >
               Suspended
             </label>
@@ -119,15 +119,15 @@ const NewNotification = ({ show, setShow }: any) => {
 
         <div className="mb-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-[20px] md:text-[24px] lg:text-[30px] font-medium">
+            <h3 className="text-[24px] md:text-[20px] lg:text-[30px] font-medium">
               Location
             </h3>
-            <button className="text-[16px] md:text-[18px] lg:text-[20px] text-blue-500">
+            <button className="text-[18px] md:text-[16px] lg:text-[20px] text-[#3D3066]">
               + Add New
             </button>
           </div>
           <div className="mb-4">
-            <label className="text-[18px] md:text-[20px] lg:text-[24px] block mb-2">
+            <label className="text-[20px] md:text-[18px] lg:text-[24px] block mb-2">
               Region/Location
             </label>
             <Input placeholder="Enter location" />

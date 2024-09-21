@@ -6,109 +6,206 @@ import AdminTable from "@/components/datavisulaization/table";
 import Pagination from "@/components/tables/pagination";
 import HistoryModal from "@/components/modals/historyModal";
 import { History } from "@/components/tables/history";
-import { SearchInput } from "@/components/common/inputs";
+import { Input, SearchInput } from "@/components/common/inputs";
 import CaratDown from "@/assets/icons/CaratDown";
 import SortIcon from "@/assets/icons/SortIcon";
+import Edit from "@/assets/icons/Write";
+import Image from "next/image";
 
 const Index = () => {
   const pseudoData = [
-    {
-      title: "Total Agents ",
-      content: "278,000",
-    },
-    {
-      title: "Verified ",
-      content: "260,960",
-    },
-    {
-      title: "Unverified",
-      content: "278,000",
-    },
-    {
-      title: "Suspended",
-      content: "278,000",
-    },
+    { title: "Total Agents", content: "278,000" },
+    { title: "Verified", content: "260,960" },
+    { title: "Unverified", content: "278,000" },
+    { title: "Suspended", content: "278,000" },
   ];
+  const color = ["#00D7F7", "#3D3066", "#507FFF", "#111111", "#7BA4FF"];
+
   return (
-    <div className="p-4 md:p-[50px_25px] overflow-x-hidden font-CabinetGrotesk ">
-      {/* Header Section */}
-      <div className="flex flex-col md:flex-row w-full mb-6 items-center">
+    <div className="p-4 md:p-[50px_25px] overflow-x-hidden font-CabinetGrotesk">
+      <div className="flex flex-col md:flex-row w-full mb-6 ">
         <h2 className="text-[24px] md:text-[36px] font-medium mb-4 md:mb-0">
-          Agents
+          Platform
         </h2>
-        <Button
-          icon={
-            <PlusIcon className="h-[18.75px] w-[18.75px] color-[#FFFFFF]" />
-          }
-          size="lg"
-          variant="primary"
-          className="ml-0 md:ml-auto w-full md:w-[322px]"
-        >
-          Add New
-        </Button>
       </div>
 
-      {/* Stats Section */}
-      <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-between mb-8">
-        {pseudoData.map((item, key) => (
-          <div
-            key={key}
-            className="p-4 border border-[#E7E6F2] w-full sm:w-[48%] md:w-[335px] height-[150px] rounded-[15px]"
-          >
-            <div className="flex justify-between items-center">
-              <h4 className="font-bold text-[20px] md:text-[24px]">
-                {item.title}
-              </h4>
-              <SpreadIcon />
-            </div>
-            <div className="text-[32px] md:text-[42px] font-bold">
-              <p>{item.content}</p>
+      <div className="flex flex-col md:flex-row w-full">
+        <div className="w-full md:w-[30%] text-[24px] md:text-[20px] my-auto">
+          <p className="font-[700]">Platform name</p>
+          <p className="font-[400]">Input platform name</p>
+        </div>
+        <div className="flex w-full md:w-[70%] justify-between items-center">
+          <div className="flex-[1.2] ">
+            <Input placeholder="HUBSTACK" disabled={true} />
+          </div>
+          <div className="flex-[1] flex">
+            <div className="w-[50%] ml-auto">
+              <Edit className="w-[31.66px] h-[31.66px] m-auto cursor-pointer" />
             </div>
           </div>
-        ))}
+        </div>
       </div>
 
-      {/* Filter & Search Section */}
-      <div className="mt-10 flex flex-wrap gap-4 justify-between items-center p-2 ">
-        <div className="flex-grow">
-          <SearchInput
-            type="text"
-            placeholder="Search"
-            className="w-full bg-white border-none"
-          />
+      {/* Company Logo Section */}
+      <div className="flex flex-col md:flex-row w-full mt-10">
+        <div className="w-full md:w-[30%] text-[24px] md:text-[20px] my-auto ">
+          <p className="font-[700]">Company logo</p>
+          <p className="font-[400]">Upload the company logo</p>
         </div>
+        <div className="flex w-full md:w-[70%] justify-start md:justify-between items-center">
+          {/* Adjust the flex properties for small screens */}
+          <div className="flex flex-[1.2] items-center gap-4">
+            <div className="w-[100px] h-[100px] bg-[#3D3066] rounded-[13px]">
+              <Image
+                src="/images/Hubstack Logo-02.png"
+                alt="logo"
+                height={100}
+                width={100}
+                className="w-[100px] h-[100px]"
+              />
+            </div>
 
-        {/* Filter Controls */}
-        <div className="flex gap-2 items-center ">
-          <span className="font-medium text-[16px] text-[#3D3066] ">
-            Showing all Agents
-          </span>
-
-          <div className="flex items-center h-[66px] w-[180px] lg:w-[224px] rounded-lg p-[12px] border border-[#89939F] bg-white justify-between">
-            <span className="text-[16px] text-[#292C30] font-medium">
-              All AGENTS
-            </span>
-            <span className="ml-2  p-[4px] rounded bg-[#F5F8FC]">
-              <CaratDown />
-            </span>
+            <Button variant="special" size="md" className="mr-4">
+              Replace logo
+            </Button>
           </div>
-
-          <div className="flex items-center h-[66px] gap-[5px] rounded-lg p-[12px] border border-[#89939F] bg-white">
-            <SortIcon />
-            <span className="text-[16px] text-[#292C30] font-medium">
-              Latest
-            </span>
+          <div className="flex-1 flex justify-start md:justify-end   md:mt-0">
+            <Button variant="danger" size="md">
+              Remove
+            </Button>
           </div>
         </div>
+      </div>
 
-        <div className="w-full mt-6">
-          {/* History Table Section */}
-          <h2 className="text-[20px] md:text-[24px] font-bold mb-2">Agent</h2>
-          <History
-            history={""}
-            fields={["NAME", "TRANSACTIONS", "EARNED COMMISSION", "STATUS"]}
-            className="text-[24px] font-bold"
-          />
+      {/* Brand Color Section */}
+      <div className="flex flex-col md:flex-row w-full mt-10">
+        <div className="w-full md:w-[30%] text-[24px] md:text-[20px] my-auto">
+          <p className="font-[700]">Brand colour</p>
+          <p className="font-[400]">Select or customize your brand colour</p>
+        </div>
+        <div className="flex w-full md:w-[70%] justify-start items-start">
+          <div className="flex flex-col flex-[1.2] items-start gap-4">
+            {/* Ensure colors are aligned left on small screens */}
+            <div className="w-full flex gap-4 justify-start">
+              {color.map((items, key) => (
+                <div
+                  key={key}
+                  style={{ background: items }}
+                  className="w-[50px] h-[50px] rounded-full"
+                ></div>
+              ))}
+            </div>
+            <div className="w-full flex gap-6 text-[20px] items-center mt-2 justify-start">
+              <span className="text-[#00000080]">Custom colour</span>
+              <div className="flex gap-2 border border-[#DBDBDB] p-2 rounded-[6px] items-center">
+                <div className="bg-[#3D3066] rounded-[4px] h-[26px] w-[26px]"></div>
+                <span className="text-[16px] font-500">#3D3066</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Other sections remain unchanged */}
+      <div className="flex flex-col md:flex-row w-full mt-10">
+        <div className="w-full md:w-[30%] text-[24px] md:text-[20px] my-auto">
+          <p className="font-[700]">Brand Images</p>
+          <p className="font-[400]">Upload brand images</p>
+        </div>
+        <div className="flex flex-col md:flex-row w-full md:w-[70%] gap-2">
+          <div className="h-[204px] w-full md:w-[277px] bg-[#F2F2F2]"></div>
+          <div className="h-[204px] w-full md:w-[277px] bg-[#F2F2F2]"></div>
+          <div className="h-[204px] w-full md:w-[277px] bg-[#F2F2F2]"></div>
+        </div>
+      </div>
+
+      <div className="w-full mt-6">
+        <span className="font-[700] text-[32px] md:text-[29px]">
+          Contact Details
+        </span>
+        <div className="flex flex-col md:flex-row items-center mb-4">
+          <div className="w-full md:w-[30%]">
+            <span className="font-[700] text-[24px] md:text-[20px]">
+              Location
+            </span>
+          </div>
+          <div className="w-full md:w-[70%] flex items-center">
+            <Input
+              placeholder="Lagos, Nigeria"
+              className="w-full md:w-[612px] md:w-[400px]"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center mb-4">
+          <div className="w-full md:w-[30%]">
+            <span className="font-[700] text-[24px] md:text-[20px]">
+              Email Address
+            </span>
+          </div>
+          <div className="w-full md:w-[70%] flex items-center">
+            <Input
+              placeholder="fortbridgeinc@gmail.com"
+              className="w-full md:w-[612px] md:w-[400px]"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="w-full md:w-[30%]">
+            <span className="font-[700] text-[24px] md:text-[20px]">
+              Phone Number
+            </span>
+          </div>
+          <div className="w-full md:w-[70%] flex items-center">
+            <Input
+              placeholder="080 000 000 00"
+              className="w-full md:w-[612px] md:w-[400px]"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full mt-6">
+        <span className="font-[700] text-[32px] md:text-[26px]">
+          General Settings
+        </span>
+        <div className="flex flex-col md:flex-row items-center mb-4">
+          <div className="w-full md:w-[30%]">
+            <span className="font-[700] text-[24px] md:text-[20px]">
+              Time Zone
+            </span>
+          </div>
+          <div className="w-full md:w-[70%] flex items-center">
+            <Input
+              placeholder="(UTC+01:00) West Africa Time"
+              className="w-full md:w-[612px] md:w-[400px]"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center mb-4">
+          <div className="w-full md:w-[30%]">
+            <span className="font-[700] text-[24px] md:text-[20px]">
+              Language
+            </span>
+          </div>
+          <div className="w-full md:w-[70%] flex items-center">
+            <Input
+              placeholder="English (US)"
+              className="w-full md:w-[612px] md:w-[400px]"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="w-full md:w-[30%]">
+            <span className="font-[700] text-[24px] md:text-[20px]">
+              Currency
+            </span>
+          </div>
+          <div className="w-full md:w-[70%] flex items-center">
+            <Input
+              placeholder="Naira"
+              className="w-full md:w-[612px]"
+            />
+          </div>
         </div>
       </div>
     </div>
