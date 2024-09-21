@@ -101,7 +101,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
           <div className="flex justify-center flex-col gap-4 h-fit bg-white border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
             <div className="flex justify-between py-6">
               <h1 className="text-[20px] font-bold flex items-center gap-2"> <LoaderIcon />Payment Processing</h1>
-              <Close />
+              <button onClick={() => setStatus("")} ><Close/></button>
             </div>
             <p>We will confirm your payment and update your account shortly!</p>
             <p>Thanks</p>
