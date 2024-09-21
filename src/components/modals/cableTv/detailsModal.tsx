@@ -25,7 +25,7 @@ const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active, complet
 
   const fillForm = () => {
     completedForm.setValues({ 
-      paymentCode: "0488051528", 
+      paymentCode: data?.transactionDetails.paymentCode?.toString(), 
       customerId: data?.transactionDetails.customerId?.toString(), 
       customerEmail: userDetails?.email,
       customerMobile: userDetails?.phone_number || "09012345678",

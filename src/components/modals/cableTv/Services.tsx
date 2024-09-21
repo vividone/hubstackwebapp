@@ -46,9 +46,8 @@ const CableTVServices = ({ setShow, show }: any) => {
 
   
   const completePayment = () => {
-    console.log("caaled")
     completedForm.setValues({ 
-      paymentCode: "0488051528", //payCable?.transactionDetails.paymentCode?.toString()
+      paymentCode: payCable?.transactionDetails.paymentCode?.toString(), 
       customerId: payCable?.transactionDetails.customerId?.toString(), 
       customerEmail: userDetails?.email,
       customerMobile: userDetails?.phone_number || "09012345678",
@@ -67,80 +66,6 @@ const CableTVServices = ({ setShow, show }: any) => {
     completedForm.handleSubmit()
   }
 
-  
-  // const providers: cableTvProviders[] = [
-  //   {
-  //     LogoUrl: "ActTV.png",
-  //     Name: "actTv",
-  //     Id: "1",
-  //   },
-  //   {
-  //     LogoUrl: "BoxOffice.png",
-  //     Name: "Box Office",
-  //     Id: "2",
-  //   },
-  //   {
-  //     LogoUrl: "DaarSat.png",
-  //     Name: "DaarSat",
-  //     Id: "3",
-  //   },
-  //   {
-  //     LogoUrl: "DSTV.png",
-  //     Name: "DSTV",
-  //     Id: "4",
-  //   },
-  //   {
-  //     LogoUrl: "GOTV.png",
-  //     Name: "GOTV",
-  //     Id: "5",
-  //   },
-  //   {
-  //     LogoUrl: "InfinityTv.png",
-  //     Name: "Infinity TV",
-  //     Id: "6",
-  //   },
-  //   {
-  //     LogoUrl: "irokoTv.png",
-  //     Name: "Iroko Tv",
-  //     Id: "7",
-  //   },
-  //   {
-  //     LogoUrl: "kwese.png",
-  //     Name: "kwese",
-  //     Id: "8",
-  //   },
-  //   {
-  //     LogoUrl: "montageTv.png",
-  //     Name: "Montage TV",
-  //     Id: "9",
-  //   },
-  //   {
-  //     LogoUrl: "100NairaShop.png",
-  //     Name: "100 Naira Shop",
-  //     Id: "10",
-  //   },
-  //   {
-  //     LogoUrl: "playTv.png",
-  //     Name: "Play TV",
-  //     Id: "11",
-  //   },
-  //   {
-  //     LogoUrl: "BigXtv.png",
-  //     Name: "Big X TV",
-  //     Id: "12",
-  //   },
-    // {
-    //   LogoUrl: "starTimesTv.png",
-    //   Name: "StarTimes TV",
-    //   Id: "13",
-    // },
-    
-  //   {
-  //     LogoUrl: "TrendTv.png",
-  //     Name: "Trend TV",
-  //     Id: "14",
-  //   }
-  // ];
   return (
     <>
     

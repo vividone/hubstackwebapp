@@ -31,7 +31,7 @@ const Data = ({ setShow, show }: any) => {
   
   const names = ["Etisalat Recharge Top-Up", "Airtel Data Bundles", "GLO", "MTN Data Bundles", "NTEL Data Bundles"]
   const prodnames = ["MTN Mobile Data_Plan", "9Mobile_Data_Bundles_VF", "GLO Data Bundle", "Airtel Data Bundles"]
-  const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
+  const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> prodnames.includes(item.Name));
 
   const completePayment = () => {
       completeBillPayment(formData, completedForm, userDetails)
@@ -118,7 +118,7 @@ const Data = ({ setShow, show }: any) => {
               :
               <div className="grid grid-cols-4 gap-4 mt-4">
                   {
-                      billersList?.map((item: { Id: number, ShortName: string, Name: string } ) => (
+                      billersList?.map((item: { Id: number, ShortName: string, Name: string, PaymentCode: string } ) => (
                           <button 
                             key={item.Id} 
                             onClick={() => {
@@ -126,7 +126,7 @@ const Data = ({ setShow, show }: any) => {
                               formik.setFieldValue("service", item.Name?.split(" ")[0] + " Data")
                               formik.setFieldValue("biller", item.Name)
                               formik.setFieldValue("billerId", item.Id.toString())
-                              formik.setFieldValue("paymentCode", "0488051528")  //data?.serviceProvider?.PaymentCode
+                              formik.setFieldValue("paymentCode", item.PaymentCode) 
                               formik.setFieldValue("paymentMode", "wallet")
                               formik.setFieldValue("category", "billpayment") 
                               setFlow(1)
