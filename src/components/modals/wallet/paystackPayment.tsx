@@ -6,7 +6,7 @@ import { PaystackButton } from "react-paystack";
 
 type PaystackPaymentProps = {
     amount: number;
-    setFlow: (aug0: string) => void;
+    setFlow: (aug0: number) => void;
     refreshWallet?: (aug0: number) => void;
     complete?: any;
 }
@@ -24,7 +24,7 @@ export default function PaystackPayment({ amount, setFlow, refreshWallet, comple
         },
         publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "",
         onSuccess: (ref: any) => {
-            setFlow("success")
+            setFlow(3)
             refreshWallet ? refreshWallet(amount): ""
             complete(ref)
         },
