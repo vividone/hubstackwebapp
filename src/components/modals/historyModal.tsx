@@ -1,4 +1,4 @@
-import { dateConvert } from "@/helpers/dateConvert";
+import { dateConvert, timeConvert } from "@/helpers/dateConvert";
 import ClipBoard from "../wallet/clipboard";
 import ModalsLayout from "./modalsLayout";
 import { currencyFormatter } from "@/helpers/currencyConvert";
@@ -42,6 +42,10 @@ export default function HistoryModal({ setShow, show, transaction }: HistoryModa
                 <div className="flex justify-between items-center">
                     <h4>Date</h4>
                     <p className="font-bold">{dateConvert(transaction.updatedAt)}</p>
+                </div>
+                <div className="flex justify-between items-center">
+                    <h4>Time</h4>
+                    <p className="font-bold">{timeConvert(transaction.updatedAt)}</p>
                 </div>
             </div>
 

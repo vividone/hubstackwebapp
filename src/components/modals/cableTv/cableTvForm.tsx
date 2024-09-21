@@ -8,7 +8,6 @@ import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { Dropdown } from "@/components/common/Dropdown";
 import CurrencyField from "@/components/common/currencyInput";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
-import AlternatePaymentMethod from "../AlternatePaymentMethod";
 interface CableTvProps extends FlowProps {
   active: any;
   setData: (aug0: any) => void;
@@ -29,7 +28,7 @@ const CableTvForm: React.FC<CableTvProps> = ({
     formik.setFieldValue("biller", active?.Name);
     formik.setFieldValue("billerId", active?.Id.toString());
     formik.setFieldValue("paymentMode", "wallet");
-    formik.setFieldValue("paymentCode", "0488051528");
+    // formik.setFieldValue("paymentCode", "0488051528");
     formik.setFieldValue("category", "billpayment");
    
   }
@@ -102,7 +101,9 @@ const CableTvForm: React.FC<CableTvProps> = ({
                 if (value) {
                   const selectedOption = value as any;
                   formik.setFieldValue("service", selectedOption.value);
-                  setData({ ...data, serviceProvider: selectedOption });
+                  formik.setFieldValue("amount", selectedOption.fee);
+                  formik.setFieldValue("paymentCode", selectedOption.PaymentCode);
+                  setData({ ...data, serviceProvider: selectedOption, amount: selectedOption.fee });
                 } else {
                 }
               }}
@@ -111,7 +112,8 @@ const CableTvForm: React.FC<CableTvProps> = ({
                 value: item.Name,
                 fee: item.Amount / 100,
                 PaymentCode: item.PaymentCode,
-                fixed: item.IsAmountFixed,
+                ItemFee: +item.ItemFee / 100,
+                fixed: true,
               }))}
               className="items-start text-start justify-start rounded-[8px]"
             />
@@ -125,12 +127,15 @@ const CableTvForm: React.FC<CableTvProps> = ({
           >
             Amount
           </label>
-          <div className="text-[#8c8b92] mt-2">
+          <div className="mt-2">
             {data?.serviceProvider?.fixed ? (
-              <p className="text-[32px] font-bold flex items-center">
-                <NairaIconElectricBill width={32} />
-                {data?.serviceProvider?.fee}.00
-              </p>
+              <div>
+                <p className="text-[32px] font-bold flex items-center">
+                  <NairaIconElectricBill width={32} />
+                  {data?.serviceProvider?.fee}.00
+                </p>
+                <p className="text-[10px] text-red-500">{formik.errors.amount}</p>
+              </div>
             ) : (
               <CurrencyField
                 onValueChange={(v: any) => {

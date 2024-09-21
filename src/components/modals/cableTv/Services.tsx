@@ -46,6 +46,7 @@ const CableTVServices = ({ setShow, show }: any) => {
 
   
   const completePayment = () => {
+    console.log("caaled")
     completedForm.setValues({ 
       paymentCode: "0488051528", //payCable?.transactionDetails.paymentCode?.toString()
       customerId: payCable?.transactionDetails.customerId?.toString(), 

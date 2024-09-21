@@ -12,7 +12,7 @@ const PaystackPayment = dynamic(() => import("./paystackPayment"),  { ssr: false
 type AlternateFundingProps = {
     amount: number;
     setShow: SetStateAction<any>, 
-    setFlow: (aug0: string) => void,
+    setFlow: (aug0: number) => void,
     refreshWallet: (aug0: number) => void
 } 
 
