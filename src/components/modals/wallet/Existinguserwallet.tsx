@@ -89,7 +89,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
     <ModalsLayout flow={flow} setFlow={setFlow} header={fundHeading[flow]} show={true} setShow={setShow} isPadded={false}>
       
       <div ref={alternateRef}>
-        {showAlternate && <AlternateWalletFunding amount={fundData?.amount} setFlow={setFlow}  refreshWallet={verifyAlternate} setShow={setShowAlternate} />}
+        {showAlternate && <AlternateWalletFunding amount={formik.values.amount} setFlow={setFlow}  refreshWallet={verifyAlternate} setShow={setShowAlternate} />}
       </div>
       {
         status !== "" ?
