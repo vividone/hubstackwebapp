@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { Button } from "@/components/common/button";
 import ClipBoard from "@/components/wallet/clipboard";
 import Image from "next/image";
 
-const InternetPurchase = ({ setFlow, data, pseudo, setIsPadded }: any) => {
+const InternetPurchase = ({ setFlow, data }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
   return (

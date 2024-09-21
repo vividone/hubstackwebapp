@@ -28,7 +28,6 @@ const CableTvForm: React.FC<CableTvProps> = ({
     formik.setFieldValue("biller", active?.Name);
     formik.setFieldValue("billerId", active?.Id.toString());
     formik.setFieldValue("paymentMode", "wallet");
-    // formik.setFieldValue("paymentCode", "0488051528");
     formik.setFieldValue("category", "billpayment");
    
   }

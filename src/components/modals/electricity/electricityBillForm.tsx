@@ -1,9 +1,8 @@
 "use client"
-import React, { FormEvent, useEffect } from "react";
+import React, { FormEvent } from "react";
 import { Button } from "../../common/button";
 import { FlowProps } from "../modalsLayout";
 import { Dropdown } from "@/components/common/Dropdown";
-import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import CurrencyField from "@/components/common/currencyInput";
 import { Input } from "@/components/common/inputs";
 import { LoaderIcon } from "react-hot-toast";
@@ -53,7 +52,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPend
                       formik.setFieldValue("biller", selectedOption.value)
                       formik.setFieldValue("billerId", selectedOption.Id)
                       formik.setFieldValue("paymentMode", "wallet")
-                      formik.setFieldValue("paymentCode", "0488051528") 
+                      formik.setFieldValue("paymentCode", selectedOption.paymentCode) 
                       formik.setFieldValue("category", "billpayment") 
                     } else {
                     }
@@ -61,7 +60,8 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPend
                   options={billers?.map((item: any) => ({
                     label: item.Name,
                     value: item.Name,
-                    Id: item.Id
+                    Id: item.Id,
+                    paymentCode: item.PaymentCode
                   }))}
                   className="items-start text-start justify-start rounded-[8px]"
                 />
