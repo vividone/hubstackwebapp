@@ -39,7 +39,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
   const [content, setContent] = useState("Wema Bank");
   const [status, setStatus] = useState("")
 
-  const fundHeading = ["Account Details", "Fund Wallet", "Verify", "Success"]
+  const fundHeading = ["Fund Wallet", "Verify", "Success"]
 
   const dataSets: any = {
     "Wema Bank": wallet?.filter((item: any) => item.provider === "Flutterwave")[0],
@@ -51,20 +51,20 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
   const alternateRef = useOutsideClick(setShowAlternate, false)
 
   const handleSubmit = async () => {
-    if(flow === 1) {
-      if(+formik.values.amount > 90) {
-        setFlow(2);
+    if(flow === 0) {
+      if(+formik.values.amount > 99.99) {
+        setFlow(1);
       }
       else {
-        formik.setErrors({ amount: "Input a valid amount" })
+        formik.setErrors({ amount: "Amount must be between ₦100.00 and ₦5,000,000.00" })
       }
     }
-    else if(flow === 2) {
+    else if(flow === 1) {
       verify.handleSubmit();
       refreshWallet(fundData.amount);
     }
     else {
-      setFlow(1)
+      setFlow(0)
     }
   };
 
@@ -116,7 +116,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
 
       <div onSubmit={handleSubmit} className="mt-6">
         <div className="">
-          {flow === 1 ? (
+          {flow === 0 ? (
             <>
             <div className="p-[0px_40px]">
             <label
@@ -157,7 +157,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
                 />
                 
               {
-                (formik.touched.amount && formik.errors.amount) ? 
+                formik.errors.amount ? 
                 <p className="text-[12px] text-red-500 my-1">{formik.errors.amount}</p>
                 :
                 ""
@@ -165,7 +165,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
             </div>
             </>
           ) :
-          flow === 2 ?
+          flow === 1 ?
           (
             <div className="border-y border-[#E7E6F2] p-[20px_40px] ">
               <CurrentBalance />                
@@ -174,53 +174,13 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
           : ""
         }
         </div>
-        <nav className="mt-8 mb-8 p-[0_40px] ">
-          <div className="grid grid-cols-2 gap-12 border-b border-[#E7E7E7]">
-
-            {
-              flow === 1 || flow === 2 ? "" :
-              [
-                { id: 1, content: "Wema Bank" },
-                { id: 2, content: "Paystack Titan" },
-              ]
-              .map((item: {id: number, content: string}) => (
-                <Link
-                  key={item.id}
-                  href="#"
-                  title={item.content} aria-label={item.content}
-                  onClick={() => setContent(item.content)}
-                  className={`text-lg md:text-lg xxl:text-[25px] border-b-2 border-transparent transition duration-100 ease-in-out hover:border-[#3D3066] hover:text-[#3D3066] ${
-                    content === item.content
-                      ? "text-[#3D3066] font-bold border-b-[#3D3066]"
-                      : "font-normal"
-                  }`}
-                >
-                  <span>{item.content}</span>
-                </Link>
-              ))
-            }
-            
-          </div>
-        </nav>
+        
         <div className="mt-4 p-[0_40px]">
           {
-            flow === 1 ? "" : flow === 2 ? 
+            flow === 0 ? "" : flow === 1 ? 
             <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
               <p>Kindly pay <span className="px-1 font-bold text-[18px]">{currencyFormatter(formik.values.amount)}</span> to the account number shown below and click &apos;Confirm Transfer&apos;</p>
-              
-              <p className="text-[24px] font-bold mt-8">{existingData?.accountNumber}</p>
-              <p className="uppercase">{userDetails?.firstname + " " + userDetails?.lastname}</p>
-            </div>
-            :
-          
-          <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
-              {
-                
-                !existingData ?
-                  <p>Sorry, you do not have an account with this provider yet. Please contact support</p>
-                :
-
-                <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2 py-6">
                   <ClipBoard
                     label={"Account Number"}
                     text={existingData?.accountNumber}
@@ -230,10 +190,11 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
                     text={userDetails?.firstname + " " + userDetails?.lastname}
                   />
                   <ClipBoard label={"Bank Name"} text={existingData?.bankName} />
-                </div>
-                
-              }
-            
+              </div>
+            </div>
+            :
+          
+          <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
               <Link
                 href=""
                 className="flex items-center text-[#3D3066] text-[14px] mt-8 flex justify-center items-center gap-2"
@@ -255,7 +216,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
               // className="mt-10"
             >
               <span className="text-[16px] ">
-                {flow === 0 ? "FUND WALLET" : flow === 1 ? "CONTINUE" : "CONFIRM TRANSFER"}
+                {flow === 0 ? "CONTINUE" : "CONFIRM TRANSFER"}
               </span>
             </Button>
           </div>
@@ -263,7 +224,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
       </div>
 
       {
-        flow === 2 ?
+        flow === 1 ?
         
         <div className="flex justify-center mt-6">
           <Button
@@ -281,7 +242,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
       }
 
       {
-      (isSuccess || flow === 3) && (
+      (isSuccess || flow === 2) && (
         <Confirmation
           status={"success"}
           setShow={setShow}
