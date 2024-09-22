@@ -41,11 +41,11 @@ export default function HistoryModal({ setShow, show, transaction }: HistoryModa
                 </div>
                 <div className="flex justify-between items-center">
                     <h4>Date</h4>
-                    <p className="font-bold">{dateConvert(transaction.updatedAt)}</p>
+                    <p className="font-bold">{dateConvert(transaction.createdAt)}</p>
                 </div>
                 <div className="flex justify-between items-center">
                     <h4>Time</h4>
-                    <p className="font-bold">{timeConvert(transaction.updatedAt)}</p>
+                    <p className="font-bold">{timeConvert(transaction.createdAt)}</p>
                 </div>
             </div>
 
