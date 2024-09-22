@@ -208,11 +208,12 @@ export const useVerifyFund = () => {
 
 export const useGetWalletHistory = () => {
   const { getWalletHistory } = useUrls();
+  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
 
   const queryKey = ["Get all wallet history"]; // Unique key for the query
 
   const { data, isLoading, isError, isSuccess, error } = useQuery({ queryKey, queryFn: async () => {
-    const response = await axiosInstance.get(getWalletHistory);
+    const response = await axiosInstance.get(getWalletHistory+ "/" + userDetails?._id + "/wallet-transactions");
     const responseData = response.data;
     return responseData;
   }});
