@@ -1,5 +1,4 @@
 'use client'
-import NairaIcon from "@/assets/icons/nairaIcon"
 import { useEffect, useState } from "react"
 import Pagination from "./pagination"
 import { dateConvert, timeConvert } from "@/helpers/dateConvert"
@@ -48,13 +47,13 @@ export function History({ history, fields }: any) {
                             {
                                 fields.map((header: string, i:number) => (
                                     <td key={i} className="p-[20px] cursor-pointer">{
-                                        header === "Date" ? dateConvert(item?.updatedAt) + " " + timeConvert(item?.updatedAt)
+                                        header === "Date" ? dateConvert(item?.createdAt) + " " + timeConvert(item?.createdAt)
                                         :
-                                        header === "Time" ? timeConvert(item?.updatedAt)
+                                        header === "Time" ? timeConvert(item?.createdAt)
                                         :
                                         header === "Amount" ? currencyFormatter(item?.amount)
                                         :
-                                        header === "Status" ? <span  className={`capitalize ${item.transactionStatus === "successful" ? "text-[#2EB62C]" : item.transactionStatus === "pending" ? "text-[#FFCC00]" : item.transactionStatus === "failed" ? "text-[#FF0E0E]" : ""}`}>{item?.transactionStatus}</span>
+                                        header === "Status" ? <span  className={`capitalize ${item?.transactionStatus === "successful" ? "text-[#2EB62C]" : item?.transactionStatus === "pending" ? "text-[#FFCC00]" : item?.transactionStatus === "failed" ? "text-[#FF0E0E]" : ""}`}>{item?.transactionStatus}</span>
                                         : 
                                         header === "Biller" ? item?.transactionDetails.biller
                                         :

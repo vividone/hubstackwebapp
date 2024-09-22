@@ -21,7 +21,7 @@ export function useUrls() {
   const getAllBanks = `${BASE_URL}/wallet/banks`
   const fundWallet = `${BASE_URL}/wallet/fund-wallet/initialize`
   const verifyFunding = `${BASE_URL}/wallet/fund-wallet/verify`
-  const getWalletHistory = `${BASE_URL}/transact/wallet-transactions`
+  const getWalletHistory = `${BASE_URL}/transact`
 
   // categories
   const getBillPaymentsUrl = `${BASE_URL}/categories/billpayments`
