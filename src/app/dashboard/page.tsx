@@ -56,7 +56,7 @@ const DashboardPage = () => {
       id: 1,
       title: "Request Services",
       subText:
-        "Verify and print NIN slips, purchase airtime, data and pay for various bills.",
+        userDetails?.role === "Agent" ? "Verify and print NIN slips, purchase airtime, data and pay for various bills." : "Purchase airtime, data and pay for various bills.",
       buttonText: "Request Services",
       buttonHref: "/account/services/bill-payment",
       icon: <ServicesIcon />,
