@@ -19,8 +19,6 @@ type AlternateFundingProps = {
 export default function AlternateWalletFunding({ amount, setShow, setFlow, refreshWallet }: AlternateFundingProps | any) {
     const [ selectedMethod, setSelectedMethod ] = useState<any>({value: "Paystack", label: "Paystack"})
 
-
-    
     return (
         <div className="absolute h-full w-full top-0 right-0 bg-white overflow-y-scroll">
               <div className="flex justify-between p-[40px] pt-[55px]">
@@ -70,10 +68,10 @@ export default function AlternateWalletFunding({ amount, setShow, setFlow, refre
                     <div className="mt-16 h-20">
                         {
                             selectedMethod?.value === "Paystack" ?
-                            <PaystackPayment amount={amount} setFlow={setFlow} refreshWallet={refreshWallet} />
+                            <PaystackPayment amount={amount} setFlow={(value) => setFlow(value - 1)} refreshWallet={refreshWallet} />
                             
                             :
-                            <FlutterwavePayment amount={amount} setFlow={setFlow} refreshWallet={refreshWallet} complete={() => {}} />
+                            <FlutterwavePayment amount={amount} setFlow={(value) => setFlow(value - 1)} refreshWallet={refreshWallet} complete={() => {}} />
                         }
                     </div>
                 </div>

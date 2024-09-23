@@ -20,7 +20,7 @@ type Options = {
 const Profile = () => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const { formik, isPending, isSuccess, isError, error } = useProfileUpdate(userDetails?.role)
-  const { user, isLoading } = useGetUser(userDetails?._id)
+  const { user } = useGetUser(userDetails?._id)
   const [ phoneCode, setPhoneCode ] = useState<Options>({ label: "+234", value: "+234" })
   const [changeAvatar, setChangeAvatar] = useState(false)
 
@@ -48,18 +48,10 @@ const Profile = () => {
       <div className="flex justify-between flex-wrap gap-6">
         <h2 className="font-medium text-lg">Profile Photo</h2>
         <div className="flex gap-4 lg:w-[60%] w-full items-center">
-          {
-            userDetails?.avatar || formik.values.avatar ?
-            <p tabIndex={1} className={`pb-2 flex justify-center cursor-pointer rounded-[20px]`} onClick={() => setChangeAvatar(true)}>
-                <Image src={`/avatars/${formik.values.avatar || userDetails?.avatar}.svg`} alt="profilePic" width={88} height={88} />
-            </p>
-            :
-            <p tabIndex={1} className="bg-[#E7E6F2] text-[#507FFF] text-[40px] w-[88px] h-[88px] flex justify-center items-center  cursor-pointer rounded-full uppercase" onClick={() => setChangeAvatar(true)}>
-              {userDetails?.firstname.charAt(0)}{userDetails?.lastname.charAt(0)}
-            </p>
-          }
+          <p tabIndex={1} className={`pb-2 flex justify-center cursor-pointer rounded-[20px]`} onClick={() => setChangeAvatar(true)}>
+              <Image src={`/avatars/${formik.values.avatar || userDetails?.avatar || user?.avatar || "M4"}.svg`} alt="profilePic" width={88} height={88} />
+          </p>
           <div className="flex flex-col gap-2">
-            <p>Profile Avatar </p>
             <p tabIndex={1} className="text-[#3D3066] font-semibold cursor-pointer" onClick={() => setChangeAvatar(!changeAvatar)}>CHOOSE AVATAR</p>
           </div>
         </div>

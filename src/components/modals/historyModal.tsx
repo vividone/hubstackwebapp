@@ -1,5 +1,3 @@
-import { dateConvert, timeConvert } from "@/helpers/dateConvert";
-import ClipBoard from "../wallet/clipboard";
 import ModalsLayout from "./modalsLayout";
 import { currencyFormatter } from "@/helpers/currencyConvert";
 import { Button } from "../common/button";
@@ -41,11 +39,11 @@ export default function HistoryModal({ setShow, show, transaction }: HistoryModa
                 </div>
                 <div className="flex justify-between items-center">
                     <h4>Date</h4>
-                    <p className="font-bold">{dateConvert(transaction.createdAt)}</p>
+                    <p className="font-bold">{new Date(transaction?.createdAt).toLocaleDateString("en-GB")}</p>
                 </div>
                 <div className="flex justify-between items-center">
                     <h4>Time</h4>
-                    <p className="font-bold">{timeConvert(transaction.createdAt)}</p>
+                    <p className="font-bold">{new Date(transaction?.createdAt).toLocaleTimeString()}</p>
                 </div>
             </div>
 

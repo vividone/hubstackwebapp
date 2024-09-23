@@ -109,7 +109,7 @@ export const useSignupIndividual = () => {
     onSubmit: async ({ ...values }) => {
       try {
         await formik.validateForm();
-        mutate(values, {
+        mutate({...values, email: values.email.trim()}, {
           onSuccess: (res) => {
             setUserToken(values.email);
             setUserDetails(res.data.data);
@@ -164,7 +164,7 @@ export const useSignupAgent = () => {
     onSubmit: async ({ ...values }) => {
       try {
         await formik.validateForm();
-        mutate(values, {
+        mutate({...values, email: values.email.trim()}, {
           onSuccess: (res) => {
             setUserToken(values.email);
             setUserDetails(res.data.agentUser);
