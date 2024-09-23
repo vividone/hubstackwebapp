@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from "react"
 import Pagination from "./pagination"
-import { dateConvert, timeConvert } from "@/helpers/dateConvert"
 import { currencyFormatter } from "@/helpers/currencyConvert"
 import HistoryModal from "../modals/historyModal"
 import { Button } from "../common/button"
@@ -47,13 +46,13 @@ export function History({ history, fields }: any) {
                             {
                                 fields.map((header: string, i:number) => (
                                     <td key={i} className="p-[20px] cursor-pointer">{
-                                        header === "Date" ? dateConvert(item?.createdAt) + " " + timeConvert(item?.createdAt)
+                                        header === "Date" ? new Date(item?.createdAt).toLocaleDateString("en-GB")
                                         :
-                                        header === "Time" ? timeConvert(item?.createdAt)
+                                        header === "Time" ? new Date(item?.createdAt).toLocaleTimeString("en-GB")
                                         :
                                         header === "Amount" ? currencyFormatter(item?.amount)
                                         :
-                                        header === "Status" ? <span  className={`capitalize ${item?.transactionStatus === "successful" ? "text-[#2EB62C]" : item?.transactionStatus === "pending" ? "text-[#FFCC00]" : item?.transactionStatus === "failed" ? "text-[#FF0E0E]" : ""}`}>{item?.transactionStatus}</span>
+                                        header === "Status" ? <span  className={`capitalize ${item?.transactionStatus === "successful" || item?.transactionStatus === "Funded" ? "text-[#2EB62C]" : item?.transactionStatus === "pending" ? "text-[#FFCC00]" : item?.transactionStatus === "failed" ? "text-[#FF0E0E]" : ""}`}>{item?.transactionStatus}</span>
                                         : 
                                         header === "Biller" ? item?.transactionDetails.biller
                                         :
