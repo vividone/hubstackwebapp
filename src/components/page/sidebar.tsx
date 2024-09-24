@@ -10,8 +10,9 @@ import { useOutsideClick } from "@/helpers/useClickOutside";
 import Close from "@/assets/icons/close";
 import SideBarLink from "./sidebarLink";
 import SideBarDropdown from "./sideBarDropdown";
-
+import { useSettingsContext } from "@/context/Setting";
 const Dashboard = ({ open, setOpen }: any) => {
+  const {themeColor} = useSettingsContext()
   const { removeCookie } = useCookies();
   const router = useRouter();
   const pathname = usePathname();
@@ -30,9 +31,10 @@ const Dashboard = ({ open, setOpen }: any) => {
   return (
     <div
       ref={sidebarRef}
-      className={`flex flex-col md:static fixed top-0 left-0 h-full text-[whitesmoke] bg-[#3D3066] h-screen sm:w-[35%] lg:w-[30%] xl:w-[20%] w-[300px] z-[1000] duration-700 ${
+      className={`flex flex-col md:static fixed top-0 left-0 h-full text-[whitesmoke] h-screen sm:w-[35%] lg:w-[30%] xl:w-[20%] w-[300px] z-[1000] duration-700 ${
         open ? "translate-x-0" : "md:translate-x-0 translate-x-[-100%]"
       }`}
+      style={{background:themeColor}}
     >
       <div className="flex items-center pl-6 pt-6 h-[10%]">
         <button className="p-2 md:hidden" onClick={() => setOpen(!open)}>
