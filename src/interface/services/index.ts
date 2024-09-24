@@ -1,4 +1,5 @@
 export interface IBillData{
+    service: string;
     biller: string,
     billerId: string,
     paymentCode: string,
