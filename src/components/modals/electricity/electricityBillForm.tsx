@@ -61,7 +61,7 @@ const ElectricityBillForm: React.FC<ElectricFlowProps> = ({ data, formik, isPend
                     label: item.Name,
                     value: item.Name,
                     Id: item.Id,
-                    paymentCode: item.PaymentCode
+                    paymentCode: item.ProductCode
                   }))}
                   className="items-start text-start justify-start rounded-[8px]"
                 />

@@ -117,7 +117,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                         :
                         <div className="grid grid-cols-4 gap-4 mt-4">
                             {
-                                billersList?.map((item: { Id: number, LogoUrl: string, ShortName: string, Name: string, PaymentCode: string } ) => (
+                                billersList?.map((item: { Id: number, LogoUrl: string, ShortName: string, Name: string, ProductCode: string } ) => (
                                     <button 
                                         key={item.Id} 
                                         onClick={() => {
@@ -126,7 +126,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                                             formik.setFieldValue("service", item.Name?.split(" ")[0] + " Recharge")
                                             formik.setFieldValue("billerId", item.Id?.toString())
                                             formik.setFieldValue("paymentMode", "wallet")
-                                            formik.setFieldValue("paymentCode", item.PaymentCode)
+                                            formik.setFieldValue("paymentCode", item.ProductCode)
                                             formik.setFieldValue("category", "billpayment")
                                         }} 
                                         className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}
@@ -137,6 +137,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                             }
                         </div>
                     }
+                    <p className="text-red-600 text-[12px]">{formik.errors.biller}</p>
 
                     <div className="w-full mt-12">
                         <Button
@@ -144,7 +145,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                             size={"full"}
                             isLoading={isPending}
                             className="text-[20px] font-CabinetGrotesk mb-4"
-                            onClick={() => formik.handleSubmit()}
+                            onClick={() => {console.log(formik.errors); formik.handleSubmit()}}
                         >
                         REVIEW ORDER
                         </Button>
