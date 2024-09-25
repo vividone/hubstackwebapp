@@ -1,3 +1,22 @@
+export interface IUserDetails {
+    _id: string,
+    firstname: string,
+    lastname: string,
+    username: string,
+    email: string,
+    phone_number: string,
+    role: string,
+    isVerified: true,
+    createdAt: string,
+    updatedAt: string,
+    otp?: string | number,
+    isOtpVerified: boolean,
+    kyc: string | boolean,
+    otpExpiry: string,
+    referralCount: number,
+    referralLevel: string,
+    avatar: string
+}
 
 export interface IUpdateProfile {
     firstname: string;

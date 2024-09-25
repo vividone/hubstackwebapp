@@ -38,7 +38,7 @@ export function useUrls() {
   const getUserUrl = `${BASE_URL}/users/user`;
 
   //transactions
-  const getTransactionsHistory = `${BASE_URL}/transact/all`
+  const getTransactionsHistory = `${BASE_URL}/transact/`
 
 
   return {
