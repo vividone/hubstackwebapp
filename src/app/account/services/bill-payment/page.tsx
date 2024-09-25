@@ -18,10 +18,12 @@ import Betting from "@/components/modals/betting/services";
 import Data from "@/components/modals/data/data";
 import { useGetTransactionHistory } from "@/helpers/api/useTransact";
 import { History } from "@/components/tables/history";
+import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 const Billpayment = () => {
   const [active, setActive] = useState("")
   const { history } = useGetTransactionHistory("billpayment");
   const [show, setShow] = useState(false)
+  const { billers, isLoading } = useGetBillersByCategoryId("0")
 
   
   const data = [

@@ -54,7 +54,7 @@ export function History({ history, fields }: any) {
                                         :
                                         header === "Status" ? <span  className={`capitalize ${item?.transactionStatus === "successful" || item?.transactionStatus === "Funded" ? "text-[#2EB62C]" : item?.transactionStatus === "pending" ? "text-[#FFCC00]" : item?.transactionStatus === "failed" ? "text-[#FF0E0E]" : ""}`}>{item?.transactionStatus}</span>
                                         : 
-                                        header === "Biller" ? item?.transactionDetails.biller
+                                        header === "Biller" ? item?.transactionDetails?.biller
                                         :
                                         ""
                                     }</td>

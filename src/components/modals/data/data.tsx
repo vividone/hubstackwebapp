@@ -29,9 +29,8 @@ const Data = ({ setShow, show }: any) => {
   const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-data");
   const { formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(formData?.transaction?._id || "", "data")
   
-  const names = ["Etisalat Recharge Top-Up", "Airtel Data Bundles", "GLO", "MTN Data Bundles", "NTEL Data Bundles"]
-  const prodnames = ["MTN Mobile Data_Plan", "9Mobile_Data_Bundles_VF", "GLO Data Bundle", "Airtel Data Bundle"]
-  const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> prodnames.includes(item.Name));
+  const names = process.env.NODE_ENV === "development" ? ["Etisalat Recharge Top-Up", "Airtel Data Bundles", "GLO", "MTN Data Bundles", "NTEL Data Bundles"] : ["MTN Mobile Data_Plan", "9Mobile_Data_Bundles_VF", "GLO Data Bundle", "Airtel Data Bundle"]
+  const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
 
   const completePayment = () => {
       completeBillPayment(formData, completedForm, userDetails)
