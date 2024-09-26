@@ -158,7 +158,7 @@ const Billpayment = () => {
           <ElectricityBillModal show={show} setShow={setShow} />
           : 
           active === "Airtime" && show ?
-          <AirtimeModal show={show} setShow={setShow} billers={billers?.BillerList?.Category.filter((item: any) => item.Id === 3)} />
+          <AirtimeModal show={show} setShow={setShow} billers={billers?.BillerList?.Category?.filter((item: any) => item.Id === 3)[0]} />
           :
           active === "Cable TV" && show ?
           <CableTVServices show={show} setShow={setShow} />

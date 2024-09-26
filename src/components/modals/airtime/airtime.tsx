@@ -32,12 +32,8 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
     const [flow, setFlow] = useState(0)
     const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
 
-    useEffect(() => {
-        console.log(billers)
-    }, [billers])
-
     const names = process.env.NODE_ENV === "development" ?  ["Etisalat Recharge Top-Up", "Airtel Recharge Pins", "Glo QuickCharge", "MTN e-Charge Prepaid", "9mobile Postpaid Payments(New)"] : ["Airtel Mobile Top-up (Prepaid)", "9mobile Recharge (E-Top Up)", "GLO QuickCharge (Top-up)", "MTN Direct Top-up (Prepaid)"]
-    const billersList = billers.Billers?.filter((item: any )=> names.includes(item.Name));
+    const billersList = billers?.Billers?.filter((item: any ) => names.includes(item.Name));
 
     const completePayment = () => {
         completeBillPayment(formData, completedForm, userDetails)
@@ -113,27 +109,27 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
                         />
                         </div>
                     </div>
-                        <div className="grid grid-cols-4 gap-4 mt-4">
-                            {
-                                billersList?.map((item: { Id: number, LogoUrl: string, ShortName: string, Name: string, ProductCode: string } ) => (
-                                    <button 
-                                        key={item.Id} 
-                                        onClick={() => {
-                                            setData({ ...data, service:  item}); 
-                                            formik.setFieldValue("biller", item.Name)
-                                            formik.setFieldValue("service", item.Name?.split(" ")[0] + " Recharge")
-                                            formik.setFieldValue("billerId", item.Id?.toString())
-                                            formik.setFieldValue("paymentMode", "wallet")
-                                            formik.setFieldValue("paymentCode", item.ProductCode)
-                                            formik.setFieldValue("category", "billpayment")
-                                        }} 
-                                        className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}
-                                    >
-                                        <Image src={`/images/airtime/${item.ShortName}.jpg`} width={200} height={200} alt={item.Name} />
-                                    </button>
-                                ))
-                            }
-                        </div>
+                    <div className="grid grid-cols-4 gap-4 mt-4">
+                        {
+                            billersList?.map((item: { Id: number, LogoUrl: string, ShortName: string, Name: string, ProductCode: string } ) => (
+                                <button 
+                                    key={item.Id} 
+                                    onClick={() => {
+                                        setData({ ...data, service:  item}); 
+                                        formik.setFieldValue("biller", item.Name)
+                                        formik.setFieldValue("service", item.Name?.split(" ")[0] + " Recharge")
+                                        formik.setFieldValue("billerId", item.Id?.toString())
+                                        formik.setFieldValue("paymentMode", "wallet")
+                                        formik.setFieldValue("paymentCode", item.ProductCode)
+                                        formik.setFieldValue("category", "billpayment")
+                                    }} 
+                                    className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}
+                                >
+                                    <Image src={`/images/airtime/${item.ShortName}.jpg`} width={200} height={200} alt={item.Name} />
+                                </button>
+                            ))
+                        }
+                    </div>
                     <p className="text-red-600 text-[12px]">{formik.errors.biller}</p>
 
                     <div className="w-full mt-12">
