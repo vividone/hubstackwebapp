@@ -35,7 +35,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
     
     const names = ["Etisalat Recharge Top-Up", "Airtel Recharge Pins", "Glo QuickCharge", "MTN e-Charge Prepaid", "9mobile Postpaid Payments(New)"]
     const prodNames = ["9mobile Postpaid Payments(New)", "Airtel Postpaid  Payments", "GLO Topup"]
-    const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> prodNames.includes(item.Name));
+    const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
 
     const completePayment = () => {
         completeBillPayment(formData, completedForm, userDetails)
@@ -126,7 +126,7 @@ export default function AirtimeModal({ show, setShow }: AirtimePaymentProps) {
                                             formik.setFieldValue("service", item.Name?.split(" ")[0] + " Recharge")
                                             formik.setFieldValue("billerId", item.Id?.toString())
                                             formik.setFieldValue("paymentMode", "wallet")
-                                            formik.setFieldValue("paymentCode", item.ProductCode)
+                                            formik.setFieldValue("paymentCode", "0488051528")
                                             formik.setFieldValue("category", "billpayment")
                                         }} 
                                         className={data.service?.Name === item.Name ? "border-2 border-[#3D3066] rounded" : ""}

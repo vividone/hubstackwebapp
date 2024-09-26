@@ -205,9 +205,9 @@ const Index = () => {
               Contact number
             </span>
           </div>
-          <div className="w-full md:w-[70%] flex items-center justify-center">
+          <div className="w-full md:w-[70%] flex items-center">
             <Input
-              placeholder="080 000 000 00"
+                placeholder="080 000 000 00"
               className="w-full md:w-[612px] md:w-[400px]"
             />
           </div>

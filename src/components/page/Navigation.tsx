@@ -1,27 +1,22 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import MenuIcon from "@/assets/icons/MenuIcon";
 import Link from "../custom/link";
+import { IUserDetails } from "@/interface/profile";
 
 const Navigation = ({ open, setOpen }: any) => {
   const [showNotification, setShowNotification] = useState(true);
-  const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
-
-  const fakeUserData = {
-    name: "Zainab",
-    profilePicture: "/images/profile.jpeg",
-  };
+  const [userDetails] = useLocalStorage<IUserDetails>(TOKEN.EMAIL);
 
   return (
     <div className="flex justify-between items-center px-[25px] py-[15px] w-full border-b border-gray-300">
       <div className="flex-1 flex flex-row items-center gap-2">
         <button className="p-3 md:hidden" onClick={() => setOpen(!open)}><MenuIcon /></button>
         <h2 className="m-0 text-2xl font-semibold text-center md:text-left">
-          Welcome, {userDetails?.firstname}!
+          Welcome, {userDetails?.firstname}
         </h2>
       </div>
       <div className="flex items-center gap-4 md:gap-8 justify-center md:justify-end">
