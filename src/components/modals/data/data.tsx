@@ -23,7 +23,6 @@ type dataProps = {
 const Data = ({ setShow, show }: any) => {
   const [flow, setFlow] = useState(0);    
   const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
-  const [isPadded, setIsPadded] = useState(true);
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   const { billers, isLoading } = useGetBillersByCategoryId("4")
   const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-data");
@@ -85,7 +84,6 @@ const Data = ({ setShow, show }: any) => {
       header={flowHeaders[flow]}
       setShow={setShow}
       show={show}
-      isPadded={isPadded}
     >
       {flow === 1 ? (
         <DataForm

@@ -37,7 +37,6 @@ const InternetServices = ({ setShow, show }: any) => {
     isSuccess: completedSuccess,
   } = useCompleteBillPayment(payCable?._id || "");
   const { billers, isLoading } = useGetBillersByCategoryId("5");
-  const [isPadded, setIsPadded] = useState(true);
 
   const flowHeaders: string[] = [
     "Internet",
@@ -136,7 +135,6 @@ const InternetServices = ({ setShow, show }: any) => {
         setFlow={setFlow}
         setShow={setShow}
         show={show}
-        isPadded={isPadded}
       >
         {flow === 0 ? (
           <main>
