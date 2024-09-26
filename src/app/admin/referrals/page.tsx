@@ -99,7 +99,7 @@ const Index = () => {
       </div>
 
       {/* Cards Section */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-between">
+      {/* <div className="flex flex-col sm:flex-row gap-4 justify-between">
         {tiers.map((tier, index) => (
           <div
             key={index}
@@ -128,7 +128,7 @@ const Index = () => {
                       <CircularCheck className="h-[24px] w-[24px] md:h-[30px] md:w-[30px]" />
                     </div>
                     <p className="w-[80%]">
-                      {/* Check for amounts that are in Naira and wrap them in a bold span */}
+
                       {item.split(" ").map((word, i) =>
                         word.includes("NGN") ||
                         word.includes("Naira") ||
@@ -153,7 +153,7 @@ const Index = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* Filter & Search Section */}
       <div className="mt-10 flex flex-wrap gap-4 justify-between items-center p-2 ">
