@@ -55,11 +55,7 @@ export const AdminMenuList = [
   {
     name: "Services",
     logo: <ServiceIconDashboard />,
-    subItems: [
-      { Name: "NIN Services", href: "/account/services/nin-services" },
-      { Name: "Bill Payment", href: "/account/services/bill-payment" },
-    ],
-    href: "/services/bill-payment",
+    href: "/admin/services",
   },
   {
     name: "Transactions",
