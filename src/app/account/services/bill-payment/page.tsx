@@ -49,7 +49,7 @@ const Billpayment = () => {
     },
     {
       Icon: <ElectricityIcon />,
-      text: "Electricity",
+      text: "Utility Bill",
       billerCategoryId: "1",
     },
     {
@@ -154,7 +154,7 @@ const Billpayment = () => {
         </div>
 
         {
-          active === "Electricity" && show ?
+          active === "Utility Bill" && show ?
           <ElectricityBillModal show={show} setShow={setShow} />
           : 
           active === "Airtime" && show ?

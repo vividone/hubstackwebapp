@@ -25,7 +25,7 @@ const ElectricityBillModal = ({ show, setShow }: any) => {
   const [flow, setFlow ] = useState(0)
   const { billers } = useGetBillersByCategoryId("1")
 
-  const flowHeaders: string[] = ["Electricity Bill", "Your Order", "Your Wallet", "Token Details"]
+  const flowHeaders: string[] = ["Utility Bill", "Your Order", "Your Wallet", "Token Details"]
   
   const providers: Providers[] = billers?.BillerList?.Category[0]?.Billers
 

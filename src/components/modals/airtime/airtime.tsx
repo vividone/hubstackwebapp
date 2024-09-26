@@ -10,10 +10,8 @@ import AirtimePayment from "./airtimePayments";
 import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import ToastComponent from "@/components/common/toastComponent";
 import CurrencyField from "@/components/common/currencyInput";
-import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
-import BillsSkeleton from "@/components/common/billsSkeleton";
 import { completeBillPayment } from "@/helpers/billPayment";
 
 type AirtimePaymentProps = {
