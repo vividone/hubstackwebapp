@@ -74,7 +74,7 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
 
             {
                 flow === 1 ?
-                <AirtimeDetailsModal setFlow={setFlow} data={data}  completedForm={completedForm} completeAlternate={completeAlternate} />
+                <AirtimeDetailsModal setFlow={setFlow} data={{...data, ...formData?.transaction }}  completedForm={completedForm} completeAlternate={completeAlternate} />
                 :
                 flow === 2 ?
                 <AirtimePayment setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}}  completeAction={completePayment} />

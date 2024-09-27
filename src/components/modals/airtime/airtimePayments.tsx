@@ -1,25 +1,19 @@
 "use client";
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
-import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
-import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { currencyFormatter } from "@/helpers/currencyConvert";
+
 type FlowProps = {
   setFlow: (aug0: number) => void;
   data: any;
   completeAction: () => void;
-  // AlternatePayment?: boolean;
-  // setAlternatePayment?: Dispatch<SetStateAction<boolean>>;
 };
 
 const AirtimePayment: React.FC<FlowProps> = ({
-  setFlow,
   data,
   completeAction,
-  // setAlternatePayment,
-  // AlternatePayment,
 }) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
