@@ -49,7 +49,7 @@ const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
   }, [isSuccess])
 
   return (
-    <ModalsLayout flow={flow} setFlow={setFlow} header={flowHeaders[flow]} show={true} setShow={setShow} isPadded={false}>
+    <ModalsLayout flow={flow} setFlow={setFlow} header={flowHeaders[flow]} show={true} setShow={setShow}>
       
       <div onSubmit={handleSubmit} className="mt-2">
         <div className="px-10">

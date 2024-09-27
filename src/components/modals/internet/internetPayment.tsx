@@ -7,7 +7,7 @@ import CurrentBalance from "../currentBalance";
 const InternetPayment: React.FC<any> = ({
   setFlow,
   data,
-}: //   setIsPadded,
+}:
 any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 

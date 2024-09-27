@@ -5,7 +5,7 @@ import { Button } from "@/components/common/button";
 import ClipBoard from "@/components/wallet/clipboard";
 import Image from "next/image";
 
-const BettingPurchase = ({ setFlow, data, pseudo, setIsPadded }: any) => {
+const BettingPurchase = ({ setFlow, data }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
   return (
