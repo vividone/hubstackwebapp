@@ -8,7 +8,6 @@ import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
-import { completeBillPayment } from "@/helpers/billPayment";
 import BillsSkeleton from "@/components/common/billsSkeleton";
 import Image from "next/image";
 import ToastComponent from "@/components/common/toastComponent";
@@ -31,13 +30,6 @@ const Data = ({ setShow, show, billers }: any) => {
   const names = process.env.NODE_ENV === "development" ? ["Etisalat Recharge Top-Up", "Airtel Data Bundles", "GLO", "MTN Data Bundles", "NTEL Data Bundles"] : ["MTN Mobile Data_Plan", "9Mobile_Data_Bundles_VF", "GLO Data Bundle", "Airtel Data Bundles_Prepaid"]
   const billersList = billers?.filter((item: any )=> names.includes(item.Name));
 
-  useEffect(() => {
-    console.log(billers)
-  }, [billers])
-
-  const completePayment = () => {
-      completeBillPayment(formData, completedForm, userDetails)
-  }
   const completeAlternate = (ref: any) => {
     completedForm.setValues({ 
       transactionDetails: ref, 
@@ -46,17 +38,17 @@ const Data = ({ setShow, show, billers }: any) => {
     completedForm.handleSubmit()
   }
 
-  useEffect(() => {
-      if(isSuccess) {
-        setFlow(2)
-      }
-  }, [isSuccess]);
+  const makePayment = () => {
+    if(formik.values.amount !== 0 && formik.values.customerId !== "" && formik.values.biller !== "" ) {
+      formik.handleSubmit()
+    }
+  };
   
   useEffect(() => {
-      if(completedSuccess) {
+      if(isSuccess) {
         setFlow(4)
       }
-  }, [completedSuccess]);
+  }, [isSuccess]);
 
   const flowHeaders: string[] = [
     "Data Bundle",
@@ -65,12 +57,6 @@ const Data = ({ setShow, show, billers }: any) => {
     "Your Wallet",
     "Purchase Details",
   ];
-
-  useEffect(() => {
-    if (isSuccess) {
-      setFlow(2);
-    }
-  }, [isSuccess]);
 
   return (
     <>
@@ -105,7 +91,7 @@ const Data = ({ setShow, show, billers }: any) => {
           completeAlternate={completeAlternate}
         />
       ) : flow === 3 ? (
-        <DataPayment setFlow={setFlow} data={{ ...data, ...formData, isPending: completePending }} completeAction={completePayment} />
+        <DataPayment setFlow={setFlow} data={{ ...data, ...formData, isPending }} completeAction={makePayment} />
       ) : flow === 4 ? (
         <CompletedDataModal setFlow={setFlow} data={{...data, ...formData?.transaction}} />
       ) : (
@@ -127,7 +113,6 @@ const Data = ({ setShow, show, billers }: any) => {
                               formik.setFieldValue("service", item.Name?.split(" ")[0] + " Data")
                               formik.setFieldValue("biller", item.Name)
                               formik.setFieldValue("billerId", item.Id.toString())
-                              formik.setFieldValue("paymentCode", item.PaymentCode) 
                               formik.setFieldValue("paymentMode", "wallet")
                               formik.setFieldValue("category", "billpayment") 
                               setFlow(1)

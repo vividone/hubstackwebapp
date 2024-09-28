@@ -30,7 +30,7 @@ const AirtimePayment: React.FC<FlowProps> = ({
               height={30}
             />
             <p className="text-xl font-semibold text-[#3D3066]">
-              {data?.service.Name}
+              {data?.service.BillerName}
             </p>
           </div>
           <div className="py-4">
