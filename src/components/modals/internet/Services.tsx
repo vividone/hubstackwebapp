@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ModalsLayout from "../modalsLayout";
-import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import CustomIcons from "@/components/custom/customIcons";
 import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import ToastComponent from "@/components/common/toastComponent";
@@ -17,7 +16,7 @@ type InterntProviders = {
   Id: string;
 };
 
-const InternetServices = ({ setShow, show }: any) => {
+const InternetServices = ({ setShow, show, billers }: any) => {
   const [flow, setFlow] = useState(0);
   const [data, setData] = useState<any>();
   const [active, setActive] = useState<InterntProviders | null>();
@@ -36,8 +35,6 @@ const InternetServices = ({ setShow, show }: any) => {
     isPending: completePending,
     isSuccess: completedSuccess,
   } = useCompleteBillPayment(payCable?._id || "");
-  const { billers, isLoading } = useGetBillersByCategoryId("5");
-  const [isPadded, setIsPadded] = useState(true);
 
   const flowHeaders: string[] = [
     "Internet",
@@ -45,8 +42,6 @@ const InternetServices = ({ setShow, show }: any) => {
     "Your Order",
     "Your Wallet",
   ];
-
-  // const providers: InterntProviders[] = billers?.BillerList?.Category[0]?.Billers
 
   useEffect(() => {
     if (isSuccess) {
@@ -70,7 +65,7 @@ const InternetServices = ({ setShow, show }: any) => {
   
   const completeAlternate = (ref: any) => {
     completedForm.setValues({ 
-      paymentCode: "0488051528", 
+      paymentCode: data?.transactionDetails.paymentCode?.toString(), 
       customerId: data?.transactionDetails.customerId?.toString(), 
       customerEmail: userDetails?.email,
       customerMobile: userDetails?.phone_number || "09012345678",
@@ -81,40 +76,6 @@ const InternetServices = ({ setShow, show }: any) => {
 
     completedForm.handleSubmit()
   }
-
-  const providers = [
-    { LogoUrl: "ZukuFiber", Name: "Zuku Fiber", Id: 1 },
-    {
-      LogoUrl: "UYOLOCALGOVERNMENTCOLLECTIONS",
-      Name: "UYO LOCAL GOVERNMENT COLLECTIONS",
-      Id: 2,
-    },
-    {
-      LogoUrl: "TouchpointandDevices",
-      Name: "Touchpoint and Devices",
-      Id: 3,
-    },
-    { LogoUrl: "Swift4GSubscription", Name: "Swift 4G", Id: 4 },
-    { LogoUrl: "SmileBundle", Name: "Smile Bundle", Id: 5 },
-    { LogoUrl: "SmartSMSSolutions", Name: "Smart SMS Solutions", Id: 6 },
-    {
-      LogoUrl: "MultilinksInternete-PINVoucher",
-      Name: "Multilinks Internet e-PIN Voucher",
-      Id: 7,
-    },
-    { LogoUrl: "MTNfixedInternet", Name: "MTN fixed Internet", Id: 8 },
-    { LogoUrl: "mobitelpayment", Name: "mobitel payment", Id: 9 },
-    { LogoUrl: "jokatelswitch", Name: "jokatel switch", Id: 10 },
-    { LogoUrl: "ipNXsubscription", Name: "ipNX subscription", Id: 11 },
-    {
-      LogoUrl: "InternetSolutionNigeria",
-      Name: "Internet Solution Nigeria",
-      Id: 12,
-    },
-    { LogoUrl: "estream", Name: "estream", Id: 13 },
-    { LogoUrl: "ESBAdesigners", Name: "ESBA designers", Id: 14 },
-    { LogoUrl: "spectranet", Name: "spectranet", Id: 15 },
-  ];
 
   return (
     <>
@@ -136,7 +97,6 @@ const InternetServices = ({ setShow, show }: any) => {
         setFlow={setFlow}
         setShow={setShow}
         show={show}
-        isPadded={isPadded}
       >
         {flow === 0 ? (
           <main>
@@ -153,7 +113,7 @@ const InternetServices = ({ setShow, show }: any) => {
                 //   <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
                 // </>
 
-                providers?.map((item: any) => (
+                billers?.map((item: any) => (
                   <button
                     key={item.Id}
                     onClick={() => {
@@ -162,14 +122,14 @@ const InternetServices = ({ setShow, show }: any) => {
                       cableForm.setFieldValue("biller", item.Name)
                       cableForm.setFieldValue("billerId", item.Id.toString())
                       cableForm.setFieldValue("paymentMode", "wallet")
-                      cableForm.setFieldValue("paymentCode", "0488051528")
+                      cableForm.setFieldValue("paymentCode", item.ProductCode)
                       cableForm.setFieldValue("category", "billpayment")
                       setFlow(1);
                     }}
                     title={item.Name}
                   >
                     <CustomIcons
-                      src={"/images/internet/" + item.LogoUrl+ ".png"}
+                      src={"https://quickteller.com/images/Downloaded/" + item.MediumImageId + ".png" } // item.MediumImageId
                       alt={item.Name}
                     />
                   </button>

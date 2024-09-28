@@ -20,17 +20,20 @@ type dataProps = {
   service: any;
 };
 
-const Data = ({ setShow, show }: any) => {
+const Data = ({ setShow, show, billers }: any) => {
   const [flow, setFlow] = useState(0);    
   const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
-  const [isPadded, setIsPadded] = useState(true);
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
-  const { billers, isLoading } = useGetBillersByCategoryId("4")
+  const { isLoading } = useGetBillersByCategoryId("4")
   const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-data");
   const { formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(formData?.transaction?._id || "", "data")
   
-  const names = process.env.NODE_ENV === "development" ? ["Etisalat Recharge Top-Up", "Airtel Data Bundles", "GLO", "MTN Data Bundles", "NTEL Data Bundles"] : ["MTN Mobile Data_Plan", "9Mobile_Data_Bundles_VF", "GLO Data Bundle", "Airtel Data Bundle"]
-  const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
+  const names = process.env.NODE_ENV === "development" ? ["Etisalat Recharge Top-Up", "Airtel Data Bundles", "GLO", "MTN Data Bundles", "NTEL Data Bundles"] : ["MTN Mobile Data_Plan", "9Mobile_Data_Bundles_VF", "GLO Data Bundle", "Airtel Data Bundles_Prepaid"]
+  const billersList = billers?.filter((item: any )=> names.includes(item.Name));
+
+  useEffect(() => {
+    console.log(billers)
+  }, [billers])
 
   const completePayment = () => {
       completeBillPayment(formData, completedForm, userDetails)
@@ -85,7 +88,6 @@ const Data = ({ setShow, show }: any) => {
       header={flowHeaders[flow]}
       setShow={setShow}
       show={show}
-      isPadded={isPadded}
     >
       {flow === 1 ? (
         <DataForm
