@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "../../common/button";
 import NairaIcon from "@/assets/icons/nairaIcon";
-import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
 const DataDetails = ({ setFlow, data, completeAlternate, completedForm }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
@@ -57,8 +57,7 @@ const DataDetails = ({ setFlow, data, completeAlternate, completedForm }: any) =
           <div className="flex justify-between items-center gap-5">
             <span className="block ">Amount</span>
             <span className="flex items-center">
-              <NairaIcon className="w-[12px]" />
-              {formatAmount(data?.transaction.amount)}
+              {currencyFormatter(data?.serviceProvider?.fee)}
             </span>
           </div>
 
@@ -73,8 +72,7 @@ const DataDetails = ({ setFlow, data, completeAlternate, completedForm }: any) =
           <div className="flex justify-between items-center gap-5 mb-6">
             <span className="block font-bold">TOTAL</span>
             <span className="flex items-center">
-              <NairaIcon className="w-[12px]" />
-              {formatAmount(data?.transaction.amount)}
+              {currencyFormatter(data?.serviceProvider?.fee)}
             </span>
           </div>
         </div>

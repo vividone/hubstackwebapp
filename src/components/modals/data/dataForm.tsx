@@ -11,6 +11,7 @@ import { currencyFormatter } from "@/helpers/currencyConvert";
 
 
 const DataForm = ({
+  setFlow,
   data,
   setData,
   formik,
@@ -21,8 +22,9 @@ const DataForm = ({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(formik.errors)
-    formik.handleSubmit()
+    if(Object.keys(formik.errors).length === 0) {
+      setFlow(2)
+    }
   }
 
   return (

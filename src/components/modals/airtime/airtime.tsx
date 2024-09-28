@@ -37,8 +37,8 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
     const names = process.env.NODE_ENV === "development" ?  ["Etisalat Recharge Top-Up", "Airtel Recharge Pins", "Glo QuickCharge", "MTN e-Charge Prepaid", "9mobile Postpaid Payments(New)"] : ["Airtel Mobile Top-up (Prepaid)", "9mobile Recharge (E-Top Up)", "GLO QuickCharge (Top-up)", "MTN Direct Top-up (Prepaid)"]
     const billersList = billers?.filter((item: any ) => names.includes(item.Name));
 
-    const completePayment = () => {
-        completeBillPayment(formData, completedForm, userDetails)
+    const makePayment = () => {
+        formik.handleSubmit()
     }
     
     const completeAlternate = (ref: any) => {
@@ -49,17 +49,17 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
         completedForm.handleSubmit()
     }
     
-    useEffect(() => {
-        if(isSuccess) {
-          setFlow(1)
+    const handleSubmit = () => {
+        if(formik.values.amount !== 0 && formik.values.customerId !== "" && formik.values.biller !== "" ) {
+            setFlow(1)
         }
-    }, [isSuccess]);
+    };
     
     useEffect(() => {
-        if(completedSuccess) {
+        if(isSuccess) {
           setFlow(3)
         }
-    }, [completedSuccess]);
+    }, [isSuccess]);
 
     return (
         <>
@@ -74,10 +74,10 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
 
             {
                 flow === 1 ?
-                <AirtimeDetailsModal setFlow={setFlow} data={{...data, ...formData?.transaction }}  completedForm={completedForm} completeAlternate={completeAlternate} />
+                <AirtimeDetailsModal setFlow={setFlow} data={data} completedForm={completedForm} completeAlternate={completeAlternate} />
                 :
                 flow === 2 ?
-                <AirtimePayment setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}}  completeAction={completePayment} />
+                <AirtimePayment setFlow={setFlow} data={{...data, ...formData?.transaction, isPending}} completeAction={makePayment} />
                 :
                 flow === 3 ?
                 <CompletedAirtimeModal setFlow={setFlow} data={{...data, ...formData?.transaction, isPending: completePending}} />
@@ -91,9 +91,10 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
                         <div className="text-[#8c8b92] mt-2">
                         <Input 
                             type="number" 
+                            value={formik.values.customerId}
                             onChange={(e) => {setData({ ...data, customerId:  e.target.value}); formik.setFieldValue("customerId", e.target.value)}} 
                             placeholder="Enter your 11 digits phone number" 
-                            error={formik.errors.customerId && formik.errors.customerId + " phone number"}
+                            error={formik.touched.customerId && formik.errors.customerId + " phone number"}
                         />
                         </div>
                     </div>
@@ -130,15 +131,16 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
                                 <button 
                                     key={item.Id} 
                                     onClick={() => {
-                                        setData({ ...data, service: item, amount: +item.Amount/100 })
                                         formik.setFieldValue("biller", item.BillerName)
                                         formik.setFieldValue("paymentCode", item.PaymentCode)
                                         formik.setFieldValue("paymentMode", "wallet")
                                         formik.setFieldValue("category", "billpayment")
                                         formik.setFieldValue("amount", +item.Amount/100)
                                         formik.setFieldValue("service", item.BillerName?.split(" ")[0] + " Recharge")
+                                        setData({ ...data, service: item, amount: +item.Amount/100 })
+                                        formik.validateForm()
                                     }} 
-                                    className={`${data.service?.Amount === item.Amount ? "border-2 border-[#3D3066] bg-[#E7E6F2]" : "border border-slate-200"} p-2 rounded`}
+                                    className={`${formik.values.amount === +item.Amount/100 ? "border-2 border-[#3D3066] bg-[#E7E6F2]" : "border border-slate-200"} p-2 rounded`}
                                 >
                                     { currencyFormatter(+item.Amount/100) }
                                 </button>
@@ -146,7 +148,7 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
                         }
                     </div>
                     }
-                    <p className="text-red-600 text-[12px]">{formik.errors.biller}</p>
+                    <p className="text-red-600 text-[12px]">{formik.errors.service}</p>
 
                     <div className="w-full mt-12">
                         <Button
@@ -154,7 +156,7 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
                             size={"full"}
                             isLoading={isPending}
                             className="text-[20px] font-CabinetGrotesk mb-4"
-                            onClick={() => {console.log(formik.errors); formik.handleSubmit()}}
+                            onClick={() => handleSubmit()}
                         >
                         REVIEW ORDER
                         </Button>
