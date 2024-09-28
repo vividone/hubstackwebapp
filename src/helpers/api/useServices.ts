@@ -34,7 +34,7 @@ export const usePayBill = ( type: string ) => {
       } as IBillData,
       validateOnBlur: true,
       validationSchema: type === "buy-airtime" || type === "buy-data" || type === "electricity" || type === "internet" ? BillValidationwithPhoneSchema : BillValidationwithMeterSchema,
-      validateOnChange: false,
+      validateOnChange: true,
       onSubmit: async ({ ...values }) => {
       try {
           await formik.validateForm();
