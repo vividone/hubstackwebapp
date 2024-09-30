@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import PlusIcon from "@/assets/icons/PlusIcon";
 import AdminModal from "@/components/modals/Admin/AdminModal";
 import CustomDropDown  from "@/components/common/table2";
-
+import ServiceModal from "@/components/modals/Admin/services/Services";
 const rowData = [
   { service: "SERVICE", price: "PRICE", isHeader: true },
   { service: "NIN Search + Long Slip", price: "200.00" },
@@ -42,7 +42,7 @@ const Services = () => {
 
   return (
     <div className="p-4 md:p-[50px_25px] overflow-x-hidden font-CabinetGrotesk">
-      {show && <AdminModal show={show} setShow={setShow} />}
+      {show && < ServiceModal show={show} setShow={setShow} />}
 
       <div className="flex flex-col md:flex-row w-full mb-6 items-center">
         <h2 className="text-[24px] md:text-[36px] font-medium mb-4 md:mb-0">
