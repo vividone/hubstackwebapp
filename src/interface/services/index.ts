@@ -2,7 +2,7 @@ export interface IBillData{
     service: string;
     biller: string,
     billerId: string,
-    paymentCode: string,
+    paymentCode?: string,
     paymentMode: string,
     customerId: string,
     amount: number,

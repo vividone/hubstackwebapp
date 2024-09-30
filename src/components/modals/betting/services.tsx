@@ -37,7 +37,6 @@ const BettingServices = ({ setShow, show }: any) => {
     isSuccess: completedSuccess,
   } = useCompleteBillPayment(payCable?._id || "");
   const { billers, isLoading } = useGetBillersByCategoryId("41");
-  const [isPadded, setIsPadded] = useState(true);
 
   const flowHeaders: string[] = [
     "Betting",
@@ -191,7 +190,6 @@ const BettingServices = ({ setShow, show }: any) => {
         setFlow={setFlow}
         setShow={setShow}
         show={show}
-        isPadded={isPadded}
       >
         {flow === 0 ? (
           <main>

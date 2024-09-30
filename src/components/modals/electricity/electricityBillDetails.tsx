@@ -47,7 +47,7 @@ const ElectricityBillDetails: React.FC<FlowProps> = ({ setFlow, data, completeAl
           
           <div className="flex flex-col gap-1">
             <div className="flex justify-between items-center gap-5">
-              <span className="block ">Electricity Amount</span>
+              <span className="block ">Amount</span>
               <span className="flex items-center">{currencyFormatter(data?.amount)}</span>
             </div>
             

@@ -8,7 +8,6 @@ import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
-import { completeBillPayment } from "@/helpers/billPayment";
 import BillsSkeleton from "@/components/common/billsSkeleton";
 import Image from "next/image";
 import ToastComponent from "@/components/common/toastComponent";
@@ -20,21 +19,17 @@ type dataProps = {
   service: any;
 };
 
-const Data = ({ setShow, show }: any) => {
+const Data = ({ setShow, show, billers }: any) => {
   const [flow, setFlow] = useState(0);    
   const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
-  const [isPadded, setIsPadded] = useState(true);
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
-  const { billers, isLoading } = useGetBillersByCategoryId("4")
+  const { isLoading } = useGetBillersByCategoryId("4")
   const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-data");
   const { formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(formData?.transaction?._id || "", "data")
   
-  const names = process.env.NODE_ENV === "development" ? ["Etisalat Recharge Top-Up", "Airtel Data Bundles", "GLO", "MTN Data Bundles", "NTEL Data Bundles"] : ["MTN Mobile Data_Plan", "9Mobile_Data_Bundles_VF", "GLO Data Bundle", "Airtel Data Bundle"]
-  const billersList = billers?.BillerList?.Category[0]?.Billers?.filter((item: any )=> names.includes(item.Name));
+  const names = process.env.NODE_ENV === "development" ? ["Etisalat Recharge Top-Up", "Airtel Data Bundles", "GLO", "MTN Data Bundles", "NTEL Data Bundles"] : ["MTN Mobile Data_Plan", "9Mobile_Data_Bundles_VF", "GLO Data Bundle", "Airtel Data Bundles_Prepaid"]
+  const billersList = billers?.filter((item: any )=> names.includes(item.Name));
 
-  const completePayment = () => {
-      completeBillPayment(formData, completedForm, userDetails)
-  }
   const completeAlternate = (ref: any) => {
     completedForm.setValues({ 
       transactionDetails: ref, 
@@ -43,17 +38,17 @@ const Data = ({ setShow, show }: any) => {
     completedForm.handleSubmit()
   }
 
-  useEffect(() => {
-      if(isSuccess) {
-        setFlow(2)
-      }
-  }, [isSuccess]);
+  const makePayment = () => {
+    if(formik.values.amount !== 0 && formik.values.customerId !== "" && formik.values.biller !== "" ) {
+      formik.handleSubmit()
+    }
+  };
   
   useEffect(() => {
-      if(completedSuccess) {
+      if(isSuccess) {
         setFlow(4)
       }
-  }, [completedSuccess]);
+  }, [isSuccess]);
 
   const flowHeaders: string[] = [
     "Data Bundle",
@@ -62,12 +57,6 @@ const Data = ({ setShow, show }: any) => {
     "Your Wallet",
     "Purchase Details",
   ];
-
-  useEffect(() => {
-    if (isSuccess) {
-      setFlow(2);
-    }
-  }, [isSuccess]);
 
   return (
     <>
@@ -85,7 +74,6 @@ const Data = ({ setShow, show }: any) => {
       header={flowHeaders[flow]}
       setShow={setShow}
       show={show}
-      isPadded={isPadded}
     >
       {flow === 1 ? (
         <DataForm
@@ -103,7 +91,7 @@ const Data = ({ setShow, show }: any) => {
           completeAlternate={completeAlternate}
         />
       ) : flow === 3 ? (
-        <DataPayment setFlow={setFlow} data={{ ...data, ...formData, isPending: completePending }} completeAction={completePayment} />
+        <DataPayment setFlow={setFlow} data={{ ...data, ...formData, isPending }} completeAction={makePayment} />
       ) : flow === 4 ? (
         <CompletedDataModal setFlow={setFlow} data={{...data, ...formData?.transaction}} />
       ) : (
@@ -125,7 +113,6 @@ const Data = ({ setShow, show }: any) => {
                               formik.setFieldValue("service", item.Name?.split(" ")[0] + " Data")
                               formik.setFieldValue("biller", item.Name)
                               formik.setFieldValue("billerId", item.Id.toString())
-                              formik.setFieldValue("paymentCode", item.PaymentCode) 
                               formik.setFieldValue("paymentMode", "wallet")
                               formik.setFieldValue("category", "billpayment") 
                               setFlow(1)

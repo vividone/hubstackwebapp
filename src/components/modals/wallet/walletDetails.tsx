@@ -26,7 +26,7 @@ const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet }) => {
   const existingData = dataSets[content];
 
   return (
-    <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow} isPadded={false}>
+    <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow}>
       <div className="mt-6">
         <div className="border-y border-[#E7E6F2] p-[30px_40px] ">
             <CurrentBalance />                

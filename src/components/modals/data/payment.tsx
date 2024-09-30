@@ -2,8 +2,8 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
-import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
 
 const DataPayment: React.FC<any> = ({
@@ -13,11 +13,11 @@ const DataPayment: React.FC<any> = ({
 
   return (
     <div className="mt-4">
-      <div className="w-full border-y border-[#E7E6F2] px-[40px]">
+      <div className="w-full border-y border-[#E7E6F2]s">
       <CurrentBalance />
       </div>
 
-      <div className="flex flex-col gap-1 px-[40px] mt-6">
+      <div className="flex flex-col gap-1 mt-6">
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
           <div className="flex  flex-wrap items-center gap-4">
             <Image
@@ -44,7 +44,7 @@ const DataPayment: React.FC<any> = ({
         <p className="text-center mt-4">
           The amount of{" "}
           <span className="font-bold">
-            NGN{formatAmount(data?.transaction.amount)}
+            {currencyFormatter(data?.serviceProvider?.fee)}
           </span>{" "}
           will be debited from your wallet balance, proceed below to complete
           transaction{" "}

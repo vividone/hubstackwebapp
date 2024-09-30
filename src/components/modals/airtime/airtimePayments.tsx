@@ -1,24 +1,19 @@
 "use client";
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
-import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
-import AlternatePaymentMethod from "../AlternatePaymentMethod";
+import { currencyFormatter } from "@/helpers/currencyConvert";
+
 type FlowProps = {
   setFlow: (aug0: number) => void;
   data: any;
   completeAction: () => void;
-  // AlternatePayment?: boolean;
-  // setAlternatePayment?: Dispatch<SetStateAction<boolean>>;
 };
 
 const AirtimePayment: React.FC<FlowProps> = ({
-  setFlow,
   data,
   completeAction,
-  // setAlternatePayment,
-  // AlternatePayment,
 }) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
@@ -29,13 +24,13 @@ const AirtimePayment: React.FC<FlowProps> = ({
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px] ">
           <div className="flex  flex-wrap items-center gap-4">
             <Image
-              src={`/images/airtime/${data?.service.LogoUrl}`}
+              src={`/images/airtime/${data?.logo}.jpg`}
               alt={data?.network}
               width={80}
               height={30}
             />
             <p className="text-xl font-semibold text-[#3D3066]">
-              {data?.service.Name}
+              {data?.service.BillerName}
             </p>
           </div>
           <div className="py-4">
@@ -52,10 +47,10 @@ const AirtimePayment: React.FC<FlowProps> = ({
         </div>
       </div>
 
-       <div className="mt-6 flex flex-col gap-1 px-[40px]">
+       <div className="mt-6 flex flex-col gap-1">
         <p className="text-center mt-4">
           The amount of{" "}
-          <span className="font-bold">NGN{formatAmount(data?.amount)}</span>{" "}
+          <span className="font-bold">NGN{currencyFormatter(data?.amount)}</span>{" "}
           will be debited from your wallet balance, proceed below to complete
           transaction{" "}
         </p>

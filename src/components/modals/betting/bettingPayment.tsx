@@ -4,14 +4,11 @@ import Image from "next/image";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
-import { FlowProps } from "../modalsLayout";
-import Confirmation from "../confirmation";
 
 const BettingPayment: React.FC<any> = ({
   setFlow,
-  data,
-  pseudo,
-}: //   setIsPadded,
+  data
+}: 
 any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 

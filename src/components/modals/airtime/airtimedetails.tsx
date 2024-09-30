@@ -2,12 +2,12 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
-import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { FlowProps } from "../modalsLayout";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
 
 const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data, completeAlternate, completedForm }) => {
@@ -31,8 +31,8 @@ const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data, completeAlter
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
         <div className="flex  flex-wrap items-center gap-4">
           <Image
-            src={`/images/airtime/${data?.service.LogoUrl}`}
-            alt={data?.service.Name}
+            src={`/images/airtime/${data?.logo}.jpg`}
+            alt={data?.service.BillerName}
             width={80}
             height={30}
           />
@@ -46,7 +46,7 @@ const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data, completeAlter
             <span className="block ">Airtime Amount</span>
             <span className="flex items-center">
               <NairaIconElectricBill className="w-[12px]" />
-              {formatAmount(data?.amount)}
+              {currencyFormatter(data?.amount)}
             </span>
           </div>
 
@@ -62,7 +62,7 @@ const AirtimeDetailsModal: React.FC<FlowProps> = ({ setFlow, data, completeAlter
             <span className="block font-bold">Total</span>
             <span className="flex items-center">
               <NairaIconElectricBill className="w-[12px]" />
-              {formatAmount(data?.amount)}
+              {currencyFormatter(data?.amount)}
             </span>
           </div>
         </div>

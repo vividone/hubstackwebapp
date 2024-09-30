@@ -21,7 +21,7 @@ const CompletedAirtimeModal: React.FC<FlowProps> = ({ setFlow, data }) => {
 
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px] mt-2">
           <div className="flex  flex-wrap items-center gap-4">
-            <p>{data?.service.Name}</p>
+            <p>{data?.service.BillerName}</p>
           </div>
         </div>
         

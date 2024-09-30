@@ -19,6 +19,7 @@ import Data from "@/components/modals/data/data";
 import { useGetTransactionByType } from "@/helpers/api/useTransact";
 import { History } from "@/components/tables/history";
 import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
+import { extractBillPayment } from "@/helpers/extractBillPayment";
 const Billpayment = () => {
   const [active, setActive] = useState("")
   const { history } = useGetTransactionByType("billpayment");
@@ -49,7 +50,7 @@ const Billpayment = () => {
     },
     {
       Icon: <ElectricityIcon />,
-      text: "Electricity",
+      text: "Utility Bill",
       billerCategoryId: "1",
     },
     {
@@ -154,20 +155,20 @@ const Billpayment = () => {
         </div>
 
         {
-          active === "Electricity" && show ?
+          active === "Utility Bill" && show ?
           <ElectricityBillModal show={show} setShow={setShow} />
           : 
           active === "Airtime" && show ?
-          <AirtimeModal show={show} setShow={setShow} />
+          <AirtimeModal show={show} setShow={setShow} billers={isLoading ? [] : extractBillPayment(3, billers)} />
           :
           active === "Cable TV" && show ?
           <CableTVServices show={show} setShow={setShow} />
           :
           active === "Data Bundle" && show ?
-          <Data show={show} setShow={setShow} />
+          <Data show={show} setShow={setShow} billers={isLoading ? [] : [...extractBillPayment(4, billers), ...extractBillPayment(63, billers)]} />
           :
           active === "Internet" && show ?
-          <Internet show={show} setShow={setShow} />
+          <Internet show={show} setShow={setShow} billers={isLoading ? [] : extractBillPayment(5, billers)} />
           :
           active === "Betting" && show ?
           <Betting show={show} setShow={setShow} />
