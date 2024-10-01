@@ -178,8 +178,8 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
           {
             flow === 0 ? "" : flow === 1 ? 
             !existingData ?
-            <div>
-              <p>You don&apos;t have account number from this provider. Request account number by clicking the button below.</p>
+            <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
+              <p>You don&apos;t have an account number with this provider. Request account number by clicking the button below.</p>
             </div>
             :
             <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
