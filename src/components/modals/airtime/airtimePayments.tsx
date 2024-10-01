@@ -50,7 +50,7 @@ const AirtimePayment: React.FC<FlowProps> = ({
        <div className="mt-6 flex flex-col gap-1">
         <p className="text-center mt-4">
           The amount of{" "}
-          <span className="font-bold">NGN{currencyFormatter(data?.amount)}</span>{" "}
+          <span className="font-bold">NGN{data?.amount}</span>{" "}
           will be debited from your wallet balance, proceed below to complete
           transaction{" "}
         </p>

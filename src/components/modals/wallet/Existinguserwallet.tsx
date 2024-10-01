@@ -16,7 +16,6 @@ import { useOutsideClick } from "@/helpers/useClickOutside";
 import { currencyFormatter } from "@/helpers/currencyConvert";
 import { Dropdown } from "@/components/common/Dropdown";
 import Close from "@/assets/icons/close";
-import { Loader } from "@/assets/common/loader";
 import { LoaderIcon } from "react-hot-toast";
 
 
@@ -60,8 +59,11 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
       }
     }
     else if(flow === 1) {
-      verify.handleSubmit();
-      refreshWallet(fundData.amount);
+      setStatus("Pending")
+      setTimeout(() => {
+        verify.handleSubmit();
+        refreshWallet(fundData.amount);
+      }, 100000)
     }
     else {
       setFlow(0)
@@ -79,13 +81,10 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      setFlow(0);
+    if(isSuccess) {
+      setFlow(0)
     }
-    else if(isError) {
-      setStatus("error")
-    }
-  }, [isSuccess, isError])
+  }, [isSuccess])
 
   return (
     <>
@@ -103,7 +102,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
               <h1 className="text-[20px] font-bold flex items-center gap-2"> <LoaderIcon />Payment Processing</h1>
               <button onClick={() => setStatus("")} ><Close/></button>
             </div>
-            <p>We will confirm your payment and update your account shortly!</p>
+            <p>We will confirm your payment and update your account shortly! </p>
             <p>Thanks</p>
             <div className="flex justify-end mt-6">
               <Button size="md" onClick={() => setStatus("")} className="px-8">OK</Button>
@@ -118,7 +117,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
         <div className="">
           {flow === 0 ? (
             <>
-            <div className="p-[0px_40px]">
+            <div className="">
             <label
               htmlFor="desiredAmount"
               className="block text-[18px] mb-2 mt-8 font-normal"
@@ -144,7 +143,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
             />
             
           </div>
-            <div className="p-[0px_40px]">
+            <div className="">
               <label
                 htmlFor="desiredAmount"
                 className="block text-[18px] mb-2 mt-8 font-normal"
@@ -167,7 +166,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
           ) :
           flow === 1 ?
           (
-            <div className="border-y border-[#E7E6F2] p-[20px_40px] ">
+            <div className="border-y border-[#E7E6F2]">
               <CurrentBalance />                
             </div>
           )
@@ -175,9 +174,14 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
         }
         </div>
         
-        <div className="mt-4 p-[0_40px]">
+        <div className="mt-4">
           {
             flow === 0 ? "" : flow === 1 ? 
+            !existingData ?
+            <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
+              <p>You don&apos;t have an account number with this provider. Request account number by clicking the button below.</p>
+            </div>
+            :
             <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
               <p>Kindly pay <span className="px-1 font-bold text-[18px]">{currencyFormatter(formik.values.amount)}</span> to the account number shown below and click &apos;Confirm Transfer&apos;</p>
               <div className="flex flex-col gap-2 py-6">
@@ -206,6 +210,10 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
           }
 
           <div className="mt-10 flex flex-col items-center gap-4">
+            {
+              !existingData && flow === 1 ?
+              <Button size="long">Request account</Button>
+              :
             <Button
               variant="primary"
               size="long"
@@ -219,13 +227,14 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
                 {flow === 0 ? "CONTINUE" : "CONFIRM TRANSFER"}
               </span>
             </Button>
+            }
           </div>
         </div>
       </div>
 
       {
         flow === 1 ?
-        
+        !existingData ? "" :
         <div className="flex justify-center mt-6">
           <Button
             variant="secondary"
