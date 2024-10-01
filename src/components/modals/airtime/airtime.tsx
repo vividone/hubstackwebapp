@@ -9,10 +9,8 @@ import CompletedAirtimeModal from "./airtimeCompleted";
 import AirtimePayment from "./airtimePayments";
 import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import ToastComponent from "@/components/common/toastComponent";
-import CurrencyField from "@/components/common/currencyInput";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
-import { completeBillPayment } from "@/helpers/billPayment";
 import BillsSkeleton from "@/components/common/billsSkeleton";
 import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { currencyFormatter } from "@/helpers/currencyConvert";
@@ -100,7 +98,7 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
                     </div>
                     {
                     billersList ? 
-
+                    <>
                     <div className="grid grid-cols-4 gap-4 mt-4">
                         {
                             billersList?.map((item: { Id: number, LogoUrl: string, ShortName: string, Name: string, ProductCode: string } ) => (
@@ -117,6 +115,8 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
                             ))
                         }
                     </div>
+                    <p className="text-red-600 text-[12px]">{formik.errors.service}</p>
+                    </>
                     :
                     <BillsSkeleton list={4} height={120} />
                     }
@@ -146,9 +146,10 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
                                 </button>
                             ))
                         }
+                        
                     </div>
+
                     }
-                    <p className="text-red-600 text-[12px]">{formik.errors.service}</p>
 
                     <div className="w-full mt-12">
                         <Button
