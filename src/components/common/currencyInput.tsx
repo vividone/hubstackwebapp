@@ -56,10 +56,3 @@ const CurrencyField = ({ onValueChange, error, ...props }: CurrencyProps) => {
 };
 
 export default CurrencyField;
-// USAGE
-//  const [value, setState] = useState(0);
-//  const onValueChange = (v: any) => console.log(v);
-//  return (
-//    <CurrencyField onValueChange={onValueChange} value={value} {...args} />
-//    );
-//   };

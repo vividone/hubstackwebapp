@@ -3,7 +3,7 @@ import { useState } from "react";
 import { IErrorResponseType } from "@/interface/common/error";
 import { useFormik } from "formik";
 import axiosInstance from "../axiosConfig";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
 import { BillValidationwithMeterSchema, BillValidationwithPhoneSchema } from "@/schema/servicesschema/billValidation";
@@ -106,3 +106,70 @@ export const useCompleteBillPayment:any = ( id: string, type: string ) => {
   };
   
   
+// export const useBuyAirtime = ( ) => {
+//     const [data, setData] = useState<any>()
+//     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay airtime"],
+//         mutationFn: (payload: Partial<any>) => {
+//             return axiosInstance.post(`${process.env.NEXT_SMEPLUG_URL}/airtime/purchase`, payload)
+//         },
+//     })    
+    
+//     const formik = useFormik({
+//         initialValues: {
+//             network_id: "",
+//             phone: "",
+//             amount: +"",
+//         } as {
+//             network_id: string
+//             phone: string,
+//             amount: number,
+//         },
+//         validateOnBlur: true,
+//         validationSchema: AirtimePaymentSchema,
+//         validateOnChange: true,
+//         onSubmit: async ({ ...values }) => {
+//         try {
+//             await formik.validateForm();
+//             mutate(values, {
+//             onSuccess: (res) => {
+//               setData(res.data);
+//             },
+//             //   onError: (res: any) => {
+    
+//             //   },
+//             });
+//             formik.handleReset;
+//         } catch (error: any) {
+//             throw new Error(error);
+//         }
+//         },
+//     });
+//     const typedError = error as IErrorResponseType;
+//     const errorString = Array.isArray(typedError?.response?.data?.message)
+//         ? typedError?.response?.data?.message[0]
+//         : typedError?.response?.data?.message || "";
+//     return { data, formik, isPending, isSuccess, isError, error: errorString };
+//   };
+  
+//   export const useGetNetworks = () => {
+  
+//     const queryKey = ["Get all networks"]; // Unique key for the query
+  
+//     const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
+//       const response = await axios.get(`/api/networks`, {
+//         headers: {
+//             "Authorization": `Bearer ${getAuthorizationHeader()}`
+//         }
+//       });
+//       return response;
+//     }});
+  
+//     const networks = data || [];
+  
+//     return {
+//       networks,
+//       isLoading,
+//       isError,
+//       error
+//     };
+//   };
