@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import ModalsLayout from "../modalsLayout";
+import ModalsLayout from "../../modalsLayout";
 import ArrowDown from "@/assets/icons/arrowDown";
 import { Input } from "@/components/common/inputs";
 import { Button } from "@/components/common/button";

@@ -6,7 +6,7 @@ import SpreadIcon from "@/assets/icons/SpreadIcon";
 import { SearchInput } from "@/components/common/inputs";
 import CaratDown from "@/assets/icons/CaratDown";
 import SortIcon from "@/assets/icons/SortIcon";
-import NewNotification from "@/components/modals/notification/Notification";
+import NewNotification from "@/components/modals/Admin/notification/Notification";
 
 const Index = () => {
   const [show, setShow] = useState(false);
