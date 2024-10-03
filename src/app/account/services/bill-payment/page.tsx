@@ -13,8 +13,7 @@ import { useState } from "react";
 import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 import AirtimeModal from "@/components/modals/airtime/airtime";
 import CableTVServices from "@/components/modals/cableTv/Services";
-import Internet from "@/components/modals/internet/Services";
-import Betting from "@/components/modals/betting/services";
+import BillServices from "@/components/modals/bill/Services";
 import Data from "@/components/modals/data/data";
 import { useGetTransactionByType } from "@/helpers/api/useTransact";
 import { History } from "@/components/tables/history";
@@ -61,7 +60,7 @@ const Billpayment = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-col w-full relative">
+    <div className="flex flex-col md:flex-col w-full">
       <div className="w-full p-[30px] md:px-[60px_25px]">
         <h2 className="text-[24px] md:text-[28px] 2xl:text-[36px] font-CabinetGrotesque font-medium">
           Bill Payments
@@ -159,7 +158,7 @@ const Billpayment = () => {
           <ElectricityBillModal show={show} setShow={setShow} />
           : 
           active === "Airtime" && show ?
-          <AirtimeModal show={show} setShow={setShow} billers={isLoading ? [] : extractBillPayment(3, billers)} />
+          <AirtimeModal show={show} setShow={setShow} billers={isLoading ? [] : extractBillPayment(4, billers)} />
           :
           active === "Cable TV" && show ?
           <CableTVServices show={show} setShow={setShow} />
@@ -167,11 +166,8 @@ const Billpayment = () => {
           active === "Data Bundle" && show ?
           <Data show={show} setShow={setShow} billers={isLoading ? [] : [...extractBillPayment(4, billers), ...extractBillPayment(63, billers)]} />
           :
-          active === "Internet" && show ?
-          <Internet show={show} setShow={setShow} billers={isLoading ? [] : extractBillPayment(5, billers)} />
-          :
-          active === "Betting" && show ?
-          <Betting show={show} setShow={setShow} />
+          (active === "Internet" || active === "Betting") && show ?
+          <BillServices show={show} bill={active} setShow={setShow} billers={isLoading ? [] : extractBillPayment(active === "Internet" ? 5 : 49, billers)} />
           :""
         }
       </div>
