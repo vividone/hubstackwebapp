@@ -1,19 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "../../common/button";
 import { formatAmount } from "@/helpers/amountFormatter";
 import CurrentBalance from "../currentBalance";
 
-const InternetPayment: React.FC<any> = ({
-  setFlow,
+const BillPayment: React.FC<any> = ({
   data,
+  bill,
+  completeAction
 }:
 any) => {
-  const [showAlternate, setShowAlternate] = useState(false);
 
   return (
     <div className="mt-4">
-      {/* {showAlternatePayment && <AlternatePaymentMethod />} */}
 
       <div className="w-full border-y border-[#E7E6F2]">
         <CurrentBalance />
@@ -25,7 +24,7 @@ any) => {
             <p className="text-xl font-semibold text-[#3D3066]">{data?.name}</p>
           </div>
           <div className="py-4">
-            <p>Bet ID</p>
+            <p>{ bill === "Internet" ? "Mobile Number" : "BET ID"}</p>
             <p className=" opacity-[0.7]">{data?.customerId}</p>
           </div>
         </div>
@@ -33,7 +32,7 @@ any) => {
         <p className="text-center mt-4">
           The amount of{" "}
           <span className="font-bold">
-            NGN{formatAmount((+data?.amount + 100).toString())}
+            NGN{formatAmount(data?.amount)}
           </span>{" "}
           will be debited from your wallet balance, proceed below to complete
           transaction{" "}
@@ -45,19 +44,9 @@ any) => {
             size="full"
             type="submit"
             isLoading={data?.isPending}
-            onClick={() => {
-              return setFlow(4);
-            }}
+            onClick={()=> completeAction()} 
           >
-            <span className="text-[16px]">PAY WITH WALLET</span>
-          </Button>
-
-          <Button
-            variant="secondary"
-            size="full"
-            onClick={() => setShowAlternate(!showAlternate)}
-          >
-            <span className="text-[16px]">USE ALTERNATE PAYMENT METHOD</span>
+            <span className="text-[16px]">PROCEED WITH WALLET</span>
           </Button>
         </div>
       </div>
@@ -65,4 +54,4 @@ any) => {
   );
 };
 
-export default InternetPayment;
+export default BillPayment;

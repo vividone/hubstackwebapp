@@ -55,7 +55,7 @@ const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
         <div className="px-10">
             <CurrentBalance />
         </div>
-        <nav className="mt-2 mb-8 p-[0_40px] ">
+        <nav className="mt-2 mb-8">
           <div className="grid grid-cols-2 gap-12 border-b border-[#E7E7E7]">
 
             {

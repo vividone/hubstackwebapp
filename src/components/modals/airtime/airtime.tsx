@@ -125,7 +125,7 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
                     isLoading ?
                     <BillsSkeleton list={4} height={100} /> 
                     :
-                    <div className="grid grid-cols-4 gap-4 mt-12">
+                    <div className="grid sm:grid-cols-4 grid-cols-3 gap-4 mt-12">
                         {
                             services?.PaymentItems?.map((item: { Id: number, LogoUrl: string, BillerName: string, Amount: string, PaymentCode: string } ) => (
                                 <button 

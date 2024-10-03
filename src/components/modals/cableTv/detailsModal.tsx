@@ -68,7 +68,7 @@ const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active, complet
 
             <div className="flex justify-between items-center gap-5">
               <span className="block ">Amount</span>
-              <span className="flex items-center">{currencyFormatter(data?.amount)}</span>
+              <span className="flex items-center">{currencyFormatter(data?.amount - data?.serviceProvider?.ItemFee)}</span>
             </div>
             
             <div className="flex justify-between items-center gap-5">
@@ -78,7 +78,7 @@ const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active, complet
             
             <div className="flex justify-between items-center gap-5 mb-6">
               <span className="block font-bold">TOTAL</span>
-              <span className="flex items-center">{currencyFormatter(data?.amount + data?.serviceProvider?.ItemFee)}</span>
+              <span className="flex items-center">{currencyFormatter(data?.amount)}</span>
             </div>
 
           </div>
