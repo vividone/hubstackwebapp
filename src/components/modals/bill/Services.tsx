@@ -1,67 +1,75 @@
 import React, { useEffect, useState } from "react";
 import ModalsLayout from "../modalsLayout";
-import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import CustomIcons from "@/components/custom/customIcons";
 import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import ToastComponent from "@/components/common/toastComponent";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
-import BettingForm from "./bettingForm";
-import BettingDetails from "./bettingDetails";
-import BettingPayment from "./bettingPayment";
-import BettingPurchase from "./bettingCompleted";
+import BillForm from "./BillForm";
+import BillPayment from "./BillPayment";
+import BillDetails from "./BillDetails";
+import BillReceipt from "./BillReceipt";
 
-type BettingProviders = {
+type InterntProviders = {
   ShortName: string;
   Name: string;
   Id: string;
 };
 
-const BettingServices = ({ setShow, show }: any) => {
+export interface ServicesProps {
+  setShow:  (aug0: boolean) => void;
+  show: boolean;
+  billers: any;
+  bill: string;
+}
+
+const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
   const [flow, setFlow] = useState(0);
   const [data, setData] = useState<any>();
-  const [active, setActive] = useState<BettingProviders | null>();
+  const [active, setActive] = useState<InterntProviders | null>();
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const {
-    data: payCable,
+    data: payBill,
     formik: cableForm,
     isError,
     isPending,
     isSuccess,
     error,
-  } = usePayBill("cable");
+  } = usePayBill(bill.toLowerCase());
   const {
     data: completedBill,
     formik: completedForm,
     isPending: completePending,
     isSuccess: completedSuccess,
-  } = useCompleteBillPayment(payCable?._id || "");
-  const { billers, isLoading } = useGetBillersByCategoryId("41");
+  } = useCompleteBillPayment(payBill?._id || "");
 
-  const flowHeaders: string[] = [
+  const flowHeaders: string[] = bill === "Internet" ? [
+    "Internet",
+    "Internet",
+    "Your Order",
+    "Your Wallet",
+  ]: [
     "Betting",
     "Betting",
     "Your Order",
     "Your Wallet",
-  ];
-
-  const providersList: BettingProviders[] = billers?.BillerList?.Category[0]?.Billers
+  ]
 
   useEffect(() => {
     if (isSuccess) {
-      // setData({ ...data, transactionReference: payCable?.transactionReference })
       setFlow(2);
     }
   }, [isSuccess]);
 
+
   const completePayment = () => {
     completedForm.setValues({
-      paymentCode: payCable?.transactionDetails.paymentCode?.toString(),
-      customerId: payCable?.transactionDetails.customerId?.toString(),
+      paymentCode: payBill?.transactionDetails.paymentCode?.toString(),
+      customerId: payBill?.transactionDetails.customerId?.toString(),
       customerEmail: userDetails?.email,
       customerMobile: userDetails?.phone_number,
-      requestReference: payCable?.transactionReference,
-      amount: payCable?.amount,
+      requestReference: payBill?.transactionReference,
+      amount: payBill?.amount,
     });
 
     completedForm.handleSubmit();
@@ -74,101 +82,6 @@ const BettingServices = ({ setShow, show }: any) => {
 
     completedForm.handleSubmit()
   }
-
-
-  const providers: any = [
-    {
-      LogoUrl: "1XBET.png",
-      Name: "1XBET",
-      Id: "1",
-    },
-    {
-      LogoUrl: "360Bet.png",
-      Name: "360Bet",
-      Id: "2",
-    },
-    {
-      LogoUrl: "Afriplay.png",
-      Name: "Afriplay",
-      Id: "3",
-    },
-    {
-      LogoUrl: "BangBet.png",
-      Name: "BangBet",
-      Id: "4",
-    },
-    {
-      LogoUrl: "BET.png",
-      Name: "BET",
-      Id: "5",
-    },
-    {
-      LogoUrl: "Bet9ja.png",
-      Name: "Bet9ja",
-      Id: "6",
-    },
-    {
-      LogoUrl: "QuestionMark.png",
-      Name: "",
-      Id: "7",
-    },
-    {
-      LogoUrl: "Betfarm.png",
-      Name: "Betfarm",
-      Id: "8",
-    },
-    {
-      LogoUrl: "Betgr8.png",
-      Name: "Betgr8",
-      Id: "9",
-    },
-    {
-      LogoUrl: "BetKing.png",
-      Name: "BetKing",
-      Id: "11",
-    },
-    {
-      LogoUrl: "Betway.png",
-      Name: "Betway",
-      Id: "12",
-    },
-    {
-      LogoUrl: "GLOBABET.png",
-      Name: "GLOBABET",
-      Id: "13",
-    },
-
-    {
-      LogoUrl: "ILOT.png",
-      Name: "ILOT.png",
-      Id: "14",
-    },
-    {
-      LogoUrl: "KWIKBET247.png",
-      Name: "KWIKBET",
-      Id: "16",
-    },
-    {
-      LogoUrl: "nairabet.png",
-      Name: "Nairabet.com",
-      Id: "17",
-    },
-    {
-      LogoUrl: "NetBet.png",
-      Name: "Netbet",
-      Id: "18",
-    },
-    {
-      LogoUrl: "Quickteller.png",
-      Name: " Quickteller",
-      Id: "19",
-    },
-    {
-      LogoUrl: "SUREBET247.png",
-      Name: "SUREBET247",
-      Id: "20",
-    },
-  ];
 
   return (
     <>
@@ -206,21 +119,23 @@ const BettingServices = ({ setShow, show }: any) => {
                 //   <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
                 // </>
 
-                providers?.map((item: any) => (
-                  // <button key={item.Id} onClick={() => {setActive(item); setFlow(1)}} title={item.Name}>
-                  //   <CustomIcons src={"/images/betting/" + item.ShortName +".jpg"} alt={item.Name} />
-                  // </button>
+                billers?.map((item: any) => (
                   <button
                     key={item.Id}
                     onClick={() => {
                       setActive(item);
+                      cableForm.setFieldValue("service", item.Name)
+                      cableForm.setFieldValue("biller", item.Name)
+                      cableForm.setFieldValue("billerId", item.Id.toString())
+                      cableForm.setFieldValue("paymentMode", "wallet")
+                      cableForm.setFieldValue("paymentCode", item.ProductCode)
+                      cableForm.setFieldValue("category", "billpayment")
                       setFlow(1);
                     }}
                     title={item.Name}
                   >
                     <CustomIcons
-                      // src={"/images/betting/" + item.LogoUrl + ".png"}
-                      src={`/images/Betting/${item.LogoUrl}`}
+                      src={"https://quickteller.com/images/Downloaded/" + item.MediumImageId + ".png" } // item.MediumImageId
                       alt={item.Name}
                     />
                   </button>
@@ -229,8 +144,9 @@ const BettingServices = ({ setShow, show }: any) => {
             </div>
           </main>
         ) : flow === 1 ? (
-          <BettingForm
+          <BillForm
             active={active}
+            bill={bill}
             data={data}
             setData={setData}
             isPending={isPending}
@@ -238,23 +154,24 @@ const BettingServices = ({ setShow, show }: any) => {
             setFlow={setFlow}
           />
         ) : flow === 2 ? (
-          <BettingDetails
+          <BillDetails
             active={active}
-            data={{ ...data, ...payCable }}
-            setFlow={setFlow} 
-            completedForm={completedForm}
+            bill={bill}
+            data={{ ...data, ...payBill }}
+            completedForm={completedForm} 
             completeAlternate={completeAlternate}
+            setFlow={setFlow}
           />
         ) : flow === 3 ? (
-          <BettingPayment
-          
+          <BillPayment
             active={active}
-            data={{ ...data, ...payCable, isPending: completePending }}
+            bill={bill}
+            data={{ ...data, ...payBill, isPending: completePending }}
             setFlow={setFlow}
             completeAction={completePayment}
           />
         ) : flow === 4 ? (
-          <BettingPurchase active={active} data={data} setFlow={setFlow} />
+          <BillReceipt active={active} data={data} bill={bill} setFlow={setFlow} />
         ) : (
           ""
         )}
@@ -263,4 +180,4 @@ const BettingServices = ({ setShow, show }: any) => {
   );
 };
 
-export default BettingServices;
+export default BillServices;

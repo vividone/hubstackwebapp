@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { formatAmount } from "@/helpers/amountFormatter";
 import NairaIcon from "@/assets/icons/nairaIcon";
 import { Button } from "@/components/common/button";
 import ClipBoard from "@/components/wallet/clipboard";
 import Image from "next/image";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
-const BettingPurchase = ({ setFlow, data }: any) => {
+const BillReceipt = ({ setFlow, data, bill }: any) => {
   const [showAlternate, setShowAlternate] = useState(false);
 
   return (
@@ -23,7 +24,7 @@ const BettingPurchase = ({ setFlow, data }: any) => {
           <p className="text-xl font-semibold text-[#3D3066]">{data?.name}</p>
         </div>
         <div className="py-4">
-          <p>Bet ID</p>
+          <p>{ bill === "Internet" ? "Mobile Number" : "BET ID"}</p>
           <p className=" opacity-[0.7]">{data?.customerId}</p>
         </div>
       </div>
@@ -32,10 +33,9 @@ const BettingPurchase = ({ setFlow, data }: any) => {
         <h2 className="font-bold">Payment Summary</h2>
         <div className="flex flex-col gap-1">
           <div className="flex justify-between items-center gap-5">
-            <span className="block opacity-[0.5]">Airtime Amount</span>
+            <span className="block opacity-[0.5]">Amount</span>
             <span className="flex items-center">
-              <NairaIcon className="w-[12px]" />
-              {formatAmount(data?.amount)}
+              {currencyFormatter(data?.amount - data?.serviceProvider.ItemFee)}
             </span>
           </div>
 
@@ -58,16 +58,14 @@ const BettingPurchase = ({ setFlow, data }: any) => {
           <div className="flex justify-between items-center gap-5">
             <span className="block opacity-[0.5]">Service Charge</span>
             <span className="flex items-center">
-              <NairaIcon className="w-[12px]" />
-              100.00
+              {currencyFormatter(data?.serviceProvider.ItemFee)}
             </span>
           </div>
 
           <div className="flex justify-between items-center gap-5 mb-6">
             <span className="block font-bold">TOTAL</span>
             <span className="flex items-center">
-              <NairaIcon className="w-[12px]" />
-              {formatAmount((+data?.amount + 100).toString())}
+              {currencyFormatter(data?.amount)}
             </span>
           </div>
         </div>
@@ -97,4 +95,4 @@ const BettingPurchase = ({ setFlow, data }: any) => {
   );
 };
 
-export default BettingPurchase;
+export default BillReceipt;

@@ -6,16 +6,18 @@ import Image from "next/image";
 import { FlowProps } from "../modalsLayout";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
-import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
-interface BettingProps extends FlowProps {
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { currencyFormatter } from "@/helpers/currencyConvert";
+
+interface InternetProps extends FlowProps {
   active: any;
+  bill: string;
 }
 
-const BettingDetails: React.FC<BettingProps> = ({ setFlow, data, active, completeAlternate, completedForm }) => {
+const BillDetails: React.FC<InternetProps> = ({ setFlow, data, active, completedForm, completeAlternate, bill }) => {
   const [showAlternate, setShowAlternate] = useState(false);
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
-
 
   const fillForm = () => {
     completedForm.setValues({ 
@@ -30,12 +32,13 @@ const BettingDetails: React.FC<BettingProps> = ({ setFlow, data, active, complet
 
   return (
     <div className="mt-4">
-      {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} complete={completeAlternate} />}
-      
       <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[30px]">
+
+        {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} complete={completeAlternate} />}
+
         <div className="flex  flex-wrap items-center gap-4">
           <Image
-            src={"/images/Betting/" + active?.ShortName + ".jpg"}
+            src={`https://quickteller.com/images/Downloaded/${active.MediumImageId}`}
             alt={active?.Name}
             width={80}
             height={80}
@@ -44,7 +47,7 @@ const BettingDetails: React.FC<BettingProps> = ({ setFlow, data, active, complet
         </div>
 
         <div className="py-4">
-          <p>Bet ID</p>
+          <p>{ bill === "Internet" ? "Mobile Number" : "BET ID"}</p>
           <p className=" opacity-[0.7]">{data?.customerId}</p>
         </div>
       </div>
@@ -54,24 +57,21 @@ const BettingDetails: React.FC<BettingProps> = ({ setFlow, data, active, complet
           <div className="flex justify-between items-center gap-5">
             <span className="block ">Amount</span>
             <span className="flex items-center">
-              <NairaIconElectricBill className="w-[12px]" />
-              {formatAmount(data?.amount)}
+            {currencyFormatter(data?.amount - data?.serviceProvider.ItemFee)}
             </span>
           </div>
 
           <div className="flex justify-between items-center gap-5">
             <span className="block">Service Charge</span>
             <span className="flex items-center">
-              <NairaIconElectricBill className="w-[12px]" />
-              0.00
+              {currencyFormatter(data?.serviceProvider.ItemFee)}
             </span>
           </div>
 
           <div className="flex justify-between items-center gap-5 mb-6">
             <span className="block font-bold">TOTAL</span>
             <span className="flex items-center">
-              <NairaIconElectricBill className="w-[12px]" />
-              {formatAmount(data?.amount)}
+              {currencyFormatter(data?.amount)}
             </span>
           </div>
         </div>
@@ -102,4 +102,4 @@ const BettingDetails: React.FC<BettingProps> = ({ setFlow, data, active, complet
   );
 };
 
-export default BettingDetails;
+export default BillDetails;

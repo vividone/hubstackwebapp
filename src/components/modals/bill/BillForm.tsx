@@ -6,27 +6,33 @@ import { Input } from "@/components/common/inputs";
 import { FlowProps } from "../modalsLayout";
 import CurrencyField from "@/components/common/currencyInput";
 import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
+import { Dropdown } from "@/components/common/Dropdown";
+import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
+import { currencyFormatter } from "@/helpers/currencyConvert";
 
 interface InternetProps extends FlowProps {
   active: any;
   setData: (aug0: any) => void;
   formik: any;
   isPending: boolean;
+  bill: string;
 }
 
-const InternetForm: React.FC<InternetProps> = ({
-  active,
-  data,
-  formik,
-  isPending,
-  setData,
-}) => {
+const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, setData, bill }) => {
+  const { services } = useGetServicesByBillerId(active?.Id);
 
-    const handleSubmit = (e: FormEvent) => {
-      e.preventDefault();
-      console.log(formik.errors)
-      formik.handleSubmit()
-    }
+  const setFormikValues = () => {
+    formik.setFieldValue("biller", active?.Name);
+    formik.setFieldValue("billerId", active?.Id.toString());
+    formik.setFieldValue("paymentMode", "wallet");
+    formik.setFieldValue("category", "billpayment");
+  }
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    console.log(formik.errors)
+    formik.handleSubmit()
+  }
 
   return (
     <div className="mt-4">
@@ -38,7 +44,7 @@ const InternetForm: React.FC<InternetProps> = ({
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[10px_30px]">
           <div className="flex flex-wrap items-center gap-4">
             <Image
-              src={"/images/internet/" + active?.LogoUrl + ".png"}
+              src={`https://quickteller.com/images/Downloaded/${active.MediumImageId}`}
               alt={active?.Name}
               width={80}
               height={80}
@@ -54,17 +60,54 @@ const InternetForm: React.FC<InternetProps> = ({
             htmlFor="MobileNumber"
             className="font-normal text-xl font-openSans text-[#111111]"
           >
-            Mobile Number
+            { bill === "Internet" ? "Mobile Number" : "BET ID"}
           </label>
           <div className="text-[#8c8b92] mt-2">
             <Input
               name="MobileNumber"
-              placeholder="Mobile Number"
+              value={formik.values.customerId}
+              placeholder={ bill === "Internet" ? "Mobile Number" : "BET ID"}
               onChange={(e) => {
                 setData({ ...data, customerId: e.target.value });
                 formik.setFieldValue("customerId", e.target.value);
+                setFormikValues()
               }}
-              error={formik.errors.customerId && formik.errors.customerId + " phone number"}
+              error={formik.errors.customerId && ((bill === "Internet") ? formik.errors.customerId + "Mobile Number" : formik.errors.customerId + "BET ID")}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col w-full mt-5">
+          <label
+            htmlFor="amount"
+            className="font-normal text-xl font-openSans text-[#111111]"
+          >
+            { bill === "Internet" ? "Internet" : "Betting"} Plan
+          </label>
+          <div className="text-[#8c8b92] mt-2">
+            <Dropdown
+              name="serviceProvider"
+              value={data?.serviceProvider}
+              error={formik.errors.service && "Choose a data plan"}
+              onChange={(value) => {
+                if (value) {
+                  const selectedOption = value as any;
+                  formik.setFieldValue("service", selectedOption.value);
+                  formik.setFieldValue("amount", selectedOption.amount + selectedOption.ItemFee);
+                  formik.setFieldValue("paymentCode", selectedOption.PaymentCode);
+                  setData({ ...data, serviceProvider: selectedOption, amount: selectedOption.amont });
+                } else {
+                }
+              }}
+              options={services?.PaymentItems?.map((item: any) => ({
+                label: item.Name,
+                value: item.Name,
+                amount: item.Amount / 100,
+                PaymentCode: item.PaymentCode,
+                ItemFee: +item.ItemFee / 100,
+                fixed: true,
+              }))}
+              className="items-start text-start justify-start rounded-[8px]"
             />
           </div>
         </div>
@@ -76,11 +119,10 @@ const InternetForm: React.FC<InternetProps> = ({
           >
             Amount
           </label>
-          <div className="text-[#8c8b92] mt-2">
+          <div className="mt-2">
             {data?.serviceProvider?.fixed ? (
               <p className="text-[32px] font-bold flex items-center">
-                <NairaIconElectricBill width={32} />
-                {data?.serviceProvider?.fee}.00
+                {currencyFormatter(data?.serviceProvider?.amount)}
               </p>
             ) : (
               <CurrencyField
@@ -95,7 +137,6 @@ const InternetForm: React.FC<InternetProps> = ({
                 }
                 disabled={data?.serviceProvider?.fixed}
                 error={formik.touched.amount && formik.errors.amount}
-
               />
             )}
           </div>
@@ -117,4 +158,4 @@ const InternetForm: React.FC<InternetProps> = ({
   );
 };
 
-export default InternetForm;
+export default BillForm;

@@ -100,7 +100,7 @@ const CableTvForm: React.FC<CableTvProps> = ({
                 if (value) {
                   const selectedOption = value as any;
                   formik.setFieldValue("service", selectedOption.value);
-                  formik.setFieldValue("amount", selectedOption.fee);
+                  formik.setFieldValue("amount", selectedOption.fee + selectedOption.ItemFee);
                   formik.setFieldValue("paymentCode", selectedOption.PaymentCode);
                   setData({ ...data, serviceProvider: selectedOption, amount: selectedOption.fee });
                 } else {

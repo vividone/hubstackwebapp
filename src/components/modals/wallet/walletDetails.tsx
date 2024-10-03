@@ -7,6 +7,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import ClipBoard from "../../wallet/clipboard";
 import ModalsLayout from "../modalsLayout";
 import CurrentBalance from "../currentBalance";
+import { Button } from "@/components/common/button";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
@@ -28,11 +29,11 @@ const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet }) => {
   return (
     <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow}>
       <div className="mt-6">
-        <div className="border-y border-[#E7E6F2] p-[30px_40px] ">
+        <div className="border-y border-[#E7E6F2] py-[30px]">
             <CurrentBalance />                
         </div>
 
-        <nav className="mt-8 mb-8 p-[0_40px] ">
+        <nav className="mt-8 mb-8">
           <div className="grid grid-cols-2 gap-12 border-b border-[#E7E7E7]">
 
             {
@@ -59,11 +60,14 @@ const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet }) => {
             
           </div>
         </nav>
-        <div className="mt-4 p-[0_40px]">
+        <div className="mt-4">
           <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[20px_30px]">
               {
                 !existingData ?
-                  <p>Sorry, you do not have an account with this provider yet. Please contact support</p>
+                  <div className="flex flex-col gap-6 items-center">
+                    <p>Sorry, you do not have an account with this provider yet. Request account number by clicking the button below.</p>
+                    <Button size="long">Request</Button>
+                  </div>
                 :
 
                 <div className="flex flex-col gap-4">
@@ -76,17 +80,18 @@ const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet }) => {
                     text={userDetails?.firstname + " " + userDetails?.lastname}
                   />
                   <ClipBoard label={"Bank Name"} text={existingData?.bankName} />
+
+                  <Link
+                    href=""
+                    className="flex items-center text-[#3D3066] text-[14px] mt-8 flex justify-center items-center gap-2"
+                  >
+                    <span className="font-bold"> SHARE DETAILS </span>
+                    <ShareIcon width={16} height={19} />
+                  </Link>
                 </div>
                 
               }
             
-              <Link
-                href=""
-                className="flex items-center text-[#3D3066] text-[14px] mt-8 flex justify-center items-center gap-2"
-              >
-                <span className="font-bold"> SHARE DETAILS </span>
-                <ShareIcon width={16} height={19} />
-              </Link>
           </div>
         </div>
       </div>
