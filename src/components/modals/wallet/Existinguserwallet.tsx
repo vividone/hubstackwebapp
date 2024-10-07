@@ -17,6 +17,7 @@ import { currencyFormatter } from "@/helpers/currencyConvert";
 import { Dropdown } from "@/components/common/Dropdown";
 import Close from "@/assets/icons/close";
 import { LoaderIcon } from "react-hot-toast";
+import WalletForm from "./createwalletmodal";
 
 
 interface MywalletProps {
@@ -24,9 +25,11 @@ interface MywalletProps {
   refreshWallet: (amount: number) => void;
   wallet: any;
   balance: number;
+  isSuccess: boolean;
+  formik: any
 }
 
-const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) => {
+const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, formik: createWallet, isSuccess: createWalletSuccess }) => {
   const {
     data: fundData,
     formik,
@@ -37,6 +40,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const [content, setContent] = useState("Wema Bank");
   const [status, setStatus] = useState("")
+  const [showWallet, setShowWallet] = useState(false);
 
   const fundHeading = ["Fund Wallet", "Verify", "Success"]
 
@@ -79,6 +83,12 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
     setFlow(0);
     setShow(false);
   };
+
+  useEffect(() => {
+    if(createWalletSuccess) {
+      setShowWallet(false)
+    }
+  }, [createWalletSuccess])
 
   useEffect(() => {
     if(isSuccess) {
@@ -212,7 +222,12 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
           <div className="mt-10 flex flex-col items-center gap-4">
             {
               !existingData && flow === 1 ?
-              <Button size="long">Request account</Button>
+              <>
+              <Button size="long" onClick={() => setShowWallet(true)}>Request</Button>                    
+              {showWallet && (
+                <WalletForm show={showWallet} setShow={setShowWallet} formik={createWallet} isPending={isPending} />
+              )}
+              </>
               :
             <Button
               variant="primary"

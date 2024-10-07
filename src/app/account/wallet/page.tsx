@@ -128,7 +128,7 @@ const Wallet = () => {
               
               {showWallet && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 ">
-                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={getWallet || wallet} balance={balance} />
+                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} isSuccess={isSuccess} wallet={getWallet || wallet} formik={formik} balance={balance} />
                 </div>
               )}
 

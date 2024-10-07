@@ -158,7 +158,7 @@ const Billpayment = () => {
           <ElectricityBillModal show={show} setShow={setShow} />
           : 
           active === "Airtime" && show ?
-          <AirtimeModal refetch={refetch} show={show} setShow={setShow} billers={isLoading ? [] : extractBillPayment(4, billers)} />
+          <AirtimeModal refetch={refetch} show={show} setShow={setShow} billers={isLoading ? [] : extractBillPayment(3, billers)} />
           :
           active === "Cable TV" && show ?
           <CableTVServices show={show} setShow={setShow} />
