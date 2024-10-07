@@ -31,7 +31,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet }) =
     data: fundData,
     formik,
   } = useFundWallet();
-  const { formik: verify, isSuccess, isError, isPending } = useVerifyFund();
+  const { formik: verify, isSuccess, isPending } = useVerifyFund();
   const [showAlternate, setShowAlternate] = useState(false);
   const [flow, setFlow] = useState(0);
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
