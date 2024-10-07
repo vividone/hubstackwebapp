@@ -66,7 +66,7 @@ export const useGetWallet = () => {
 
   const queryKey = ["Get user wallet"]; // Unique key for the query
 
-  const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
+  const { data, isLoading, isError, error, refetch } = useQuery({ queryKey, queryFn: async () => {
     const response = await axiosInstance.get(getUserWallet);
     const responseData = response.data;
     return responseData;
@@ -77,7 +77,8 @@ export const useGetWallet = () => {
     userWallet,
     isLoading,
     isError,
-    error
+    error,
+    refetch
   };
 };
 

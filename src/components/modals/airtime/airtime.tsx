@@ -9,26 +9,31 @@ import CompletedAirtimeModal from "./airtimeCompleted";
 import AirtimePayment from "./airtimePayments";
 import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
 import ToastComponent from "@/components/common/toastComponent";
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { TOKEN } from "@/utils/token";
 import BillsSkeleton from "@/components/common/billsSkeleton";
 import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { currencyFormatter } from "@/helpers/currencyConvert";
+import { RefetchOptions } from "@tanstack/react-query";
 
-type AirtimePaymentProps = {
+export interface BillPaymentProps {
     show: boolean;
     setShow: (aug0: boolean) => void;
-    billers: []
+    billers: [],
+    refetch: (options?: RefetchOptions) => void;
 }
 
-type dataProps = {amount: string | number, customerId: string, service: any, biller: string | number, logo: string}
+export interface dataProps {
+    amount: string | number, 
+    customerId: string, 
+    service: any, 
+    biller?: string | number, 
+    logo?: string
+}
 
-export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentProps) {
+export default function AirtimeModal({ show, setShow, billers, refetch }: BillPaymentProps) {
     const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-airtime");
     const { services, isLoading } = useGetServicesByBillerId(formik.values.billerId)
     const { formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(formData?.transaction?._id || "", "airtime")
     const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { }, biller: "", logo: "" })
-    const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
     const [flow, setFlow] = useState(0)
     const flowHeaders: string[] = ["Airtime", "Your Order", "Your Wallet", "Purchase Details"]
 
@@ -55,9 +60,10 @@ export default function AirtimeModal({ show, setShow, billers }: AirtimePaymentP
     
     useEffect(() => {
         if(isSuccess) {
+          refetch()
           setFlow(3)
         }
-    }, [isSuccess]);
+    }, [isSuccess, refetch]);
 
     return (
         <>
