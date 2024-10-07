@@ -21,7 +21,7 @@ import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import { extractBillPayment } from "@/helpers/extractBillPayment";
 const Billpayment = () => {
   const [active, setActive] = useState("")
-  const { history } = useGetTransactionByType("billpayment");
+  const { history, refetch } = useGetTransactionByType("billpayment");
   const [show, setShow] = useState(false)
   const { billers, isLoading } = useGetBillersByCategoryId("0")
 
@@ -158,13 +158,13 @@ const Billpayment = () => {
           <ElectricityBillModal show={show} setShow={setShow} />
           : 
           active === "Airtime" && show ?
-          <AirtimeModal show={show} setShow={setShow} billers={isLoading ? [] : extractBillPayment(3, billers)} />
+          <AirtimeModal refetch={refetch} show={show} setShow={setShow} billers={isLoading ? [] : extractBillPayment(4, billers)} />
           :
           active === "Cable TV" && show ?
           <CableTVServices show={show} setShow={setShow} />
           :
           active === "Data Bundle" && show ?
-          <Data show={show} setShow={setShow} billers={isLoading ? [] : [...extractBillPayment(4, billers), ...extractBillPayment(63, billers)]} />
+          <Data refetch={refetch} show={show} setShow={setShow} billers={isLoading ? [] : [...extractBillPayment(4, billers), ...extractBillPayment(63, billers)]} />
           :
           (active === "Internet" || active === "Betting") && show ?
           <BillServices show={show} bill={active} setShow={setShow} billers={isLoading ? [] : extractBillPayment(active === "Internet" ? 5 : 41, billers)} />
