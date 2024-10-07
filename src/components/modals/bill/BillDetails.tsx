@@ -38,7 +38,7 @@ const BillDetails: React.FC<InternetProps> = ({ setFlow, data, active, completed
 
         <div className="flex  flex-wrap items-center gap-4">
           <Image
-            src={`https://quickteller.com/images/Downloaded/${active.MediumImageId}`}
+            src={"https://quickteller.com/images/Downloaded/" + active.MediumImageId + ".png"}
             alt={active?.Name}
             width={80}
             height={80}

@@ -45,8 +45,8 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, for
   const fundHeading = ["Fund Wallet", "Verify", "Success"]
 
   const dataSets: any = {
-    "Wema Bank": wallet?.filter((item: any) => item.provider === "Flutterwave")[0],
-    "Paystack Titan": wallet?.filter((item: any) => item.provider === "Paystack Titan")[0],
+    "Wema Bank": wallet?.filter((item: any) => item.provider.includes("Flutterwave"))[0],
+    "Paystack Titan": wallet?.filter((item: any) => item.provider.includes("Paystack"))[0],
   };
 
   const existingData = dataSets[content];

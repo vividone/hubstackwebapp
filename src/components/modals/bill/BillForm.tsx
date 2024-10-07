@@ -44,7 +44,7 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[10px_30px]">
           <div className="flex flex-wrap items-center gap-4">
             <Image
-              src={`https://quickteller.com/images/Downloaded/${active.MediumImageId}`}
+              src={"https://quickteller.com/images/Downloaded/" + active.MediumImageId + ".png"}
               alt={active?.Name}
               width={80}
               height={80}
@@ -105,7 +105,7 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
                 amount: item.Amount / 100,
                 PaymentCode: item.PaymentCode,
                 ItemFee: +item.ItemFee / 100,
-                fixed: true,
+                fixed: item.IsAmountFixed,
               }))}
               className="items-start text-start justify-start rounded-[8px]"
             />
