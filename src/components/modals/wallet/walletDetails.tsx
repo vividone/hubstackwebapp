@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import ShareIcon from "@/assets/icons/shareIcon";
 import { TOKEN } from "@/utils/token";
@@ -8,26 +8,36 @@ import ClipBoard from "../../wallet/clipboard";
 import ModalsLayout from "../modalsLayout";
 import CurrentBalance from "../currentBalance";
 import { Button } from "@/components/common/button";
+import WalletForm from "./createwalletmodal";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
   wallet: any;
+  formik: any;
+  isPending: boolean;
+  isSuccess: boolean;
 }
 
-const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet }) => {
-  const [flow, setFlow] = useState("Account Details");
+const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet, formik, isPending, isSuccess }) => {
   const [userDetails] = useLocalStorage<any>(TOKEN.EMAIL);
   const [content, setContent] = useState("Wema Bank");
+  const [showWallet, setShowWallet] = useState(false);
 
   const dataSets: any = {
     "Wema Bank": wallet?.filter((item: any) => item.provider === "Flutterwave")[0],
     "Paystack Titan": wallet?.filter((item: any) => item.provider === "Paystack Titan")[0],
   };
 
+  useEffect(() => {
+    if(isSuccess) {
+      setShowWallet(false)
+    }
+  }, [isSuccess])
+
   const existingData = dataSets[content];
 
   return (
-    <ModalsLayout flow={0} setFlow={() => {}} header={flow} show={true} setShow={setShow}>
+    <ModalsLayout flow={0} setFlow={() => {}} header={"Account Details"} show={true} setShow={setShow}>
       <div className="mt-6">
         <div className="border-y border-[#E7E6F2] py-[30px]">
             <CurrentBalance />                
@@ -66,7 +76,10 @@ const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet }) => {
                 !existingData ?
                   <div className="flex flex-col gap-6 items-center">
                     <p>Sorry, you do not have an account with this provider yet. Request account number by clicking the button below.</p>
-                    <Button size="long">Request</Button>
+                    <Button size="long" onClick={() => setShowWallet(true)}>Request</Button>                    
+                    {showWallet && (
+                      <WalletForm show={showWallet} setShow={setShowWallet} formik={formik} isPending={isPending} />
+                    )}
                   </div>
                 :
 

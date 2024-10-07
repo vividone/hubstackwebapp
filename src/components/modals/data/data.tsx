@@ -5,24 +5,17 @@ import DataForm from "./dataForm";
 import DataDetails from "./dataDetails";
 import DataPayment from "./payment";
 import { useCompleteBillPayment, usePayBill } from "@/helpers/api/useServices";
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { TOKEN } from "@/utils/token";
 import { useGetBillersByCategoryId } from "@/helpers/api/useCategories";
 import BillsSkeleton from "@/components/common/billsSkeleton";
 import Image from "next/image";
 import ToastComponent from "@/components/common/toastComponent";
 import CompletedDataModal from "./dataPurchaseDetails";
+import { BillPaymentProps, dataProps } from "../airtime/airtime";
 
-type dataProps = {
-  amount: number;
-  customerId: string;
-  service: any;
-};
 
-const Data = ({ setShow, show, billers }: any) => {
+const Data = ({ setShow, show, billers, refetch }: BillPaymentProps) => {
   const [flow, setFlow] = useState(0);    
   const [data, setData] = useState<dataProps>({ amount: 0, customerId: "", service: { } })
-  const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   const { isLoading } = useGetBillersByCategoryId("4")
   const { data: formData, formik, isError, isPending, isSuccess, error } = usePayBill("buy-data");
   const { formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(formData?.transaction?._id || "", "data")
@@ -46,9 +39,10 @@ const Data = ({ setShow, show, billers }: any) => {
   
   useEffect(() => {
       if(isSuccess) {
+        refetch()
         setFlow(4)
       }
-  }, [isSuccess]);
+  }, [isSuccess, refetch]);
 
   const flowHeaders: string[] = [
     "Data Bundle",

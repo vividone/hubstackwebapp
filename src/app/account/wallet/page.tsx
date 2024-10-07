@@ -23,7 +23,7 @@ const Wallet = () => {
   const [showWallet, setShowWallet] = useState(false);
   const [showWalletDetails, setShowWalletDetails] = useState(false);
   const [transferFunds, setTransferFunds] = useState(false);
-  const { userWallet: getWallet, isLoading } = useGetWallet();
+  const { userWallet: getWallet, isLoading, refetch } = useGetWallet();
   const [ userWallet, setUserWallet ] = useState(getWallet);
   const { walletBalance } = useGetAccountBalance();
   const [ balance, setBalance] = useState(0);
@@ -39,8 +39,9 @@ const Wallet = () => {
       setHasWallet(true)
       setUserWallet(wallet)
       setShowWallet(false)
+      refetch()
     }
-  }, [isSuccess, setHasWallet, wallet])
+  }, [isSuccess, setHasWallet, wallet, refetch]) 
 
   useEffect(() => {
     setBalance(walletBalance?.balance)
@@ -52,7 +53,6 @@ const Wallet = () => {
       type: "Balance",
       visibility: true,
   }
-
 
   return (
     <div className="">
@@ -122,13 +122,13 @@ const Wallet = () => {
 
               {showWalletDetails && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 ">
-                  <MywalletDetails setShow={setShowWalletDetails} wallet={getWallet || wallet} />
+                  <MywalletDetails setShow={setShowWalletDetails} isPending={isPending} isSuccess={isSuccess} formik={formik} wallet={getWallet || wallet} />
                 </div>
               )}
               
               {showWallet && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 ">
-                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} wallet={getWallet || wallet} balance={balance} />
+                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} isSuccess={isSuccess} wallet={getWallet || wallet} formik={formik} balance={balance} />
                 </div>
               )}
 

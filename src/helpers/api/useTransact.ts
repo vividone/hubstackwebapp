@@ -10,7 +10,7 @@ export const useGetTransactionByType = (type: string) => {
   
     const queryKey = ["Get all "+ type +" history"]; // Unique key for the query
   
-    const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
+    const { data, isLoading, isError, error, refetch } = useQuery({ queryKey, queryFn: async () => {
       const response = await axiosInstance.get(getTransactionsHistory + "all/" + type);
       const responseData = response.data;
       return responseData;
@@ -22,7 +22,8 @@ export const useGetTransactionByType = (type: string) => {
       history,
       isLoading,
       isError,
-      error
+      error,
+      refetch
     };
   };
 
