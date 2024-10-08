@@ -35,22 +35,16 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
     isPending,
     isSuccess,
     error,
-  } = usePayBill(bill.toLowerCase());
+  } = usePayBill(bill.split(" ")[0].toLowerCase());
   const {
     data: completedBill,
     formik: completedForm,
     isPending: completePending,
     isSuccess: completedSuccess,
-  } = useCompleteBillPayment(payBill?._id || "");
+  } = useCompleteBillPayment(payBill?.createTransaction._id || "");
 
-  const flowHeaders: string[] = bill === "Internet" ? [
-    "Internet",
-    "Internet",
-    "Your Order",
-    "Your Wallet",
-  ]: [
-    "Betting",
-    "Betting",
+  const flowHeaders: string[] = [
+    bill, bill,
     "Your Order",
     "Your Wallet",
   ]
@@ -64,13 +58,15 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
 
   const completePayment = () => {
     completedForm.setValues({
-      paymentCode: payBill?.transactionDetails.paymentCode?.toString(),
-      customerId: payBill?.transactionDetails.customerId?.toString(),
+      paymentCode: cableForm.values.paymentCode?.toString(),
+      customerId: cableForm.values.customerId?.toString(),
       customerEmail: userDetails?.email,
-      customerMobile: userDetails?.phone_number,
-      requestReference: payBill?.transactionReference,
-      amount: payBill?.amount,
+      customerMobile: userDetails?.phone_number || "07000000000",
+      requestReference: payBill?.createTransaction.transactionReference,
+      amount: cableForm.values.amount,
     });
+
+    console.log(cableForm.values, completedForm.values)
 
     completedForm.handleSubmit();
   };
@@ -111,13 +107,6 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
             </header>
             <div className="grid grid-cols-4 gap-5 py-5 ">
               {
-                // isLoading ?
-                // <>
-                //   <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
-                //   <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
-                //   <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
-                //   <div className="w-[120px] rounded bg-slate-200 h-[120px] animate-pulse"></div>
-                // </>
 
                 billers?.map((item: any) => (
                   <button
@@ -128,7 +117,6 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
                       cableForm.setFieldValue("biller", item.Name)
                       cableForm.setFieldValue("billerId", item.Id.toString())
                       cableForm.setFieldValue("paymentMode", "wallet")
-                      cableForm.setFieldValue("paymentCode", item.ProductCode)
                       cableForm.setFieldValue("category", "billpayment")
                       setFlow(1);
                     }}

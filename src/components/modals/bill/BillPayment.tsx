@@ -24,7 +24,7 @@ any) => {
             <p className="text-xl font-semibold text-[#3D3066]">{data?.name}</p>
           </div>
           <div className="py-4">
-            <p>{ bill === "Internet" ? "Mobile Number" : "BET ID"}</p>
+            <p>{bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"}</p>
             <p className=" opacity-[0.7]">{data?.customerId}</p>
           </div>
         </div>
@@ -38,7 +38,7 @@ any) => {
           transaction{" "}
         </p>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 mt-6">
           <Button
             variant="primary"
             size="full"

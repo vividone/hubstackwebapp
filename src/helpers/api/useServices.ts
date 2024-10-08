@@ -13,7 +13,7 @@ import { useUrls } from "../useUrls";
 
 export const usePayBill = ( type: string ) => {
   const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
-  const [data, setData] = useState<IServicesData>()
+  const [data, setData] = useState<any>()
   const { payBillUrl } = useUrls();
   const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay" + type],
       mutationFn: (payload: Partial<IBillData>) => {

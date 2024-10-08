@@ -24,8 +24,8 @@ const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet, formik, isP
   const [showWallet, setShowWallet] = useState(false);
 
   const dataSets: any = {
-    "Wema Bank": wallet?.filter((item: any) => item.provider === "Flutterwave")[0],
-    "Paystack Titan": wallet?.filter((item: any) => item.provider === "Paystack Titan")[0],
+    "Wema Bank": wallet?.filter((item: any) => item.provider.includes("Flutterwave"))[0],
+    "Paystack Titan": wallet?.filter((item: any) => item.provider.includes("Paystack"))[0],
   };
 
   useEffect(() => {
@@ -96,6 +96,7 @@ const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet, formik, isP
 
                   <Link
                     href=""
+                    onClick={() => navigator.share({ title: "Share account details", text: existingData?.accountNumber, url: `/account/wallet/?user=${existingData?._id}` })}
                     className="flex items-center text-[#3D3066] text-[14px] mt-8 flex justify-center items-center gap-2"
                   >
                     <span className="font-bold"> SHARE DETAILS </span>

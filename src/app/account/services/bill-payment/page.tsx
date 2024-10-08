@@ -160,14 +160,11 @@ const Billpayment = () => {
           active === "Airtime" && show ?
           <AirtimeModal refetch={refetch} show={show} setShow={setShow} billers={isLoading ? [] : extractBillPayment(3, billers)} />
           :
-          active === "Cable TV" && show ?
-          <CableTVServices show={show} setShow={setShow} />
-          :
           active === "Data Bundle" && show ?
           <Data refetch={refetch} show={show} setShow={setShow} billers={isLoading ? [] : [...extractBillPayment(4, billers), ...extractBillPayment(63, billers)]} />
           :
-          (active === "Internet" || active === "Betting") && show ?
-          <BillServices show={show} bill={active} setShow={setShow} billers={isLoading ? [] : extractBillPayment(active === "Internet" ? 5 : 41, billers)} />
+          (active === "Internet" || active === "Betting" || active === "Cable TV") && show ?
+          <BillServices show={show} bill={active} setShow={setShow} billers={isLoading ? [] : extractBillPayment(active === "Internet" ? 5 : active === "Cable TV" ? 2 : 41, billers)} />
           :""
         }
       </div>

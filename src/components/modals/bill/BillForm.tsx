@@ -5,7 +5,6 @@ import { Button } from "../../common/button";
 import { Input } from "@/components/common/inputs";
 import { FlowProps } from "../modalsLayout";
 import CurrencyField from "@/components/common/currencyInput";
-import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import { Dropdown } from "@/components/common/Dropdown";
 import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { currencyFormatter } from "@/helpers/currencyConvert";
@@ -44,7 +43,7 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[10px_30px]">
           <div className="flex flex-wrap items-center gap-4">
             <Image
-              src={`https://quickteller.com/images/Downloaded/${active.MediumImageId}`}
+              src={"https://quickteller.com/images/Downloaded/" + active.MediumImageId + ".png"}
               alt={active?.Name}
               width={80}
               height={80}
@@ -60,13 +59,13 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
             htmlFor="MobileNumber"
             className="font-normal text-xl font-openSans text-[#111111]"
           >
-            { bill === "Internet" ? "Mobile Number" : "BET ID"}
+            { bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"}
           </label>
           <div className="text-[#8c8b92] mt-2">
             <Input
               name="MobileNumber"
               value={formik.values.customerId}
-              placeholder={ bill === "Internet" ? "Mobile Number" : "BET ID"}
+              placeholder={ bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"}
               onChange={(e) => {
                 setData({ ...data, customerId: e.target.value });
                 formik.setFieldValue("customerId", e.target.value);
@@ -82,7 +81,7 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
             htmlFor="amount"
             className="font-normal text-xl font-openSans text-[#111111]"
           >
-            { bill === "Internet" ? "Internet" : "Betting"} Plan
+            { bill } Plan
           </label>
           <div className="text-[#8c8b92] mt-2">
             <Dropdown
@@ -105,7 +104,7 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
                 amount: item.Amount / 100,
                 PaymentCode: item.PaymentCode,
                 ItemFee: +item.ItemFee / 100,
-                fixed: true,
+                fixed: item.IsAmountFixed,
               }))}
               className="items-start text-start justify-start rounded-[8px]"
             />
