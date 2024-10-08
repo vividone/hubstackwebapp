@@ -1,5 +1,5 @@
 "use client";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent } from "react";
 import Image from "next/image";
 import { Button } from "../../common/button";
 import { Input } from "@/components/common/inputs";

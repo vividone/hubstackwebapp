@@ -1,10 +1,8 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { Button } from "../../common/button";
-import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
 import { FlowProps } from "../modalsLayout";
-import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
@@ -52,8 +50,8 @@ const CableTvDetails: React.FC<CableTvProps> = ({ setFlow, data, active, complet
 
           <div className="flex gap-12">
             <div>
-              <p>Full Name</p>
-              <p className="opacity-[0.7]">{data?.fullname}</p>
+              <p>Name</p>
+              <p className="opacity-[0.7]">{data?.customerName}</p>
             </div>
             <div>
               <p>Cable TV Plan</p>
