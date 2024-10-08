@@ -1,10 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "../../common/button";
-import { formatAmount } from "@/helpers/amountFormatter";
 import Image from "next/image";
 import { FlowProps } from "../modalsLayout";
-import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -46,9 +44,15 @@ const BillDetails: React.FC<InternetProps> = ({ setFlow, data, active, completed
           <p>{active?.Name}</p>
         </div>
 
-        <div className="py-4">
-          <p>{ bill === "Internet" ? "Mobile Number" : "BET ID"}</p>
-          <p className=" opacity-[0.7]">{data?.customerId}</p>
+        <div className="py-4 flex gap-6">
+          <div className="">
+            <p>Name</p>
+            <p className=" opacity-[0.7]">{data?.customerName}</p>
+          </div>
+          <div className="">
+            <p>{bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"}</p>
+            <p className=" opacity-[0.7]">{data?.customerId}</p>
+          </div>
         </div>
       </div>
 

@@ -5,7 +5,6 @@ import { Button } from "../../common/button";
 import { Input } from "@/components/common/inputs";
 import { FlowProps } from "../modalsLayout";
 import CurrencyField from "@/components/common/currencyInput";
-import NairaIconElectricBill from "@/assets/icons/NairaIconElectricBill";
 import { Dropdown } from "@/components/common/Dropdown";
 import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { currencyFormatter } from "@/helpers/currencyConvert";
@@ -60,13 +59,13 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
             htmlFor="MobileNumber"
             className="font-normal text-xl font-openSans text-[#111111]"
           >
-            { bill === "Internet" ? "Mobile Number" : "BET ID"}
+            { bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"}
           </label>
           <div className="text-[#8c8b92] mt-2">
             <Input
               name="MobileNumber"
               value={formik.values.customerId}
-              placeholder={ bill === "Internet" ? "Mobile Number" : "BET ID"}
+              placeholder={ bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"}
               onChange={(e) => {
                 setData({ ...data, customerId: e.target.value });
                 formik.setFieldValue("customerId", e.target.value);
@@ -82,7 +81,7 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
             htmlFor="amount"
             className="font-normal text-xl font-openSans text-[#111111]"
           >
-            { bill === "Internet" ? "Internet" : "Betting"} Plan
+            { bill } Plan
           </label>
           <div className="text-[#8c8b92] mt-2">
             <Dropdown
