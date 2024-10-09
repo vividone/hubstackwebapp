@@ -33,6 +33,8 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
     formik.handleSubmit()
   }
 
+  const id = bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"
+
   return (
     <div className="mt-4">
       <h2 className="font-normal text-[20px] font-OpenSans">
@@ -59,19 +61,19 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
             htmlFor="MobileNumber"
             className="font-normal text-xl font-openSans text-[#111111]"
           >
-            { bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"}
+            { id }
           </label>
           <div className="text-[#8c8b92] mt-2">
             <Input
               name="MobileNumber"
               value={formik.values.customerId}
-              placeholder={ bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"}
+              placeholder={id}
               onChange={(e) => {
                 setData({ ...data, customerId: e.target.value });
                 formik.setFieldValue("customerId", e.target.value);
                 setFormikValues()
               }}
-              error={formik.errors.customerId && ((bill === "Internet") ? formik.errors.customerId + "Mobile Number" : formik.errors.customerId + "BET ID")}
+              error={formik.errors.customerId && formik.errors.customerId + id.toLowerCase() }
             />
           </div>
         </div>
@@ -94,7 +96,7 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
                   formik.setFieldValue("service", selectedOption.value);
                   formik.setFieldValue("amount", selectedOption.amount + selectedOption.ItemFee);
                   formik.setFieldValue("paymentCode", selectedOption.PaymentCode);
-                  setData({ ...data, serviceProvider: selectedOption, amount: selectedOption.amont });
+                  setData({ ...data, serviceProvider: selectedOption, amount: selectedOption.amount });
                 } else {
                 }
               }}
@@ -119,7 +121,8 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
             Amount
           </label>
           <div className="mt-2">
-            {data?.serviceProvider?.fixed ? (
+            {
+            data?.serviceProvider?.fixed || bill === "Cable TV" ? (
               <p className="text-[32px] font-bold flex items-center">
                 {currencyFormatter(data?.serviceProvider?.amount)}
               </p>

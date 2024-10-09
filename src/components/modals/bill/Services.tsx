@@ -41,7 +41,7 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
     formik: completedForm,
     isPending: completePending,
     isSuccess: completedSuccess,
-  } = useCompleteBillPayment(payBill?.createTransaction._id || "");
+  } = useCompleteBillPayment(payBill?._id || payBill?.createTransaction?._id);
 
   const flowHeaders: string[] = [
     bill, bill,
@@ -51,9 +51,14 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
 
   useEffect(() => {
     if (isSuccess) {
-      setFlow(2);
+      if(payBill?._id && flow === 1) {
+        setFlow(2);
+      }
+      else {
+        cableForm.setErrors({ customerId: `${bill} number is invalid. Please input valid ` })
+      }
     }
-  }, [isSuccess]);
+  }, [isSuccess, cableForm, payBill?._id, bill, flow]);
 
 
   const completePayment = () => {
