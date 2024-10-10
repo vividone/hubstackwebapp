@@ -72,7 +72,7 @@ export function History({ history, fields }: any) {
                 <HistoryModal setShow={setOpenModal} show={openModal} transaction={active} />
             }
 
-            <div className="py-6">
+            <div className="py-6 w-[30%] mx-auto">
             {
                 history.length < 10 ?
                 ""

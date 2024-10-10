@@ -33,11 +33,10 @@ export const SignupSchemaIndividual = Yup.object().shape({
 export const SignupSchemaAgent = Yup.object().shape({
   firstname: Yup.string().required("First name is required"),
   lastname: Yup.string().required("Last name is required"),
-  email: Yup.string()
+  email: Yup.string().email()
     .required("Email is required")
     .trim()
-    .lowercase()
-    .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
+    .lowercase(),
   phone_number: Yup.string().required("Phone number is required")
     .length(11, "Phone number should be 11 digits"),
   referralCode: Yup.string().optional(),
@@ -50,7 +49,7 @@ export const SignupSchemaAgent = Yup.object().shape({
     .required("Password is required")
     .min(6, "Password must not be less 6 characters")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d).+$/, // not written by me yet
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])(?=.*\d).+$/,
       "Password requires uppercase, lowercase, digit, and special character."
     )
 });
@@ -59,11 +58,10 @@ export const SignupSchemaAgent = Yup.object().shape({
 export const SignupSchemaSuperAgent = Yup.object().shape({
   firstname: Yup.string().required("Fullname is required"),
   lastname: Yup.string().required("Fullname is required"),
-  email: Yup.string()
+  email: Yup.string().email()
     .required("Email is required")
     .trim()
-    .lowercase()
-    .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
+    .lowercase(),
   phoneNumber: Yup.string().required("Phone number is required").length(11, "Phone number should be 11 digits"),
   companyName: Yup.string().required("Business name is required"),
   location: Yup.string().required("Location is required"),
@@ -81,11 +79,10 @@ export const VerifyLoginSchema = Yup.object().shape({
 });
 
 export const ResetPasswordSchema = Yup.object().shape({
-  email: Yup.string()
+  email: Yup.string().email()
     .required("Email is required")
     .trim()
-    .lowercase()
-    .matches(/^\w{3,}@\w{2,}\.\w{2,}/i),
+    .lowercase(),
 });
 
 export const SetPasswordSchema = Yup.object().shape({
