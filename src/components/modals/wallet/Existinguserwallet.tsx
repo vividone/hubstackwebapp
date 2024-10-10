@@ -22,7 +22,7 @@ import WalletForm from "./createwalletmodal";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
-  refreshWallet: (amount: number) => void;
+  refreshWallet: () => void;
   wallet: any;
   balance: number;
   isSuccess: boolean;
@@ -66,7 +66,7 @@ const Mywallet: React.FC<MywalletProps> = ({ setShow, refreshWallet, wallet, for
       setStatus("Pending")
       setTimeout(() => {
         verify.handleSubmit();
-        refreshWallet(fundData.amount);
+        refreshWallet();
       }, 100000)
     }
     else {
