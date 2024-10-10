@@ -90,7 +90,7 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
         isSuccess={isSuccess}
         isError={isError}
         msg={
-          isSuccess || completedSuccess
+          completedSuccess
             ? "Successful"
             : isError
             ? "Error " + error
