@@ -74,10 +74,10 @@ export function History({ history, fields }: any) {
 
             <div className="py-6 w-[30%] mx-auto">
             {
-                history.length < 10 ?
+                history.length < 7 ?
                 ""
                 :
-                <Pagination total={history.length} page={page} setPage={setPage} />
+                <Pagination total={Math.floor(history.length/6 + 1)} page={page + 1} setPage={(value) => setPage(value-1)} />
             }
             </div>
         </div>

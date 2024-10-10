@@ -25,15 +25,10 @@ const Wallet = () => {
   const [transferFunds, setTransferFunds] = useState(false);
   const { userWallet: getWallet, isLoading, refetch } = useGetWallet();
   const [ userWallet, setUserWallet ] = useState(getWallet);
-  const { walletBalance } = useGetAccountBalance();
-  const [ balance, setBalance] = useState(0);
+  const { walletBalance, refetch: refetchBalance } = useGetAccountBalance();
   const [ hasWallet, setHasWallet] = useLocalStorage<boolean>(TOKEN.HASWALLET);
   const { history } = useGetWalletHistory();
   
-  const refresh = (amount: number) => {
-    setBalance(+balance + amount);
-  };
-
   useEffect(() => {
     if(isSuccess) {
       setHasWallet(true)
@@ -43,13 +38,9 @@ const Wallet = () => {
     }
   }, [isSuccess, setHasWallet, wallet, refetch]) 
 
-  useEffect(() => {
-    setBalance(walletBalance?.balance)
-  }, [walletBalance])
-
   const cardData = {
       logo: "/images/dollar-bag-1.svg",
-      amount: balance,
+      amount: walletBalance?.balance,
       type: "Balance",
       visibility: true,
   }
@@ -128,12 +119,12 @@ const Wallet = () => {
               
               {showWallet && (
                 <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 ">
-                  <Mywallet setShow={setShowWallet} refreshWallet={refresh} isSuccess={isSuccess} wallet={getWallet || wallet} formik={formik} balance={balance} />
+                  <Mywallet setShow={setShowWallet} refreshWallet={refetchBalance} isSuccess={isSuccess} wallet={getWallet || wallet} formik={formik} balance={walletBalance?.balance} />
                 </div>
               )}
 
               {transferFunds && (
-                <TransferFunds setShow={setTransferFunds} refreshWallet={refresh}  />
+                <TransferFunds setShow={setTransferFunds} refreshWallet={refetchBalance}  />
               )}
 
               <div className="flex lg:flex-row flex-col pr-[3%] gap-6 justify-between bg-[#E6FBFF] rounded-[8px]">

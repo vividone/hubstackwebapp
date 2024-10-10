@@ -12,7 +12,7 @@ import TransferToBank from "./transfer/walletToBankForm";
 
 interface MywalletProps {
   setShow: (show: boolean) => void;
-  refreshWallet: (amount: number) => void;
+  refreshWallet: () => void;
 }
 
 const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
@@ -52,9 +52,7 @@ const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
     <ModalsLayout flow={flow} setFlow={setFlow} header={flowHeaders[flow]} show={true} setShow={setShow}>
       
       <div onSubmit={handleSubmit} className="mt-2">
-        <div className="px-10">
-            <CurrentBalance />
-        </div>
+          <CurrentBalance />
         <nav className="mt-2 mb-8">
           <div className="grid grid-cols-2 gap-12 border-b border-[#E7E7E7]">
 
@@ -84,7 +82,7 @@ const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
         </nav>
       </div>  
           
-      <div className="px-[40px]">
+      <div className="">
       {
         content === "Wallet-Wallet" ?
         <TransferToWallet form={form} setForm={setForm} formik={formik} isPending={isPending} handleSubmit={handleSubmit} />
