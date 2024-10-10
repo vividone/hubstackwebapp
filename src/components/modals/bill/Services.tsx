@@ -51,14 +51,14 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
 
   useEffect(() => {
     if (isSuccess) {
-      if(payBill?._id && flow === 1) {
+      if((payBill?._id || payBill?.createTransaction?._id) && flow === 1) {
         setFlow(2);
       }
       else {
-        cableForm.setErrors({ customerId: `${bill} number is invalid. Please input valid ` })
+        cableForm.setErrors({ customerId: `Please input valid ` })
       }
     }
-  }, [isSuccess, cableForm, payBill?._id, bill, flow]);
+  }, [isSuccess, cableForm, flow, payBill?._id, payBill?.createTransaction?._id]);
 
 
   const completePayment = () => {
@@ -94,7 +94,7 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
             ? "Successful"
             : isError
             ? "Error " + error
-            : Object.values(cableForm.errors).join(", ")
+            : ""
         }
       />
 
