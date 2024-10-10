@@ -12,7 +12,6 @@ import BettingIcon from "@/assets/icons/BettingIcon";
 import { useState } from "react";
 import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 import AirtimeModal from "@/components/modals/airtime/airtime";
-import CableTVServices from "@/components/modals/cableTv/Services";
 import BillServices from "@/components/modals/bill/Services";
 import Data from "@/components/modals/data/data";
 import { useGetTransactionByType } from "@/helpers/api/useTransact";
