@@ -3092,6 +3092,14 @@ next@14.2.4:
     "@next/swc-win32-ia32-msvc" "14.2.4"
     "@next/swc-win32-x64-msvc" "14.2.4"
 
+nextjs-toploader@^3.7.15:
+  version "3.7.15"
+  resolved "https://registry.yarnpkg.com/nextjs-toploader/-/nextjs-toploader-3.7.15.tgz#2baba98b3d11c2001ab0639004ae5214d0e65f30"
+  integrity sha512-DvvXEJVRPfE2j1HVXgFhmPl8pRcLb/4mvyVBDuYdMdkbEY7KJghp0fG5iOZ002cV6awbBw9j/Di7vQL8LRazxQ==
+  dependencies:
+    nprogress "^0.2.0"
+    prop-types "^15.8.1"
+
 node-releases@^2.0.18:
   version "2.0.18"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.18.tgz#f010e8d35e2fe8d6b2944f03f70213ecedc4ca3f"
@@ -3544,6 +3552,13 @@ react-redux@^9.1.2:
   dependencies:
     "@types/use-sync-external-store" "^0.0.3"
     use-sync-external-store "^1.0.0"
+
+react-responsive-pagination@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/react-responsive-pagination/-/react-responsive-pagination-2.8.0.tgz#bac06edc890064fbbb0513acca3d01d08e10173b"
+  integrity sha512-FqjjjXQIfG0UI3REeUD0rywN8sLxWpUmk12pHlWz6Wf2AUJ7tkPcRl5TqRPFCFTKFngw0x1ysx4yY+cdqwzt/Q==
+  dependencies:
+    prop-types "^15.8.1"
 
 react-select@^5.8.0:
   version "5.8.0"

@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import "../styles/progress.css";
 import QueryClientLayout from "@/helpers/useQueryClient";
 import { SettingsProvider } from "@/context/Setting";
+import NextTopLoader from 'nextjs-toploader'
 
 export const metadata: Metadata = {
   title: "Hubstack",
@@ -19,6 +20,7 @@ export default function RootLayout({
     <QueryClientLayout>
       <SettingsProvider>
         <html lang="en">
+          <NextTopLoader />
           <body>{children}</body>
         </html>
       </SettingsProvider>

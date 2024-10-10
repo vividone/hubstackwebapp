@@ -7,7 +7,7 @@ import { useResendOTP, useVerifyResetPassword } from "@/helpers/api/useAuth";
 import useSessionStorage from "@/hooks/useSessionStorage";
 import { FRONTEND_URL } from "@/utils/pages";
 import { TOKEN } from "@/utils/token";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { FormEvent, useState } from "react";
 import { ErrorIcon } from "react-hot-toast";
 

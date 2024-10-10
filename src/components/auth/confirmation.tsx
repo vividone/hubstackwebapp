@@ -3,7 +3,7 @@ import { Loader } from "@/assets/loader";
 import { Button } from "@/components/common/button";
 import { FRONTEND_URL } from "@/utils/pages";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 
 type confirmationTexts = {
   heading: string,

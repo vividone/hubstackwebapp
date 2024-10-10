@@ -5,7 +5,7 @@ import { Input } from "@/components/common/inputs";
 import ToastComponent from "@/components/common/toastComponent";
 import { useForgotPassword } from "@/helpers/api/useAuth";
 import { FRONTEND_URL } from "@/utils/pages";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { FormEvent } from "react";
 
 const ForgotPassword = () => {
