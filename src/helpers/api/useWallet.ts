@@ -7,7 +7,7 @@ import { useUrls } from "../useUrls";
 import { TOKEN } from "@/utils/token";
 import { ICreateWalletUpdate, IFundWallet } from "@/interface/wallet";
 import { createWalletValidationSchema, fundWalletValidationSchema } from "@/schema/walletschema/validation";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { useState } from "react";
 
 // Create a wallet

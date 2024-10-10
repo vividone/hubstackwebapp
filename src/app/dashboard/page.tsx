@@ -3,7 +3,7 @@ import ServicesIcon from "@/assets/icons/ServicesIcon";
 import SupportIcon from "@/assets/icons/SupportIcon";
 import WalletIcon from "@/assets/icons/WalletIcon";
 import { Button } from "@/components/common/button";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import AdminCard from "@/components/common/AdminCard";
