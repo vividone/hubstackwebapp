@@ -123,9 +123,12 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
           <div className="mt-2">
             {
             data?.serviceProvider?.fixed || bill === "Cable TV" ? (
+              <>
               <p className="text-[32px] font-bold flex items-center">
                 {currencyFormatter(data?.serviceProvider?.amount)}
               </p>
+              <p className="text-[12px] text-red-500">{formik.errors.amount}</p>
+              </>
             ) : (
               <CurrencyField
                 onValueChange={(v: any) => {
