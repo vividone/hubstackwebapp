@@ -32,7 +32,7 @@ any) => {
         <p className="text-center mt-4">
           The amount of{" "}
           <span className="font-bold">
-            NGN{formatAmount(data?.amount)}
+            NGN{formatAmount(data?.amount + data?.serviceProvider.ItemFee)}
           </span>{" "}
           will be debited from your wallet balance, proceed below to complete
           transaction{" "}

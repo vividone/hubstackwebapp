@@ -61,7 +61,7 @@ const BillDetails: React.FC<InternetProps> = ({ setFlow, data, active, completed
           <div className="flex justify-between items-center gap-5">
             <span className="block ">Amount</span>
             <span className="flex items-center">
-            {currencyFormatter(data?.amount - data?.serviceProvider.ItemFee)}
+            {currencyFormatter(data?.amount)}
             </span>
           </div>
 
@@ -75,7 +75,7 @@ const BillDetails: React.FC<InternetProps> = ({ setFlow, data, active, completed
           <div className="flex justify-between items-center gap-5 mb-6">
             <span className="block font-bold">TOTAL</span>
             <span className="flex items-center">
-              {currencyFormatter(data?.amount)}
+              {currencyFormatter(data?.amount + data?.serviceProvider.ItemFee)}
             </span>
           </div>
         </div>

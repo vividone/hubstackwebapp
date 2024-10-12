@@ -6,7 +6,7 @@ import axiosInstance from "../axiosConfig";
 import { useMutation } from "@tanstack/react-query";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
-import { BillValidationwithMeterSchema, BillValidationwithPhoneSchema } from "@/schema/servicesschema/billValidation";
+import { BillValidationwithBettingSchema, BillValidationwithMeterSchema, BillValidationwithPhoneSchema } from "@/schema/servicesschema/billValidation";
 import { IBillData, ICompleteBill, IServicesData } from "@/interface/services";
 import { useUrls } from "../useUrls";
 
@@ -33,7 +33,7 @@ export const usePayBill = ( type: string ) => {
           category: ""
       } as IBillData,
       validateOnBlur: true,
-      validationSchema: type === "buy-airtime" || type === "buy-data" || type === "electricity" || type === "internet" ? BillValidationwithPhoneSchema : BillValidationwithMeterSchema,
+      validationSchema: type === "buy-airtime" || type === "buy-data" || type === "electricity" || type === "internet" ? BillValidationwithPhoneSchema : type === "betting" ? BillValidationwithBettingSchema : BillValidationwithMeterSchema,
       validateOnChange: false,
       onSubmit: async ({ ...values }) => {
       try {

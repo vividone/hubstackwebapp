@@ -22,8 +22,12 @@ const DataForm = ({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if(Object.keys(formik.errors).length === 0) {
+    if(formik.values.amount !== 0 && formik.values.customerId !== "" && formik.values.biller !== "" ) {
       setFlow(2)
+    }
+    else {
+        formik.validateForm()
+        console.log(formik.errors)
     }
   }
 
