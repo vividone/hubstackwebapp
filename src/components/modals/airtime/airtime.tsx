@@ -56,6 +56,10 @@ export default function AirtimeModal({ show, setShow, billers, refetch }: BillPa
         if(formik.values.amount !== 0 && formik.values.customerId !== "" && formik.values.biller !== "" ) {
             setFlow(1)
         }
+        else {
+            formik.validateForm()
+            console.log(formik.errors)
+        }
     };
     
     useEffect(() => {
@@ -98,7 +102,7 @@ export default function AirtimeModal({ show, setShow, billers, refetch }: BillPa
                             value={formik.values.customerId}
                             onChange={(e) => {setData({ ...data, customerId:  e.target.value}); formik.setFieldValue("customerId", e.target.value)}} 
                             placeholder="Enter your 11 digits phone number" 
-                            error={formik.touched.customerId && formik.errors.customerId + " phone number"}
+                            error={formik.errors.customerId && formik.errors.customerId + " phone number"}
                         />
                         </div>
                     </div>
@@ -121,7 +125,6 @@ export default function AirtimeModal({ show, setShow, billers, refetch }: BillPa
                             ))
                         }
                     </div>
-                    <p className="text-red-600 text-[12px]">{formik.errors.service}</p>
                     </>
                     :
                     <BillsSkeleton list={4} height={120} />
@@ -131,6 +134,7 @@ export default function AirtimeModal({ show, setShow, billers, refetch }: BillPa
                     isLoading ?
                     <BillsSkeleton list={4} height={100} /> 
                     :
+                    <>
                     <div className="grid sm:grid-cols-4 grid-cols-3 gap-4 mt-12">
                         {
                             services?.PaymentItems?.map((item: { Id: number, LogoUrl: string, BillerName: string, Amount: string, PaymentCode: string } ) => (
@@ -154,6 +158,8 @@ export default function AirtimeModal({ show, setShow, billers, refetch }: BillPa
                         }
                         
                     </div>
+                    <p className="text-red-600 text-[12px] pt-2">{formik.errors.service}</p>
+                    </>
 
                     }
 
