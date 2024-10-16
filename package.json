@@ -38,6 +38,7 @@
     "react-redux": "^9.1.2",
     "react-responsive-pagination": "^2.8.0",
     "react-select": "^5.8.0",
+    "react-to-pdf": "^1.0.1",
     "recharts": "^2.12.7",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
