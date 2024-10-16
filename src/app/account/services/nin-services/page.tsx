@@ -27,15 +27,15 @@ const NinProductsPage = () => {
     },
     {
       id: 1,
-      title: "NIN Regular Slip",
-      subText: "Get the NIMC Standard  Slip",
+      title: "NIN Personal Info Slip",
+      subText: "Get the NIMC Personal Info Slip",
       amount: 100,
       icon: "/regular-slip.png"
     },
     {
       id: 2,
-      title: "NIN Improved Slip",
-      subText: "Get the NIMC Premium  Slip",
+      title: "NIN Standard Slip",
+      subText: "Get the NIMC Standard Slip",
       amount: 200,
       icon: "/improved-slip.png"
     },
