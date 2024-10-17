@@ -19,7 +19,7 @@ type Providers = {
 
 const ElectricityBillModal = ({ show, setShow }: any) => {
   const { data, formik, isPending, isSuccess, isError, error } = usePayBill("electricity");
-  const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(data?._id || "", "Electricity")
+  const { data: completedBill, formik:completedForm, isPending: completePending, isSuccess: completedSuccess, isError: isCompletedError, error: completedError } = useCompleteBillPayment(data?._id || data?.createTransaction?._id, "Electricity")
   const [ formData, setFormData] = useState<any>()
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
   const [flow, setFlow ] = useState(0)

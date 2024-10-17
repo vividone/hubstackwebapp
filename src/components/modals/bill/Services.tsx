@@ -35,13 +35,12 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
     isPending,
     isSuccess,
     error,
-  } = usePayBill(bill.split(" ")[0].toLowerCase());
+  } = usePayBill(bill === "Utility Bill" ? "electricity" : bill.split(" ")[0].toLowerCase());
   const {
-    data: completedBill,
     formik: completedForm,
     isPending: completePending,
     isSuccess: completedSuccess,
-  } = useCompleteBillPayment(payBill?._id || payBill?.createTransaction?._id);
+  } = useCompleteBillPayment(payBill?._id || payBill?.createTransaction?._id, bill === "Utility Bill" ? "electricity" : bill);
 
   const flowHeaders: string[] = [
     bill, bill,
@@ -60,6 +59,11 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
     }
   }, [isSuccess, cableForm, flow, payBill?._id, payBill?.createTransaction?._id]);
 
+  useEffect(() => {
+    if(completedSuccess) {
+      setFlow(4)
+    }
+  }, [completedSuccess])
 
   const completePayment = () => {
     completedForm.setValues({

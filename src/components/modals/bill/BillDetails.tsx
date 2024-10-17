@@ -17,6 +17,8 @@ const BillDetails: React.FC<InternetProps> = ({ setFlow, data, active, completed
   const [showAlternate, setShowAlternate] = useState(false);
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
 
+  const id = bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : bill === "Utility Bill" ? "Meter Number" : "BET ID"
+
   const fillForm = () => {
     completedForm.setValues({ 
       paymentCode: data?.transactionDetails.paymentCode?.toString(), 
@@ -50,7 +52,7 @@ const BillDetails: React.FC<InternetProps> = ({ setFlow, data, active, completed
             <p className=" opacity-[0.7]">{data?.customerName}</p>
           </div>
           <div className="">
-            <p>{bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"}</p>
+            <p>{id}</p>
             <p className=" opacity-[0.7]">{data?.customerId}</p>
           </div>
         </div>
