@@ -33,7 +33,7 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
     formik.handleSubmit()
   }
 
-  const id = bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"
+  const id = bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : bill === "Utility Bill" ? "Meter Number" : "BET ID"
 
   return (
     <div className="mt-4">
@@ -58,14 +58,14 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
 
         <div className="flex flex-col w-full mt-5">
           <label
-            htmlFor="MobileNumber"
+            htmlFor="customerId"
             className="font-normal text-xl font-openSans text-[#111111]"
           >
             { id }
           </label>
           <div className="text-[#8c8b92] mt-2">
             <Input
-              name="MobileNumber"
+              name="customerId"
               value={formik.values.customerId}
               placeholder={id}
               onChange={(e) => {
@@ -122,7 +122,7 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
           </label>
           <div className="mt-2">
             {
-            data?.serviceProvider?.fixed || bill === "Cable TV" ? (
+            data?.serviceProvider?.fixed && bill === "Cable TV" ? (
               <>
               <p className="text-[32px] font-bold flex items-center">
                 {currencyFormatter(data?.serviceProvider?.amount)}

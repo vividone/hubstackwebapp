@@ -153,17 +153,14 @@ const Billpayment = () => {
         </div>
 
         {
-          active === "Utility Bill" && show ?
-          <ElectricityBillModal show={show} setShow={setShow} />
-          : 
           active === "Airtime" && show ?
           <AirtimeModal refetch={refetch} show={show} setShow={setShow} billers={isLoading ? [] : extractBillPayment(3, billers)} />
           :
           active === "Data Bundle" && show ?
           <Data refetch={refetch} show={show} setShow={setShow} billers={isLoading ? [] : [...extractBillPayment(4, billers), ...extractBillPayment(63, billers)]} />
           :
-          (active === "Internet" || active === "Betting" || active === "Cable TV") && show ?
-          <BillServices show={show} bill={active} setShow={setShow} billers={isLoading ? [] : extractBillPayment(active === "Internet" ? 5 : active === "Cable TV" ? 2 : 41, billers)} />
+          (active === "Internet" || active === "Betting" || active === "Cable TV" || active === "Utility Bill") && show ?
+          <BillServices show={show} bill={active} setShow={setShow} billers={isLoading ? [] : extractBillPayment(active === "Internet" ? 5 : active === "Cable TV" ? 2 : active === "Utility Bill" ? 1 : 41, billers)} />
           :""
         }
       </div>

@@ -10,6 +10,8 @@ const BillPayment: React.FC<any> = ({
   completeAction
 }:
 any) => {
+  
+  const id = bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : bill === "Utility Bill" ? "Meter Number" : "BET ID"
 
   return (
     <div className="mt-4">
@@ -24,7 +26,7 @@ any) => {
             <p className="text-xl font-semibold text-[#3D3066]">{data?.name}</p>
           </div>
           <div className="py-4">
-            <p>{bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"}</p>
+            <p>{id}</p>
             <p className=" opacity-[0.7]">{data?.customerId}</p>
           </div>
         </div>
