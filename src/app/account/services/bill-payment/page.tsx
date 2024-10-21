@@ -10,7 +10,6 @@ import CableTvIcon from "@/assets/icons/CableTvIcon";
 import ElectricityIcon from "@/assets/icons/ElectricityIcon";
 import BettingIcon from "@/assets/icons/BettingIcon";
 import { useState } from "react";
-import ElectricityBillModal from "@/components/modals/electricity/electrictyBillmodal";
 import AirtimeModal from "@/components/modals/airtime/airtime";
 import BillServices from "@/components/modals/bill/Services";
 import Data from "@/components/modals/data/data";

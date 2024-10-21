@@ -96,7 +96,7 @@ const MywalletDetails: React.FC<MywalletProps> = ({ setShow, wallet, formik, isP
 
                   <Link
                     href=""
-                    onClick={() => navigator.share({ title: "Share account details", text: existingData?.accountNumber, url: `/account/wallet/?user=${existingData?._id}` })}
+                    onClick={() => navigator.share({ title: "Share account details", text: `Account Number: ${existingData?.accountNumber}, Bank Name: ${existingData?.bankName}` })}
                     className="flex items-center text-[#3D3066] text-[14px] mt-8 flex justify-center items-center gap-2"
                   >
                     <span className="font-bold"> SHARE DETAILS </span>
