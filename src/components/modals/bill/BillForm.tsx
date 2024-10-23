@@ -8,6 +8,7 @@ import CurrencyField from "@/components/common/currencyInput";
 import { Dropdown } from "@/components/common/Dropdown";
 import { useGetServicesByBillerId } from "@/helpers/api/useCategories";
 import { currencyFormatter } from "@/helpers/currencyConvert";
+import CustomIcons from "@/components/custom/customIcons";
 
 interface InternetProps extends FlowProps {
   active: any;
@@ -44,7 +45,7 @@ const BillForm: React.FC<InternetProps> = ({ active, data, formik, isPending, se
       <form onSubmit={handleSubmit} className="pb-5">
         <div className="bg-[#E6FBFF] border border-[#E7E6F2] rounded-[8px] p-[10px_30px]">
           <div className="flex flex-wrap items-center gap-4">
-            <Image
+            <CustomIcons
               src={"https://quickteller.com/images/Downloaded/" + active.MediumImageId + ".png"}
               alt={active?.Name}
               width={80}
