@@ -7,6 +7,7 @@ import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { currencyFormatter } from "@/helpers/currencyConvert";
+import CustomIcons from "@/components/custom/customIcons";
 
 interface InternetProps extends FlowProps {
   active: any;
@@ -37,7 +38,7 @@ const BillDetails: React.FC<InternetProps> = ({ setFlow, data, active, completed
         {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} complete={completeAlternate} />}
 
         <div className="flex  flex-wrap items-center gap-4">
-          <Image
+          <CustomIcons
             src={"https://quickteller.com/images/Downloaded/" + active.MediumImageId + ".png"}
             alt={active?.Name}
             width={80}

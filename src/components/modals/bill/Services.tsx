@@ -114,11 +114,12 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
             <header className="font-normal text-[20px] font-OpenSans">
               Choose A Service Provider
             </header>
-            <div className="grid grid-cols-4 gap-5 py-5 ">
+            <div className="grid grid-cols-2 gap-5 py-5 ">
               {
 
                 billers?.map((item: any) => (
                   <button
+                  className="flex items-center gap-4 p-1 border border-gray-500/[0.2] rounded-[8px]"
                     key={item.Id}
                     onClick={() => {
                       setActive(item);
@@ -130,11 +131,12 @@ const BillServices = ({ setShow, show, billers, bill }: ServicesProps) => {
                       setFlow(1);
                     }}
                     title={item.Name}
-                  >
+                  >                    
                     <CustomIcons
-                      src={"https://quickteller.com/images/Downloaded/" + item.MediumImageId + ".png" } // item.MediumImageId
+                      src={"https://quickteller.com/images/Downloaded/" + item.MediumImageId + ".png"} // item.MediumImageId
                       alt={item.Name}
                     />
+                    <p className="md:text-[14px] text-[12px] py-2 text-start">{item.Name}</p>
                   </button>
                 ))
               }
