@@ -6,7 +6,7 @@ import axiosInstance from "../axiosConfig";
 import { useMutation } from "@tanstack/react-query";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TOKEN } from "@/utils/token";
-import { BillValidationwithBettingSchema, BillValidationwithMeterSchema, BillValidationwithPhoneSchema } from "@/schema/servicesschema/billValidation";
+import { BillValidationwithBettingSchema, BillValidationwithMeterSchema, BillValidationwithPhoneSchema, NINDetailsSchema, NINValidationSchema } from "@/schema/servicesschema/billValidation";
 import { IBillData, ICompleteBill, IServicesData } from "@/interface/services";
 import { useUrls } from "../useUrls";
 
@@ -106,70 +106,100 @@ export const useCompleteBillPayment:any = ( id: string, type: string ) => {
   };
   
   
-// export const useBuyAirtime = ( ) => {
-//     const [data, setData] = useState<any>()
-//     const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay airtime"],
-//         mutationFn: (payload: Partial<any>) => {
-//             return axiosInstance.post(`${process.env.NEXT_SMEPLUG_URL}/airtime/purchase`, payload)
-//         },
-//     })    
+export const useValidateNIN = ( ) => {
+    const [data, setData] = useState<any>()
+    const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
+    const { getTransactionsHistory } = useUrls();
+    const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay airtime"],
+        mutationFn: (payload: Partial<any>) => {
+            return axiosInstance.post(`${getTransactionsHistory}${userDetails?._id}/nin-validate`, payload)
+        },
+    })    
     
-//     const formik = useFormik({
-//         initialValues: {
-//             network_id: "",
-//             phone: "",
-//             amount: +"",
-//         } as {
-//             network_id: string
-//             phone: string,
-//             amount: number,
-//         },
-//         validateOnBlur: true,
-//         validationSchema: AirtimePaymentSchema,
-//         validateOnChange: true,
-//         onSubmit: async ({ ...values }) => {
-//         try {
-//             await formik.validateForm();
-//             mutate(values, {
-//             onSuccess: (res) => {
-//               setData(res.data);
-//             },
-//             //   onError: (res: any) => {
+    const formik = useFormik({
+        initialValues: {
+            nin: "",
+            amount: +"",
+        } as {
+            nin: string,
+            amount: number,
+        },
+        validateOnBlur: true,
+        validationSchema: NINValidationSchema,
+        validateOnChange: true,
+        onSubmit: async ({ ...values }) => {
+        try {
+            await formik.validateForm();
+            mutate(values, {
+            onSuccess: (res) => {
+              setData(res.data);
+            },
+            //   onError: (res: any) => {
     
-//             //   },
-//             });
-//             formik.handleReset;
-//         } catch (error: any) {
-//             throw new Error(error);
-//         }
-//         },
-//     });
-//     const typedError = error as IErrorResponseType;
-//     const errorString = Array.isArray(typedError?.response?.data?.message)
-//         ? typedError?.response?.data?.message[0]
-//         : typedError?.response?.data?.message || "";
-//     return { data, formik, isPending, isSuccess, isError, error: errorString };
-//   };
+            //   },
+            });
+            formik.handleReset;
+        } catch (error: any) {
+            throw new Error(error);
+        }
+        },
+    });
+    const typedError = error as IErrorResponseType;
+    const errorString = Array.isArray(typedError?.response?.data?.message)
+        ? typedError?.response?.data?.message[0]
+        : typedError?.response?.data?.message || "";
+    return { data, formik, isPending, isSuccess, isError, error: errorString };
+  };
   
-//   export const useGetNetworks = () => {
+
+  export const useGetNINDetails = ( ) => {
+    const [data, setData] = useState<any>()
+    const [ userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL);
+    const { getTransactionsHistory } = useUrls();
+    const { mutate, isPending, isSuccess, isError, error } = useMutation({ mutationKey: ["Pay airtime"],
+        mutationFn: (payload: Partial<any>) => {
+            return axiosInstance.post(`${getTransactionsHistory}${userDetails?._id}/nin`, payload)
+        },
+    })    
+    
+    const formik = useFormik({
+        initialValues: {
+            firstname: "",
+            lastname: "",
+            dateOfBirth: "",
+            gender: "",
+            amount: +"",
+        } as {
+            amount: number,
+            firstname: string,
+            lastname: string,
+            dateOfBirth: string,
+            gender: string,
+        },
+        validateOnBlur: true,
+        validationSchema: NINDetailsSchema,
+        validateOnChange: true,
+        onSubmit: async ({ ...values }) => {
+        try {
+            await formik.validateForm();
+            mutate(values, {
+            onSuccess: (res) => {
+              setData(res.data);
+            },
+            //   onError: (res: any) => {
+    
+            //   },
+            });
+            formik.handleReset;
+        } catch (error: any) {
+            throw new Error(error);
+        }
+        },
+    });
+    const typedError = error as IErrorResponseType;
+    const errorString = Array.isArray(typedError?.response?.data?.message)
+        ? typedError?.response?.data?.message[0]
+        : typedError?.response?.data?.message || "";
+    return { data, formik, isPending, isSuccess, isError, error: errorString };
+  };
   
-//     const queryKey = ["Get all networks"]; // Unique key for the query
-  
-//     const { data, isLoading, isError, error } = useQuery({ queryKey, queryFn: async () => {
-//       const response = await axios.get(`/api/networks`, {
-//         headers: {
-//             "Authorization": `Bearer ${getAuthorizationHeader()}`
-//         }
-//       });
-//       return response;
-//     }});
-  
-//     const networks = data || [];
-  
-//     return {
-//       networks,
-//       isLoading,
-//       isError,
-//       error
-//     };
-//   };

@@ -29,3 +29,16 @@ export const AirtimePaymentSchema = Yup.object().shape({
   phone: Yup.string().required("Please input valid ")
   .length(11, "Please input valid "),
 });
+
+export const NINValidationSchema = Yup.object().shape({
+  amount: Yup.string().required("Amount is required").min(2, "Please input valid amount"),
+  nin: Yup.string().required("Please input valid NIN")
+  .length(11, "Please input valid NIN"),
+});
+export const NINDetailsSchema = Yup.object().shape({
+  amount: Yup.string().required("Amount is required").min(2, "Please input valid amount"),
+  firstname: Yup.string().required("First name is required"),
+  lastname: Yup.string().required("Last name is required"),
+  dateOfBirth: Yup.string().required("Last name is required"),
+  gender: Yup.string().required("Last name is required"),
+});

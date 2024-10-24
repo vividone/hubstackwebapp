@@ -7,6 +7,7 @@ import AlternatePaymentMethod from "../AlternatePaymentMethod";
 import { TOKEN } from "@/utils/token";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { currencyFormatter } from "@/helpers/currencyConvert";
+import CustomIcons from "@/components/custom/customIcons";
 
 interface InternetProps extends FlowProps {
   active: any;
@@ -16,6 +17,8 @@ interface InternetProps extends FlowProps {
 const BillDetails: React.FC<InternetProps> = ({ setFlow, data, active, completedForm, completeAlternate, bill }) => {
   const [showAlternate, setShowAlternate] = useState(false);
   const [userDetails, ] = useLocalStorage<any>(TOKEN.EMAIL)
+
+  const id = bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : bill === "Utility Bill" ? "Meter Number" : "BET ID"
 
   const fillForm = () => {
     completedForm.setValues({ 
@@ -35,7 +38,7 @@ const BillDetails: React.FC<InternetProps> = ({ setFlow, data, active, completed
         {showAlternate && <AlternatePaymentMethod amount={data?.amount} setFlow={setFlow}  setShow={setShowAlternate} complete={completeAlternate} />}
 
         <div className="flex  flex-wrap items-center gap-4">
-          <Image
+          <CustomIcons
             src={"https://quickteller.com/images/Downloaded/" + active.MediumImageId + ".png"}
             alt={active?.Name}
             width={80}
@@ -50,7 +53,7 @@ const BillDetails: React.FC<InternetProps> = ({ setFlow, data, active, completed
             <p className=" opacity-[0.7]">{data?.customerName}</p>
           </div>
           <div className="">
-            <p>{bill === "Internet" ? "Mobile Number" : bill === "Cable TV" ? "Decoder number" : "BET ID"}</p>
+            <p>{id}</p>
             <p className=" opacity-[0.7]">{data?.customerId}</p>
           </div>
         </div>

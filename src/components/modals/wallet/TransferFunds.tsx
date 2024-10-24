@@ -52,8 +52,12 @@ const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
     <ModalsLayout flow={flow} setFlow={setFlow} header={flowHeaders[flow]} show={true} setShow={setShow}>
       
       <div onSubmit={handleSubmit} className="mt-2">
-          <CurrentBalance />
-        <nav className="mt-2 mb-8">
+        <CurrentBalance />
+        <div className="flex flex-col gap-6 items-center justify-center h-[200px] border bg-[#E6FBFF] border border-[#E7E6F2] rounded-lg">
+          <h1 className="text-[20px] font-bold">Coming soon</h1>
+          <p>Transfer of wallet funds will be available soon</p>
+        </div>
+        {/* <nav className="mt-2 mb-8">
           <div className="grid grid-cols-2 gap-12 border-b border-[#E7E7E7]">
 
             {
@@ -79,10 +83,10 @@ const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
             }
             
           </div>
-        </nav>
+        </nav> */}
       </div>  
           
-      <div className="">
+      {/* <div className="">
       {
         content === "Wallet-Wallet" ?
         <TransferToWallet form={form} setForm={setForm} formik={formik} isPending={isPending} handleSubmit={handleSubmit} />
@@ -90,9 +94,9 @@ const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
         <TransferToBank form={form} setForm={setForm} formik={formik} isPending={isPending} handleSubmit={handleSubmit} />
 
       }
-      </div>
+      </div> */}
         
-      <div className="flex justify-center mt-6">
+      {/* <div className="flex justify-center mt-6">
         <Button
           variant="secondary"
           size="long"
@@ -103,7 +107,7 @@ const TransferFunds: React.FC<MywalletProps> = ({ setShow, refreshWallet }) => {
           </span>
         </Button>
         {showAlternate && <AlternateWalletFunding setShow={setShowAlternate} amount={+amount} setAmount={setAmount} setFlow={() => setFlow} refreshWallet={() => {}} />}
-      </div>
+      </div> */}
 
       {isSuccessVerify && (
         <Confirmation

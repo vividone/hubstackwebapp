@@ -1,7 +1,7 @@
 import ModalsLayout from "./modalsLayout";
 import { currencyFormatter } from "@/helpers/currencyConvert";
 import { Button } from "../common/button";
-import { useRef } from "react";
+import { usePDF } from "react-to-pdf";
 
 type HistoryModalProps = {
     setShow: (aug0: boolean) => void;
@@ -10,23 +10,11 @@ type HistoryModalProps = {
 }
 
 export default function HistoryModal({ setShow, show, transaction }: HistoryModalProps) {
-    const receiptRef = useRef<HTMLDivElement>(null)
-
-
-    const printReceipt = () => {
-        const winPrint = window.open("", "", "left=0, top=0, width=800, height=900, toolbar=0, scrollbars=0, status=0")
-        if(receiptRef.current) {
-            winPrint?.document.write(receiptRef.current.innerHTML)
-            winPrint?.document.close();
-            winPrint?.focus()
-            winPrint?.print()
-            winPrint?.close()
-        }
-    }
+    const { toPDF, targetRef } = usePDF({filename: `receipt.pdf`})
 
     return (
     <ModalsLayout header={"Transaction Details"} flow={0} setFlow={() => {}} setShow={setShow} show={show}>
-        <div ref={receiptRef} className="flex flex-col gap-4">
+        <div ref={targetRef} className="flex flex-col gap-4">
             <div className="flex flex-col gap-4 p-4 rounded bg-[#E6FBFF]">
                 
                 <div className="flex justify-between items-center print:flex print:justify-betwwen">
@@ -76,7 +64,7 @@ export default function HistoryModal({ setShow, show, transaction }: HistoryModa
                 </div>
             </div>
 
-            <Button size="full" onClick={printReceipt}>PRINT</Button>
+            <Button size="full" className="uppercase" onClick={() => toPDF()}>Download Receipt</Button>
         </div>
     </ModalsLayout>
     )
